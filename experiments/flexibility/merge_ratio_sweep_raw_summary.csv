@@ -1,0 +1,6 @@
+model,avg_makespan_pct,max_makespan_pct,avg_carbon_pct,avg_priority_pct,simple_avg_all_metrics_pct
+merged_p20_c20_s60,2.3334,3.4906,-0.0173,0.0633,0.7932
+merged_p25_c25_s50,3.3445,4.9652,0.0851,0.9081,1.4459
+merged_p50_c25_s25,4.3879,6.9284,0.1501,-0.1251,1.471
+merged_p30_c30_s40,4.5862,6.0946,-0.0635,1.4889,2.0039
+merged_p25_c50_s25,9.5061,12.8034,-0.0741,7.4087,5.6136

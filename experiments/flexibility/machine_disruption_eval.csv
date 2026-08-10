@@ -1,0 +1,2 @@
+model,test_data,instances,tested_single_machine_removals,skipped_infeasible_removals,normal_mean_makespan,disrupted_mean_makespan,robustness_gap
+10x5+mix,10x5+mix,3,2,1,409.0,487.0,78.0

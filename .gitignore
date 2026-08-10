@@ -1,0 +1,41 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+Thumbs.db
+.codex_report_render*/
+tmp/
+
+# Local/generated presentation and runtime outputs.
+outputs/
+!outputs/
+outputs/*
+!outputs/itp_speed_carbon_merge_progress_update_v2.pptx
+
+# Large local dataset handoff from teammate.
+# Keep the scripts/code pushable without committing the full extracted data folder.
+/data/
+
+# Generated experiment outputs.
+experiments/**/*.csv
+!experiments/flexibility/machine_disruption_eval.csv
+!experiments/flexibility/merge_ratio_sweep_raw_eval.csv
+!experiments/flexibility/merge_ratio_sweep_raw_summary.csv
+!experiments/flexibility/merge_ratio_sweep_raw_vs_normal_by_size.csv
+!experiments/flexibility/merged_p20_c20_s60_finetune_sweep_by_size.csv
+!experiments/flexibility/merged_p20_c20_s60_finetune_sweep_summary.csv
+!experiments/flexibility/merged_p20_c20_s60_seed_repeat_by_size.csv
+!experiments/flexibility/merged_p20_c20_s60_seed_repeat_summary.csv
+!experiments/flexibility/quick_flex_eval.csv
+experiments/**/*.xlsx
+experiments/**/*.log
+
+# DANIEL runtime outputs. Keep the report-backed result artifact below.
+daniel/train_log/
+daniel/test_results/
+daniel/train_time.txt
+!daniel/test_results/
+!daniel/test_results/SD2/
+!daniel/test_results/SD2/20x5+carbon+priority/
+!daniel/test_results/SD2/20x5+carbon+priority/Result_DANIELG+merged_priority_carbon_speed_v1_20x5+carbon+priority.npy

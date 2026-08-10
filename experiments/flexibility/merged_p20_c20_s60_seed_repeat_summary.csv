@@ -1,0 +1,5 @@
+label,avg_makespan_pct_vs_normal,max_makespan_pct_vs_normal,avg_carbon_pct_vs_normal,avg_priority_pct_vs_normal,simple_avg_all_metrics_pct
+ft_p045_200_seed300,1.0037,2.0508,0.1247,-1.0952,0.0111
+ft_p040_200_seed300,2.5308,3.3816,0.1038,-2.563,0.0238
+ft_p040_200_seed301,2.788,4.3123,0.0399,-0.7992,0.6762
+ft_p045_200_seed301,3.252,5.0708,0.2798,-1.2761,0.7519
