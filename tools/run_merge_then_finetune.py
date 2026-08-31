@@ -20,6 +20,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--checkpoints", nargs="+", required=True, help="Checkpoint names or .pth paths")
     parser.add_argument("--weights", nargs="+", type=float, help="Merge weights")
     parser.add_argument("--base", help="Base checkpoint for task_arithmetic")
+    parser.add_argument("--feature-schema", default="legacy_f11_p9_v1",
+                        help="This runner preserves the inherited job-priority experiment path")
+    parser.add_argument("--allow-legacy-task-arithmetic", action="store_true")
     parser.add_argument("--merged-name", required=True, help="Output merged checkpoint name without .pth")
     parser.add_argument("--fine-tune-suffix", required=True, help="Fine-tuned model suffix for daniel/train.py")
     parser.add_argument("--device", default="cuda")
@@ -35,11 +38,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--priority-weight", type=float, default=3.0)
     parser.add_argument("--priority-reward-weight", type=float, default=0.5)
     parser.add_argument("--priority-seed", type=int, default=50)
+    parser.add_argument("--train-data-path", required=True)
+    parser.add_argument("--validation-data-path", required=True)
+    parser.add_argument("--goal", choices=["m", "c", "p", "mc", "mp", "mcp"], default="p")
     parser.add_argument(
-        "--test-data",
+        "--validation-data",
         nargs="+",
         default=["10x5+mix", "20x5+mix", "15x10+mix", "20x10+mix"],
-        help="Datasets for post-fine-tune priority evaluation",
+        help="Validation datasets for fine-tune selection; final-test evaluation is a separate frozen step",
     )
     parser.add_argument("--eval-limit", type=int, default=0, help="0 means full evaluation")
     parser.add_argument("--out-csv", default="", help="Optional evaluation CSV path")
@@ -82,11 +88,15 @@ def main() -> None:
         *args.checkpoints,
         "--out-name",
         args.merged_name,
+        "--feature-schema",
+        args.feature_schema,
     ]
     if args.weights:
         merge_cmd.extend(["--weights", *[str(weight) for weight in args.weights]])
     if args.base:
         merge_cmd.extend(["--base", args.base])
+    if args.allow_legacy_task_arithmetic:
+        merge_cmd.append("--allow-legacy-task-arithmetic")
 
     train_cmd = [
         py,
@@ -99,6 +109,14 @@ def main() -> None:
         args.data_source,
         "--data_suffix",
         args.data_suffix,
+        "--train_data_path",
+        args.train_data_path,
+        "--validation_data_path",
+        args.validation_data_path,
+        "--goal",
+        args.goal,
+        "--feature_schema",
+        args.feature_schema,
         "--n_j",
         str(args.n_j),
         "--n_m",
@@ -117,6 +135,8 @@ def main() -> None:
         args.merged_name,
         "--enable_priority",
         "True",
+        "--priority_scope",
+        "legacy_job",
         "--urgent_jobs",
         str(args.urgent_jobs),
         "--priority_weight",
@@ -138,7 +158,7 @@ def main() -> None:
         "--models",
         fine_tuned_model,
         "--test-data",
-        *args.test_data,
+        *args.validation_data,
         "--limit",
         str(args.eval_limit),
         "--urgent-jobs",

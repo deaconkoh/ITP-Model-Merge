@@ -36,6 +36,8 @@ experiments/**/*.log
 daniel/train_log/
 daniel/test_results/
 daniel/train_time.txt
+daniel/trained_network/**/*.pth
+daniel/trained_network/**/*.pt
 !daniel/test_results/
 !daniel/test_results/SD2/
 !daniel/test_results/SD2/20x5+carbon+priority/

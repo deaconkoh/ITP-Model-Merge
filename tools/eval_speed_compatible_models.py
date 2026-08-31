@@ -20,6 +20,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Evaluate 11-feature speed-compatible DANIEL models")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--data-source", default="SD2")
+    parser.add_argument("--data-root", default="./data")
     parser.add_argument(
         "--models",
         nargs="+",
@@ -91,10 +92,16 @@ def main() -> None:
         args.device,
         "--data_source",
         args.data_source,
+        "--data_root",
+        args.data_root,
         "--enable_carbon",
         "True",
         "--carbon_feature",
         "False",
+        "--fea_pair_input_dim",
+        "8",
+        "--feature_schema",
+        "legacy_f11_p8_v1",
         "--goal",
         "m",
     ]
@@ -105,6 +112,8 @@ def main() -> None:
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.main_model import DANIEL
     from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     rows: list[dict[str, object]] = []
     for model_name in args.models:
@@ -114,7 +123,9 @@ def main() -> None:
             continue
 
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
 

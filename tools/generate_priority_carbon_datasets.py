@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data-root",
         default="daniel/data",
-        help="Root containing SD2 and data_train_vali folders",
+        help="Root containing canonical split folders",
     )
     parser.add_argument(
         "--sizes",
@@ -43,7 +43,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--priority-max", type=int, default=100)
     parser.add_argument("--carbon-min", type=int, default=1)
     parser.add_argument("--carbon-max", type=int, default=100)
-    parser.add_argument("--include-validation", action="store_true", help="Also convert data_train_vali folders")
+    parser.add_argument("--splits", nargs="+",
+                        default=["data_train", "data_validation", "data_final_test"],
+                        choices=["data_train", "data_validation", "data_final_test"],
+                        help="Canonical split folders to annotate independently")
+    parser.add_argument("--include-legacy", action="store_true",
+                        help="Also convert the inherited SD2 folder for legacy comparison")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing output files")
     return parser.parse_args()
 
@@ -121,20 +126,16 @@ def main() -> None:
         source_name = f"{size}+{args.source_suffix}"
         target_name = f"{size}+{args.target_suffix}"
 
-        convert_dataset(
-            root,
-            root / "SD2" / source_name,
-            root / "SD2" / target_name,
-            args,
-        )
-
-        if args.include_validation:
+        for split in args.splits:
             convert_dataset(
                 root,
-                root / "data_train_vali" / "SD2" / source_name,
-                root / "data_train_vali" / "SD2" / target_name,
+                root / split / "SD2" / source_name,
+                root / split / "SD2" / target_name,
                 args,
             )
+
+        if args.include_legacy:
+            convert_dataset(root, root / "SD2" / source_name, root / "SD2" / target_name, args)
 
 
 if __name__ == "__main__":

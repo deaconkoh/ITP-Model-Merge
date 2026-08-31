@@ -1,4 +1,4 @@
-"""Validate merge-compatible carbon model schedules on 20x5+carbon+priority data.
+r"""Validate merge-compatible carbon model schedules on 20x5+carbon+priority data.
 
 Three checks are run in sequence:
 
@@ -198,7 +198,8 @@ def _run_episode(
 
     op_ct = env.true_op_ct[0].astype(float)
     prio = op_priority.astype(float)
-    pwc = float(np.sum(op_ct * prio) / np.sum(prio))
+    from objectives import operation_priority_weighted_completion
+    pwc = float(operation_priority_weighted_completion(op_ct, prio))
     metrics = {
         "makespan": float(env.current_makespan[0]),
         "total_carbon": float(env.total_carbon[0]),
@@ -548,7 +549,9 @@ def main() -> None:
             print(f"SKIP missing: {model_path}")
             continue
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(str(model_path), map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            str(model_path), map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
         policy_map[model_name] = policy

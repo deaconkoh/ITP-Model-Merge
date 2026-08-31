@@ -1,8 +1,7 @@
 """Plan or run merge-compatible speed/makespan DANIEL training.
 
-These models are trained for the original DANIEL objective, makespan
-minimization, but with the 11-feature architecture used by the priority and
-merge-compatible carbon checkpoints.
+These models are trained for inherited makespan minimization with the canonical
+F11/P9 observation schema shared by all new specialists.
 
 Default behavior is a dry run. Add --execute on the GPU PC.
 """
@@ -16,7 +15,8 @@ from pathlib import Path
 
 
 DEFAULT_TRAIN_SIZES = ["10x5", "20x5", "15x10", "20x10"]
-DEFAULT_TEST_DATA = ["10x5+mix", "20x5+mix", "15x10+mix", "20x10+mix"]
+DEFAULT_TEST_DATA = ["10x5+carbon+priority", "20x5+carbon+priority",
+                     "15x10+carbon+priority", "20x10+carbon+priority"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -25,15 +25,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--device-id", default="0")
     parser.add_argument("--sizes", nargs="+", default=DEFAULT_TRAIN_SIZES)
-    parser.add_argument("--test-data", nargs="+", default=DEFAULT_TEST_DATA)
+    parser.add_argument("--seeds", nargs="+", type=int, default=[300, 301, 302, 303, 304])
+    parser.add_argument("--validation-data", nargs="+", default=DEFAULT_TEST_DATA)
+    parser.add_argument("--data-root", default="daniel/data")
     parser.add_argument("--max-updates", type=int, default=1000)
     parser.add_argument("--num-envs", type=int, default=20)
     parser.add_argument("--validate-timestep", type=int, default=10)
     parser.add_argument("--reset-env-timestep", type=int, default=20)
     parser.add_argument(
         "--model-tag",
-        default="speed_compatible",
-        help="Suffix tag. The size is added by train.py, so this becomes <size>+mix+<tag>.",
+        default="speed_canonical",
+        help="Suffix tag for the canonical pure-makespan specialist.",
     )
     parser.add_argument("--eval-limit", type=int, default=0)
     parser.add_argument("--out", default="experiments/flexibility/speed_compatible_eval.csv")
@@ -61,31 +63,34 @@ def run_or_print(cmd: list[str], cwd: Path, execute: bool) -> None:
 
 
 def model_name(size: str, tag: str) -> str:
-    return f"{size}+mix+{tag}"
+    return f"{size}+carbon+priority+{tag}"
 
 
 def main() -> None:
     args = parse_args()
     root = repo_root()
     daniel_dir = root / "daniel"
+    data_root = (root / args.data_root).resolve()
     py = sys.executable
 
     print("Merge-compatible speed/makespan training sweep")
     print("Dry run only. Add --execute to run these commands." if not args.execute else "Executing commands.")
-    print("Mode: 11-feature architecture, 8 pair features, pure makespan reward.")
+    print("Mode: canonical F11/P9 observations, pure makespan reward.")
 
     trained_models = []
     for size in args.sizes:
         n_j, n_m = parse_size(size)
-        data_name = f"{size}+mix"
-        vali_dir = daniel_dir / "data" / "data_train_vali" / "SD2" / data_name
-        if not vali_dir.exists():
-            print(f"\nSKIP training {size}: missing validation folder {vali_dir}")
+        data_name = f"{size}+carbon+priority"
+        train_dir = data_root / "data_train" / "SD2" / data_name
+        vali_dir = data_root / "data_validation" / "SD2" / data_name
+        if not train_dir.exists() or not vali_dir.exists():
+            print(f"\nSKIP training {size}: missing separate train/validation folders")
             continue
 
-        train_cmd = [
-            py,
-            "train.py",
+        for seed in args.seeds:
+            model_tag = f"{args.model_tag}_s{seed}"
+            train_cmd = [
+            py, "train.py",
             "--device",
             args.device,
             "--device_id",
@@ -93,17 +98,25 @@ def main() -> None:
             "--data_source",
             "SD2",
             "--data_suffix",
-            "mix",
+            "carbon+priority",
+            "--train_data_path",
+            str(train_dir),
+            "--validation_data_path",
+            str(vali_dir),
             "--n_j",
             str(n_j),
             "--n_m",
             str(n_m),
             "--enable_priority",
-            "False",
+            "True",
             "--enable_carbon",
             "True",
             "--carbon_feature",
-            "False",
+            "True",
+            "--fea_pair_input_dim",
+            "9",
+            "--feature_schema",
+            "canonical_f11_p9_v2",
             "--goal",
             "m",
             "--max_updates",
@@ -114,16 +127,18 @@ def main() -> None:
             str(args.validate_timestep),
             "--reset_env_timestep",
             str(args.reset_env_timestep),
+            "--seed_train",
+            str(seed),
             "--model_suffix",
-            args.model_tag,
-        ]
-        run_or_print(train_cmd, daniel_dir, args.execute)
-        trained_models.append(model_name(size, args.model_tag))
+            model_tag,
+            ]
+            run_or_print(train_cmd, daniel_dir, args.execute)
+            trained_models.append(model_name(size, model_tag))
 
     if trained_models:
         eval_cmd = [
             py,
-            str(root / "tools" / "eval_speed_compatible_models.py"),
+            str(root / "tools" / "eval_carbon_models.py"),
             "--device",
             args.device,
             "--data-source",
@@ -131,7 +146,11 @@ def main() -> None:
             "--models",
             *trained_models,
             "--test-data",
-            *args.test_data,
+            *args.validation_data,
+            "--data-root",
+            str(data_root / "data_validation"),
+            "--enable-carbon",
+            "--carbon-feature",
             "--limit",
             str(args.eval_limit),
             "--out",

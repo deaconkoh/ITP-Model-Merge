@@ -3,6 +3,9 @@ import numpy as np
 import numpy.ma as ma
 import copy
 from params import configs
+from objectives import ObjectiveSpec, operation_priority_weighted_completion
+from environment_utils import (candidate_incompatibility, machine_min_processing_time,
+                               normalize_processing_times)
 import sys
 import torch
 
@@ -109,6 +112,12 @@ class FJSPEnvForSameOpNums:
         self.mch_fea_dim = 8
         self.pair_fea_dim = configs.fea_pair_input_dim
         self.priority_rng = np.random.default_rng(configs.priority_seed)
+        self.priority_scope = configs.priority_scope
+        self.objective = ObjectiveSpec(
+            configs.goal,
+            carbon_weight=configs.carbon_reward_weight,
+            priority_weight=configs.priority_reward_weight,
+        )
 
     def set_static_properties(self):
         """
@@ -131,7 +140,7 @@ class FJSPEnvForSameOpNums:
 
         self.number_of_envs = len(job_length_list)
         self.job_length = np.array(job_length_list)
-        self.op_pt = np.array(op_pt_list)
+        self.op_pt = np.array(op_pt_list, dtype=np.float64)
         self.op_carbon = np.array(carbon_list) if carbon_list is not None else np.zeros_like(self.op_pt, dtype=np.float64)
         self.number_of_ops = self.op_pt.shape[1]
         self.number_of_machines = op_pt_list[0].shape[1]
@@ -140,16 +149,9 @@ class FJSPEnvForSameOpNums:
         self.set_static_properties()
 
         # [E, N, M]
-        self.pt_lower_bound = np.min(self.op_pt)
-        self.pt_upper_bound = np.max(self.op_pt)
         self.true_op_pt = np.copy(self.op_pt)
-
-        # normalize the processing time
-        self.op_pt = (self.op_pt - self.pt_lower_bound) / (self.pt_upper_bound - self.pt_lower_bound + 1e-8)
-
-        # bool 3-d array formulating the compatible relation with shape [E,N,M]
-        self.process_relation = (self.op_pt != 0)
-        self.reverse_process_relation = ~self.process_relation
+        (self.op_pt, self.process_relation, self.reverse_process_relation,
+         self.pt_lower_bound, self.pt_upper_bound) = normalize_processing_times(self.true_op_pt)
 
         # number of compatible machines of each operation ([E,N])
         self.compatible_op = np.sum(self.process_relation, 2)
@@ -183,7 +185,7 @@ class FJSPEnvForSameOpNums:
         self.op_max_pt = np.max(self.op_pt, axis=-1).data
         self.pt_span = self.op_max_pt - self.op_min_pt
         # [E, M]
-        self.mch_min_pt = np.max(self.op_pt, axis=1).data
+        self.mch_min_pt = machine_min_processing_time(self.op_pt, self.process_relation)
         self.mch_max_pt = np.max(self.op_pt, axis=1)
 
         # the estimated lower bound of complete time of operations
@@ -222,7 +224,7 @@ class FJSPEnvForSameOpNums:
         self.candidate_pt = np.array([self.unmasked_op_pt[k][self.candidate[k]] for k in range(self.number_of_envs)])
 
         # construct dynamic pair mask : [E, J, M]
-        self.dynamic_pair_mask = (self.candidate_pt == 0)
+        self.dynamic_pair_mask = candidate_incompatibility(self.reverse_process_relation, self.candidate)
         self.candidate_process_relation = np.copy(self.dynamic_pair_mask)
         self.mch_current_available_jc_nums = np.sum(~self.candidate_process_relation, axis=1)
 
@@ -323,49 +325,50 @@ class FJSPEnvForSameOpNums:
         self.deleted_op_nodes = np.full(shape=(self.number_of_envs, self.number_of_ops),
                                         fill_value=0, dtype=bool)
         self.total_carbon = np.zeros(self.number_of_envs)
+        self.valid_operation_mask = np.ones((self.number_of_envs, self.number_of_ops), dtype=bool)
 
     def initialize_priorities(self, priority_list=None):
         """
-            initialize fixed priorities for each environment.
-
-            priority_list may contain one value per job (job-level urgency)
-            or one value per operation (operation-level priority from data).
+        Initialize canonical operation priorities or the isolated legacy job mode.
         """
         self.job_priorities = np.ones((self.number_of_envs, self.number_of_jobs), dtype=np.float64)
         self.op_priorities = np.ones((self.number_of_envs, self.number_of_ops), dtype=np.float64)
-        self.priority_scope = 'job'
         self.urgent_job_ids = []
         if not (self.enable_priority or self.enable_carbon):
             self.op_match_job_priority = np.ones((self.number_of_envs, self.number_of_ops), dtype=np.float64)
             return
 
+        if self.priority_scope == 'operation':
+            if priority_list is None:
+                priorities = np.ones((self.number_of_envs, self.number_of_ops), dtype=np.float64)
+            else:
+                priorities = np.asarray(priority_list, dtype=np.float64)
+                expected = (self.number_of_envs, self.number_of_ops)
+                if priorities.shape != expected:
+                    raise ValueError(
+                        f"Canonical priority data must contain one value per operation; "
+                        f"expected {expected}, got {priorities.shape}. Use --priority_scope legacy_job "
+                        "only for inherited job-priority experiments."
+                    )
+            if np.any(priorities < 0) or np.any(np.sum(priorities, axis=1) <= 0):
+                raise ValueError("Operation priorities must be non-negative with a positive sum")
+            self.op_priorities = priorities
+            self.op_match_job_priority = self.op_priorities
+            return
+
         if priority_list is not None:
             priorities = np.array(priority_list, dtype=np.float64)
-            if priorities.shape[1] == self.number_of_ops:
-                self.priority_scope = 'operation'
-                self.op_priorities = priorities
-                for env_idx in range(self.number_of_envs):
-                    job_priority = []
-                    urgent_jobs = []
-                    for job_idx in range(self.number_of_jobs):
-                        start = self.job_first_op_id[env_idx, job_idx]
-                        end = self.job_last_op_id[env_idx, job_idx] + 1
-                        priority_value = float(np.mean(self.op_priorities[env_idx, start:end]))
-                        job_priority.append(priority_value)
-                        if priority_value > 1.0:
-                            urgent_jobs.append(job_idx)
-                    self.job_priorities[env_idx] = job_priority
-                    self.urgent_job_ids.append(urgent_jobs)
-            else:
-                self.priority_scope = 'job'
-                self.job_priorities = priorities
-                for env_idx in range(self.number_of_envs):
-                    urgent_jobs = np.where(self.job_priorities[env_idx] > 1.0)[0].tolist()
-                    self.urgent_job_ids.append(urgent_jobs)
-                self.op_priorities = np.array([
-                    np.repeat(self.job_priorities[k], repeats=self.job_length[k])
-                    for k in range(self.number_of_envs)
-                ])
+            expected = (self.number_of_envs, self.number_of_jobs)
+            if priorities.shape != expected:
+                raise ValueError(f"Legacy job priorities expected shape {expected}, got {priorities.shape}")
+            self.job_priorities = priorities
+            for env_idx in range(self.number_of_envs):
+                urgent_jobs = np.where(self.job_priorities[env_idx] > 1.0)[0].tolist()
+                self.urgent_job_ids.append(urgent_jobs)
+            self.op_priorities = np.array([
+                np.repeat(self.job_priorities[k], repeats=self.job_length[k])
+                for k in range(self.number_of_envs)
+            ])
         else:
             urgent_count = min(max(configs.urgent_jobs, 0), self.number_of_jobs)
             for env_idx in range(self.number_of_envs):
@@ -390,10 +393,10 @@ class FJSPEnvForSameOpNums:
         """
         if not (self.enable_priority or self.enable_carbon):
             return np.zeros(self.number_of_envs)
-        if self.priority_scope == 'operation':
-            return np.sum(self.op_ct_lb * self.op_priorities, axis=1) / np.sum(self.op_priorities, axis=1)
-        job_completion_lb = self.op_ct_lb[self.env_job_idx, self.job_last_op_id]
-        return np.sum(job_completion_lb * self.job_priorities, axis=1) / np.sum(self.job_priorities, axis=1)
+        if self.priority_scope == 'legacy_job':
+            job_completion_lb = self.op_ct_lb[self.env_job_idx, self.job_last_op_id]
+            return np.sum(job_completion_lb * self.job_priorities, axis=1) / np.sum(self.job_priorities, axis=1)
+        return operation_priority_weighted_completion(self.op_ct_lb, self.op_priorities)
 
     def step(self, actions):
         """
@@ -536,22 +539,7 @@ class FJSPEnvForSameOpNums:
         priority_reward = self.max_priority_score - priority_score
         self.max_priority_score = priority_score
 
-        if configs.goal == 'c':
-            reward = -configs.carbon_reward_weight * chosen_carbon
-        elif configs.goal == 'mc':
-            reward = makespan_reward - configs.carbon_reward_weight * chosen_carbon
-        elif configs.goal == 'p':
-            reward = configs.priority_reward_weight * priority_reward
-        elif configs.goal == 'mp':
-            reward = makespan_reward + configs.priority_reward_weight * priority_reward
-        elif configs.goal == 'mcp':
-            reward = (makespan_reward
-                      - configs.carbon_reward_weight * chosen_carbon
-                      + configs.priority_reward_weight * priority_reward)
-        else:
-            reward = makespan_reward
-            if self.enable_priority:
-                reward = reward + configs.priority_reward_weight * priority_reward
+        reward = self.objective.step_reward(makespan_reward, chosen_carbon, priority_reward)
 
         self.max_endTime = np.max(self.op_ct_lb, axis=1)
 

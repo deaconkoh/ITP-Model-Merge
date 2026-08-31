@@ -115,6 +115,10 @@ def main() -> None:
         "10" if args.enable_priority.lower() == "false" and args.enable_carbon.lower() == "false" else "11",
         "--fea_pair_input_dim",
         "9" if args.enable_carbon.lower() == "true" and args.carbon_feature.lower() == "true" else "8",
+        "--feature_schema",
+        ("canonical_f11_p9_v2" if args.enable_carbon.lower() == "true" and args.carbon_feature.lower() == "true"
+         else "legacy_f11_p8_v1" if args.enable_priority.lower() == "true" or args.enable_carbon.lower() == "true"
+         else "legacy_f10_p8_v1"),
     ]
 
     import numpy as np
@@ -125,6 +129,8 @@ def main() -> None:
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.main_model import DANIEL
     from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     setup_seed(50)
     rows: list[dict[str, object]] = []
@@ -136,7 +142,9 @@ def main() -> None:
             continue
 
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
 

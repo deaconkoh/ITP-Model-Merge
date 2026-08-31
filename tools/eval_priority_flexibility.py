@@ -174,8 +174,22 @@ def main() -> None:
     if args.priority_model:
         sys.argv.extend([
             "--enable_priority", "True",
+            "--enable_carbon", "True",
+            "--carbon_feature", "False",
+            "--fea_pair_input_dim", "8",
+            "--feature_schema", "legacy_f11_p8_v1",
+            "--priority_scope", "legacy_job",
             "--urgent_jobs", str(args.urgent_jobs),
             "--priority_weight", str(args.priority_weight),
+        ])
+    else:
+        sys.argv.extend([
+            "--enable_priority", "False",
+            "--enable_carbon", "False",
+            "--carbon_feature", "False",
+            "--fea_j_input_dim", "10",
+            "--fea_pair_input_dim", "8",
+            "--feature_schema", "legacy_f10_p8_v1",
         ])
 
     import numpy as np
@@ -186,6 +200,8 @@ def main() -> None:
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.main_model import DANIEL
     from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     setup_seed(args.seed)
     rng = np.random.default_rng(args.seed)
@@ -198,7 +214,9 @@ def main() -> None:
             continue
 
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
 

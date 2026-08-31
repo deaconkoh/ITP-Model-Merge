@@ -5,13 +5,20 @@ from data_utils import load_data_from_files, load_priority_carbon_data_from_file
 from common_utils import strToSuffix, setup_seed
 from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
 from fjsp_env_various_op_nums import FJSPEnvForVariousOpNums
-from copy import deepcopy
 import os
 import random
 import time
 import sys
+import json
+from pathlib import Path
 from model.PPO import PPO_initialize
 from model.PPO import Memory
+from objectives import ObjectiveSpec, environment_metrics
+from feature_schemas import validate_config_against_schema
+from data_manifest import assert_disjoint_splits
+from checkpointing import (file_sha256, json_safe_config, make_checkpoint_bundle,
+                           unwrap_checkpoint, validate_checkpoint_schema, git_state,
+                           runtime_environment)
 
 str_time = time.strftime("%Y%m%d_%H%M%S", time.localtime(time.time()))
 os.environ["CUDA_VISIBLE_DEVICES"] = configs.device_id
@@ -22,6 +29,13 @@ device = torch.device(configs.device)
 
 class Trainer:
     def __init__(self, config):
+
+        self.feature_schema = validate_config_against_schema(config)
+        self.objective = ObjectiveSpec(
+            config.goal,
+            carbon_weight=config.carbon_reward_weight,
+            priority_weight=config.priority_reward_weight,
+        )
 
         self.n_j = config.n_j
         self.n_m = config.n_m
@@ -52,9 +66,19 @@ class Trainer:
         elif self.data_source == 'SD2':
             self.data_name = f'{self.n_j}x{self.n_m}{strToSuffix(config.data_suffix)}'
 
-        self.vali_data_path = f'{self.data_root}/data_train_vali/{self.data_source}/{self.data_name}'
-        self.test_data_path = f'{self.data_root}/{self.data_source}/{self.data_name}'
+        self.train_data_path = config.train_data_path or \
+            f'{self.data_root}/data_train/{self.data_source}/{self.data_name}'
+        self.vali_data_path = config.validation_data_path or \
+            f'{self.data_root}/data_validation/{self.data_source}/{self.data_name}'
+        # Retained only as provenance. Training deliberately never reads final-test data.
+        self.test_data_path = config.test_data_path or \
+            f'{self.data_root}/data_final_test/{self.data_source}/{self.data_name}'
         self.model_name = f'{self.data_name}{strToSuffix(config.model_suffix)}'
+
+        self.data_fingerprints = assert_disjoint_splits(
+            train=self.train_data_path,
+            validation=self.vali_data_path,
+        )
 
         # seed
         self.seed_train = config.seed_train
@@ -64,16 +88,16 @@ class Trainer:
         self.env = FJSPEnvForSameOpNums(self.n_j, self.n_m)
         self.uses_priority_carbon_files = (self.config.enable_priority or self.config.enable_carbon) and 'carbon+priority' in self.data_name
         if self.uses_priority_carbon_files:
-            self.test_data = load_priority_carbon_data_from_files(self.test_data_path)
-            self.file_train_data = load_priority_carbon_data_from_files(self.vali_data_path)
+            self.file_train_data = load_priority_carbon_data_from_files(self.train_data_path)
         else:
-            self.test_data = load_data_from_files(self.test_data_path)
-            self.file_train_data = None
+            self.file_train_data = load_data_from_files(self.train_data_path) if self.config.train_from_files else None
         # validation data set
         if self.uses_priority_carbon_files:
-            vali_data = self.file_train_data
+            vali_data = load_priority_carbon_data_from_files(self.vali_data_path)
         else:
             vali_data = load_data_from_files(self.vali_data_path)
+        if not vali_data[0]:
+            raise ValueError(f"No validation instances found at {self.vali_data_path}")
 
         if self.data_source == 'SD1':
             self.vali_env = FJSPEnvForVariousOpNums(self.n_j, self.n_m)
@@ -86,8 +110,25 @@ class Trainer:
             self.vali_env.set_initial_data(vali_data[0], vali_data[1])
 
         self.ppo = PPO_initialize()
+        self.parent_checkpoints = []
         self.load_initial_checkpoint()
+        self.save_run_manifest()
         self.memory = Memory(gamma=config.gamma, gae_lambda=config.gae_lambda)
+
+    def save_run_manifest(self):
+        manifest = {
+            "schema_version": 2,
+            "status": "INITIALIZED",
+            "model_name": self.model_name,
+            "config": json_safe_config(self.config),
+            "data_fingerprints": self.data_fingerprints,
+            "final_test_path_not_loaded": str(Path(self.test_data_path).resolve()),
+            "parents": self.parent_checkpoints,
+            "git": git_state(Path(__file__).resolve().parents[1]),
+            "runtime": runtime_environment(),
+        }
+        path = Path(f'./train_log/{self.data_source}/{self.model_name}.run.json')
+        path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
 
     def train(self):
         """
@@ -102,7 +143,9 @@ class Trainer:
         print("-" * 25 + "Training Setting" + "-" * 25)
         print(f"source : {self.data_source}")
         print(f"model name :{self.model_name}")
+        print(f"train data :{self.train_data_path}")
         print(f"vali data :{self.vali_data_path}")
+        print(f"final test data (not loaded) :{self.test_data_path}")
         print(f"goal :{self.config.goal}")
         print("\n")
 
@@ -127,7 +170,9 @@ class Trainer:
             else:
                 state = self.env.reset()
 
-            ep_rewards = - deepcopy(self.env.init_quality)
+            # Log the reward actually supplied to PPO.  The previous makespan
+            # offset made carbon/priority run logs contain an unrelated term.
+            ep_rewards = np.zeros(self.env.number_of_envs, dtype=np.float64)
 
             while True:
 
@@ -170,24 +215,32 @@ class Trainer:
             mean_carbon_all_env = np.mean(self.env.total_carbon)
 
             # save the mean rewards of all instances in current training data
-            self.log.append([i_update, mean_rewards_all_env])
+            self.log.append({"update": i_update, "mean_return": float(mean_rewards_all_env)})
 
             # validate the trained model
             if (i_update + 1) % self.validate_timestep == 0:
                 if self.data_source == "SD1":
-                    vali_result = self.validate_envs_with_various_op_nums().mean()
-                    vali_carbon = float('nan')
+                    validation_metrics = self.validate_envs_with_various_op_nums()
                 else:
-                    vali_result, vali_carbon = self.validate_envs_with_same_op_nums()
+                    validation_metrics = self.validate_envs_with_same_op_nums()
 
-                selection_metric = vali_carbon if self.config.goal == 'c' else vali_result
+                selection_metric = self.objective.selection_metric(validation_metrics)
                 if selection_metric < self.record:
-                    self.save_model()
+                    self.save_model(i_update + 1, validation_metrics, selection_metric)
                     self.record = selection_metric
 
-                self.validation_log.append([vali_result, vali_carbon])
+                self.validation_log.append({
+                    "update": i_update + 1,
+                    **validation_metrics,
+                    "selection_metric": selection_metric,
+                })
                 self.save_validation_log()
-                tqdm.write(f'The validation makespan is: {vali_result}; carbon is: {vali_carbon} (best : {self.record})')
+                tqdm.write(
+                    f"Validation makespan={validation_metrics['makespan']:.6g}; "
+                    f"carbon={validation_metrics['carbon']:.6g}; "
+                    f"operation-priority={validation_metrics['priority']:.6g}; "
+                    f"selection={selection_metric:.6g} (best={self.record:.6g})"
+                )
 
             ep_et = time.time()
             
@@ -207,23 +260,23 @@ class Trainer:
         """
             save reward data & validation makespan data (during training) and the entire training time
         """
-        file_writing_obj = open(f'./train_log/{self.data_source}/' + 'reward_' + self.model_name + '.txt', 'w')
-        file_writing_obj.write(str(self.log))
+        with open(f'./train_log/{self.data_source}/reward_{self.model_name}.json', 'w', encoding='utf-8') as handle:
+            json.dump(self.log, handle, indent=2)
 
-        file_writing_obj1 = open(f'./train_log/{self.data_source}/' + 'valiquality_' + self.model_name + '.txt', 'w')
-        file_writing_obj1.write(str(self.validation_log))
+        with open(f'./train_log/{self.data_source}/valiquality_{self.model_name}.json', 'w', encoding='utf-8') as handle:
+            json.dump(self.validation_log, handle, indent=2)
 
-        file_writing_obj3 = open(f'./train_time.txt', 'a')
-        file_writing_obj3.write(
-            f'model path: ./DANIEL_FJSP/trained_network/{self.data_source}/{self.model_name}\t\ttraining time: '
-            f'{round((self.train_et - self.train_st), 2)}\t\t local time: {str_time}\n')
+        with open('./train_time.txt', 'a', encoding='utf-8') as handle:
+            handle.write(
+                f'model path: ./DANIEL_FJSP/trained_network/{self.data_source}/{self.model_name}\t\ttraining time: '
+                f'{round((self.train_et - self.train_st), 2)}\t\t local time: {str_time}\n')
 
     def save_validation_log(self):
         """
             save the results of validation
         """
-        file_writing_obj1 = open(f'./train_log/{self.data_source}/' + 'valiquality_' + self.model_name + '.txt', 'w')
-        file_writing_obj1.write(str(self.validation_log))
+        with open(f'./train_log/{self.data_source}/valiquality_{self.model_name}.json', 'w', encoding='utf-8') as handle:
+            json.dump(self.validation_log, handle, indent=2)
 
     def sample_training_instances(self):
         """
@@ -237,10 +290,10 @@ class Trainer:
         dataset_OpPriority = []
         if self.config.train_from_files:
             if self.file_train_data is None:
-                self.file_train_data = load_data_from_files(self.vali_data_path)
+                self.file_train_data = load_data_from_files(self.train_data_path)
             source_count = len(self.file_train_data[0])
             if source_count == 0:
-                raise ValueError(f"No file training data found at {self.vali_data_path}")
+                raise ValueError(f"No file training data found at {self.train_data_path}")
             sample_idxs = [random.randrange(source_count) for _ in range(self.num_envs)]
             for idx in sample_idxs:
                 dataset_JobLength.append(self.file_train_data[0][idx])
@@ -295,7 +348,7 @@ class Trainer:
                 break
 
         self.ppo.policy.train()
-        return self.vali_env.current_makespan.mean(), self.vali_env.total_carbon.mean()
+        return environment_metrics(self.vali_env)
 
     def validate_envs_with_various_op_nums(self):
         """
@@ -326,14 +379,23 @@ class Trainer:
                 break
 
         self.ppo.policy.train()
-        return self.vali_env.current_makespan
+        return environment_metrics(self.vali_env)
 
-    def save_model(self):
+    def save_model(self, update, validation_metrics, selection_metric):
         """
             save the model
         """
-        torch.save(self.ppo.policy.state_dict(), f'./trained_network/{self.data_source}'
-                                                 f'/{self.model_name}.pth')
+        bundle = make_checkpoint_bundle(
+            self.ppo.policy.state_dict(),
+            config=json_safe_config(self.config),
+            data_fingerprints=self.data_fingerprints,
+            update=update,
+            validation_metrics=validation_metrics,
+            selection_metric=selection_metric,
+            parents=self.parent_checkpoints,
+            repo_root=Path(__file__).resolve().parents[1],
+        )
+        torch.save(bundle, f'./trained_network/{self.data_source}/{self.model_name}.pth')
 
     def resolve_checkpoint_path(self, checkpoint):
         """
@@ -354,9 +416,16 @@ class Trainer:
             return
         if not os.path.exists(init_path):
             raise FileNotFoundError(f'Initial checkpoint not found: {init_path}')
-        state_dict = torch.load(init_path, map_location=device)
+        checkpoint = torch.load(init_path, map_location=device)
+        state_dict, metadata = unwrap_checkpoint(checkpoint)
+        validate_checkpoint_schema(metadata, self.config.feature_schema, state_dict)
         self.ppo.policy.load_state_dict(state_dict)
         self.ppo.policy_old.load_state_dict(state_dict)
+        self.parent_checkpoints = [{
+            "path": str(Path(init_path).resolve()),
+            "sha256": file_sha256(init_path),
+            "schema_version": metadata.get("schema_version", 1),
+        }]
         print(f"loaded initial checkpoint :{init_path}")
 
     def load_model(self):
@@ -364,7 +433,9 @@ class Trainer:
             load the trained model
         """
         model_path = f'./trained_network/{self.data_source}/{self.model_name}.pth'
-        self.ppo.policy.load_state_dict(torch.load(model_path, map_location=self.device))
+        state_dict, metadata = unwrap_checkpoint(torch.load(model_path, map_location=device))
+        validate_checkpoint_schema(metadata, self.config.feature_schema, state_dict)
+        self.ppo.policy.load_state_dict(state_dict)
 
 
 def main():

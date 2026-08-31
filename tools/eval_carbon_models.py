@@ -27,6 +27,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=0, help="Instances per dataset; 0 means all")
     parser.add_argument("--enable-carbon", action="store_true", help="Use carbon-capable environment/model config")
     parser.add_argument("--carbon-feature", action="store_true", help="Use 9 pair features, matching A-style carbon models")
+    parser.add_argument("--feature-schema", default="canonical_f11_p9_v2")
+    parser.add_argument("--final-evaluation-manifest",
+                        help="Frozen manifest required when these results are used as final-test evidence")
     parser.add_argument("--out", default="experiments/flexibility/carbon_model_eval.csv")
     return parser.parse_args()
 
@@ -61,7 +64,8 @@ def run_schedule(policy, env, job_length, op_pt, op_priority, op_carbon, torch):
 
     op_completion = env.true_op_ct[0].astype(float)
     priorities = op_priority.astype(float)
-    weighted_completion = float(np.sum(op_completion * priorities) / np.sum(priorities))
+    from objectives import operation_priority_weighted_completion
+    weighted_completion = float(operation_priority_weighted_completion(op_completion, priorities))
     return {
         "makespan": float(env.current_makespan[0]),
         "total_carbon": float(env.total_carbon[0]),
@@ -84,7 +88,8 @@ def run_schedule_batch(policy, env, job_lengths, op_pts, op_priorities, op_carbo
 
     elapsed_per_instance = (time.time() - start) / len(job_lengths)
     priorities = np.asarray(op_priorities, dtype=float)
-    weighted_completion = np.sum(env.true_op_ct * priorities, axis=1) / np.sum(priorities, axis=1)
+    from objectives import operation_priority_weighted_completion
+    weighted_completion = operation_priority_weighted_completion(env.true_op_ct, priorities)
 
     return [
         {
@@ -120,12 +125,16 @@ def main() -> None:
         args.data_source,
         "--data_root",
         args.data_root,
+        "--feature_schema",
+        args.feature_schema,
         "--enable_priority",
         "True",
         "--enable_carbon",
         "True" if args.enable_carbon else "False",
         "--carbon_feature",
         "True" if args.carbon_feature else "False",
+        "--fea_pair_input_dim",
+        "9" if args.carbon_feature else "8",
     ]
 
     import torch
@@ -134,6 +143,8 @@ def main() -> None:
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.main_model import DANIEL
     from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     rows: list[dict[str, object]] = []
     for model_name in args.models:
@@ -143,12 +154,17 @@ def main() -> None:
             continue
 
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
 
         for data_name in args.test_data:
             data_path = Path(args.data_root) / args.data_source / data_name
+            if args.final_evaluation_manifest:
+                from evaluation_protocol import verify_frozen_evaluation
+                verify_frozen_evaluation(args.final_evaluation_manifest, model_path, data_path)
             job_lengths, op_pts, op_priorities, op_carbons = load_priority_carbon_data_from_files(str(data_path))
             total = len(job_lengths) if args.limit == 0 else min(args.limit, len(job_lengths))
             if total == 0:

@@ -27,7 +27,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--device-id", default="0")
     parser.add_argument("--sizes", nargs="+", default=DEFAULT_TRAIN_SIZES)
-    parser.add_argument("--test-data", nargs="+", default=DEFAULT_TEST_DATA)
+    parser.add_argument("--seeds", nargs="+", type=int, default=[300, 301, 302, 303, 304])
+    parser.add_argument("--validation-data", nargs="+", default=DEFAULT_TEST_DATA)
+    parser.add_argument("--data-root", default="daniel/data")
     parser.add_argument("--max-updates", type=int, default=1000)
     parser.add_argument("--num-envs", type=int, default=20)
     parser.add_argument("--validate-timestep", type=int, default=10)
@@ -35,8 +37,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--carbon-reward-weight", type=float, default=0.01)
     parser.add_argument(
         "--carbon-feature",
-        action="store_true",
-        help="A-style carbon model: carbon is included as an input feature. Not merge-compatible with current job-priority checkpoints.",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Use canonical F11/P9 carbon observation; --no-carbon-feature is legacy F11/P8 only.",
     )
     parser.add_argument(
         "--model-tag",
@@ -76,6 +79,7 @@ def main() -> None:
     args = parse_args()
     root = repo_root()
     daniel_dir = root / "daniel"
+    data_root = (root / args.data_root).resolve()
     py = sys.executable
 
     print("Carbon model training sweep")
@@ -89,14 +93,16 @@ def main() -> None:
     for size in args.sizes:
         n_j, n_m = parse_size(size)
         data_name = f"{size}+carbon+priority"
-        vali_dir = daniel_dir / "data" / "data_train_vali" / "SD2" / data_name
-        if not vali_dir.exists():
-            print(f"\nSKIP training {size}: missing validation folder {vali_dir}")
+        train_dir = data_root / "data_train" / "SD2" / data_name
+        vali_dir = data_root / "data_validation" / "SD2" / data_name
+        if not train_dir.exists() or not vali_dir.exists():
+            print(f"\nSKIP training {size}: missing separate train/validation folders")
             continue
 
-        train_cmd = [
-            py,
-            "train.py",
+        for seed in args.seeds:
+            model_tag = f"{args.model_tag}_s{seed}"
+            train_cmd = [
+            py, "train.py",
             "--device",
             args.device,
             "--device_id",
@@ -105,6 +111,10 @@ def main() -> None:
             "SD2",
             "--data_suffix",
             "carbon+priority",
+            "--train_data_path",
+            str(train_dir),
+            "--validation_data_path",
+            str(vali_dir),
             "--n_j",
             str(n_j),
             "--n_m",
@@ -117,6 +127,10 @@ def main() -> None:
             "True",
             "--carbon_feature",
             "True" if args.carbon_feature else "False",
+            "--fea_pair_input_dim",
+            "9" if args.carbon_feature else "8",
+            "--feature_schema",
+            "canonical_f11_p9_v2" if args.carbon_feature else "legacy_f11_p8_v1",
             "--goal",
             "c",
             "--carbon_reward_weight",
@@ -129,11 +143,13 @@ def main() -> None:
             str(args.validate_timestep),
             "--reset_env_timestep",
             str(args.reset_env_timestep),
+            "--seed_train",
+            str(seed),
             "--model_suffix",
-            args.model_tag,
-        ]
-        run_or_print(train_cmd, daniel_dir, args.execute)
-        trained_models.append(model_name(size, args.model_tag))
+            model_tag,
+            ]
+            run_or_print(train_cmd, daniel_dir, args.execute)
+            trained_models.append(model_name(size, model_tag))
 
     if trained_models:
         eval_cmd = [
@@ -146,10 +162,14 @@ def main() -> None:
             "--models",
             *trained_models,
             "--test-data",
-            *args.test_data,
+            *args.validation_data,
+            "--data-root",
+            str(data_root / "data_validation"),
             "--limit",
             str(args.eval_limit),
             "--enable-carbon",
+            "--feature-schema",
+            "canonical_f11_p9_v2" if args.carbon_feature else "legacy_f11_p8_v1",
             "--out",
             args.out,
         ]

@@ -119,7 +119,9 @@ def main() -> None:
         if not model_path.exists():
             raise FileNotFoundError(model_path)
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
         policy_cache[model_name] = policy

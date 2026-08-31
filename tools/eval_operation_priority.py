@@ -25,6 +25,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--test-data", nargs="+", default=["10x5+carbon+priority"], help="Extended dataset names")
     parser.add_argument("--limit", type=int, default=0, help="Instances per dataset; 0 means all")
     parser.add_argument("--priority-model", action="store_true", help="Use 11-feature priority-aware checkpoints")
+    parser.add_argument("--feature-schema", default="canonical_f11_p9_v2")
+    parser.add_argument("--final-evaluation-manifest",
+                        help="Frozen manifest required when these results are used as final-test evidence")
     parser.add_argument("--high-priority-threshold", type=float, default=80.0)
     parser.add_argument("--out", default="experiments/flexibility/operation_priority_eval.csv")
     return parser.parse_args()
@@ -64,7 +67,8 @@ def run_schedule(policy, env, job_length, op_pt, op_priority, op_carbon, args, t
 
     op_completion = env.true_op_ct[0].astype(float)
     priorities = op_priority.astype(float)
-    weighted_completion = float(np.sum(op_completion * priorities) / np.sum(priorities))
+    from objectives import operation_priority_weighted_completion
+    weighted_completion = float(operation_priority_weighted_completion(op_completion, priorities))
     high_mask = priorities >= args.high_priority_threshold
     low_mask = ~high_mask
     high_completion = float(np.mean(op_completion[high_mask])) if np.any(high_mask) else float("nan")
@@ -104,6 +108,10 @@ def main() -> None:
         args.data_source,
         "--data_root",
         args.data_root,
+        "--feature_schema",
+        args.feature_schema,
+        "--fea_pair_input_dim",
+        "8" if args.feature_schema == "legacy_f11_p8_v1" else "9",
     ]
     if args.priority_model:
         sys.argv.extend(["--enable_priority", "True"])
@@ -114,6 +122,8 @@ def main() -> None:
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.main_model import DANIEL
     from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     action_mode = "operation_priority_aware" if args.priority_model else "normal"
     rows: list[dict[str, object]] = []
@@ -125,12 +135,17 @@ def main() -> None:
             continue
 
         policy = DANIEL(configs)
-        policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         policy.to(torch.device(args.device))
         policy.eval()
 
         for data_name in args.test_data:
             data_path = Path(args.data_root) / args.data_source / data_name
+            if args.final_evaluation_manifest:
+                from evaluation_protocol import verify_frozen_evaluation
+                verify_frozen_evaluation(args.final_evaluation_manifest, model_path, data_path)
             job_lengths, op_pts, op_priorities, op_carbons = load_priority_carbon_data_from_files(str(data_path))
             total = len(job_lengths) if args.limit == 0 else min(args.limit, len(job_lengths))
             if total == 0:

@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--enable-priority", default="False", help="Pass-through params.py priority flag")
     parser.add_argument("--enable-carbon", default="False", help="Pass-through params.py carbon flag")
     parser.add_argument("--carbon-feature", default="False", help="Pass-through params.py carbon feature flag")
+    parser.add_argument("--feature-schema", default="", help="Explicit canonical or legacy feature schema")
     parser.add_argument(
         "--models",
         nargs="+",
@@ -53,6 +54,13 @@ def main() -> None:
     # DANIEL modules use params.py at import time, so set its argv before import.
     os.chdir(daniel_dir)
     sys.path.insert(0, str(daniel_dir))
+    inferred_schema = args.feature_schema or (
+        "legacy_f10_p8_v1"
+        if args.enable_priority.lower() == "false" and args.enable_carbon.lower() == "false"
+        else "canonical_f11_p9_v2"
+        if args.enable_carbon.lower() == "true" and args.carbon_feature.lower() == "true"
+        else "legacy_f11_p8_v1"
+    )
     sys.argv = [
         "quick_flex_eval",
         "--device",
@@ -69,6 +77,8 @@ def main() -> None:
         "10" if args.enable_priority.lower() == "false" and args.enable_carbon.lower() == "false" else "11",
         "--fea_pair_input_dim",
         "9" if args.enable_carbon.lower() == "true" and args.carbon_feature.lower() == "true" else "8",
+        "--feature_schema",
+        inferred_schema,
     ]
 
     import numpy as np
@@ -78,6 +88,9 @@ def main() -> None:
     from data_utils import pack_data_from_config
     from fjsp_env_same_op_nums import FJSPEnvForSameOpNums
     from model.PPO import PPO_initialize
+    from params import configs
+    from feature_schemas import validate_config_against_schema
+    validate_config_against_schema(configs)
 
     setup_seed(50)
     ppo = PPO_initialize()
@@ -89,7 +102,9 @@ def main() -> None:
             print(f"SKIP missing model: {model_path}")
             continue
 
-        ppo.policy.load_state_dict(torch.load(model_path, map_location=args.device))
+        from common_utils import load_checkpoint_state_dict
+        ppo.policy.load_state_dict(load_checkpoint_state_dict(
+            model_path, map_location=args.device, expected_schema=configs.feature_schema))
         ppo.policy.eval()
 
         for data_name in args.test_data:

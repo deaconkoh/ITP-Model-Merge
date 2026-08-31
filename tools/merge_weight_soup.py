@@ -26,6 +26,11 @@ def parse_args() -> argparse.Namespace:
         help="Optional merge weights. Defaults to uniform weights.",
     )
     parser.add_argument("--out-name", required=True, help="Output checkpoint name without .pth")
+    parser.add_argument(
+        "--feature-schema",
+        choices=["canonical_f11_p9_v2", "legacy_f11_p9_v1", "legacy_f11_p8_v1", "legacy_f10_p8_v1"],
+        help="Required when source checkpoints have no embedded schema",
+    )
     return parser.parse_args()
 
 
@@ -48,16 +53,39 @@ def main() -> None:
     import torch
 
     checkpoints = []
+    checkpoint_metadata = []
+    parent_records = []
+    sys.path.insert(0, str(repo_root / "daniel"))
+    from checkpointing import CHECKPOINT_SCHEMA_VERSION, file_sha256, unwrap_checkpoint
     for model_name in args.models:
         model_path = checkpoint_dir / f"{model_name}.pth"
         if not model_path.exists():
             raise FileNotFoundError(model_path)
-        checkpoints.append(torch.load(model_path, map_location="cpu"))
+        state_dict, metadata = unwrap_checkpoint(torch.load(model_path, map_location="cpu"))
+        checkpoints.append(state_dict)
+        checkpoint_metadata.append(metadata)
+        parent_records.append({"path": str(model_path.resolve()), "sha256": file_sha256(model_path)})
+    for parent, weight in zip(parent_records, weights):
+        parent["weight"] = weight
 
     base_keys = list(checkpoints[0].keys())
     for model_name, checkpoint in zip(args.models[1:], checkpoints[1:]):
         if list(checkpoint.keys()) != base_keys:
             raise ValueError(f"{model_name} has different checkpoint keys; cannot average directly")
+
+    declared_schemas = {
+        metadata.get("config", {}).get("feature_schema")
+        for metadata in checkpoint_metadata
+        if metadata.get("config", {}).get("feature_schema")
+    }
+    if len(declared_schemas) > 1:
+        raise ValueError(f"Checkpoint feature schemas differ: {declared_schemas}")
+    declared_schema = next(iter(declared_schemas), None)
+    if args.feature_schema and declared_schema and args.feature_schema != declared_schema:
+        raise ValueError(f"Requested schema {args.feature_schema} conflicts with {declared_schema}")
+    feature_schema = declared_schema or args.feature_schema
+    if feature_schema is None:
+        raise ValueError("--feature-schema is required for legacy state-dict-only sources")
 
     merged = {}
     for key in base_keys:
@@ -72,7 +100,16 @@ def main() -> None:
                 raise ValueError(f"Non-floating tensor differs for key {key}; cannot safely merge")
             merged[key] = first.clone()
 
-    torch.save(merged, out_path)
+    merged_config = dict(checkpoint_metadata[0].get("config", {}))
+    merged_config["feature_schema"] = feature_schema
+    torch.save({
+        "schema_version": CHECKPOINT_SCHEMA_VERSION,
+        "artifact_type": "merged_checkpoint",
+        "state_dict": merged,
+        "config": merged_config,
+        "parents": parent_records,
+        "merge": {"method": "soup", "weights": weights},
+    }, out_path)
     model_weights = ", ".join(f"{name}:{weight:.4f}" for name, weight in zip(args.models, weights))
     print(f"Wrote {out_path}")
     print(f"Merged {model_weights}")

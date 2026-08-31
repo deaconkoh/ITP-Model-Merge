@@ -50,8 +50,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-name", help="Output checkpoint name without .pth, saved under daniel/trained_network/<data-source>")
     parser.add_argument("--out", help="Direct output .pth path. Overrides --out-name.")
     parser.add_argument(
+        "--feature-schema",
+        choices=["canonical_f11_p9_v2", "legacy_f11_p9_v1", "legacy_f11_p8_v1", "legacy_f10_p8_v1"],
+        help="Required when merging state-dict-only legacy checkpoints",
+    )
+    parser.add_argument(
         "--metadata-out",
         help="Optional metadata JSON path. Defaults to the output checkpoint path with .json suffix.",
+    )
+    parser.add_argument(
+        "--allow-legacy-task-arithmetic",
+        action="store_true",
+        help="Allow Task Arithmetic without verifiable shared-base provenance (legacy reproduction only)",
     )
     return parser.parse_args()
 
@@ -113,6 +123,8 @@ def validate_compatible(reference: dict, candidate: dict, candidate_name: str) -
 
 def merge_soup(checkpoints: list[dict], weights: list[float]) -> dict:
     import torch
+    sys.path.insert(0, str(repo_root() / "daniel"))
+    from checkpointing import CHECKPOINT_SCHEMA_VERSION, unwrap_checkpoint
 
     merged = {}
     for key in checkpoints[0].keys():
@@ -167,9 +179,14 @@ def main() -> None:
             raise FileNotFoundError(path)
     weights = normalize_weights(args.weights, len(paths), args.method)
 
-    checkpoints = [torch.load(path, map_location="cpu") for path in paths]
+    loaded = [unwrap_checkpoint(torch.load(path, map_location="cpu")) for path in paths]
+    checkpoints = [item[0] for item in loaded]
+    source_metadata = [item[1] for item in loaded]
     base_path = resolve_checkpoint(args.base, args.data_source) if args.base else None
-    base_checkpoint = torch.load(base_path, map_location="cpu") if base_path else None
+    if base_path:
+        base_checkpoint, base_metadata = unwrap_checkpoint(torch.load(base_path, map_location="cpu"))
+    else:
+        base_checkpoint, base_metadata = None, None
 
     reference = base_checkpoint if base_checkpoint is not None else checkpoints[0]
     for path, checkpoint in zip(paths, checkpoints):
@@ -179,10 +196,17 @@ def main() -> None:
         merged = merge_soup(checkpoints, weights)
     else:
         validate_compatible(reference, base_checkpoint, str(base_path))
+        base_hash = sha256(base_path)
+        shared_base_verified = all(
+            any(parent.get("sha256") == base_hash for parent in metadata.get("parents", []))
+            for metadata in source_metadata
+        )
+        if not shared_base_verified and not args.allow_legacy_task_arithmetic:
+            raise ValueError(
+                "Task Arithmetic requires every specialist checkpoint to record the selected base "
+                "as a parent. Use --allow-legacy-task-arithmetic only to reproduce inherited artifacts."
+            )
         merged = merge_task_arithmetic(base_checkpoint, checkpoints, weights)
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    torch.save(merged, out_path)
 
     metadata = {
         "method": args.method,
@@ -195,6 +219,37 @@ def main() -> None:
     }
     if base_path is not None:
         metadata["base"] = {"path": str(base_path), "sha256": sha256(base_path)}
+        metadata["shared_base_verified"] = shared_base_verified
+
+    source_schemas = {
+        item.get("config", {}).get("feature_schema")
+        for item in source_metadata
+        if item.get("config", {}).get("feature_schema")
+    }
+    if len(source_schemas) > 1:
+        raise ValueError(f"Source checkpoints declare different feature schemas: {source_schemas}")
+    declared_schema = next(iter(source_schemas), None)
+    if args.feature_schema and declared_schema and args.feature_schema != declared_schema:
+        raise ValueError(
+            f"--feature-schema {args.feature_schema} conflicts with checkpoint metadata {declared_schema}"
+        )
+    feature_schema = declared_schema or args.feature_schema
+    if feature_schema is None:
+        raise ValueError("--feature-schema is required for legacy state-dict-only merge sources")
+    metadata["feature_schema"] = feature_schema
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    merged_config = dict(source_metadata[0].get("config", {}))
+    merged_config["feature_schema"] = feature_schema
+    bundle = {
+        "schema_version": CHECKPOINT_SCHEMA_VERSION,
+        "artifact_type": "merged_checkpoint",
+        "state_dict": merged,
+        "config": merged_config,
+        "parents": metadata["checkpoints"],
+        "merge": metadata,
+    }
+    torch.save(bundle, out_path)
 
     metadata_path = Path(args.metadata_out).resolve() if args.metadata_out else out_path.with_suffix(".json")
     metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")

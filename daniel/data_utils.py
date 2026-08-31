@@ -191,8 +191,8 @@ def load_data_from_files(directory):
     dataset_op_pt = []
     for root, dirs, files in os.walk(directory):
         # sort files by index
-        files.sort(key=lambda s: int(re.findall("\d+", s)[0]))
-        files.sort(key=lambda s: int(re.findall("\d+", s)[-1]))
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[0]))
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[-1]))
         for f in files:
             # print(f)
             g = open(os.path.join(root, f), 'r').readlines()
@@ -215,8 +215,8 @@ def load_priority_carbon_data_from_files(directory):
     dataset_op_priority = []
     dataset_op_carbon = []
     for root, dirs, files in os.walk(directory):
-        files.sort(key=lambda s: int(re.findall("\d+", s)[0]))
-        files.sort(key=lambda s: int(re.findall("\d+", s)[-1]))
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[0]))
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[-1]))
         for f in files:
             g = open(os.path.join(root, f), 'r').readlines()
             job_length, op_pt, op_priority, op_carbon = text_to_matrix_with_priority_carbon(g)
@@ -411,18 +411,19 @@ class CaseGenerator:
 
 
 def main():
-    if configs.data_type == 'test':
-        generate_data_to_files(configs.seed_datagen,
-                                   f'./data/{configs.data_source}/',
-                               configs)
-    elif configs.data_type == 'vali':
-        # generate validation instances
+    canonical = {
+        'train': (configs.seed_train_datagen, 'data_train'),
+        'validation': (configs.seed_validation_datagen, 'data_validation'),
+        'final_test': (configs.seed_final_test_datagen, 'data_final_test'),
+    }
+    if configs.data_type in canonical:
+        seed, split_dir = canonical[configs.data_type]
+        generate_data_to_files(seed, f'./data/{split_dir}/{configs.data_source}/', configs)
+    elif configs.data_type == 'legacy_test':
+        generate_data_to_files(configs.seed_datagen, f'./data/{configs.data_source}/', configs)
+    elif configs.data_type == 'legacy_vali':
         generate_data_to_files(configs.seed_train_vali_datagen,
-                                   f'./data/data_train_vali/{configs.data_source}/',
-                               configs)
-    else:
-        print(f'Error from Instance Generation: incorrect data type {configs.data_type}')
-        sys.exit()
+                               f'./data/data_train_vali/{configs.data_source}/', configs)
 
 
 if __name__ == '__main__':

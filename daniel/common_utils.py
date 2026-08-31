@@ -6,10 +6,22 @@ import sys
 import numpy as np
 import torch
 import copy
+from checkpointing import unwrap_checkpoint, validate_checkpoint_schema
 
 """
     agent utils
 """
+
+
+def load_checkpoint_state_dict(path, map_location=None, expected_schema=None):
+    """Load canonical checkpoint bundles and inherited state-dict-only files."""
+    checkpoint = torch.load(path, map_location=map_location)
+    state_dict, metadata = unwrap_checkpoint(checkpoint)
+    if expected_schema is not None:
+        validate_checkpoint_schema(metadata, expected_schema, state_dict)
+    if metadata.get("legacy"):
+        print(f"WARNING: loading legacy checkpoint with incomplete provenance: {path}", file=sys.stderr)
+    return state_dict
 
 
 def sample_action(p):
@@ -208,6 +220,8 @@ def setup_seed(seed):
     np.random.seed(seed)
     random.seed(seed)
     torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True, warn_only=True)
 
 
 if __name__ == '__main__':

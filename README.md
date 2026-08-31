@@ -2,6 +2,9 @@
 
 This repository contains the code, datasets, model checkpoints, and result files for an ITP project based on DANIEL for the Flexible Job Shop Scheduling Problem.
 
+New research runs must follow [the canonical scientific protocol](docs/scientific_protocol.md).
+Inherited checkpoints and results are governed by [the legacy artifact policy](docs/legacy_artifacts.md).
+
 The project extends DANIEL-style scheduling experiments with carbon and priority objectives, then compares specialist models, Model Soup merges, Task Arithmetic merges, and a combined-objective baseline.
 
 ## Key Folders
@@ -14,6 +17,21 @@ test_results/                    final-report spreadsheet evidence
 ```
 
 ## Training Command
+
+Canonical training requires physically separate training and validation data:
+
+```bash
+cd daniel
+python train.py \
+  --config ../configs/canonical/m.json \
+  --train_data_path ./data/data_train/SD2/20x10+carbon+priority \
+  --validation_data_path ./data/data_validation/SD2/20x10+carbon+priority \
+  --test_data_path ./data/data_final_test/SD2/20x10+carbon+priority \
+  --n_j 20 --n_m 10 --data_suffix carbon+priority
+```
+
+`train.py` records the final-test path for provenance but never reads it. The
+commands below are retained for legacy reference.
 
 From the repository root:
 
@@ -33,7 +51,7 @@ From the repository root:
 
 ```powershell
 cd daniel
-..\.venv\Scripts\python.exe ..\tools\merge_daniel_checkpoints.py --method soup  --data-source SD2 --checkpoints 20x10+carbon+priority+speed 20x10+carbon+priority+carbon 20x10+carbon+priority+priority --weights 0.5 0.25 0.25 --out-name merged_20x10_m5
+..\.venv\Scripts\python.exe ..\tools\merge_daniel_checkpoints.py --method soup --feature-schema legacy_f11_p9_v1 --data-source SD2 --checkpoints 20x10+carbon+priority+speed 20x10+carbon+priority+carbon 20x10+carbon+priority+priority --weights 0.5 0.25 0.25 --out-name merged_20x10_m5
 ```
 
 Modify the weight of models in merge by modifying the respective weight value in --weights argument. Modify the name of the merged model using --out-name argument.
@@ -44,7 +62,7 @@ From the repository root:
 
 ```powershell
 cd daniel
-..\.venv\Scripts\python.exe ..\tools\merge_daniel_checkpoints.py --method task_arithmetic  --data-source SD2 --base 20x10+carbon+priority+speed --checkpoints  20x10+carbon+priority+carbon 20x10+carbon+priority+priority --weights 0.6 0.6 --out-name merged_20x10_TA0606
+..\.venv\Scripts\python.exe ..\tools\merge_daniel_checkpoints.py --method task_arithmetic --feature-schema legacy_f11_p9_v1 --allow-legacy-task-arithmetic --data-source SD2 --base 20x10+carbon+priority+speed --checkpoints 20x10+carbon+priority+carbon 20x10+carbon+priority+priority --weights 0.6 0.6 --out-name merged_20x10_TA0606
 ```
 
 Modify the weight of models in merge by modifying the respective weight value in --weights argument. Modify the name of the merged model using --out-name argument.
