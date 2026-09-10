@@ -152,6 +152,11 @@ parser.add_argument('--gae_lambda', type=float, default=0.98, help='GAE paramete
 # args for training
 parser.add_argument('--train_size', type=str, default="10x5", help='Size of training instances')
 parser.add_argument('--validate_timestep', type=int, default=10, help='Interval for validation and data log')
+parser.add_argument('--budget_checkpoints', type=str, default='',
+                    help='Comma-separated update counts at which to snapshot the policy for '
+                         'RQ1 budget curves, e.g. "0,50,100,250,500,1000". Saved as '
+                         '<model_name>@u<N>.pth alongside (not replacing) the usual '
+                         'validation-improvement checkpoint. Empty disables the feature.')
 parser.add_argument('--reset_env_timestep', type=int, default=20, help='Interval for reseting the environment')
 parser.add_argument('--minibatch_size', type=int, default=1024, help='Batch size for computing the gradient')
 

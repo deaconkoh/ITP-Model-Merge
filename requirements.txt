@@ -1,11 +1,9 @@
-﻿--extra-index-url https://download.pytorch.org/whl/cpu
+﻿--extra-index-url https://download.pytorch.org/whl/cu128
 numpy
 torch
 pandas
 tqdm
 ortools
-gym
-visdom
 pynvml
 matplotlib
 openpyxl

@@ -83,7 +83,8 @@ def main() -> None:
             manifest[f"{split}_fingerprints"] = {
                 child.name: dataset_fingerprint(child) for child in sorted(split_root.iterdir()) if child.is_dir()
             }
-    manifest_path = output_root / "manifests" / f"split_seed_{args.seed}.json"
+    dataset_slug = "_".join(sorted(Path(s).name for s in args.sources))
+    manifest_path = output_root / "manifests" / f"split_seed_{args.seed}_{dataset_slug}.json"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(f"Wrote split manifest: {manifest_path}")

@@ -151,6 +151,15 @@ class Trainer:
 
         self.train_st = time.time()
 
+        # RQ1 budget curve: snapshot the policy at fixed update counts so that one run
+        # yields the whole quality-vs-budget curve. Independent of the validation-improvement
+        # checkpoint, which is untouched.
+        self.budget_checkpoints = sorted(
+            {int(v) for v in str(self.config.budget_checkpoints).split(',') if v.strip()}
+        )
+        if 0 in self.budget_checkpoints:
+            self.save_budget_checkpoint(0)
+
         for i_update in tqdm(range(self.max_updates), file=sys.stdout, desc="progress", colour='blue'):
             ep_st = time.time()
 
@@ -216,6 +225,9 @@ class Trainer:
 
             # save the mean rewards of all instances in current training data
             self.log.append({"update": i_update, "mean_return": float(mean_rewards_all_env)})
+
+            if (i_update + 1) in self.budget_checkpoints:
+                self.save_budget_checkpoint(i_update + 1)
 
             # validate the trained model
             if (i_update + 1) % self.validate_timestep == 0:
@@ -396,6 +408,26 @@ class Trainer:
             repo_root=Path(__file__).resolve().parents[1],
         )
         torch.save(bundle, f'./trained_network/{self.data_source}/{self.model_name}.pth')
+
+    def save_budget_checkpoint(self, update):
+        """
+            snapshot the policy at a fixed optimisation budget (RQ1 budget curves).
+            Deliberately does NOT consult validation: the point is to record the policy
+            after exactly `update` PPO updates, whatever its quality.
+        """
+        bundle = make_checkpoint_bundle(
+            self.ppo.policy.state_dict(),
+            config=json_safe_config(self.config),
+            data_fingerprints=self.data_fingerprints,
+            update=update,
+            validation_metrics={},
+            selection_metric=float('nan'),
+            parents=self.parent_checkpoints,
+            repo_root=Path(__file__).resolve().parents[1],
+        )
+        path = f'./trained_network/{self.data_source}/{self.model_name}@u{update}.pth'
+        torch.save(bundle, path)
+        print(f"budget checkpoint saved: {path}")
 
     def resolve_checkpoint_path(self, checkpoint):
         """
