@@ -1,0 +1,512 @@
+{
+  "seed": 20260831,
+  "fractions": {
+    "train": 0.7,
+    "validation": 0.15,
+    "final_test": 0.15
+  },
+  "datasets": {
+    "10x5+mix": [
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_001.fjs",
+        "split": "validation",
+        "structural_sha256": "27328d5ed8dcd79bc21b3ab8e86e1e61fccd50b0de05036bc2de6963e7c8e03f"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_002.fjs",
+        "split": "train",
+        "structural_sha256": "eed8cfa6c83f3377e80150e2429633b7e320009b05eacac5a87c163c41ff404a"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_003.fjs",
+        "split": "final_test",
+        "structural_sha256": "4fb4a1e711735a2cfc54bbec9065d11fab064139f342776c264cb2fb8707b3da"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_004.fjs",
+        "split": "final_test",
+        "structural_sha256": "677a4a5d39887f1f2189f6b0359b659fb489b8d661c9ad99c20f398e57d55448"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_005.fjs",
+        "split": "train",
+        "structural_sha256": "24f6ff224a707c6a25b9a3d54a5b8ad5661675d1ca6eaeb82adb4b1a8b64e65c"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_006.fjs",
+        "split": "final_test",
+        "structural_sha256": "359b93cde7e80426bfb9d0158eb1d0d1000af984d0b548364d78b8db5d43f1f0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_007.fjs",
+        "split": "train",
+        "structural_sha256": "677b96f0e2dbe89f187e48e0f924db2c4468050199ccb030a4ea50eb80369bb3"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_008.fjs",
+        "split": "final_test",
+        "structural_sha256": "92491fbbc6b865c534da2fb2f749f490802018eb6872d0d333a1b97aad066d84"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_009.fjs",
+        "split": "final_test",
+        "structural_sha256": "7f95244de81dc2148749d31488e335ec630aaed2805f7f38de01ce9d71e8e7f3"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_010.fjs",
+        "split": "train",
+        "structural_sha256": "93c59f6ec6df995e41b00288fbf797841c28379033ba50f81f9b0023bbff814f"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_011.fjs",
+        "split": "train",
+        "structural_sha256": "60adfd2458615ef308185d2c967eabcd9b80e0080e44992bb89a7197870565b7"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_012.fjs",
+        "split": "validation",
+        "structural_sha256": "71b60af7ad5593c852546981ce1f353751c09cd86f28174c5a0a6e487ca5442e"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_013.fjs",
+        "split": "train",
+        "structural_sha256": "0c22b4ebb15536ba3a159af7f44bcf6addfed5dbbc794e8d6f27ad9368776fc7"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_014.fjs",
+        "split": "train",
+        "structural_sha256": "31dff755769ff5c274e6085796e0f63125211fcd064cd8282c6890ae3981c882"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_015.fjs",
+        "split": "train",
+        "structural_sha256": "dc202fe8f355ce7580d2dfd516cecf91c06f9607bb814c5be38e6d289a422777"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_016.fjs",
+        "split": "validation",
+        "structural_sha256": "6908a1577aee352e869ac3970a817845a4b3b6c5910e29a99a5d317cb33cdbfe"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_017.fjs",
+        "split": "train",
+        "structural_sha256": "2252a1feff18cc75a52e376d62f10bc989a0b521e0f9b04bfcaf76acfa5532b8"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_018.fjs",
+        "split": "train",
+        "structural_sha256": "f94b1160b3afdd84d364f2006c329e4bd355b563b681679fb39cc1442772bca6"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_019.fjs",
+        "split": "train",
+        "structural_sha256": "562f8de615bdb99ffc31abc6ef6515c3bf04de945aabd48870ba520f8785f3e7"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_020.fjs",
+        "split": "final_test",
+        "structural_sha256": "03ee2fb47d9d259ba0c58ffc3713406276e44ddf5fad5d388e10e286fe9f2f06"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_021.fjs",
+        "split": "train",
+        "structural_sha256": "2b07bb6a3b0efc3c4d2acf55cb3c4c4c9b7b49ce7de8d60402dd9206f794d00d"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_022.fjs",
+        "split": "train",
+        "structural_sha256": "dc7ad16b0b7d99310e6ecd814497ea2a7de6e8b6ee8fb4bce36c1d2d284a2d3e"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_023.fjs",
+        "split": "validation",
+        "structural_sha256": "a1ddb125427957073dcae6ae8540c4aa578a4bf3e0a1501172b527baceb72bad"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_024.fjs",
+        "split": "final_test",
+        "structural_sha256": "a692e1449618323f6aeb2faf7ceb00a20ac6a35894380c3da32dbe39711559c0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_025.fjs",
+        "split": "train",
+        "structural_sha256": "b44e2e1cabbaf5f71ecfdd75f6906c5334c413570f9c3d9ed24d34cb8084cc3b"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_026.fjs",
+        "split": "final_test",
+        "structural_sha256": "26ab3a511767fde38e0caf748a7ad2be7b0db270ca9d17dc5ec30578856dc09d"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_027.fjs",
+        "split": "train",
+        "structural_sha256": "02ff5438ef9ad4ef5e81295e0f73cedbd4b79bddcc63e5906b61c5f84f88bc57"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_028.fjs",
+        "split": "train",
+        "structural_sha256": "85428350f5e887c87ae11d6606a0fbbe1f74cea7c9cd9abbb863761778c509f0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_029.fjs",
+        "split": "train",
+        "structural_sha256": "a56b3689e84efac6c3d7e0fc6526a256f42fd241d05d731417832f4e6f240488"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_030.fjs",
+        "split": "train",
+        "structural_sha256": "ad39b4a40c7f721c6ae4dc570d8828dfee43aa51f6248e780a414f628bb98826"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_031.fjs",
+        "split": "train",
+        "structural_sha256": "02f17cf06614f764fccb93d535357d4a48825f502930375cb1e1bf34c41efcf8"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_032.fjs",
+        "split": "train",
+        "structural_sha256": "47d4fe649d11463aaecb1fa0cb5f8d7b899ddd0d8c83fb6d03fb2514ff5b545d"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_033.fjs",
+        "split": "train",
+        "structural_sha256": "d864c89c9d520704848b7a711be229718b5da872ab054bf0a30658739e747397"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_034.fjs",
+        "split": "final_test",
+        "structural_sha256": "6cb10068e1d9fb9f81d1aad1188f09fe3c2ae19c0df6b00fcbce3182280aaf32"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_035.fjs",
+        "split": "train",
+        "structural_sha256": "b21a22b9b738ee1a683856e6f2fd10a6b870c4cd62a8b2dad225df2d8feedbb5"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_036.fjs",
+        "split": "final_test",
+        "structural_sha256": "0245aca68b636621db93088e42f4db8e276531c9d6f64d704c5d303107cd740f"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_037.fjs",
+        "split": "train",
+        "structural_sha256": "47f60608cf0b17006ec887810d28ba1316f17f7ee16c7ff52a50e68825434b8b"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_038.fjs",
+        "split": "train",
+        "structural_sha256": "642b72f9ed4dbf126692b6f581adf9e356f33f88044c76385681912b17cc7c3b"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_039.fjs",
+        "split": "train",
+        "structural_sha256": "48f560d33fd80f90baabd7b4e41678bc1176e046602c8e08e4becf84a84286e0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_040.fjs",
+        "split": "train",
+        "structural_sha256": "c4953bc13a6a6d16c392cf2ef4d3d90f7f40c81e4bde4533d131f9c181791bbf"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_041.fjs",
+        "split": "validation",
+        "structural_sha256": "3ed8230bca5e131a4dd85a76e630760fa0197fa56d50bdc9e1dfb0d51dd466b5"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_042.fjs",
+        "split": "final_test",
+        "structural_sha256": "af14e65a08f80a96451b9d61a15f1083f19a717294976e7513fe23d46172ae38"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_043.fjs",
+        "split": "train",
+        "structural_sha256": "e34ae86b2f527e9f0881eb3db9b3d2a0d2a25c3184e7a3de0943c1ae0379fac6"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_044.fjs",
+        "split": "final_test",
+        "structural_sha256": "b3b413ec423caad842cbb4ad7c0d98b6d51c97b982210fb16554f128b6c68730"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_045.fjs",
+        "split": "validation",
+        "structural_sha256": "c755c644afbe54f9d751fc0f91af39cf7be50f6e7e6d070fdf35e1fcb2f1e034"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_046.fjs",
+        "split": "train",
+        "structural_sha256": "52039ce125c1724d5b301ee62114331df1f3915cdcdf7f53dbdffd69b72e10a2"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_047.fjs",
+        "split": "train",
+        "structural_sha256": "f3c82a631e3d76f2302192d68d38ab85d1d020aaa464e6bbec1af883bb1c6425"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_048.fjs",
+        "split": "train",
+        "structural_sha256": "dd600f91a16495cc73da702e1a8f26eae4a5c4f42c1dda8322359294ec8a30e1"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_049.fjs",
+        "split": "train",
+        "structural_sha256": "a4adda27ba10ce99f62a568ee802e8db6bfe626f980c990183c6159400085d77"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_050.fjs",
+        "split": "train",
+        "structural_sha256": "ed619e60497eceb9ad3b0511dcd93d80f51d11d7523d6cf5ac8833b58958d6fb"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_051.fjs",
+        "split": "train",
+        "structural_sha256": "f3659d92e73f6ab90ad7afa96cd8ebfb31837150026a3bb7843dcb213c1d7bad"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_052.fjs",
+        "split": "final_test",
+        "structural_sha256": "44b6187350553f539cae73cf5500a6b6f91d1510c94a15b6c2430c1f1038de71"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_053.fjs",
+        "split": "final_test",
+        "structural_sha256": "a78038a7e831c02942aab5b6d1ac6e46559be7f3cf69bd2709c30221de8e1a62"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_054.fjs",
+        "split": "train",
+        "structural_sha256": "f0f1360b42bfbf1e24e1f49000c18153d9c7f160583f9987094ef1240cf40894"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_055.fjs",
+        "split": "validation",
+        "structural_sha256": "286212e3ab676b05fee8eb4fb0b93fe8a911021c0424c3e2c2c36aa371b6dca7"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_056.fjs",
+        "split": "train",
+        "structural_sha256": "728a59b4bd0a67946a8a90e509412a772bf1e0ac733ebb92ed7c1fe7f8763148"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_057.fjs",
+        "split": "validation",
+        "structural_sha256": "fc69037afe8e39b4a5d1ff0eeb63fa9a656cb73b278e4cd95eb49a4fb8c405d0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_058.fjs",
+        "split": "validation",
+        "structural_sha256": "6d6fc2a24cb8d9cefd7779edee5de34c6acfb1e9dfe387f1b392b767402b479a"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_059.fjs",
+        "split": "train",
+        "structural_sha256": "a24b9162950da47750dbd1fe5a1bd203dfb2e5126b6767d7a5de8f7ba8f40d5e"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_060.fjs",
+        "split": "train",
+        "structural_sha256": "4df6cbdbeb9ab9922860d62bde8efeb6c54a4cc7617e2337845c071e173ab001"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_061.fjs",
+        "split": "final_test",
+        "structural_sha256": "01d8c78fbdd5fa9b0018039f1cafd6258934d70951d54b55c425b45d79eb3262"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_062.fjs",
+        "split": "train",
+        "structural_sha256": "a2e04082ef27c90ee84772f536c7a9ce713644f76beba4f98829bcf5a498c115"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_063.fjs",
+        "split": "train",
+        "structural_sha256": "7000a044eabf55f819ccca0fe65f8a3a18d6537c1502c13ea57fda14bd9b56c7"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_064.fjs",
+        "split": "train",
+        "structural_sha256": "2289a2adb00c8ecceb507774967c6b4f0b81fe70b611450753b0a602c91a74ff"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_065.fjs",
+        "split": "train",
+        "structural_sha256": "3005074827fc6afd3494cbb061f579d49ff9955b1e07f034614dad5c19acb0f3"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_066.fjs",
+        "split": "train",
+        "structural_sha256": "c297cf16987bd1383fb7f7ea796589229d3b49d9dfd1bebbc643d1df4bc170d5"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_067.fjs",
+        "split": "train",
+        "structural_sha256": "ba45be9693a8eeb5e2a2dde32ef8d06f105bd7694e7fd387510ccbe491fc0641"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_068.fjs",
+        "split": "train",
+        "structural_sha256": "fc79cd0ccf09249f697525582a3535b6c22e886eeb9607c3ea74000725aeacf2"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_069.fjs",
+        "split": "validation",
+        "structural_sha256": "50dd1c477371789255b39b1921a4b239f8475742db130063f8c05ffab0b23e11"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_070.fjs",
+        "split": "validation",
+        "structural_sha256": "b3d7c5451598b079f435bf54c82c64754131b7ea7bdd70909ab873faa1d2b5db"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_071.fjs",
+        "split": "validation",
+        "structural_sha256": "08620b219e4a5936052372a8f1c3b2e438700591dcac971002dca14cad175608"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_072.fjs",
+        "split": "final_test",
+        "structural_sha256": "0f63d382f64104b0ef83ae96e4029bc6cbd4bb9bc9904690b0a71eca51c4f448"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_073.fjs",
+        "split": "final_test",
+        "structural_sha256": "2ac6ea32ff5aa78296a2c5af0166b5e2a434c9aab5563f70fcfa9267e1eb9b1d"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_074.fjs",
+        "split": "train",
+        "structural_sha256": "afeb2c3af3ce7edf7019b6965365ae56db90792df3137d44ae20ae60ff1d02f0"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_075.fjs",
+        "split": "train",
+        "structural_sha256": "e3bac33e9b0787379cdbc5376814098eeb4c5c78c48ed1c9f15b62db4cce0a9c"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_076.fjs",
+        "split": "train",
+        "structural_sha256": "4caba46552dc0fe9e49ee4b834d43d974ec208aaeeebf1199f69528b0c8b5127"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_077.fjs",
+        "split": "train",
+        "structural_sha256": "7bbace2499494efcc3852d829e5d53f8d9905ebb8246d008c9cedc9ae6bd7dfc"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_078.fjs",
+        "split": "validation",
+        "structural_sha256": "5e0d9da7476dc59462c042328b20ed57a91035965b0f9ff8e136422b975f0325"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_079.fjs",
+        "split": "train",
+        "structural_sha256": "43604bb774a5735e8dfb9dc92757e73b35cde2e4c2ddfa22449a6f6bb2746473"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_080.fjs",
+        "split": "train",
+        "structural_sha256": "e2749f0987198759af34542c57bfd27d3a842438778d28920247f7d768b4a5cb"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_081.fjs",
+        "split": "validation",
+        "structural_sha256": "d9542ccbb7c61ee417f5a63767d7c671b8b24608de2301f4d13711abf1521d32"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_082.fjs",
+        "split": "train",
+        "structural_sha256": "2a601e35a96b330c5713fc661c888857197b50e7c34d25be9e90c3cda3bb421d"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_083.fjs",
+        "split": "final_test",
+        "structural_sha256": "14e6dea436e18b34da6c1e153e3b589302d2f85aaed1e49af419d6704e99694c"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_084.fjs",
+        "split": "validation",
+        "structural_sha256": "8f2dd1dfa44266a87e478c8c57bf80db8b44ed502b7c9555185b9119ec75e3f4"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_085.fjs",
+        "split": "train",
+        "structural_sha256": "4219a1d831a4d2618cd739636d9eaed198ad8da249d9685019e9268096b84c09"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_086.fjs",
+        "split": "train",
+        "structural_sha256": "8daa6f75c4b15c0734569df843df33d5bfd7028f5b7f1baa6672be7395468bf2"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_087.fjs",
+        "split": "train",
+        "structural_sha256": "9bc2eb3a24c3811ba57f47c115d37f53f511d75140b7853c4a3ec556316a5f60"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_088.fjs",
+        "split": "train",
+        "structural_sha256": "248a1932a61177a6d82462ab40e7064b8fe9e209e65124ebe3315e772d65f053"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_089.fjs",
+        "split": "validation",
+        "structural_sha256": "20ce8c5737280d370ba827b380d03e5b53dd2f3f3f70d921c7a91e80602ce891"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_090.fjs",
+        "split": "train",
+        "structural_sha256": "dcda4813d008abc5fb2cbbcdf1d41b695d1adf79a71fdb3172b49121a07e7fb5"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_091.fjs",
+        "split": "train",
+        "structural_sha256": "ef67992962c2c6ca78153fd260ade9f0ecbad4a356b302f866eb167877431775"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_092.fjs",
+        "split": "train",
+        "structural_sha256": "69013117ede6296dda7a1ad977ba9d5b4a2db61917d4f24662826a6f1685a15e"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_093.fjs",
+        "split": "train",
+        "structural_sha256": "fc000dfd34eeb5d837218f65b5a26c009f21708742d75be7c3269343c2de6773"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_094.fjs",
+        "split": "train",
+        "structural_sha256": "14460a48ade646181fdf5a49a38531d071f4aed9f36ad87e29fab95d60a5a201"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_095.fjs",
+        "split": "validation",
+        "structural_sha256": "0e170b98c6845ec1b178fc19910780aa111074260f6520ff012484081090ec39"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_096.fjs",
+        "split": "validation",
+        "structural_sha256": "f988131a4d2c426c4c953a33a4135cfd176b779ae28247a5d875b91d75b387f4"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_097.fjs",
+        "split": "train",
+        "structural_sha256": "c525ac9a0cc75d8cb65dfc5a4e6ba9bcc3e25d63c29445e147283b3a55a1fb1c"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_098.fjs",
+        "split": "final_test",
+        "structural_sha256": "b10ec5732adce9599de6fdab277e15999ac29125ed2345cf4bd2095e2d67f13a"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_099.fjs",
+        "split": "train",
+        "structural_sha256": "b072e4d81a305dcc32021dfc95bc9f4a1bc0e0ad5284fe44bc7a94ba61970448"
+      },
+      {
+        "source": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/data/SD2/10x5+mix/10x5+mix_100.fjs",
+        "split": "train",
+        "structural_sha256": "fd6790bc0605945380210356e84edc8d23381e6946809e60d7f537dc09436d19"
+      }
+    ]
+  }
+}
