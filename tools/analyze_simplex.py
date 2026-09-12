@@ -35,24 +35,11 @@ def load_all(size, pool_tag):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--size", default="10x5")
-    ap.add_argument("--pool-tag", default="trainvali")
-    ap.add_argument("--pref", nargs=3, type=float, default=[1 / 3, 1 / 3, 1 / 3])
-    ap.add_argument("--edge-tol", type=int, default=50,
-                    help="permille below which a specialist counts as contributing nothing")
-    args = ap.parse_args()
-    pref = Preference(*args.pref)
-
-    data = load_all(args.size, args.pool_tag)
-    if not data:
-        print(f"no simplex evaluations found for {args.size}/{args.pool_tag} -- run Step 3 first")
-        return 1
-    pts = sorted(data)
-    centroid = min(pts, key=lambda p: sum(abs(a - b) for a, b in zip(p, (333, 333, 334))))
-    print(f"{args.size}: {len(pts)} compositions, preference {pref.tag}, "
+def analyse(data, pts, centroid, size, pref, args):
+    print("\n" + "#" * 78)
+    print(f"{size}: {len(pts)} compositions, preference {pref.tag}, "
           f"reference composition = m{centroid[0]}c{centroid[1]}p{centroid[2]}")
+    print("#" * 78)
 
     seeds = sorted(set().union(*[set(v) for v in data.values()]))
     pooled_best, per_inst_rows = {}, {}
@@ -115,7 +102,55 @@ def main():
         print("  At least one specialist contributes ~nothing for this preference, so the")
         print("  composition reduces to the 2-specialist case already covered by Track C.")
         print("  STOP and reconsider before committing Steps 4-6.")
-    return 0 if interior else 1
+    return interior
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--size", default="10x5")
+    ap.add_argument("--pool-tag", default="trainvali")
+    ap.add_argument("--pref", nargs=3, type=float, default=[1 / 3, 1 / 3, 1 / 3])
+    ap.add_argument("--prefs", nargs="+",
+                    help="extra preferences as m,c,p triples e.g. 0.25,0.5,0.25")
+    ap.add_argument("--edge-tol", type=int, default=50,
+                    help="permille below which a specialist counts as contributing nothing")
+    ap.add_argument("--min-points", type=int, default=40,
+                    help="refuse a verdict below this many evaluated compositions")
+    args = ap.parse_args()
+
+    data = load_all(args.size, args.pool_tag)
+    if not data:
+        print(f"no simplex evaluations found for {args.size}/{args.pool_tag} -- run Step 3 first")
+        return 1
+    pts = sorted(data)
+    centroid = min(pts, key=lambda p: sum(abs(a - b) for a, b in zip(p, (333, 333, 334))))
+
+    # Guard against a spurious verdict from a partially-complete sweep: with only a handful
+    # of compositions the "optimum" is whatever happens to have been evaluated, and an
+    # interior point can win by default rather than on merit.
+    if len(pts) < args.min_points:
+        print(f"REFUSING TO RENDER A VERDICT: only {len(pts)} compositions evaluated "
+              f"(need >= {args.min_points}).")
+        print("  A sparse sweep can return INTERIOR simply because no edge point was")
+        print("  evaluated. Let Step 3 finish, then re-run.")
+        return 2
+
+    prefs = [Preference(*args.pref)]
+    if args.prefs:
+        prefs += [Preference(*[float(x) for x in t.split(",")]) for t in args.prefs]
+
+    verdicts = {}
+    for pref in prefs:
+        verdicts[pref.tag] = analyse(data, pts, centroid, args.size, pref, args)
+
+    if len(prefs) > 1:
+        print("\n" + "=" * 78)
+        print("SUMMARY ACROSS PREFERENCES  (scoring is free -- same evaluations, re-weighted)")
+        print("=" * 78)
+        for tag, v in verdicts.items():
+            print(f"  {tag}: {'INTERIOR' if v else 'EDGE'}")
+    # the gate is decided by the PRIMARY preference (the first one)
+    return 0 if verdicts[prefs[0].tag] else 1
 
 
 if __name__ == "__main__":
