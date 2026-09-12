@@ -81,6 +81,30 @@ def main():
         print(f"    seed {s}: m={arr[:,0].mean():5.1f}% c={arr[:,1].mean():5.1f}% "
               f"p={arr[:,2].mean():5.1f}%   distinct compositions used: {len(set(map(tuple, (arr*10).astype(int))))}")
 
+    # ---- MARGIN: how far from the edge, and is the priority weight meaningfully non-zero?
+    print(f"\n  MARGIN (how decisive is the verdict, not just pass/fail):")
+    for s in seeds:
+        b = pooled_best[s]
+        dist_edge = min(b)                       # permille distance to the nearest face
+        print(f"    seed {s}: distance to nearest edge = {dist_edge/10:5.1f} percentage points"
+              f"   (a point ON an edge has 0)")
+    margins = [min(pooled_best[s]) for s in seeds]
+    print(f"    across seeds: min={min(margins)/10:.1f}pp  mean={np.mean(margins)/10:.1f}pp  "
+          f"max={max(margins)/10:.1f}pp")
+
+    # how much worse is the best EDGE composition than the best interior one?
+    print(f"\n  cost of being forced onto an edge (best interior vs best edge composition):")
+    for s in seeds:
+        ref = data[centroid][s]
+        vals = {p: float(scalarise(data[p][s], ref, pref).mean()) for p in pts}
+        inter = {p: v for p, v in vals.items() if min(p) >= args.edge_tol}
+        edge = {p: v for p, v in vals.items() if min(p) < args.edge_tol}
+        if inter and edge:
+            bi, be = min(inter.values()), min(edge.values())
+            print(f"    seed {s}: best interior {bi:.4f}   best edge {be:.4f}   "
+                  f"interior advantage {100*(be-bi)/be:+.2f}%"
+                  f"{'  (edge is as good or better)' if bi >= be else ''}")
+
     interior = len(on_edge) == 0
     print("\n" + "=" * 78)
     if interior:

@@ -83,6 +83,33 @@ near-optimal.
   random-network null), and are further apart in parameter space (46.5) than two random
   initialisations are from each other (42.2).
 
+**Objective-space geometry: operation-priority is structurally time-like (independent result).**
+
+Measured from the three canonical specialists (4 seeds each, 100-instance pools), distances in
+objective space after normalising each objective to [0,1] across the three specialists:
+
+| | makespan ↔ carbon | carbon ↔ priority | **makespan ↔ priority** | ratio |
+|---|---|---|---|---|
+| 10x5 | 1.665 | 1.651 | **0.169** | m↔p is **9.8x** smaller |
+| 20x10 | 1.701 | 1.666 | **0.128** | m↔p is **13.3x** smaller |
+
+The priority specialist differs from the makespan specialist by only +5.3% makespan / -0.8%
+carbon / -6.2% priority at 10x5, and +9.9% / +0.3% / -4.4% at 20x10 — at 20x10 its carbon is
+*fractionally worse* than the makespan specialist's.
+
+The cause is structural, not a training artifact. Operation-priority-weighted completion is
+`sum(q_o * C_o) / sum(q_o)` — a **weighted completion time**. Optimising it pulls in
+substantially the same direction as minimising makespan, because both are time-like
+quantities. Carbon is the only genuinely orthogonal axis among the three.
+
+**Consequence, and why it generalises beyond this project:** multi-objective FJSP work that
+uses makespan + energy/carbon + priority-weighted-completion is operating in an effectively
+**two-dimensional** objective space (time-like vs carbon) while presenting it as
+three-dimensional. Two of the three axes are near-duplicates. The effect **grows with instance
+size** (9.8x -> 13.3x), so it worsens exactly where deployment-realistic problems live. Any
+claim of three-objective Pareto coverage in this setting should be checked against the actual
+separation of the objectives rather than assumed from their names.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at
