@@ -20,7 +20,7 @@ from preference3 import Preference, scalarise  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 SEEDS = [111, 222, 333, 444]
-PAT = re.compile(r"simplex_m(\d{3})c(\d{3})p(\d{3})_s(\d+)")
+PAT = re.compile(r"simplex_m(\d+)c(\d+)p(\d+)_s(\d+)")  # \d+ not \d{3}: the pure vertices are m1000c000p000 etc.
 
 
 def load_all(size, pool_tag):
@@ -31,7 +31,18 @@ def load_all(size, pool_tag):
         if not m:
             continue
         pts = (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        assert sum(pts) == 1000, f"parsed weights do not sum to 1000: {f.name} -> {pts}"
         out.setdefault(pts, {})[int(m.group(4))] = np.load(f)[:, :3]
+    # A composition present for only some seeds would be scored on an uneven footing, and a
+    # silently dropped one (as the pure vertices once were) understates the edge case.
+    seeds = sorted(set().union(*[set(v) for v in out.values()]))
+    ragged = {p: sorted(v) for p, v in out.items() if sorted(v) != seeds}
+    if ragged:
+        print(f"WARNING: {len(ragged)} composition(s) are missing some seeds; expected {seeds}")
+        for p, s in list(ragged.items())[:5]:
+            print(f"    m{p[0]:03d}c{p[1]:03d}p{p[2]:03d}: has {s}")
+    print(f"loaded {len(out)} compositions x {len(seeds)} seeds "
+          f"({sum(len(v) for v in out.values())} result files)")
     return out
 
 
