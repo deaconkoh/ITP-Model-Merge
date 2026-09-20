@@ -110,6 +110,52 @@ size** (9.8x -> 13.3x), so it worsens exactly where deployment-realistic problem
 claim of three-objective Pareto coverage in this setting should be checked against the actual
 separation of the objectives rather than assumed from their names.
 
+**Third objective: operation-priority RETIRED (20 Sep 2026), replaced by total tardiness.**
+
+Operation-priority-weighted completion is retired as an experimental axis. It is *kept as a
+result* -- the collinearity measurement above is reportable and is not superseded by this
+decision. The makespan and carbon specialists are unchanged; only the third vertex moves.
+
+Reasons, in the order they were established:
+1. **Structural.** `sum(q_o C_o)/sum(q_o)` is a weighted COMPLETION TIME, i.e. a re-weighting of
+   the makespan axis rather than an independent objective.
+2. **Gate 1 (trained specialists).** The makespan<->priority distance is 9.8x smaller than either
+   is to carbon at 10x5 and 13.3x smaller at 20x10 -- the degeneracy gets WORSE with size.
+3. **Gate 2 (264 coarse-simplex evaluations, 4 seeds, 10x5).** The priority specialist's weight at
+   the pooled optimum is 42.5% at the equal preference but 15.0% at a carbon-leaning one, with
+   seed 333 collapsing onto the makespan-carbon edge. The interior-vs-edge advantage is +0.39%
+   (4/4 seeds, p = 0.041, n = 4) -- and each seed individually is not significant (p = 0.20-0.86)
+   even though the comparison is biased in the interior's favour, both compositions being
+   selected maxima.
+4. **Literature.** Makespan + energy/carbon + total tardiness is an established objective triple
+   in multi-objective FJSP, and the 2022 critical review of FJSP objective functions names
+   delivery-tardiness among the top objectives after makespan. The replacement is not an
+   idiosyncratic choice.
+
+**Gate 2 results in full (10x5, 67 compositions x 4 seeds, reference = simplex centroid):**
+
+| preference | pooled optimum per seed (m/c/p) | priority weight | edge distance | interior advantage |
+|---|---|---|---|---|
+| (1/3,1/3,1/3) | 20/10/70, 60/20/20, 50/10/40, 40/20/40 | 42.5% | 10-20 pp | +0.08 to +0.62% |
+| (0.25,0.5,0.25) | 50/20/30, 50/30/20, **70/30/0**, 60/30/10 | 15.0% | 0-20 pp | -0.24 to +0.52% |
+
+The two preference points DISAGREE: interior at all four seeds under the equal preference, on the
+makespan-carbon edge at seed 333 under the carbon-leaning one.
+
+**Calibration weights (Step 2, 10x5), recorded here because they existed only in checkpoint
+filenames:** `carbon_reward_weight = 0.002215`, `priority_reward_weight = 1.158337`, derived from
+the closed-form anchors and confirmed by a verification sweep (the anchor did not win; the
+empirical optimum was the half-anchor on priority, paired win rate 62%, t = 2.25, p = 0.026).
+Reference composition metrics: makespan 470.2, carbon 2144.2, priority 203.0.
+
+**A screen that reproduces the failure it is meant to prevent.** A training-free greedy
+dispatcher, scoring every objective on identical schedules, recovers priority's degeneracy from
+the instance data alone: the best priority schedule IS the best makespan schedule (0.0%
+advantage), and the makespan<->priority distance ratio measured this way is 11.8x at 10x5 and
+12.0x at 20x10, against the 9.8x and 13.3x measured from trained specialists. The screen costs
+minutes of CPU; the trained measurement cost roughly six GPU-hours. Candidate objectives are
+screened this way BEFORE training from now on.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at
