@@ -141,8 +141,9 @@ def main():
 
     # ---- 4. report mapping AND operating point --------------------------------------
     print(f"\nSTEP 2.4  results (preference {pref.tag}; lower objective is better)")
-    print(f"  {'candidate':<12}{'w_c':>11}{'w_p':>9}{'makespan':>10}{'carbon':>10}"
-          f"{'priority':>10}{'obj':>9}   operating point m:c:p vs reference")
+    wlab, olab = ("w_t", "tardiness") if T else ("w_p", "priority")
+    print(f"  {'candidate':<12}{'w_c':>11}{wlab:>9}{'makespan':>10}{'carbon':>10}"
+          f"{olab:>10}{'obj':>9}   operating point m:c:{args.third} vs reference")
     ref_i = ref_inst[CALIB_SEED]
     best = None
     for label, wc, wp, tag in tags:
@@ -160,10 +161,10 @@ def main():
     if best:
         obj, label, wc, wp, rel = best
         print(f"\n  BEST: {label}  ->  carbon_reward_weight={wc:.6f}  "
-              f"priority_reward_weight={wp:.6f}  (objective {obj:.4f})")
+              f"{third_name}_reward_weight={wp:.6f}  (objective {obj:.4f})")
         spread = float(np.max(rel) - np.min(rel))
         print(f"  achieved operating point, relative to the reference composition: "
-              f"m={rel[0]:.3f}  c={rel[1]:.3f}  p={rel[2]:.3f}")
+              f"m={rel[0]:.3f}  c={rel[1]:.3f}  {args.third}={rel[2]:.3f}")
         print(f"  balance check: max-min across the three axes = {spread:.3f} "
               f"({'balanced -- no single objective is being sacrificed' if spread < 0.15 else 'SKEWED -- one objective is being traded away; inspect before proceeding'})")
         if label == "anchor":
