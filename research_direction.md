@@ -178,6 +178,27 @@ The general lesson: a synthetic annotation must carry the heterogeneity its obje
 Independent, identically distributed or uniform annotations average that heterogeneity away,
 and the damage is invisible from the objective's name.
 
+**Tardiness due-date generation (frozen 2026-09-23, manifest `daniel/data/due_dates/due_date_manifest.json`).**
+* Rule: `d_j = k * u_j * P_j`, `u_j ~ U[1 - s/2, 1 + s/2]`, `P_j` = sum of mean eligible
+  processing times of job j's operations, release times zero (static instances).
+* **s = 0.6**, the midpoint of the relative-range-of-due-dates values RDD in {0.2, 0.4, 0.6, 0.8,
+  1.0} used to generate the OR-Library weighted-tardiness benchmarks (Crauwels, Potts & Van
+  Wassenhove 1998, *INFORMS Journal on Computing* 10, 341-350; verified on the OR-Library
+  `wtinfo` page). There the range is RDD times the processing-time scale; here it is s times each
+  job's own due-date scale.
+* **k is PER SIZE: 10x5 k = 1.25 (tag `k125s060`), 20x10 k = 0.95 (tag `k095s060`).** Chosen by the
+  pre-stated rule (smallest k with seed-mean tardy fraction in [0.2, 0.6] and <=10% zero-tardiness
+  instances) applied to the job completion times of the four TRAINED makespan specialists. No
+  single k qualified at both sizes (10x5 qualifies on 1.25-1.65, 20x10 on 0.95-1.20), so per-size
+  k by the same rule, as pre-approved. Every tardiness checkpoint and result carries its tag.
+* Trained makespan specialists leave MORE jobs tardy than the earliest-completion heuristic
+  (at k = 1.0: 82% vs 56% of jobs at 10x5, 49% vs 38% at 20x10), despite a 24-38% better
+  makespan: a makespan-optimal policy only cares about the last job, so individual jobs finish
+  late. Per-job completion under a trained policy is therefore not a relabelled makespan.
+* Step 4 screen on the frozen due dates: tardiness specialist advantage +10.2% (10x5) and +7.3%
+  (20x10), against carbon +41.4% / +59.1% and retired priority +0.0% / +0.0%. A real but modest
+  axis whose separation SHRINKS with size -- the opposite direction to carbon.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at
