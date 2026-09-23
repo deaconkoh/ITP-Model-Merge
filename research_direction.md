@@ -198,6 +198,12 @@ and the damage is invisible from the objective's name.
 * Step 4 screen on the frozen due dates: tardiness specialist advantage +10.2% (10x5) and +7.3%
   (20x10), against carbon +41.4% / +59.1% and retired priority +0.0% / +0.0%. A real but modest
   axis whose separation SHRINKS with size -- the opposite direction to carbon.
+* **Gate 1 (trained tardiness specialists): passes at 10x5, FAILS at 20x10.** At 10x5 every
+  specialist beats its seed's makespan specialist on tardiness (+18.2% mean, 4/4 seeds, p = 0.001).
+  At 20x10 two of four LOSE to the seed-matched makespan specialist (mean +0.7%, p = 0.86) while
+  paying 6-9% in makespan, and the makespan<->tardiness distance (0.085, 20.4x) is smaller than
+  retired priority's (0.128, 13.3x). The CPU screen foreshadowed the size trend. Full record:
+  `results/tardiness_programme/gate1_tardiness.md`. Programme stopped before Step 6.
 
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
