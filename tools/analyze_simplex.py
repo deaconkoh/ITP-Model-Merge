@@ -21,18 +21,27 @@ from preference3 import Preference, scalarise  # noqa: E402
 REPO = Path(__file__).resolve().parents[1]
 SEEDS = [111, 222, 333, 444]
 PAT = re.compile(r"simplex_m(\d+)c(\d+)p(\d+)_s(\d+)")  # \d+ not \d{3}: the pure vertices are m1000c000p000 etc.
+NAME3 = {"p": "priority", "t": "tardiness"}
+COLS = {"p": [0, 1, 2], "t": [0, 1, 3]}      # result columns for [makespan, carbon, third]
 
 
-def load_all(size, pool_tag):
+def pattern(third, tag):
+    if third == "p":
+        return PAT
+    return re.compile(rf"simplex_m(\d+)c(\d+){third}(\d+)_{tag}_s(\d+)")
+
+
+def load_all(size, pool_tag, third="p", tag=None):
     d = REPO / "daniel/test_results/SD2" / f"{pool_tag}_{size}+carbon+priority"
+    pat, cols = pattern(third, tag), COLS[third]
     out = {}
     for f in sorted(d.glob("*simplex_*.npy")):
-        m = PAT.search(f.name)
+        m = pat.search(f.name)
         if not m:
             continue
         pts = (int(m.group(1)), int(m.group(2)), int(m.group(3)))
         assert sum(pts) == 1000, f"parsed weights do not sum to 1000: {f.name} -> {pts}"
-        out.setdefault(pts, {})[int(m.group(4))] = np.load(f)[:, :3]
+        out.setdefault(pts, {})[int(m.group(4))] = np.load(f)[:, cols]
     # A composition present for only some seeds would be scored on an uneven footing, and a
     # silently dropped one (as the pure vertices once were) understates the edge case.
     seeds = sorted(set().union(*[set(v) for v in out.values()]))
@@ -56,7 +65,7 @@ def analyse(data, pts, centroid, size, pref, args):
     pooled_best, per_inst_rows = {}, {}
     for s in seeds:
         ref = data[centroid][s]                      # (n_inst, 3) per-instance reference
-        M = np.stack([scalarise(data[p][s], ref, pref) for p in pts])   # (n_pts, n_inst)
+        M = np.stack([scalarise(data[p][s], ref, pref, args.third == "t") for p in pts])
         pooled_best[s] = pts[int(np.argmin(M.mean(1)))]
         per_inst_rows[s] = [pts[i] for i in M.argmin(0)]
 
@@ -70,7 +79,7 @@ def analyse(data, pts, centroid, size, pref, args):
     # ---- the gate
     on_edge = [s for s in seeds if any(w < args.edge_tol for w in pooled_best[s])]
     p_weights = [pooled_best[s][2] / 10 for s in seeds]
-    print(f"\n  priority-specialist weight at the pooled optimum: "
+    print(f"\n  {NAME3[args.third]}-specialist weight at the pooled optimum: "
           f"{np.mean(p_weights):.1f}% (per seed {[round(w,1) for w in p_weights]})")
 
     print(f"\n  per-instance optima, mean composition per seed:")
@@ -94,7 +103,7 @@ def analyse(data, pts, centroid, size, pref, args):
     print(f"\n  cost of being forced onto an edge (best interior vs best edge composition):")
     for s in seeds:
         ref = data[centroid][s]
-        vals = {p: float(scalarise(data[p][s], ref, pref).mean()) for p in pts}
+        vals = {p: float(scalarise(data[p][s], ref, pref, args.third == "t").mean()) for p in pts}
         inter = {p: v for p, v in vals.items() if min(p) >= args.edge_tol}
         edge = {p: v for p, v in vals.items() if min(p) < args.edge_tol}
         if inter and edge:
@@ -125,11 +134,15 @@ def main():
                     help="extra preferences as m,c,p triples e.g. 0.25,0.5,0.25")
     ap.add_argument("--edge-tol", type=int, default=50,
                     help="permille below which a specialist counts as contributing nothing")
+    ap.add_argument("--third", choices=["p", "t"], default="p")
+    ap.add_argument("--tag", help="due-date tag for tardiness runs, e.g. k100s060")
     ap.add_argument("--min-points", type=int, default=40,
                     help="refuse a verdict below this many evaluated compositions")
     args = ap.parse_args()
 
-    data = load_all(args.size, args.pool_tag)
+    if args.third == "t" and not args.tag:
+        raise SystemExit("--third t needs --tag")
+    data = load_all(args.size, args.pool_tag, args.third, args.tag)
     if not data:
         print(f"no simplex evaluations found for {args.size}/{args.pool_tag} -- run Step 3 first")
         return 1
@@ -146,9 +159,10 @@ def main():
         print("  evaluated. Let Step 3 finish, then re-run.")
         return 2
 
-    prefs = [Preference(*args.pref)]
+    prefs = [Preference(*args.pref, third=args.third)]
     if args.prefs:
-        prefs += [Preference(*[float(x) for x in t.split(",")]) for t in args.prefs]
+        prefs += [Preference(*[float(x) for x in t.split(",")], third=args.third)
+                  for t in args.prefs]
 
     verdicts = {}
     for pref in prefs:

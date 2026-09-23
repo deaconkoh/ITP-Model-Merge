@@ -22,9 +22,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 DAN = REPO / "daniel"
 sys.path.insert(0, str(REPO / "tools"))
-from simplex_merge import simplex_points, name_for  # noqa: E402
+from simplex_merge import simplex_points, name_for, build, SPECIALISTS_T  # noqa: E402
 
 RES = DAN / "test_results/SD2/trainvali_10x5+carbon+priority"
+THIRD, TAG = "p", None          # set from --third/--tag; tardiness runs use trainvali-<tag>
 DONE_RE = re.compile(r"\[(\d+)/(\d+)\] (\S+): ([0-9.]+)s")
 
 
@@ -46,10 +47,18 @@ def gpu_health(max_temp):
 
 
 def run_block(seed, args, log_dir):
-    names = [name_for("10x5", p, seed) for p in simplex_points(0.1)]
-    logf = log_dir / f"eval_simplex_s{seed}.log"
+    names = [name_for("10x5", p, seed, THIRD, TAG) for p in simplex_points(0.1)]
+    if THIRD == "t":
+        # build the compositions for this seed first (idempotent; existing ones are kept)
+        for p in simplex_points(0.1):
+            r = build("10x5", seed, p, SPECIALISTS_T, third="t", tag=TAG)
+            if r not in ("ok", "exists"):
+                return False, f"BUILD FAILED {name_for('10x5', p, seed, 't', TAG)}: {r}", []
+    logf = log_dir / f"eval_simplex{'_' + TAG if TAG else ''}_s{seed}.log"
     cmd = [sys.executable, "../tools/eval_checkpoints.py", "--pool-root", "./data/data_train_vali",
            "--pool", "10x5+carbon+priority", "--out-tag", "trainvali", "--models", *names]
+    if THIRD == "t":
+        cmd.append("--due-dates")
     fh = open(logf, "w")
     proc = subprocess.Popen(cmd, cwd=DAN, stdout=fh, stderr=subprocess.STDOUT)
     t_block = time.time(); last_progress = time.time(); seen = 0; times = []
@@ -81,10 +90,12 @@ def run_block(seed, args, log_dir):
 
 
 def commit_seed(seed):
-    files = sorted(str(p.relative_to(REPO)) for p in RES.glob(f"*simplex_*_s{seed}_trainvali_*.npy"))
+    pat = f"*simplex_*{TAG}_s{seed}_trainvali-{TAG}_*.npy" if THIRD == "t" else f"*simplex_*_s{seed}_trainvali_*.npy"
+    files = sorted(str(p.relative_to(REPO)) for p in RES.glob(pat))
     subprocess.run(["git", "add", *files], cwd=REPO, check=True)
-    msg = (f"Add Step 3 coarse simplex evaluations for seed {seed} ({len(files)} files)\n\n"
-           "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n"
+    what = f"tardiness-triple ({TAG}) " if THIRD == "t" else ""
+    msg = (f"Add {what}coarse simplex evaluations for seed {seed} ({len(files)} files)\n\n"
+           "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n"
            "Claude-Session: https://claude.ai/code/session_01Rcu6f737di34xSocjiJkEU")
     r = subprocess.run(["git", "commit", "-q", "-m", msg], cwd=REPO)
     return r.returncode == 0, len(files)
@@ -101,7 +112,15 @@ def main():
     ap.add_argument("--max-temp", type=int, default=85)
     ap.add_argument("--gap-sec", type=int, default=120)
     ap.add_argument("--log-dir", default=str(Path.home() / ".claude/jobs/programme"))
+    ap.add_argument("--third", choices=["p", "t"], default="p")
+    ap.add_argument("--tag", help="due-date tag, required with --third t")
     args = ap.parse_args()
+    global THIRD, TAG, RES
+    THIRD, TAG = args.third, args.tag
+    if THIRD == "t":
+        if not TAG:
+            raise SystemExit("--third t needs --tag")
+        RES = DAN / f"test_results/SD2/trainvali-{TAG}_10x5+carbon+priority"
     log_dir = Path(args.log_dir); log_dir.mkdir(parents=True, exist_ok=True)
     n_grid = len(simplex_points(0.1))
 
@@ -119,7 +138,8 @@ def main():
                 f"max {max(times):.1f}s")
         if not ok:
             log(f"STOPPED seed {seed}: {why}"); return 1
-        have = sum((RES / f"Result_DANIELG+{name_for('10x5', p, seed)}_trainvali_10x5+carbon+priority.npy").exists()
+        otag = f"trainvali-{TAG}" if THIRD == "t" else "trainvali"
+        have = sum((RES / f"Result_DANIELG+{name_for('10x5', p, seed, THIRD, TAG)}_{otag}_10x5+carbon+priority.npy").exists()
                    for p in simplex_points(0.1))
         if have != n_grid:
             log(f"STOPPED seed {seed}: only {have}/{n_grid} result files present"); return 1

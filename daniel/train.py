@@ -35,6 +35,7 @@ class Trainer:
             config.goal,
             carbon_weight=config.carbon_reward_weight,
             priority_weight=config.priority_reward_weight,
+            tardiness_weight=config.tardiness_reward_weight,
         )
 
         self.n_j = config.n_j
@@ -104,8 +105,32 @@ class Trainer:
         elif self.data_source == 'SD2':
             self.vali_env = FJSPEnvForSameOpNums(self.n_j, self.n_m)
 
+        # Due dates are READ from the frozen manifest (hash-checked), never derived here, and only
+        # for tardiness goals -- every other goal trains exactly as before.
+        self.train_due, vali_due, self.due_date_provenance = None, None, None
+        if self.objective.uses_tardiness:
+            from due_dates import (MANIFEST, load_manifest, due_dates_for_directory,
+                                   manifest_tag, file_sha256)
+            manifest_path = Path(config.due_date_manifest or MANIFEST)
+            dd_manifest = load_manifest(manifest_path)
+            tag = manifest_tag(self.train_data_path, dd_manifest)
+            if manifest_tag(self.vali_data_path, dd_manifest) != tag:
+                raise ValueError("training and validation sizes map to different due-date tags")
+            if tag not in (config.model_suffix or ""):
+                raise ValueError(f"tardiness checkpoints must carry the due-date tag {tag!r} in "
+                                 f"--model_suffix (got {config.model_suffix!r})")
+            self.train_due = due_dates_for_directory(self.train_data_path, dd_manifest)
+            vali_due = due_dates_for_directory(self.vali_data_path, dd_manifest)
+            self.due_date_provenance = {
+                "manifest": str(manifest_path.resolve()),
+                "manifest_sha256": file_sha256(manifest_path),
+                "dd_tag": tag, "s": dd_manifest["s"],
+                "k": dd_manifest["k_by_size"][Path(self.train_data_path).name.split("+")[0]],
+            }
+
         if self.uses_priority_carbon_files:
-            self.vali_env.set_initial_data(vali_data[0], vali_data[1], vali_data[2], vali_data[3])
+            self.vali_env.set_initial_data(vali_data[0], vali_data[1], vali_data[2], vali_data[3],
+                                           due_date_list=vali_due)
         else:
             self.vali_env.set_initial_data(vali_data[0], vali_data[1])
 
@@ -123,6 +148,7 @@ class Trainer:
             "config": json_safe_config(self.config),
             "data_fingerprints": self.data_fingerprints,
             "final_test_path_not_loaded": str(Path(self.test_data_path).resolve()),
+            "due_dates": getattr(self, "due_date_provenance", None),
             "parents": self.parent_checkpoints,
             "git": git_state(Path(__file__).resolve().parents[1]),
             "runtime": runtime_environment(),
@@ -168,8 +194,11 @@ class Trainer:
                 sampled_data = self.sample_training_instances()
                 if len(sampled_data) == 4:
                     dataset_job_length, dataset_op_pt, dataset_op_priority, dataset_op_carbon = sampled_data
+                    due = ([self.train_due[i] for i in self.last_sample_idxs]
+                           if self.train_due is not None else None)
                     state = self.env.set_initial_data(dataset_job_length, dataset_op_pt,
-                                                      dataset_op_priority, dataset_op_carbon)
+                                                      dataset_op_priority, dataset_op_carbon,
+                                                      due_date_list=due)
                 elif len(sampled_data) == 3:
                     dataset_job_length, dataset_op_pt, dataset_op_priority = sampled_data
                     state = self.env.set_initial_data(dataset_job_length, dataset_op_pt, dataset_op_priority)
@@ -307,6 +336,7 @@ class Trainer:
             if source_count == 0:
                 raise ValueError(f"No file training data found at {self.train_data_path}")
             sample_idxs = [random.randrange(source_count) for _ in range(self.num_envs)]
+            self.last_sample_idxs = sample_idxs
             for idx in sample_idxs:
                 dataset_JobLength.append(self.file_train_data[0][idx])
                 dataset_OpPT.append(self.file_train_data[1][idx])

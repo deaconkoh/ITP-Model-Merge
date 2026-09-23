@@ -17,7 +17,7 @@ ppo = PPO_initialize()
 test_time = time.strftime("%Y%m%d_%H%M%S", time.localtime(time.time()))
 
 
-def test_greedy_strategy(data_set, model_path, seed):
+def test_greedy_strategy(data_set, model_path, seed, due_dates=None):
     """
         test the model on the given data using the greedy strategy
     :param data_set: test data
@@ -45,6 +45,7 @@ def test_greedy_strategy(data_set, model_path, seed):
                 [data_set[1][i]],
                 [data_set[2][i]],
                 [data_set[3][i]],
+                due_date_list=None if due_dates is None else [due_dates[i]],
             )
         else:
             state = env.set_initial_data([data_set[0][i]], [data_set[1][i]])
@@ -71,7 +72,15 @@ def test_greedy_strategy(data_set, model_path, seed):
             priorities = data_set[2][i].astype(float)
             op_completion = env.true_op_ct[0].astype(float)
             weighted_completion = float(np.sum(op_completion * priorities) / np.sum(priorities))
-            test_result_list.append([env.current_makespan[0], env.total_carbon[0], weighted_completion, t2 - t1])
+            if due_dates is not None:
+                # frozen due dates supplied: [makespan, carbon, priority, tardiness, seconds]
+                completion = env.true_op_ct[0, env.job_last_op_id[0]].astype(float)
+                tardiness = float(np.sum(np.maximum(0.0, completion - due_dates[i])))
+                test_result_list.append([env.current_makespan[0], env.total_carbon[0],
+                                         weighted_completion, tardiness, t2 - t1])
+            else:
+                test_result_list.append([env.current_makespan[0], env.total_carbon[0],
+                                         weighted_completion, t2 - t1])
         else:
             test_result_list.append([env.current_makespan[0], t2 - t1])
 

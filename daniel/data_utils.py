@@ -202,6 +202,17 @@ def load_data_from_files(directory):
     return dataset_job_length, dataset_op_pt
 
 
+def sorted_instance_files(directory):
+    """Instance file paths in the order every loader uses. Shared so that anything aligned to
+    instances by position -- due dates in particular -- cannot drift from the data order."""
+    out = []
+    for root, dirs, files in os.walk(directory):
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[0]))
+        files.sort(key=lambda s: int(re.findall(r"\d+", s)[-1]))
+        out.extend(os.path.join(root, f) for f in files)
+    return out
+
+
 def load_priority_carbon_data_from_files(directory):
     """
         load extended carbon+priority .fjs files within the specified directory
@@ -214,16 +225,14 @@ def load_priority_carbon_data_from_files(directory):
     dataset_op_pt = []
     dataset_op_priority = []
     dataset_op_carbon = []
-    for root, dirs, files in os.walk(directory):
-        files.sort(key=lambda s: int(re.findall(r"\d+", s)[0]))
-        files.sort(key=lambda s: int(re.findall(r"\d+", s)[-1]))
-        for f in files:
-            g = open(os.path.join(root, f), 'r').readlines()
-            job_length, op_pt, op_priority, op_carbon = text_to_matrix_with_priority_carbon(g)
-            dataset_job_length.append(job_length)
-            dataset_op_pt.append(op_pt)
-            dataset_op_priority.append(op_priority)
-            dataset_op_carbon.append(op_carbon)
+    for path in sorted_instance_files(directory):
+        with open(path, 'r') as fh:
+            g = fh.readlines()
+        job_length, op_pt, op_priority, op_carbon = text_to_matrix_with_priority_carbon(g)
+        dataset_job_length.append(job_length)
+        dataset_op_pt.append(op_pt)
+        dataset_op_priority.append(op_priority)
+        dataset_op_carbon.append(op_carbon)
     return dataset_job_length, dataset_op_pt, dataset_op_priority, dataset_op_carbon
 
 

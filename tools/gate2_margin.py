@@ -28,20 +28,23 @@ def main():
     ap.add_argument("--pool-tag", default="trainvali")
     ap.add_argument("--prefs", nargs="+", default=["0.3333,0.3333,0.3334", "0.25,0.5,0.25"])
     ap.add_argument("--edge-tol", type=int, default=50)
+    ap.add_argument("--third", choices=["p", "t"], default="p")
+    ap.add_argument("--tag")
     args = ap.parse_args()
 
-    data = load_all(args.size, args.pool_tag)
+    data = load_all(args.size, args.pool_tag, args.third, args.tag)
+    pooled = args.third == "t"
     pts = sorted(data)
     seeds = sorted(data[CENTROID])
 
     for tag in args.prefs:
-        pref = Preference(*[float(x) for x in tag.split(",")])
+        pref = Preference(*[float(x) for x in tag.split(",")], third=args.third)
         print("\n" + "=" * 78)
         print(f"preference {pref.tag}")
         print("=" * 78)
         for s in seeds:
             ref = data[CENTROID][s]
-            per_inst = {p: scalarise(data[p][s], ref, pref) for p in pts}   # (n_inst,) each
+            per_inst = {p: scalarise(data[p][s], ref, pref, pooled) for p in pts}   # (n_inst,) each
             means = {p: float(v.mean()) for p, v in per_inst.items()}
             interior = [p for p in pts if min(p) >= args.edge_tol]
             edge = [p for p in pts if min(p) < args.edge_tol]

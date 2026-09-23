@@ -25,6 +25,9 @@ SEEDS = [111, 222, 333, 444]
 # real specialists; --smoke substitutes stand-ins so the machinery can be tested
 # before the priority specialists exist
 SPECIALISTS = {"m": "m_s{seed}", "c": "c_s{seed}", "p": "p_s{seed}"}
+# Tardiness replaces priority as the third vertex. Its specialists carry the due-date tag
+# (k and s) in their names, and so do the compositions built from them.
+SPECIALISTS_T = {"m": "m_s{seed}", "c": "c_s{seed}", "t": "t_{tag}_s{seed}"}
 SMOKE_SPECIALISTS = {"m": "m_s{seed}", "c": "c_s{seed}", "p": "c_s222"}
 
 
@@ -44,8 +47,14 @@ def _permille(wm, wc, wp):
     return (a, b, 1000 - a - b)      # last absorbs rounding so the triple sums to 1000 exactly
 
 
-def name_for(size, pts, seed):
-    return f"{size}+carbon+priority+simplex_m{pts[0]:03d}c{pts[1]:03d}p{pts[2]:03d}_s{seed}"
+def name_for(size, pts, seed, third="p", tag=None):
+    """third='p' reproduces the original priority names exactly; third='t' adds the due-date tag."""
+    if third == "p":
+        return f"{size}+carbon+priority+simplex_m{pts[0]:03d}c{pts[1]:03d}p{pts[2]:03d}_s{seed}"
+    if not tag:
+        raise ValueError("tardiness compositions must carry the due-date tag")
+    return (f"{size}+carbon+priority+simplex_m{pts[0]:03d}c{pts[1]:03d}{third}{pts[2]:03d}"
+            f"_{tag}_s{seed}")
 
 
 def neighbourhood(centre, radius, step):
@@ -57,17 +66,19 @@ def neighbourhood(centre, radius, step):
     return out
 
 
-def build(size, seed, pts, specialists, dry_run=False):
-    name = name_for(size, pts, seed)
+def build(size, seed, pts, specialists, dry_run=False, third="p", tag=None):
+    name = name_for(size, pts, seed, third, tag)
     if (CKPT / f"{name}.pth").exists():
         return "exists"
     models, weights = [], []
-    for key, w in zip(("m", "c", "p"), pts):
+    for key, w in zip(("m", "c", third), pts):
         if w == 0:
             continue                       # a zero-weight specialist is simply omitted
         tmpl = specialists[key]
-        tag = tmpl.format(seed=seed) if "{seed}" in tmpl else tmpl
-        models.append(f"{size}+carbon+priority+{tag}")
+        spec = tmpl.format(seed=seed, tag=tag) if "{" in tmpl else tmpl
+        if not (CKPT / f"{size}+carbon+priority+{spec}.pth").exists():
+            return f"FAIL: missing specialist {size}+carbon+priority+{spec}"
+        models.append(f"{size}+carbon+priority+{spec}")
         weights.append(w / 1000)
     if dry_run:
         return f"would build {name} from {list(zip(models, weights))}"
@@ -88,6 +99,8 @@ def main():
     ap.add_argument("--smoke", action="store_true",
                     help="use stand-in specialists (no priority specialist needed yet)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--third", choices=["p", "t"], default="p")
+    ap.add_argument("--tag", help="due-date tag (required with --third t), e.g. k100s060")
     args = ap.parse_args()
 
     pts = ([tuple(int(x) for x in p.split(",")) for p in args.points] if args.points
@@ -105,18 +118,18 @@ def main():
         print(f"   {edges} of {len(pts)} points lie on an edge (one specialist unused)")
         return
 
-    spec = SMOKE_SPECIALISTS if args.smoke else SPECIALISTS
+    spec = SMOKE_SPECIALISTS if args.smoke else (SPECIALISTS_T if args.third == "t" else SPECIALISTS)
     if args.smoke:
         print("SMOKE MODE: priority slot substituted with a stand-in checkpoint")
     n_ok = 0
     for size in args.sizes:
         for seed in args.seeds:
             for p in pts:
-                r = build(size, seed, p, spec, dry_run=args.dry_run)
+                r = build(size, seed, p, spec, dry_run=args.dry_run, third=args.third, tag=args.tag)
                 if r in ("ok", "exists") or r.startswith("would"):
                     n_ok += 1
                 else:
-                    print(f"  {name_for(size,p,seed)}: {r}")
+                    print(f"  {name_for(size, p, seed, args.third, args.tag)}: {r}")
     print(f"built/verified {n_ok} compositions")
 
 

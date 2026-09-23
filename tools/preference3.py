@@ -46,9 +46,12 @@ CENTROID = (1 / 3, 1 / 3, 1 / 3)
 
 @dataclass(frozen=True)
 class Preference:
+    """w_p is the weight of the THIRD objective: operation-priority (retired) or, with
+    third='t', total tardiness. Field name kept so every priority result stays reproducible."""
     w_m: float
     w_c: float
     w_p: float
+    third: str = "p"
 
     def __post_init__(self):
         s = self.w_m + self.w_c + self.w_p
@@ -59,13 +62,24 @@ class Preference:
 
     @property
     def tag(self):
-        return f"m{round(100*self.w_m):02d}c{round(100*self.w_c):02d}p{round(100*self.w_p):02d}"
+        return (f"m{round(100*self.w_m):02d}c{round(100*self.w_c):02d}"
+                f"{self.third}{round(100*self.w_p):02d}")
 
 
-def scalarise(metrics, ref, pref: Preference):
-    """metrics/ref: arrays (..., 3) ordered [makespan, carbon, priority]. Lower is better."""
+def scalarise(metrics, ref, pref: Preference, pooled_third=False):
+    """metrics/ref: arrays (n_inst, 3) ordered [makespan, carbon, third]. Lower is better.
+
+    pooled_third: normalise the third objective by its POOL-MEAN reference value instead of the
+    per-instance one. Required for tardiness (fixed before any tardiness data existed): zero is a
+    legitimate per-instance tardiness, so the per-instance ratio is undefined at zero and
+    explodes near it. Makespan and carbon keep the per-instance normalisation.
+    """
     m, c, p = metrics[..., 0], metrics[..., 1], metrics[..., 2]
     rm, rc, rp = ref[..., 0], ref[..., 1], ref[..., 2]
+    if pooled_third:
+        rp = float(np.mean(ref[..., 2]))
+        if rp <= 0:
+            raise ValueError("pooled reference for the third objective is zero; cannot normalise")
     return pref.w_m * (m / rm) + pref.w_c * (c / rc) + pref.w_p * (p / rp)
 
 
