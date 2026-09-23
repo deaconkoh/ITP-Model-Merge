@@ -78,6 +78,12 @@ def main():
         # per-seed win check for the new specialist
         wins = sum(mt["t"][s][2] < min(mt["m"][s][2], mt["c"][s][2]) for s in range(len(SEEDS)))
         print(f"    tardiness specialist wins tardiness at {wins}/{len(SEEDS)} seeds (seed-matched)")
+        # Per-SPECIALIST criterion: every trained tardiness specialist must beat its own seed's
+        # makespan and carbon specialists. A seed-mean win can hide specialists that lose outright.
+        if wins < len(SEEDS):
+            ok_all = False
+            print(f"    -> FAIL on the per-specialist criterion: {len(SEEDS) - wins} tardiness "
+                  f"specialist(s) do not win their own objective")
         tm = mt["t"].mean(0)
         pays = tm[0] > mt["m"].mean(0)[0] or tm[1] > mt["c"].mean(0)[1]
         print(f"    tardiness specialist pays in makespan or carbon: {'yes' if pays else 'NO (dominates)'}")
