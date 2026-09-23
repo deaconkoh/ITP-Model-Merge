@@ -156,6 +156,28 @@ advantage), and the makespan<->priority distance ratio measured this way is 11.8
 minutes of CPU; the trained measurement cost roughly six GPU-hours. Candidate objectives are
 screened this way BEFORE training from now on.
 
+**Why tardiness, and what the screen is for.** Total tardiness was chosen because it is
+established in the literature (makespan + energy + total tardiness is a standard multi-objective
+FJSP triple) and because it is operationally meaningful (on-time delivery). It was NOT chosen for
+its separation numbers. The orthogonality screen is a validity check on how the objective's data
+is GENERATED: if it shows degeneracy, the generation is fixed, not the objective.
+
+**One root cause, three objectives.** Three objectives have now degenerated for the same reason:
+each was generated in a way that removed the structure the objective depends on.
+* **i.i.d. per-operation priority** -- a mean over 50-200 independent draws concentrates with
+  size, so every instance looks alike and the priority-weighted completion collapses onto a
+  re-weighted completion time (Gate 1: 9.8x -> 13.3x collinear with makespan).
+* **i.i.d. per-pair carbon** -- independent per (operation, machine) draws likewise concentrate
+  with instance size, erasing machine-level carbon character (the motivation for the Track B
+  structured generator).
+* **Uniform-tightness due dates** -- TWK due dates with a single k give every job identical
+  relative tightness, so no job is more urgent than another; the best tardiness schedule is the
+  best makespan schedule (screen: exactly 0.0% specialist advantage at every k and both sizes).
+
+The general lesson: a synthetic annotation must carry the heterogeneity its objective trades on.
+Independent, identically distributed or uniform annotations average that heterogeneity away,
+and the damage is invisible from the objective's name.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at

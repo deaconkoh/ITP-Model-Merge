@@ -13,7 +13,10 @@ from typing import Mapping
 import numpy as np
 
 
-VALID_GOALS = ("m", "c", "p", "mc", "mp", "mcp")
+# "p" (operation-priority-weighted completion) is RETIRED as an experimental axis but kept
+# working so every priority result stays reproducible. "t" is total tardiness against per-job
+# due dates, its replacement.
+VALID_GOALS = ("m", "c", "p", "mc", "mp", "mcp", "t", "mt", "ct", "mct")
 
 
 @dataclass(frozen=True)
@@ -21,11 +24,12 @@ class ObjectiveSpec:
     goal: str
     carbon_weight: float = 0.01
     priority_weight: float = 1.0
+    tardiness_weight: float = 1.0
 
     def __post_init__(self) -> None:
         if self.goal not in VALID_GOALS:
             raise ValueError(f"Unsupported goal {self.goal!r}; expected one of {VALID_GOALS}")
-        if self.carbon_weight < 0 or self.priority_weight < 0:
+        if min(self.carbon_weight, self.priority_weight, self.tardiness_weight) < 0:
             raise ValueError("Objective weights must be non-negative")
 
     @property
@@ -40,11 +44,16 @@ class ObjectiveSpec:
     def uses_priority(self) -> bool:
         return "p" in self.goal
 
+    @property
+    def uses_tardiness(self) -> bool:
+        return "t" in self.goal
+
     def step_reward(
         self,
         makespan_delta: np.ndarray,
         chosen_carbon: np.ndarray,
         priority_delta: np.ndarray,
+        tardiness_delta: np.ndarray | None = None,
     ) -> np.ndarray:
         """Compose only the reward terms named by ``goal``."""
         reward = np.zeros_like(np.asarray(makespan_delta), dtype=np.float64)
@@ -54,6 +63,11 @@ class ObjectiveSpec:
             reward = reward - self.carbon_weight * chosen_carbon
         if self.uses_priority:
             reward = reward + self.priority_weight * priority_delta
+        if self.uses_tardiness:
+            if tardiness_delta is None:
+                raise ValueError(f"goal {self.goal!r} needs a tardiness reward term; the "
+                                 "environment was given no due dates")
+            reward = reward + self.tardiness_weight * tardiness_delta
         return reward
 
     def selection_metric(self, metrics: Mapping[str, float]) -> float:
@@ -71,6 +85,9 @@ class ObjectiveSpec:
             value += self.carbon_weight * float(metrics["carbon"])
         if self.uses_priority:
             value += self.priority_weight * float(metrics["priority"]) / time_scale
+        if self.uses_tardiness:
+            # time-like, so scaled like makespan and priority
+            value += self.tardiness_weight * float(metrics["tardiness"]) / time_scale
         return value
 
 
@@ -111,6 +128,26 @@ def operation_priority_weighted_completion(
     return result[0] if squeeze else result
 
 
+def total_tardiness(job_completion: np.ndarray, due_dates: np.ndarray) -> np.ndarray:
+    """T = sum_j max(0, C_j - d_j) per environment. UNWEIGHTED: the only weights available are
+    the retired operation-priority values, and folding them in would smuggle that axis back."""
+    completion = np.asarray(job_completion, dtype=np.float64)
+    due = np.asarray(due_dates, dtype=np.float64)
+    if completion.shape != due.shape:
+        raise ValueError(f"job completion {completion.shape} and due dates {due.shape} differ")
+    return np.sum(np.maximum(0.0, completion - due), axis=-1)
+
+
+def tardiness_potential(op_ct_lb: np.ndarray, job_last_op_id: np.ndarray,
+                        env_job_idx: np.ndarray, due_dates: np.ndarray) -> np.ndarray:
+    """Lower-bound tardiness: T evaluated on each job's current completion-time LOWER BOUND.
+
+    Used as a shaping potential. Once every operation is scheduled the lower bounds ARE the
+    true completion times, so the potential equals T exactly at the end of the episode.
+    """
+    return total_tardiness(op_ct_lb[env_job_idx, job_last_op_id], due_dates)
+
+
 def environment_metrics(env) -> dict[str, float]:
     """Compute canonical terminal metrics from an environment batch."""
     if getattr(env, "priority_scope", "operation") == "legacy_job":
@@ -125,9 +162,13 @@ def environment_metrics(env) -> dict[str, float]:
             env.op_priorities,
             valid_mask=valid_mask,
         )
-    return {
+    metrics = {
         "makespan": float(np.mean(env.current_makespan)),
         "carbon": float(np.mean(env.total_carbon)),
         "priority": float(np.mean(priority)),
         "time_scale": float(env.pt_upper_bound),
     }
+    if getattr(env, "true_due_dates", None) is not None:
+        completion = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
+        metrics["tardiness"] = float(np.mean(total_tardiness(completion, env.true_due_dates)))
+    return metrics

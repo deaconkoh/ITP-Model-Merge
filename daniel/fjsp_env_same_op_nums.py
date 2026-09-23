@@ -3,7 +3,7 @@ import numpy as np
 import numpy.ma as ma
 import copy
 from params import configs
-from objectives import ObjectiveSpec, operation_priority_weighted_completion
+from objectives import ObjectiveSpec, operation_priority_weighted_completion, tardiness_potential
 from environment_utils import (candidate_incompatibility, machine_min_processing_time,
                                normalize_processing_times)
 import sys
@@ -117,6 +117,7 @@ class FJSPEnvForSameOpNums:
             configs.goal,
             carbon_weight=configs.carbon_reward_weight,
             priority_weight=configs.priority_reward_weight,
+            tardiness_weight=getattr(configs, "tardiness_reward_weight", 1.0),
         )
 
     def set_static_properties(self):
@@ -130,7 +131,8 @@ class FJSPEnvForSameOpNums:
         self.env_job_idx = self.env_idxs.repeat(self.number_of_jobs).reshape(self.number_of_envs, self.number_of_jobs)
         self.op_idx = np.arange(self.number_of_ops)[np.newaxis, :]
 
-    def set_initial_data(self, job_length_list, op_pt_list, priority_list=None, carbon_list=None):
+    def set_initial_data(self, job_length_list, op_pt_list, priority_list=None, carbon_list=None,
+                         due_date_list=None):
         """
             initialize the data of the instances
 
@@ -169,6 +171,7 @@ class FJSPEnvForSameOpNums:
         self.job_last_op_id = self.job_first_op_id + self.job_length - 1
 
         self.initialize_priorities(priority_list)
+        self.initialize_due_dates(due_date_list)
 
         self.initial_vars()
 
@@ -215,6 +218,10 @@ class FJSPEnvForSameOpNums:
 
         self.max_endTime = self.init_quality
         self.max_priority_score = self.compute_priority_score()
+        # Tardiness shaping starts from a potential of ZERO, not from the initial lower-bound
+        # tardiness, so the first step also charges any tardiness already unavoidable at t=0.
+        # The episode return is then exactly -T/time_scale rather than -T/time_scale + const.
+        self.tardiness_score = np.zeros(self.number_of_envs)
         """
             compute machine raw features
         """
@@ -275,6 +282,7 @@ class FJSPEnvForSameOpNums:
         self.init_quality = np.copy(self.old_init_quality)
         self.max_endTime = self.init_quality
         self.max_priority_score = np.copy(self.old_max_priority_score)
+        self.tardiness_score = np.zeros(self.number_of_envs)
         self.candidate_pt = np.copy(self.old_candidate_pt)
         self.candidate_process_relation = np.copy(self.old_candidate_process_relation)
         self.mch_current_available_op_nums = np.copy(self.old_mch_current_available_op_nums)
@@ -386,6 +394,28 @@ class FJSPEnvForSameOpNums:
             ])
 
         self.op_match_job_priority = self.op_priorities
+
+    def initialize_due_dates(self, due_date_list=None):
+        """Per-job due dates in RAW time units, shape [E, J]. None = no tardiness objective."""
+        if due_date_list is None:
+            if self.objective.uses_tardiness:
+                raise ValueError(f"goal {self.objective.goal!r} requires due dates")
+            self.true_due_dates = None
+            self.due_dates = None
+            return
+        due = np.asarray(due_date_list, dtype=np.float64)
+        if due.shape != (self.number_of_envs, self.number_of_jobs):
+            raise ValueError(f"due dates must be [envs, jobs] = "
+                             f"{(self.number_of_envs, self.number_of_jobs)}, got {due.shape}")
+        self.true_due_dates = due
+        # the shaping potential works on normalised lower bounds, so due dates share that scale
+        self.due_dates = due / self.pt_upper_bound
+
+    def compute_tardiness_score(self):
+        if self.due_dates is None:
+            return np.zeros(self.number_of_envs)
+        return tardiness_potential(self.op_ct_lb, self.job_last_op_id, self.env_job_idx,
+                                   self.due_dates)
 
     def compute_priority_score(self):
         """
@@ -539,7 +569,12 @@ class FJSPEnvForSameOpNums:
         priority_reward = self.max_priority_score - priority_score
         self.max_priority_score = priority_score
 
-        reward = self.objective.step_reward(makespan_reward, chosen_carbon, priority_reward)
+        tardiness_score = self.compute_tardiness_score()
+        tardiness_reward = self.tardiness_score - tardiness_score
+        self.tardiness_score = tardiness_score
+
+        reward = self.objective.step_reward(makespan_reward, chosen_carbon, priority_reward,
+                                            tardiness_reward)
 
         self.max_endTime = np.max(self.op_ct_lb, axis=1)
 

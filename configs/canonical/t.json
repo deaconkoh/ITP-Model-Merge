@@ -1,0 +1,12 @@
+{
+  "feature_schema": "canonical_f11_p9_v2",
+  "fea_j_input_dim": 11,
+  "fea_m_input_dim": 8,
+  "fea_pair_input_dim": 9,
+  "enable_priority": true,
+  "enable_carbon": true,
+  "carbon_feature": true,
+  "priority_scope": "operation",
+  "goal": "t",
+  "tardiness_reward_weight": 1.0
+}

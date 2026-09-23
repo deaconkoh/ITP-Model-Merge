@@ -130,9 +130,11 @@ parser.add_argument('--enable_carbon', type=str2bool, default=True,
                     help='Whether to use operation-machine carbon values for carbon-aware training/evaluation')
 parser.add_argument('--carbon_feature', type=str2bool, default=True,
                     help='Whether to add carbon as an extra pair feature; changes checkpoint architecture')
+parser.add_argument('--tardiness_reward_weight', type=float, default=1.0,
+                    help='Weight of the total-tardiness reward term (goals containing t)')
 parser.add_argument('--carbon_reward_weight', type=float, default=0.01,
                     help='Penalty weight for chosen carbon when carbon-aware reward is enabled')
-parser.add_argument('--goal', type=str, default='m', choices=['m', 'c', 'p', 'mc', 'mp', 'mcp'],
+parser.add_argument('--goal', type=str, default='m', choices=['m', 'c', 'p', 'mc', 'mp', 'mcp', 't', 'mt', 'ct', 'mct'],
                     help='Inherited objective: makespan/carbon/operation-priority and their combinations')
 
 # args for PPO Algorithm
