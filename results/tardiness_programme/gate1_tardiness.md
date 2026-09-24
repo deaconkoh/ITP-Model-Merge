@@ -76,3 +76,25 @@ closer to total completion time, which is time-like. The rule may therefore have
 structural (collinear-with-makespan) explanation at 20x10. A larger k inside the band would leave
 fewer jobs late and might separate better, but choosing k for separation after the fact is exactly
 what the rule exists to prevent.
+
+## 20x10 diagnostic: continue the two losing tardiness seeds for another 1000 updates
+DIAGNOSTIC ONLY. The extended checkpoints (`..._ext1000`) are not used in any composition and break the
+matched-budget protocol on purpose. Each run resumes from the seed's best-validation checkpoint (seed 444's
+was at update 380), same seed, same frozen due dates (k095s060).
+
+| seed | tardiness-spec T | makespan-spec T | gain | instances better | p (paired) | makespan cost |
+|---|---|---|---|---|---|---|
+| 222, original | 1312.5 | 1254.8 | -4.6% | 43% | 0.075 | +9.4% |
+| 222, +1000 updates | 1247.1 | 1254.8 | +0.6% | 50% | 0.79 | +8.0% |
+| 444, original | 1197.7 | 1125.5 | -6.4% | 40% | 0.023 | +6.2% |
+| 444, +1000 updates | 1165.0 | 1125.5 | -3.5% | 46% | 0.22 | +10.9% |
+
+Doubling the budget improved both specialists' tardiness by about 3-5%, but neither now beats its
+makespan counterpart: seed 222 draws level, seed 444 still loses. Validation tardiness in the extension
+flattened after its first quarter (seed 222 quarters 1311, 1223, 1235, 1244; seed 444 1282, 1250, 1237,
+1251). So the extra budget helped a little and then plateaued.
+
+Reading: the budget explanation is largely NOT supported. Extra training closes part of the gap but does
+not produce a specialist that wins its own objective at 20x10, while it keeps paying 8-11% in makespan.
+That leans toward the structural explanation, subject to the recorded k caveat (the smallest-k rule gave
+the tightest deadlines). Two seeds, one extension length: suggestive, not conclusive.
