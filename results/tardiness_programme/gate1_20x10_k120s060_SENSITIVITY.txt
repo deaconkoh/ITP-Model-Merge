@@ -1,0 +1,36 @@
+====================================================================================
+20x10: tardiness triple, due-date tag k120s060, pool trainvali-k120s060
+====================================================================================
+  specialist              makespan          carbon       tardiness
+  makespan spec        612.8 +-7.3    10143.7 +-170.8     355.3 +-26.4
+  carbon spec         1124.5 +-43.7    5960.1 +-30.2    5887.0 +-435.5
+  tardiness spec       690.8 +-23.8   10296.4 +-163.4     391.4 +-60.2
+
+  each specialist must be best on its own objective:
+    makespan   best = makespan   -> PASS   makespan=612.8, carbon=1124.5, tardiness=690.8
+    carbon     best = carbon     -> PASS   makespan=10143.7, carbon=5960.1, tardiness=10296.4
+    tardiness  best = makespan   -> FAIL   makespan=355.3, carbon=5887.0, tardiness=391.4
+    tardiness specialist wins tardiness at 2/4 seeds (seed-matched)
+    -> FAIL on the per-specialist criterion: 2 tardiness specialist(s) do not win their own objective
+    tardiness specialist pays in makespan or carbon: yes
+    advantage over the makespan specialist on tardiness: -10.2%
+
+  objective-space distances (Gate 1 method):
+    triple                               m<->c   c<->X   m<->X   m<->c / m<->X
+    makespan, carbon, priority (old)     1.701   1.666   0.128           13.3x
+    makespan, carbon, tardiness (new)    1.712   1.645   0.157           10.9x
+
+====================================================================================
+GATE 1 (tardiness): FAIL -- STOP
+--- 20x10 k095s060 (PRE-REGISTERED)
+  seed 111: makespan-spec T= 1127.9  tardiness-spec T= 1057.8  gain   +6.2%  t-spec better on  62% of instances  p=0.011  makespan cost +5.7%
+  seed 222: makespan-spec T= 1254.8  tardiness-spec T= 1312.5  gain   -4.6%  t-spec better on  43% of instances  p=0.075  makespan cost +9.4%
+  seed 333: makespan-spec T= 1200.1  tardiness-spec T= 1108.2  gain   +7.7%  t-spec better on  64% of instances  p=0.00056  makespan cost +7.0%
+  seed 444: makespan-spec T= 1125.5  tardiness-spec T= 1197.7  gain   -6.4%  t-spec better on  40% of instances  p=0.023  makespan cost +6.2%
+  across seeds: mean gain +0.7%  wins 2/4  t=0.20 p=0.857
+--- 20x10 k120s060 (SENSITIVITY)
+  seed 111: makespan-spec T=  337.3  tardiness-spec T=  452.8  gain  -34.3%  t-spec better on  31% of instances  p=4.3e-06  makespan cost +15.9%
+  seed 222: makespan-spec T=  385.3  tardiness-spec T=  379.6  gain   +1.5%  t-spec better on  56% of instances  p=0.8  makespan cost +13.0%
+  seed 333: makespan-spec T=  369.4  tardiness-spec T=  420.2  gain  -13.8%  t-spec better on  39% of instances  p=0.0079  makespan cost +12.9%
+  seed 444: makespan-spec T=  329.4  tardiness-spec T=  313.2  gain   +4.9%  t-spec better on  51% of instances  p=0.4  makespan cost +9.1%
+  across seeds: mean gain -10.4%  wins 2/4  t=-1.16 p=0.328

@@ -255,6 +255,23 @@ pre-stated band (1.20 instead of 0.95) the screen's tardiness advantage rises fr
 degeneracy may come from the smallest-k rule rather than from size. Heuristic screen only; the trained
 20x10 Gate 1 failure at k = 0.95 stands. Record: `results/tardiness_programme/k_sensitivity_20x10.md`.
 
+**Step 4 at 10x5 (tardiness triple, 2026-09-24/25).** Five arms, 4 seeds, budgets 0-1000
+(`results/step4_and_20x10_sensitivity.md`). Fine-tuning from the validation-selected merge beats
+training from scratch at every budget up to 500 updates (4/4 seeds, p <= 0.009; 60% better at budget 0)
+and converges with it by 1000 -- **H1 supported at low and middle budgets**. But warm-starting from the
+tardiness specialist ALONE is indistinguishable from the merge at every budget, and the makespan
+specialist overtakes the merge from about 100-250 updates and ends significantly better (-3.1%, 4/4
+seeds, p = 0.001) -- **H2 (composition specificity) not supported**: the benefit comes from starting at
+a relevant specialist, not from merging several. On validation, the best composition was a single
+specialist at 2 of 4 seeds. All arms converge to the same operating point by 1000 updates (supports H3).
+The merge itself does not improve under fine-tuning (0.888 -> 0.889).
+
+**20x10 sensitivity at k = 1.2 (loosest in the pre-stated band), SENSITIVITY EVIDENCE ONLY.** Trained
+tardiness specialists do worse, not better: -10.4% against their makespan counterparts on tardiness (2/4
+significantly worse, 2 tied), against +0.7% at the pre-registered k = 0.95. The CPU screen had predicted
++30.6%. So the smallest-k rule did not cause the 20x10 failure, and the screen's k-sensitivity does not
+transfer to trained policies at this size. The pre-registered 20x10 Gate 1 failure stands.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at

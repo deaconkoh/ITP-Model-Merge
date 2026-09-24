@@ -6,7 +6,8 @@ stated. Objective = (1/3, 1/3, 1/3) scalarisation per seed, relative to that see
 (makespan and carbon per instance; tardiness by the centroid's pool mean); lower is better. Reserved
 final-test sets untouched throughout.
 
-**Status: A complete, B complete, C IN PROGRESS** (this line is updated when C finishes).
+**Status: A, B and C all COMPLETE.** No step stopped early; all sanity checks passed; every run finished
+with no hangs or failures. The machine was shut down afterwards as instructed.
 
 ---
 
@@ -27,6 +28,12 @@ final-test sets untouched throughout.
    merge, 4/4 seeds, p = 0.001). It reaches the best final objective of any arm (0.863).
 4. **Fine-tuning does not improve the merge at all under this reward.** The merge arm's objective is
    0.888 at budget 0 and 0.889 at 1000; it trades about 10 makespan for about 28 tardiness.
+
+5. **20x10 sensitivity at k = 1.2: loosening the due dates does NOT rescue tardiness; it makes it
+   worse.** Trained at the loosest k the pre-stated band allowed, the tardiness specialists lose to
+   their makespan counterparts on tardiness by 10.4% on average (2/4 seeds significantly worse, 2 tied).
+   The CPU screen had predicted the opposite (+30.6%). The smallest-k rule is therefore NOT what caused
+   the pre-registered 20x10 Gate 1 failure, which stands as the primary result.
 
 Caveat that applies to 2 and 3: two of the four validation-selected merges are 90% one specialist
 (seed 333: 90% makespan; seed 444: 90% tardiness), so at those seeds the merge sits close to a single
@@ -170,8 +177,55 @@ pulls all starting points to a common operating point within 1000 updates, consi
 
 ## C -- 20x10 tardiness sensitivity arm at k = 1.2
 
-**IN PROGRESS at the time of writing.** Sensitivity arm only: the pre-registered k = 0.95 and its Gate 1
-failure at 20x10 remain the primary result. Separate manifest
-`daniel/data/due_dates/due_date_manifest_SENSITIVITY_20x10_k120s060.json` (286 instances, all 20x10
-splits, tag `k120s060`, due dates exactly 1.2/0.95 of the frozen ones, hash-checked, tampered hash
-raises); the pre-registered manifest is byte-identical.
+**SENSITIVITY ARM.** It does not replace the pre-registered k = 0.95; the pre-registered 20x10 Gate 1
+failure stands as the primary result. These specialists are not used in any composition or in Step 4.
+
+* Separate manifest `daniel/data/due_dates/due_date_manifest_SENSITIVITY_20x10_k120s060.json`: 286
+  instances (all 20x10 splits), tag `k120s060`, same s = 0.6, formula and per-job draws, due dates
+  exactly 1.2/0.95 of the frozen ones, per-file SHA-256, tampered hash raises. The pre-registered
+  manifest is byte-identical to before.
+* Four tardiness specialists `20x10+carbon+priority+t_k120s060_s{111,222,333,444}`, canonical
+  protocol and budget (1000 updates), 64.7-68.7 min each, provenance records under
+  `results/provenance/tardiness_specialists/`. Makespan and carbon specialists unchanged, re-evaluated
+  with the k = 1.2 due dates (pool `trainvali-k120s060`).
+
+### Per-specialist Gate 1, side by side (tardiness specialist vs the SAME seed's makespan specialist)
+
+| seed | k = 0.95 (pre-registered): gain | p | makespan cost | k = 1.2 (sensitivity): gain | p | makespan cost |
+|---|---|---|---|---|---|---|
+| 111 | +6.2% | 0.011 | +5.7% | **-34.3%** | 4.3e-06 | +15.9% |
+| 222 | -4.6% | 0.075 | +9.4% | +1.5% | 0.80 | +13.0% |
+| 333 | +7.7% | 0.0006 | +7.0% | **-13.8%** | 0.008 | +12.9% |
+| 444 | -6.4% | 0.023 | +6.2% | +4.9% | 0.40 | +9.1% |
+| **across seeds** | **+0.7%, 2/4 wins, p = 0.86** | | | **-10.4%, 2/4 wins, p = 0.33** | | |
+
+(gain = reduction in total tardiness relative to the makespan specialist; paired over 100 instances.)
+Both fail the per-specialist rule. At k = 1.2 the makespan specialist already keeps tardiness low (355
+on average, with 24% of jobs late), and the tardiness specialists pay 9-16% in makespan without beating
+it. Gate-1 distance: makespan<->tardiness 0.157 at k = 1.2 (10.9x) vs 0.085 at k = 0.95 (20.4x); the
+larger distance comes from the tardiness specialist being worse on makespan, not better on tardiness.
+
+### Reading (sensitivity evidence about the smallest-k rule, not the headline 20x10 result)
+* The heuristic screen predicted that loosening k would quadruple tardiness's separation at 20x10
+  (+7.3% -> +30.6%). Trained policies show the opposite. The screen's k-sensitivity does not transfer to
+  trained policies at this size.
+* So the smallest-k rule is not the explanation for the 20x10 failure. What remains is that at 20x10 the
+  makespan specialist is already about as good on tardiness as a tardiness-trained policy can get within
+  the budget. One untested possibility for the looser k: with only about a quarter of jobs late, the
+  tardiness reward is sparse, which could make it harder to learn from.
+
+---
+
+## What is where
+
+* Report: this file. Notes: `research_direction.md` (Gate 2 role change; Step 4 and sensitivity findings).
+* A: `results/step4/merge_init_selection.json`, `results/step4/stepA_selection.txt`, validation
+  evaluations `daniel/test_results/SD2/vali-k125s060_10x5+carbon+priority/`.
+* B: `results/step4/step4_analysis.txt`, `results/step4/scratch_init_verification.txt`, evaluations
+  `daniel/test_results/SD2/trainvali-k125s060_10x5+carbon+priority/*s4t_*`, provenance
+  `results/provenance/step4_arms/`. Checkpoints (gitignored, on disk):
+  `daniel/trained_network/SD2/10x5+carbon+priority+s4t_*@u*.pth`.
+* C: `results/tardiness_programme/gate1_20x10_k120s060_SENSITIVITY.txt`, evaluations
+  `daniel/test_results/SD2/trainvali-k120s060_20x10+carbon+priority/`, provenance
+  `results/provenance/tardiness_specialists/20x10+carbon+priority+t_k120s060_*.json`.
+* Not run, as instructed: Steps 5-6 of the arms programme, anything on the reserved final-test sets.

@@ -98,3 +98,19 @@ Reading: the budget explanation is largely NOT supported. Extra training closes 
 not produce a specialist that wins its own objective at 20x10, while it keeps paying 8-11% in makespan.
 That leans toward the structural explanation, subject to the recorded k caveat (the smallest-k rule gave
 the tightest deadlines). Two seeds, one extension length: suggestive, not conclusive.
+
+
+## Sensitivity arm: trained 20x10 tardiness specialists at k = 1.2 (loosest in the band)
+SENSITIVITY ONLY; the pre-registered k = 0.95 result above stands. Separate manifest, tag k120s060.
+
+| seed | k = 0.95 gain (p) | k = 1.2 gain (p) | k = 1.2 makespan cost |
+|---|---|---|---|
+| 111 | +6.2% (0.011) | -34.3% (4.3e-06) | +15.9% |
+| 222 | -4.6% (0.075) | +1.5% (0.80) | +13.0% |
+| 333 | +7.7% (0.0006) | -13.8% (0.008) | +12.9% |
+| 444 | -6.4% (0.023) | +4.9% (0.40) | +9.1% |
+| across seeds | +0.7%, 2/4, p = 0.86 | -10.4%, 2/4, p = 0.33 | |
+
+Loosening k made the trained tardiness specialists worse relative to the makespan specialist, the
+opposite of the CPU screen's prediction (+7.3% -> +30.6%). The smallest-k caveat recorded above is
+therefore NOT supported by trained policies: it is not what caused the 20x10 failure.
