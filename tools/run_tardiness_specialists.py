@@ -57,7 +57,8 @@ def train_one(size, seed, tag, args, logdir):
            "--validation_data_path", f"./data/data_validation/SD2/{size}+carbon+priority",
            "--test_data_path", f"./data/data_final_test/SD2/{size}+carbon+priority",
            "--n_j", n_j, "--n_m", n_m, "--data_suffix", "carbon+priority",
-           "--seed_train", str(seed), "--model_suffix", f"t_{tag}_s{seed}", "--device", "cuda"]
+           "--seed_train", str(seed), "--model_suffix", f"t_{tag}_s{seed}", "--device", "cuda",
+           "--due_date_manifest", str(Path(args.manifest).resolve())]
     lf = logdir / f"train_{name}.log"
     ok, g = gpu_ok()
     log(f"GPU before {name}: {g}")
@@ -82,7 +83,8 @@ def train_one(size, seed, tag, args, logdir):
         return "fail", name
     run_json = DAN / "train_log/SD2" / f"{name}.run.json"
     rec = {"model_name": name, "checkpoint_sha256": sha(CKPT / f"{name}.pth"),
-           "due_date_manifest_sha256": sha(MANIFEST), "dd_tag": tag, "seed": seed, "size": size,
+           "due_date_manifest": str(Path(args.manifest).resolve()),
+           "due_date_manifest_sha256": sha(args.manifest), "dd_tag": tag, "seed": seed, "size": size,
            "wall_clock_seconds": round(el, 1), "finished": time.strftime("%Y-%m-%d %H:%M:%S"),
            "command": " ".join(cmd),
            "run_manifest": json.loads(run_json.read_text()) if run_json.exists() else None}
@@ -107,8 +109,10 @@ def main():
     ap.add_argument("--hang-sec", type=int, default=420)
     ap.add_argument("--gap-sec", type=int, default=60)
     ap.add_argument("--log-dir", default=str(Path.home() / ".claude/jobs/programme"))
+    ap.add_argument("--manifest", default=str(MANIFEST),
+                    help="due-date manifest (a sensitivity manifest must carry its own k/s tag)")
     args = ap.parse_args()
-    manifest = json.loads(MANIFEST.read_text())
+    manifest = json.loads(Path(args.manifest).read_text())
     logdir = Path(args.log_dir); logdir.mkdir(parents=True, exist_ok=True)
     first = True
     for size in args.sizes:

@@ -1,0 +1,239 @@
+{
+  "rule": "for each seed, the grid composition (66 points, step 0.1; the centroid\nis the reference, not a candidate) with the lowest mean scalarised objective at (1/3,1/3,1/3) on the\n10x5 validation split. Scalarisation as everywhere else in the tardiness programme: makespan and\ncarbon per instance relative to that seed's centroid composition ON THE SAME SPLIT, tardiness\nrelative to the centroid's pool mean. No rule switching if the pick looks unlucky.\n\nCandidate set. The literal rule (all 66 grid points) picked a VERTEX -- a single specialist, not a\nmerge -- at seeds 333 (100/0/0 = makespan specialist) and 444 (0/0/100 = tardiness specialist). Arm\n(a) is \"fine-tune from a MERGE\"; a vertex would make it the same checkpoint and seed as arm (c) or\n(e), so the merge-vs-specialist comparison would be zero by construction. The arms therefore use the\nMERGE-ONLY candidate set: the 63 grid points with at least two specialists at non-zero weight. This\nis a definitional restriction (a merge must combine specialists), not a rule switch after an unlucky\ndraw; the literal picks are reported alongside, because \"on validation, no merge beat the best single\nspecialist\" is itself evidence about composition.",
+  "preference": "1/3,1/3,1/3",
+  "due_date_tag": "k125s060",
+  "n_validation_instances": 18,
+  "candidate_set_used": "merge-only (63)",
+  "literal_rule_picks": {
+    "111": {
+      "composition_permille": [
+        500,
+        100,
+        400
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m500c100t400_k125s060_s111",
+      "validation_objective": 0.8306382995509431,
+      "pool_objective": 0.8557049952829814,
+      "pool_optimum_permille": [
+        0,
+        100,
+        900
+      ],
+      "pool_optimum_objective": 0.8499807061084982,
+      "pool_gap_percent": 0.6734610719213792,
+      "pick_rank_on_pool": 4,
+      "validation_ties_p_gt_0.05": 20
+    },
+    "222": {
+      "composition_permille": [
+        100,
+        100,
+        800
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m100c100t800_k125s060_s222",
+      "validation_objective": 0.8422999207763876,
+      "pool_objective": 0.8745857599989164,
+      "pool_optimum_permille": [
+        200,
+        100,
+        700
+      ],
+      "pool_optimum_objective": 0.8635256329705016,
+      "pool_gap_percent": 1.28081050592191,
+      "pick_rank_on_pool": 11,
+      "validation_ties_p_gt_0.05": 22
+    },
+    "333": {
+      "composition_permille": [
+        1000,
+        0,
+        0
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m1000c000t000_k125s060_s333",
+      "validation_objective": 0.8134705686317472,
+      "pool_objective": 0.9094018680297873,
+      "pool_optimum_permille": [
+        800,
+        200,
+        0
+      ],
+      "pool_optimum_objective": 0.8855093030113376,
+      "pool_gap_percent": 2.6981721069669904,
+      "pick_rank_on_pool": 14,
+      "validation_ties_p_gt_0.05": 2
+    },
+    "444": {
+      "composition_permille": [
+        0,
+        0,
+        1000
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m000c000t1000_k125s060_s444",
+      "validation_objective": 0.895804549447852,
+      "pool_objective": 0.9298688094358518,
+      "pool_optimum_permille": [
+        100,
+        100,
+        800
+      ],
+      "pool_optimum_objective": 0.9073915452348111,
+      "pool_gap_percent": 2.4771295610015964,
+      "pick_rank_on_pool": 22,
+      "validation_ties_p_gt_0.05": 24
+    }
+  },
+  "per_seed": {
+    "111": {
+      "composition_permille": [
+        500,
+        100,
+        400
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m500c100t400_k125s060_s111",
+      "validation_objective": 0.8306382995509431,
+      "pool_objective": 0.8557049952829814,
+      "pool_optimum_permille": [
+        0,
+        100,
+        900
+      ],
+      "pool_optimum_objective": 0.8499807061084982,
+      "pool_gap_percent": 0.6734610719213792,
+      "pick_rank_on_pool": 4,
+      "validation_ties_p_gt_0.05": 18
+    },
+    "222": {
+      "composition_permille": [
+        100,
+        100,
+        800
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m100c100t800_k125s060_s222",
+      "validation_objective": 0.8422999207763876,
+      "pool_objective": 0.8745857599989164,
+      "pool_optimum_permille": [
+        200,
+        100,
+        700
+      ],
+      "pool_optimum_objective": 0.8635256329705016,
+      "pool_gap_percent": 1.28081050592191,
+      "pick_rank_on_pool": 11,
+      "validation_ties_p_gt_0.05": 20
+    },
+    "333": {
+      "composition_permille": [
+        900,
+        100,
+        0
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m900c100t000_k125s060_s333",
+      "validation_objective": 0.8238744152915028,
+      "pool_objective": 0.8928819959839039,
+      "pool_optimum_permille": [
+        800,
+        200,
+        0
+      ],
+      "pool_optimum_objective": 0.8855093030113376,
+      "pool_gap_percent": 0.8325935083340371,
+      "pick_rank_on_pool": 3,
+      "validation_ties_p_gt_0.05": 6
+    },
+    "444": {
+      "composition_permille": [
+        100,
+        0,
+        900
+      ],
+      "checkpoint": "10x5+carbon+priority+simplex_m100c000t900_k125s060_s444",
+      "validation_objective": 0.9038157027534139,
+      "pool_objective": 0.9278428861774011,
+      "pool_optimum_permille": [
+        100,
+        100,
+        800
+      ],
+      "pool_optimum_objective": 0.9073915452348111,
+      "pool_gap_percent": 2.253860645935115,
+      "pick_rank_on_pool": 19,
+      "validation_ties_p_gt_0.05": 28
+    }
+  },
+  "111": {
+    "composition_permille": [
+      500,
+      100,
+      400
+    ],
+    "checkpoint": "10x5+carbon+priority+simplex_m500c100t400_k125s060_s111",
+    "validation_objective": 0.8306382995509431,
+    "pool_objective": 0.8557049952829814,
+    "pool_optimum_permille": [
+      0,
+      100,
+      900
+    ],
+    "pool_optimum_objective": 0.8499807061084982,
+    "pool_gap_percent": 0.6734610719213792,
+    "pick_rank_on_pool": 4,
+    "validation_ties_p_gt_0.05": 18
+  },
+  "222": {
+    "composition_permille": [
+      100,
+      100,
+      800
+    ],
+    "checkpoint": "10x5+carbon+priority+simplex_m100c100t800_k125s060_s222",
+    "validation_objective": 0.8422999207763876,
+    "pool_objective": 0.8745857599989164,
+    "pool_optimum_permille": [
+      200,
+      100,
+      700
+    ],
+    "pool_optimum_objective": 0.8635256329705016,
+    "pool_gap_percent": 1.28081050592191,
+    "pick_rank_on_pool": 11,
+    "validation_ties_p_gt_0.05": 20
+  },
+  "333": {
+    "composition_permille": [
+      900,
+      100,
+      0
+    ],
+    "checkpoint": "10x5+carbon+priority+simplex_m900c100t000_k125s060_s333",
+    "validation_objective": 0.8238744152915028,
+    "pool_objective": 0.8928819959839039,
+    "pool_optimum_permille": [
+      800,
+      200,
+      0
+    ],
+    "pool_optimum_objective": 0.8855093030113376,
+    "pool_gap_percent": 0.8325935083340371,
+    "pick_rank_on_pool": 3,
+    "validation_ties_p_gt_0.05": 6
+  },
+  "444": {
+    "composition_permille": [
+      100,
+      0,
+      900
+    ],
+    "checkpoint": "10x5+carbon+priority+simplex_m100c000t900_k125s060_s444",
+    "validation_objective": 0.9038157027534139,
+    "pool_objective": 0.9278428861774011,
+    "pool_optimum_permille": [
+      100,
+      100,
+      800
+    ],
+    "pool_optimum_objective": 0.9073915452348111,
+    "pool_gap_percent": 2.253860645935115,
+    "pick_rank_on_pool": 19,
+    "validation_ties_p_gt_0.05": 28
+  }
+}

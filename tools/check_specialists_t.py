@@ -50,8 +50,9 @@ def distances(means, keys):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sizes", nargs="+", default=["10x5", "20x10"])
+    ap.add_argument("--manifest", default=str(REPO / "daniel/data/due_dates/due_date_manifest.json"))
     args = ap.parse_args()
-    manifest = json.loads((REPO / "daniel/data/due_dates/due_date_manifest.json").read_text())
+    manifest = json.loads(Path(args.manifest).read_text())
     ok_all = True
     for size in args.sizes:
         tag = manifest["dd_tag_by_size"][size]

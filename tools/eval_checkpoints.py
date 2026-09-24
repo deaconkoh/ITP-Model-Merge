@@ -20,6 +20,8 @@ def main():
     ap.add_argument("--out-tag", required=True, help="prefix for the output results dir")
     ap.add_argument("--models", nargs="+", required=True)
     ap.add_argument("--seed-test", type=int, default=50)
+    ap.add_argument("--manifest", default=None,
+                    help="due-date manifest to read (default: the pre-registered one)")
     ap.add_argument("--due-dates", action="store_true",
                     help="read FROZEN due dates from the manifest and add a tardiness column; the "
                          "due-date tag is appended to --out-tag so results are self-describing")
@@ -36,7 +38,7 @@ def main():
     due = None
     if args.due_dates:
         from due_dates import due_dates_for_directory, load_manifest, manifest_tag
-        manifest = load_manifest()
+        manifest = load_manifest(args.manifest) if args.manifest else load_manifest()
         due = due_dates_for_directory(pool, manifest)
         args.out_tag = f"{args.out_tag}-{manifest_tag(pool, manifest)}"
     out_dir = f"./test_results/SD2/{args.out_tag}_{args.pool}"

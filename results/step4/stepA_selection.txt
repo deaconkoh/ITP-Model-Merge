@@ -1,0 +1,19 @@
+validation split: 18 instances per seed; evaluation pool: 100
+
+--- candidate set: LITERAL rule, all 66 grid points (66 compositions)
+  seed  VALIDATION pick   pool optimum    same?    pool gap  pick rank on pool   indistinguishable on vali
+  111   50/10/40          0/10/90         NO         +0.67%           4 of 66                  20 of 65
+  222   10/10/80          20/10/70        NO         +1.28%          11 of 66                  22 of 65
+  333   100/0/0           80/20/0         NO         +2.70%          14 of 66                   2 of 65
+  444   0/0/100           10/10/80        NO         +2.48%          22 of 66                  24 of 65
+  mean evaluation-pool gap from choosing on validation: +1.78%
+
+--- candidate set: MERGE-ONLY, >= 2 specialists (used for arm a) (63 compositions)
+  seed  VALIDATION pick   pool optimum    same?    pool gap  pick rank on pool   indistinguishable on vali
+  111   50/10/40          0/10/90         NO         +0.67%           4 of 63                  18 of 62
+  222   10/10/80          20/10/70        NO         +1.28%          11 of 63                  20 of 62
+  333   90/10/0           80/20/0         NO         +0.83%           3 of 63                   6 of 62
+  444   10/0/90           10/10/80        NO         +2.25%          19 of 63                  28 of 62
+  mean evaluation-pool gap from choosing on validation: +1.26%
+
+  wrote results/step4/merge_init_selection.json
