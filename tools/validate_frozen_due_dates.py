@@ -19,6 +19,8 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "tools")); sys.path.insert(0, str(REPO / "daniel"))
+# daniel/params.py parses sys.argv at import time; keep this script's own arguments out of its way
+_ARGV, sys.argv = sys.argv[1:], sys.argv[:1]
 from dispatcher import (load_pool, dispatch, priority_weighted_completion, ect_rule, carbon_rule,  # noqa
                         edd_rule, slack_rule, wspt_rule, balance_rule, atc_rule, watc_rule, blend)
 from due_dates import load_manifest, due_dates_for_directory, instance_key, manifest_tag  # noqa
@@ -51,13 +53,26 @@ def scores(res, prios, due):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sizes", nargs="+", default=["10x5", "20x10"])
+    ap.add_argument("--k-override", type=float, default=None,
+                    help="SENSITIVITY ANALYSIS ONLY: rescale the frozen due dates to this k. The same "
+                         "per-job draws u_j and s are kept (d_j = k u_j P_j is linear in k), so the "
+                         "result is exactly what the rule would give at that k. Never used for training.")
+    args = ap.parse_args(_ARGV)
     manifest = load_manifest()
-    for size in ("10x5", "20x10"):
+    for size in args.sizes:
         pool_dir = REPO / f"daniel/data/data_train_vali/SD2/{size}+carbon+priority"
         frozen = dict(zip([instance_key(f) for f in sorted_instance_files(str(pool_dir))],
                           due_dates_for_directory(pool_dir, manifest)))       # hash-checked
         inst = load_pool(REPO, size)
         dues = [frozen[instance_key(f)] for f, *_ in inst]
+        k_frozen = manifest["k_by_size"][size]
+        label = f"FROZEN k={k_frozen}"
+        if args.k_override is not None:
+            dues = [d * (args.k_override / k_frozen) for d in dues]
+            label = f"SENSITIVITY k={args.k_override} (pre-registered k={k_frozen} unchanged)"
         fam = {r: {o: [] for o in NAME} for r in FAMILY}
         for (f, _, n_mch, jobs, prios), due in zip(inst, dues):
             for rn, rule in FAMILY.items():
@@ -66,8 +81,11 @@ def main():
                     fam[rn][o].append(v)
         fam = {r: {o: np.array(v) for o, v in d.items()} for r, d in fam.items()}
         win = {o: min(FAMILY, key=lambda r: fam[r][o].mean()) for o in NAME}
+        ect_tf = np.mean([np.mean(dispatch(jobs, n_mch, ect_rule, due=due)["job_completion"] > due + 1e-9)
+                          for (f, _, n_mch, jobs, prios), due in zip(inst, dues)])
+        print(f"  tardy fraction of jobs under the ECT heuristic: {ect_tf:.3f}")
         print("=" * 92)
-        print(f"{size}: FROZEN due dates, tag {manifest_tag(pool_dir, manifest)}, {len(inst)} instances")
+        print(f"{size}: {label}, frozen tag {manifest_tag(pool_dir, manifest)}, {len(inst)} instances")
         print("=" * 92)
         print("  specialist advantage over the MAKESPAN specialist on each objective:")
         for o in ("c", "t", "p", "q"):

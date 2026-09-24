@@ -215,6 +215,38 @@ and the damage is invisible from the objective's name.
 * **Calibration (10x5):** the closed-form anchor under-weights tardiness by at least 2x; 2x, 4x and
   8x the anchor are indistinguishable (a plateau). Record: `results/tardiness_programme/step6_calibration.md`.
 
+**Finding: Gate 2 tests whether the best merge uses every specialist, not whether an objective is
+genuine.** The two tests gave OPPOSITE answers across the two triples (10x5):
+* Retired **priority** is not a genuine separate axis (collinear with makespan at Gate 1), yet it PASSED
+  Gate 2 at the equal preference: interior optimum at all four seeds, interior advantage +0.38%
+  (4/4 seeds, p = 0.04). It failed only at the carbon-leaning preference, where one seed's optimum
+  (seed 333) sat on the makespan-carbon edge.
+* **Tardiness** at 10x5 IS a genuine axis (its specialists win their own objective by 14-21% at every
+  seed), yet it FAILED Gate 2: interior advantage -0.17% / -0.35% (p = 0.72 / 0.60).
+
+What the two triples share is that their two TIME-LIKE specialists act as near-substitutes for
+composition. In the priority triple either one can be dropped for about 1% or less (makespan +0.78% /
++1.08%, priority +0.52% / +0.25%). In the tardiness triple the substitution runs one way: makespan can
+be dropped cheaply (+0.54% / +0.83%, and adding it back costs nothing up to 20-30% weight), but
+tardiness cannot (+2.48% / +1.72%) -- the tardiness specialist largely covers the makespan direction.
+
+Stated precisely, because the shorthand overstates it: the tardiness optimum is ON the
+tardiness-carbon edge in 3 of 8 (seed, preference) cases and within 20% makespan in 6 of 8, but seed 333
+sits on the makespan-carbon edge at both preferences. Priority's optimum was interior at every seed at
+the equal preference; it did not collapse onto the makespan-carbon edge. The shared finding is
+redundancy between the time-like specialists, not a common edge.
+
+Consequence for the programme: an edge optimum is not evidence against the objective, and an interior
+optimum is not evidence for it. Objective genuineness is judged by Gate 1 (per-specialist) and the
+separation screen; Gate 2 answers the composition question only. Records:
+`results/tardiness_programme/gate2_full_report.md`.
+
+**20x10 k sensitivity (CPU screen only, pre-registered k unchanged).** At the loosest k in the
+pre-stated band (1.20 instead of 0.95) the screen's tardiness advantage rises from +7.3% to +30.6%
+(trained-makespan tardy fraction 0.57 -> 0.24), larger than 10x5's +10.2%. Much of the 20x10
+degeneracy may come from the smallest-k rule rather than from size. Heuristic screen only; the trained
+20x10 Gate 1 failure at k = 0.95 stands. Record: `results/tardiness_programme/k_sensitivity_20x10.md`.
+
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point
   grid missed it entirely, understating headroom by roughly 60%. Composition sweeps must be run at

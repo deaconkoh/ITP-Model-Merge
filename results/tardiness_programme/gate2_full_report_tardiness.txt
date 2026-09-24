@@ -1,0 +1,80 @@
+
+================================================================================================
+PREFERENCE m33c33t33   (66 grid compositions + centroid, 4 seeds)
+================================================================================================
+  seed  optimum m/c/t     face             edge dist     obj  vs centroid  within 0.5%
+  111   0/10/90           c-t edge              0.0pp  0.8500      +15.00%         3 of 66
+  222   20/10/70          interior             10.0pp  0.8635      +13.65%         2 of 66
+  333   80/20/0           m-c edge              0.0pp  0.8855      +11.45%         1 of 66
+  444   10/10/80          interior             10.0pp  0.9074       +9.26%         3 of 66
+
+  weight on each specialist at the optimum (mean over seeds): makespan 27.5% (sd 35.9)  carbon 12.5% (sd 5.0)  tardiness 60.0% (sd 40.8)
+
+  INTERIOR vs EDGE (best interior vs best edge composition; biased toward the interior, both are selected maxima)
+    seed 111: interior 30/10/60 0.8517   edge 0/10/90 (c-t edge) 0.8500   interior advantage -0.20%   paired over instances p=0.821
+    seed 222: interior 20/10/70 0.8635   edge 60/0/40 (m-t edge) 0.8674   interior advantage +0.45%   paired over instances p=0.642
+    seed 333: interior 20/10/70 0.8976   edge 80/20/0 (m-c edge) 0.8855   interior advantage -1.36%   paired over instances p=0.19
+    seed 444: interior 10/10/80 0.9074   edge 0/20/80 (c-t edge) 0.9115   interior advantage +0.45%   paired over instances p=0.648
+    seeds as the unit: mean -0.17%, 2/4 seeds favour the interior, t=-0.39, p=0.72
+
+  MAKESPAN WEIGHT PROFILE: best composition with makespan weight fixed, relative to the best with it at ZERO (positive = adding it costs)
+    seed        w=0%     w=10%     w=20%     w=30%     w=50%     w=70%
+    111       +0.00%    +0.91%    +0.25%    +0.20%    +0.67%    +2.36%
+    222       +0.00%    +0.06%    -0.54%    +0.35%    +0.51%    +1.10%
+    333       +0.00%    +0.17%    +0.21%    +1.27%    +1.62%    -0.50%
+    444       +0.00%    -0.45%    -0.07%    +0.30%    +1.31%    +0.60%
+    mean      +0.00%    +0.17%    -0.04%    +0.53%    +1.03%    +0.89%
+    seeds as the unit, w=10%: mean +0.17%, t=0.60, p=0.59
+    seeds as the unit, w=20%: mean -0.04%, t=-0.21, p=0.85
+
+  STABILITY: one seed's optimum applied to another seed, % worse than that seed's own optimum
+    rows = optimum from seed, columns = evaluated on seed [111, 222, 333, 444]
+    111       0.00%    0.54%    2.70%    1.96%
+    222       0.91%    0.00%    1.36%    0.38%
+    333       3.70%    3.38%    0.00%    5.39%
+    444       0.91%    1.28%    2.64%    0.00%
+    off-diagonal mean 2.10%, max 5.39%
+
+================================================================================================
+PREFERENCE m25c50t25   (66 grid compositions + centroid, 4 seeds)
+================================================================================================
+  seed  optimum m/c/t     face             edge dist     obj  vs centroid  within 0.5%
+  111   10/20/70          interior             10.0pp  0.9271       +7.29%         1 of 66
+  222   0/30/70           c-t edge              0.0pp  0.9318       +6.82%         2 of 66
+  333   70/30/0           m-c edge              0.0pp  0.9463       +5.37%         1 of 66
+  444   0/20/80           c-t edge              0.0pp  0.9644       +3.56%         4 of 66
+
+  weight on each specialist at the optimum (mean over seeds): makespan 20.0% (sd 33.7)  carbon 25.0% (sd 5.8)  tardiness 55.0% (sd 37.0)
+
+  INTERIOR vs EDGE (best interior vs best edge composition; biased toward the interior, both are selected maxima)
+    seed 111: interior 10/20/70 0.9271   edge 0/20/80 (c-t edge) 0.9356   interior advantage +0.91%   paired over instances p=0.224
+    seed 222: interior 20/20/60 0.9340   edge 0/30/70 (c-t edge) 0.9318   interior advantage -0.24%   paired over instances p=0.749
+    seed 333: interior 70/20/10 0.9646   edge 70/30/0 (m-c edge) 0.9463   interior advantage -1.93%   paired over instances p=0.0182
+    seed 444: interior 30/20/50 0.9655   edge 0/20/80 (c-t edge) 0.9644   interior advantage -0.12%   paired over instances p=0.888
+    seeds as the unit: mean -0.35%, 1/4 seeds favour the interior, t=-0.59, p=0.60
+
+  MAKESPAN WEIGHT PROFILE: best composition with makespan weight fixed, relative to the best with it at ZERO (positive = adding it costs)
+    seed        w=0%     w=10%     w=20%     w=30%     w=50%     w=70%
+    111       +0.00%    -0.91%    +0.39%    -0.33%    -0.14%    +0.62%
+    222       +0.00%    +0.69%    +0.24%    +0.56%    +1.94%    +1.68%
+    333       +0.00%    +0.64%    -0.33%    +0.60%    +0.45%    -2.33%
+    444       +0.00%    +0.50%    +0.67%    +0.12%    +1.19%    +1.43%
+    mean      +0.00%    +0.23%    +0.24%    +0.24%    +0.86%    +0.35%
+    seeds as the unit, w=10%: mean +0.23%, t=0.60, p=0.59
+    seeds as the unit, w=20%: mean +0.24%, t=1.15, p=0.33
+
+  STABILITY: one seed's optimum applied to another seed, % worse than that seed's own optimum
+    rows = optimum from seed, columns = evaluated on seed [111, 222, 333, 444]
+    111       0.00%    0.69%    3.08%    0.50%
+    222       3.04%    0.00%    6.23%    0.42%
+    333       4.24%    3.23%    0.00%    4.06%
+    444       0.92%    1.17%    2.38%    0.00%
+    off-diagonal mean 2.50%, max 6.23%
+
+================================================================================================
+AGREEMENT BETWEEN THE TWO PREFERENCES, seed by seed
+================================================================================================
+  seed 111: m33c33t33 0/10/90 (c-t edge)   m25c50t25 10/20/70 (interior)   moved 20pp   different face
+  seed 222: m33c33t33 20/10/70 (interior)   m25c50t25 0/30/70 (c-t edge)   moved 20pp   different face
+  seed 333: m33c33t33 80/20/0 (m-c edge)   m25c50t25 70/30/0 (m-c edge)   moved 10pp   SAME face
+  seed 444: m33c33t33 10/10/80 (interior)   m25c50t25 0/20/80 (c-t edge)   moved 10pp   different face
