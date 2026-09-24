@@ -1,0 +1,113 @@
+====================================================================================================
+SANITY CHECKS
+====================================================================================================
+  seed 111: merge@u0 vs composition 50/10/40: max |difference| over all metrics = 0 -> PASS (exact)
+  seed 222: merge@u0 vs composition 10/10/80: max |difference| over all metrics = 0 -> PASS (exact)
+  seed 333: merge@u0 vs composition 90/10/0: max |difference| over all metrics = 0 -> PASS (exact)
+  seed 444: merge@u0 vs composition 10/0/90: max |difference| over all metrics = 0 -> PASS (exact)
+  seed 111: scratch@u0 objective 1.286 (centroid = 1.000; warm starts at u0: 0.856, 0.873, 1.303, 0.869) -> PASS (random-init level)   makespan 591, carbon 2865, tardiness 930
+  seed 222: scratch@u0 objective 1.512 (centroid = 1.000; warm starts at u0: 0.875, 0.885, 1.341, 0.885) -> PASS (random-init level)   makespan 689, carbon 2613, tardiness 1340
+  seed 333: scratch@u0 objective 1.372 (centroid = 1.000; warm starts at u0: 0.893, 0.909, 1.364, 0.896) -> PASS (random-init level)   makespan 633, carbon 2562, tardiness 1079
+  seed 444: scratch@u0 objective 1.514 (centroid = 1.000; warm starts at u0: 0.928, 0.959, 1.596, 0.930) -> PASS (random-init level)   makespan 592, carbon 2030, tardiness 1134
+
+  SANITY: PASS
+
+====================================================================================================
+BUDGET CURVES (objective, lower is better; mean +- sd across seeds)
+====================================================================================================
+   updates           merge (a)         scratch (b)   makespan spec (c)     carbon spec (d)  tardiness spec (e)
+         0      0.8878 +-0.0307      1.4211 +-0.1121      0.9066 +-0.0381      1.4009 +-0.1324      0.8949 +-0.0256
+        50      0.9000 +-0.0408      1.2902 +-0.0480      0.9268 +-0.0466      1.3158 +-0.0786      0.9170 +-0.0283
+       100      0.9150 +-0.0900      1.2856 +-0.0522      0.9097 +-0.0306      1.2195 +-0.1628      0.9175 +-0.0536
+       250      0.8965 +-0.0406      1.0556 +-0.0400      0.8811 +-0.0435      0.9103 +-0.0164      0.8937 +-0.0229
+       500      0.8874 +-0.0314      0.9141 +-0.0398      0.8702 +-0.0399      0.9100 +-0.0385      0.8919 +-0.0328
+      1000      0.8894 +-0.0302      0.9017 +-0.0444      0.8630 +-0.0324      0.8990 +-0.0252      0.8849 +-0.0430
+
+  per seed:
+   seed 111
+           0              0.8557              1.2861              0.8733              1.3030              0.8695
+          50              0.8798              1.2386              0.9403              1.2683              0.9138
+         100              0.8583              1.2253              0.9188              1.1114              0.8565
+         250              0.8541              1.0695              0.8487              0.8904              0.8899
+         500              0.8618              0.8852              0.8455              0.8645              0.8779
+        1000              0.8729              0.8645              0.8500              0.8699              0.8680
+   seed 222
+           0              0.8746              1.5122              0.8846              1.3410              0.8847
+          50              0.8762              1.3544              0.9160              1.2713              0.8874
+         100              0.8671              1.2586              0.8947              1.0827              0.9267
+         250              0.8859              1.0329              0.8985              0.9062              0.8721
+         500              0.8905              0.9198              0.8493              0.9134              0.8651
+        1000              0.8672              0.8648              0.8354              0.8880              0.8506
+   seed 333
+           0              0.8929              1.3717              0.9094              1.3638              0.8957
+          50              0.8829              1.2890              0.8698              1.2909              0.9111
+         100              0.8855              1.3298              0.8774              1.2442              0.9016
+         250              0.8943              1.0151              0.8426              0.9150              0.8866
+         500              0.8667              0.8832              0.8562              0.9039              0.8852
+        1000              0.8843              0.9238              0.8568              0.9105              0.8733
+   seed 444
+           0              0.9278              1.5144              0.9592              1.5959              0.9299
+          50              0.9610              1.2789              0.9812              1.4327              0.9556
+         100              1.0490              1.3286              0.9480              1.4398              0.9850
+         250              0.9516              1.1051              0.9345              0.9297              0.9261
+         500              0.9306              0.9682              0.9297              0.9582              0.9394
+        1000              0.9334              0.9535              0.9098              0.9274              0.9477
+
+====================================================================================================
+CROSSOVERS: first budget at which an arm is at least as good as the MERGE arm at the SAME budget
+====================================================================================================
+  scratch (b)          pooled:  never   per seed: s111:1000, s222:1000, s333:never, s444:never   (2/4 seeds cross -- NOT a crossover)
+  makespan spec (c)    pooled:    100   per seed: s111:250, s222:500, s333:50, s444:100   (4/4 seeds cross)
+  carbon spec (d)      pooled:  never   per seed: s111:1000, s222:never, s333:never, s444:250   (2/4 seeds cross -- NOT a crossover)
+  tardiness spec (e)   pooled:    250   per seed: s111:100, s222:250, s333:250, s444:50   (4/4 seeds cross)
+
+====================================================================================================
+MERGE vs SCRATCH: scratch updates needed to reach the merge arm's quality at each budget
+====================================================================================================
+  merge@0     scratch needs: pooled  >1000   per seed >1000, 884, 475, >1000   | matched budget: scratch worse by +60.0% (4/4 seeds, seeds-as-unit p=0.00153)
+  merge@50    scratch needs: pooled  >1000   per seed 599, 866, >1000, 701   | matched budget: scratch worse by +43.6% (4/4 seeds, seeds-as-unit p=0.00147)
+  merge@100   scratch needs: pooled    498   per seed >1000, 972, 494, 332   | matched budget: scratch worse by +41.2% (4/4 seeds, seeds-as-unit p=0.0017)
+  merge@250   scratch needs: pooled  >1000   per seed >1000, 766, 472, >1000   | matched budget: scratch worse by +17.9% (4/4 seeds, seeds-as-unit p=0.00416)
+  merge@500   scratch needs: pooled  >1000   per seed >1000, 724, >1000, >1000   | matched budget: scratch worse by +3.0% (4/4 seeds, seeds-as-unit p=0.00935)
+  merge@1000  scratch needs: pooled  >1000   per seed 754, 971, 497, >1000   | matched budget: scratch worse by +1.3% (2/4 seeds, seeds-as-unit p=0.347)
+
+====================================================================================================
+MERGE vs EACH SINGLE SPECIALIST at matched budget (positive = merge better)
+   seeds as the unit (n=4) and paired over all instance x seed pairs (n=400, not independent)
+====================================================================================================
+  makespan spec (c)
+    @0     merge advantage  +2.06%   seeds favouring merge 4/4  p(seeds)=0.0244   p(instances)=0.000216   per seed: +2.0%, +1.1%, +1.8%, +3.3%
+    @50    merge advantage  +2.83%   seeds favouring merge 3/4  p(seeds)=0.185   p(instances)=4.57e-06   per seed: +6.4%, +4.3%, -1.5%, +2.1%
+    @100   merge advantage  -0.48%   seeds favouring merge 2/4  p(seeds)=0.89   p(instances)=0.402   per seed: +6.6%, +3.1%, -0.9%, -10.7%
+    @250   merge advantage  -1.80%   seeds favouring merge 1/4  p(seeds)=0.339   p(instances)=0.00251   per seed: -0.6%, +1.4%, -6.1%, -1.8%
+    @500   merge advantage  -2.02%   seeds favouring merge 0/4  p(seeds)=0.139   p(instances)=0.000481   per seed: -1.9%, -4.8%, -1.2%, -0.1%
+    @1000  merge advantage  -3.07%   seeds favouring merge 0/4  p(seeds)=0.000981   p(instances)=1.71e-08   per seed: -2.7%, -3.8%, -3.2%, -2.6%
+  carbon spec (d)
+    @0     merge advantage +36.38%   seeds favouring merge 4/4  p(seeds)=0.0022   p(instances)=9.59e-176   per seed: +34.3%, +34.8%, +34.5%, +41.9%
+    @50    merge advantage +31.56%   seeds favouring merge 4/4  p(seeds)=0.00021   p(instances)=2.63e-167   per seed: +30.6%, +31.1%, +31.6%, +32.9%
+    @100   merge advantage +24.67%   seeds favouring merge 4/4  p(seeds)=0.00532   p(instances)=2.28e-116   per seed: +22.8%, +19.9%, +28.8%, +27.1%
+    @250   merge advantage  +1.55%   seeds favouring merge 3/4  p(seeds)=0.349   p(instances)=0.0098   per seed: +4.1%, +2.2%, +2.3%, -2.4%
+    @500   merge advantage  +2.45%   seeds favouring merge 4/4  p(seeds)=0.0528   p(instances)=9.34e-06   per seed: +0.3%, +2.5%, +4.1%, +2.9%
+    @1000  merge advantage  +1.06%   seeds favouring merge 2/4  p(seeds)=0.328   p(instances)=0.0617   per seed: -0.3%, +2.4%, +2.9%, -0.6%
+  tardiness spec (e)
+    @0     merge advantage  +0.82%   seeds favouring merge 4/4  p(seeds)=0.0864   p(instances)=0.0948   per seed: +1.6%, +1.1%, +0.3%, +0.2%
+    @50    merge advantage  +1.88%   seeds favouring merge 3/4  p(seeds)=0.153   p(instances)=0.000879   per seed: +3.7%, +1.3%, +3.1%, -0.6%
+    @100   merge advantage  +0.38%   seeds favouring merge 2/4  p(seeds)=0.928   p(instances)=0.675   per seed: -0.2%, +6.4%, +1.8%, -6.5%
+    @250   merge advantage  -0.29%   seeds favouring merge 1/4  p(seeds)=0.849   p(instances)=0.563   per seed: +4.0%, -1.6%, -0.9%, -2.8%
+    @500   merge advantage  +0.48%   seeds favouring merge 3/4  p(seeds)=0.686   p(instances)=0.335   per seed: +1.8%, -2.9%, +2.1%, +0.9%
+    @1000  merge advantage  -0.57%   seeds favouring merge 1/4  p(seeds)=0.548   p(instances)=0.338   per seed: -0.6%, -1.9%, -1.3%, +1.5%
+
+====================================================================================================
+OPERATING POINTS (raw pool means, mean +- sd across seeds): where each arm starts and ends
+====================================================================================================
+  arm                  budget          makespan              carbon         tardiness   objective
+  merge (a)                 0      434.8 +-13.7      2434.2 +-74.2       380.1 +-42.8       0.8878
+  merge (a)              1000      444.7 +-6.4       2471.0 +-35.7       352.5 +-9.8        0.8894
+  scratch (b)               0      626.1 +-46.0      2517.6 +-351.0     1120.7 +-169.9      1.4211
+  scratch (b)            1000      452.8 +-11.5      2486.2 +-62.9       359.0 +-31.1       0.9017
+  makespan spec (c)         0      412.5 +-9.9       2494.5 +-14.6       422.2 +-11.7       0.9066
+  makespan spec (c)      1000      442.8 +-5.9       2400.7 +-24.9       326.6 +-7.2        0.8630
+  carbon spec (d)           0      605.8 +-6.8       1882.9 +-15.8      1322.8 +-24.4       1.4009
+  carbon spec (d)        1000      452.4 +-13.6      2436.0 +-92.8       371.7 +-12.3       0.8990
+  tardiness spec (e)        0      451.6 +-7.5       2504.5 +-31.8       345.6 +-21.0       0.8949
+  tardiness spec (e)     1000      447.4 +-5.4       2423.6 +-55.1       353.8 +-12.3       0.8849

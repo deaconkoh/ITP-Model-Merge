@@ -1,0 +1,4 @@
+seed 111: scratch@u0 weights identical to a fresh seeded initialisation: True (max |diff| 0); distance to the carbon specialist 11.9
+seed 222: scratch@u0 weights identical to a fresh seeded initialisation: True (max |diff| 0); distance to the carbon specialist 14.4
+seed 333: scratch@u0 weights identical to a fresh seeded initialisation: True (max |diff| 0); distance to the carbon specialist 13.8
+seed 444: scratch@u0 weights identical to a fresh seeded initialisation: True (max |diff| 0); distance to the carbon specialist 13.2

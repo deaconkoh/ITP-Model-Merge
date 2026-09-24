@@ -68,7 +68,11 @@ def main():
         o = float(scalarise(sc, ref[s], PREF, True).mean())
         warm = [float(scalarise(load(arm_name(a, s, 0)), ref[s], PREF, True).mean())
                 for a in ARMS if a != "scratch" and load(arm_name(a, s, 0)) is not None]
-        good = o > 1.15 and all(o > w for w in warm)
+        # Performance screen only: scratch@u0 must be clearly worse than the centroid and the merge.
+        # NOT "worse than every warm start": the carbon specialist starts even worse on this objective.
+        # The decisive test is tools/verify_scratch_init.py (weights identical to a fresh seeded init).
+        m0 = float(scalarise(load(arm_name("merge", s, 0)), ref[s], PREF, True).mean())
+        good = o > 1.15 and o > m0
         ok &= good
         print(f"  seed {s}: scratch@u0 objective {o:.3f} (centroid = 1.000; warm starts at u0: "
               f"{', '.join(f'{w:.3f}' for w in warm)}) -> {'PASS (random-init level)' if good else 'FAIL'}"
