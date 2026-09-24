@@ -241,6 +241,14 @@ optimum is not evidence for it. Objective genuineness is judged by Gate 1 (per-s
 separation screen; Gate 2 answers the composition question only. Records:
 `results/tardiness_programme/gate2_full_report.md`.
 
+**Gate 2's role changed (2026-09-24): it is no longer a go/no-go.** The central question is whether a
+merged checkpoint is a better starting point for fine-tuning than training from scratch, and that
+does not require the merge to use every specialist. Gate 2 disagreed with the genuineness tests in
+BOTH triples -- priority (not genuine) passed it at the equal preference, tardiness at 10x5 (genuine)
+failed it -- so it cannot be read as evidence about the objective, and whether the best merge is
+interior is not what the fine-tuning comparison depends on. Gate 2 is kept as a descriptive report
+of where the best compositions sit. Steps 4 onward proceed at 10x5 with the tardiness triple.
+
 **20x10 k sensitivity (CPU screen only, pre-registered k unchanged).** At the loosest k in the
 pre-stated band (1.20 instead of 0.95) the screen's tardiness advantage rises from +7.3% to +30.6%
 (trained-makespan tardy fraction 0.57 -> 0.24), larger than 10x5's +10.2%. Much of the 20x10
