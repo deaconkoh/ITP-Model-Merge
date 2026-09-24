@@ -7,7 +7,8 @@ stated. Objective = (1/3, 1/3, 1/3) scalarisation per seed, relative to that see
 final-test sets untouched throughout.
 
 **Status: A, B and C all COMPLETE.** No step stopped early; all sanity checks passed; every run finished
-with no hangs or failures. The machine was shut down afterwards as instructed.
+with no hangs or failures. Written and committed immediately before the scheduled Windows shutdown
+(`shutdown.exe /s /t 300`), as instructed.
 
 ---
 
