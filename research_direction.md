@@ -204,6 +204,16 @@ and the damage is invisible from the objective's name.
   paying 6-9% in makespan, and the makespan<->tardiness distance (0.085, 20.4x) is smaller than
   retired priority's (0.128, 13.3x). The CPU screen foreshadowed the size trend. Full record:
   `results/tardiness_programme/gate1_tardiness.md`. Programme stopped before Step 6.
+* **Gate 2 (10x5, tardiness triple): FAILS by its letter at both preferences, but not the way priority
+  did.** The optima sit on an edge (equal preference: 2 of 4 seeds; carbon-leaning: 3 of 4), and the
+  interior advantage is absent (-0.17%, p = 0.73). But the specialist at zero weight is usually
+  MAKESPAN (5 of 7 edge optima); tardiness carries 55-60% of the weight on average and is the most
+  valuable specialist at equal preference (dropping it costs +2.48%, against +0.52% for priority).
+  The tardiness specialist largely covers the makespan direction, so the best compositions are
+  carbon + tardiness. Seed 333 disagrees with the rest at both preferences. Full record:
+  `results/tardiness_programme/gate2_tardiness.md`.
+* **Calibration (10x5):** the closed-form anchor under-weights tardiness by at least 2x; 2x, 4x and
+  8x the anchor are indistinguishable (a plateau). Record: `results/tardiness_programme/step6_calibration.md`.
 
 **Methodological constraints carried forward.**
 * Coarse composition grids are inadequate: the optimum region sits around 0.2-0.4 and a 5-point

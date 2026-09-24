@@ -58,7 +58,7 @@ def load_all(size, pool_tag, third="p", tag=None):
 def analyse(data, pts, centroid, size, pref, args):
     print("\n" + "#" * 78)
     print(f"{size}: {len(pts)} compositions, preference {pref.tag}, "
-          f"reference composition = m{centroid[0]}c{centroid[1]}p{centroid[2]}")
+          f"reference composition = m{centroid[0]}c{centroid[1]}{args.third}{centroid[2]}")
     print("#" * 78)
 
     seeds = sorted(set().union(*[set(v) for v in data.values()]))
@@ -72,8 +72,8 @@ def analyse(data, pts, centroid, size, pref, args):
     print(f"\n  pooled optimum per seed (never seed-averaged):")
     for s in seeds:
         b = pooled_best[s]
-        edge = [n for n, w in zip("mcp", b) if w < args.edge_tol]
-        print(f"    seed {s}: m={b[0]/10:5.1f}% c={b[1]/10:5.1f}% p={b[2]/10:5.1f}%"
+        edge = [n for n, w in zip("mc" + args.third, b) if w < args.edge_tol]
+        print(f"    seed {s}: m={b[0]/10:5.1f}% c={b[1]/10:5.1f}% {args.third}={b[2]/10:5.1f}%"
               f"   {'EDGE (' + ','.join(edge) + ' ~ 0)' if edge else 'INTERIOR'}")
 
     # ---- the gate
@@ -86,7 +86,7 @@ def analyse(data, pts, centroid, size, pref, args):
     for s in seeds:
         arr = np.array(per_inst_rows[s]) / 10
         print(f"    seed {s}: m={arr[:,0].mean():5.1f}% c={arr[:,1].mean():5.1f}% "
-              f"p={arr[:,2].mean():5.1f}%   distinct compositions used: {len(set(map(tuple, (arr*10).astype(int))))}")
+              f"{args.third}={arr[:,2].mean():5.1f}%   distinct compositions used: {len(set(map(tuple, (arr*10).astype(int))))}")
 
     # ---- MARGIN: how far from the edge, and is the priority weight meaningfully non-zero?
     print(f"\n  MARGIN (how decisive is the verdict, not just pass/fail):")
@@ -119,9 +119,12 @@ def analyse(data, pts, centroid, size, pref, args):
         print("  All three specialists contribute; the three-objective composition is justified.")
     else:
         print(f"GATE 2: FAIL -- optimum sits on an EDGE for seed(s) {on_edge}.")
-        print("  At least one specialist contributes ~nothing for this preference, so the")
-        print("  composition reduces to the 2-specialist case already covered by Track C.")
-        print("  STOP and reconsider before committing Steps 4-6.")
+        dropped = {s: [NAME3.get(n, {"m": "makespan", "c": "carbon"}.get(n, n))
+                       for n, w in zip("mc" + args.third, pooled_best[s]) if w < args.edge_tol]
+                   for s in on_edge}
+        print(f"  Specialist(s) at ~zero weight: {dropped}")
+        print("  At least one specialist contributes ~nothing for this preference; check WHICH one")
+        print("  before reading this as the third objective failing. STOP before Steps 4-6.")
     return interior
 
 
