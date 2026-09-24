@@ -1,0 +1,20 @@
+{
+  "model_name": "10x5+carbon+priority+s4t_spec_c_k125s060_s222",
+  "arm": "spec_c",
+  "seed": 222,
+  "init_from": "10x5+carbon+priority+c_s222",
+  "carbon_reward_weight": 0.002384,
+  "tardiness_reward_weight": 5.815362,
+  "budget_checkpoint_sha256": {
+    "0": "6eb95a6e04ead127ac4bea8a04efc5d9a80598849f771ed695df1bbff2141fe5",
+    "50": "e9b96f2b7d96dceb15ff4a9b3ae138e22e6adb4ec1997ac0669ad61ffe56b4c8",
+    "100": "459b72ea3fbc1280bf9ced134a59f271645a871e37e2d5ee0ac2836b93ca5520",
+    "250": "eb96be6963b6c2ee67c357bd46163348575f40e87d5c08aa2a3ea5de2903d22e",
+    "500": "c8bd3d6152547f7c8b2045ee382e01b9b531b98f09ea2f5a8992c015518cfb6a",
+    "1000": "f63a973389bf59dc88f82932efcb4315a2cd66d88d5cc806ff87f5d477349b84"
+  },
+  "due_date_manifest_sha256": "4f00ef86c8860e4947a657ffc33a816925f2bc135a6f9fbf8001cb23d701665f",
+  "train_seconds": 870.1,
+  "finished": "2026-09-24 18:12:39",
+  "command": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/bin/python train.py --config ../configs/canonical/mct.json --train_data_path ./data/data_train/SD2/10x5+carbon+priority --validation_data_path ./data/data_validation/SD2/10x5+carbon+priority --test_data_path ./data/data_final_test/SD2/10x5+carbon+priority --n_j 10 --n_m 5 --data_suffix carbon+priority --carbon_reward_weight 0.002384 --tardiness_reward_weight 5.815362 --max_updates 1000 --device cuda --budget_checkpoints 0,50,100,250,500,1000 --seed_train 222 --model_suffix s4t_spec_c_k125s060_s222 --init_from 10x5+carbon+priority+c_s222"
+}
