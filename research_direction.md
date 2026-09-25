@@ -38,6 +38,16 @@ Current scope: 10x5, two objectives (makespan, carbon), the canonical makespan a
 seeds 111/222/333/444, frozen. Tardiness is out of scope for now. RQ1 is addressed first by an
 evaluation-only pilot (`results/complementarity_pilot.md`).
 
+**RQ1 pilot result (2026-09-26).** By the pre-stated rule: headroom yes, transfer no. A per-instance
+switching oracle (32 stage-wise assignments of M/C to 5 segments) beats the best baseline by 8.6-16.5% at
+w_c 0.3-0.7, but no fixed switching schedule beats the baselines even in-sample (-24% to -32%), and given
+the same per-instance choice, fixed-alpha BLENDING beats switching by 31-45%: the headroom is selection,
+not state-dependent switching. The specialists disagree on 53-58% of decisions (most at the start of the
+schedule), and the per-step logit mixture of their decisions is the best baseline (HV 0.85-0.89) and
+beats weight merging. Implication: an expert-SELECTING router starts from a dominated family; a router,
+if built, should output a state-dependent SOFT blend weight, with the fixed-alpha logit mixture as the
+baseline to beat. Next test (not run): a segment-wise soft-alpha oracle.
+
 ---
 
 ### Established Findings from the merging programme (prior work; not to be re-derived)
