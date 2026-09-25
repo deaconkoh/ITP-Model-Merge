@@ -1,0 +1,85 @@
+MID-PREFERENCE HEADROOM (oracle vs best matched baseline, mean over w_c 0.3-0.7), per seed: {111: 16.51, 222: 8.57, 333: 11.93, 444: 14.82}
+  vs best ANY-alpha baseline: {111: 14.31, 222: 6.94, 333: 7.57, 444: 12.97}
+  best FIXED assignment (in-sample, pool level) vs best matched baseline: {111: -24.44, 222: -31.97, 333: -31.82, 444: -25.43}
+
+SCORES (mean over seeds; lower is better)
+  w_c       makespan spec       carbon spec      prob mixture     logit mixture  stochastic selec      weight merge     best baseline            oracle  best fixed assig
+  0.00             0.0986            0.8289            0.0986            0.0986            0.0986            0.0986            0.0986            0.0558            0.0986
+  0.05             0.1368            0.7931            0.1401            0.1310            0.1621               nan            0.1300            0.0919            0.1368
+  0.10             0.1750            0.7574            0.1733            0.1642            0.2289            0.1751            0.1587            0.1266            0.1750
+  0.15             0.2132            0.7216            0.2102            0.2003            0.2833               nan            0.1980            0.1594            0.2132
+  0.20             0.2513            0.6859            0.2467            0.2304            0.3290            0.2459            0.2301            0.1901            0.2513
+  0.25             0.2895            0.6501            0.2837            0.2584            0.3704               nan            0.2584            0.2181            0.2895
+  0.30             0.3277            0.6143            0.3164            0.2720            0.3979            0.3070            0.2720            0.2425            0.3277
+  0.35             0.3659            0.5786            0.3465            0.2904            0.4188               nan            0.2904            0.2614            0.3659
+  0.40             0.4041            0.5428            0.3751            0.2996            0.4352            0.3515            0.2996            0.2737            0.4019
+  0.45             0.4423            0.5071            0.4045            0.3193            0.4480               nan            0.3193            0.2801            0.4325
+  0.50             0.4805            0.4713            0.3779            0.3162            0.4504            0.3880            0.3162            0.2803            0.4344
+  0.55             0.5187            0.4355            0.3953            0.3160            0.4471               nan            0.3160            0.2749            0.4268
+  0.60             0.5568            0.3998            0.3727            0.3046            0.4368            0.3665            0.3046            0.2640            0.3998
+  0.65             0.5950            0.3640            0.3542            0.2989            0.4221               nan            0.2989            0.2484            0.3640
+  0.70             0.6332            0.3283            0.3169            0.2872            0.3932            0.3223            0.2872            0.2288            0.3283
+  0.75             0.6714            0.2925            0.2825            0.2711            0.3609               nan            0.2711            0.2053            0.2925
+  0.80             0.7096            0.2568            0.2516            0.2432            0.3297            0.2548            0.2370            0.1785            0.2568
+  0.85             0.7478            0.2210            0.2167            0.2127            0.2866               nan            0.2080            0.1488            0.2210
+  0.90             0.7860            0.1852            0.1836            0.1850            0.2383            0.1841            0.1742            0.1167            0.1852
+  0.95             0.8242            0.1495            0.1506            0.1482            0.1777               nan            0.1431            0.0827            0.1495
+  1.00             0.8623            0.1137            0.1137            0.1137            0.1137            0.1137            0.1137            0.0472            0.1137
+
+PER-SEED HEADROOM (%) at each w_c:
+  111: +42.8 +27.6 +22.9 +20.4 +20.8 +20.8 +16.8 +13.5 +13.7 +16.3 +15.4 +15.3 +14.8 +19.1 +23.7 +28.3 +28.7 +27.9 +31.6 +37.1 +59.2
+  222: +39.3 +29.4 +21.1 +17.1 +14.6 +15.4 +6.6 +8.1 +4.0 +12.2 +6.4 +6.6 +7.3 +10.5 +15.4 +22.1 +22.5 +28.5 +31.5 +37.8 +48.5
+  333: +44.3 +28.3 +10.6 +16.4 +12.0 +12.1 +7.7 +8.6 +9.7 +6.6 +10.6 +14.3 +12.5 +18.4 +19.0 +20.6 +18.0 +25.7 +34.1 +48.3 +63.5
+  444: +47.4 +32.3 +27.4 +24.8 +22.5 +14.2 +12.3 +9.9 +6.9 +14.0 +13.1 +15.7 +18.6 +19.5 +23.3 +26.1 +29.0 +31.7 +35.1 +46.2 +65.2
+
+HYPERVOLUME (ref 1.1,1.1)
+  111: specialists=0.4483  prob mixture=0.7525  logit mixture=0.8812  stochastic selector=0.7391  weight merge=0.8473  32 fixed assignments=0.7303  all baselines=0.8830  per-instance oracle=0.9759
+  222: specialists=0.4225  prob mixture=0.7503  logit mixture=0.8496  stochastic selector=0.7012  weight merge=0.8016  32 fixed assignments=0.6805  all baselines=0.8545  per-instance oracle=0.9270
+  333: specialists=0.4025  prob mixture=0.7328  logit mixture=0.8712  stochastic selector=0.6977  weight merge=0.7485  32 fixed assignments=0.6753  all baselines=0.8712  per-instance oracle=0.9341
+  444: specialists=0.4915  prob mixture=0.7793  logit mixture=0.8873  stochastic selector=0.7618  weight merge=0.8260  32 fixed assignments=0.7432  all baselines=0.8903  per-instance oracle=0.9834
+
+STRUCTURE
+  w_c=0.3: top winners [('MMMMM', 0.205), ('MCMMM', 0.102), ('MMCMM', 0.077), ('CMMMM', 0.062), ('MMMMC', 0.06)]  mean tied winners/instance 1.04  best fixed per seed {111: 'MMMMM', 222: 'MMMMM', 333: 'MMMMM', 444: 'MMMMM'}
+  w_c=0.5: top winners [('CCMCM', 0.055), ('CCMMM', 0.052), ('CCMCC', 0.052), ('MCCCM', 0.05), ('CCCMM', 0.05)]  mean tied winners/instance 1.05  best fixed per seed {111: 'CCMCM', 222: 'CMCMM', 333: 'CCMCM', 444: 'CCMCM'}
+  w_c=0.7: top winners [('CCCCC', 0.168), ('CCMCC', 0.115), ('CMCCC', 0.092), ('CCCMC', 0.085), ('CCCCM', 0.07)]  mean tied winners/instance 1.04  best fixed per seed {111: 'CCCCC', 222: 'CCCCC', 333: 'CCCCC', 444: 'CCCCC'}
+
+TRANSFER (held-out seed)
+  held out 111: share of oracle headroom -1.666   share of fixed-assignment headroom n/a (no fixed assignment beat the baseline)   gain vs best baseline -26.05%   picks@0.3/0.5/0.7 MMMMM/CCMMM/CCCCC
+  held out 222: share of oracle headroom -4.754   share of fixed-assignment headroom n/a (no fixed assignment beat the baseline)   gain vs best baseline -33.85%   picks@0.3/0.5/0.7 MMMMM/CCMMC/CCCCC
+  held out 333: share of oracle headroom -3.302   share of fixed-assignment headroom n/a (no fixed assignment beat the baseline)   gain vs best baseline -32.30%   picks@0.3/0.5/0.7 MMMMM/CCMCM/CCCCC
+  held out 444: share of oracle headroom -2.158   share of fixed-assignment headroom n/a (no fixed assignment beat the baseline)   gain vs best baseline -26.53%   picks@0.3/0.5/0.7 MMMMM/CCMMM/CCCCC
+
+STATE DEPENDENCE
+  111: {'instances_whose_best_is_a_switch': 0.8977777777777778, 'instances_where_a_switch_beats_every_matched_baseline': 0.5144444444444445, 'best_fixed_switch_vs_best_any_alpha_baseline_pct': -33.02646407208952}
+  222: {'instances_whose_best_is_a_switch': 0.9099999999999999, 'instances_where_a_switch_beats_every_matched_baseline': 0.4311111111111111, 'best_fixed_switch_vs_best_any_alpha_baseline_pct': -41.52924061179337}
+  333: {'instances_whose_best_is_a_switch': 0.9366666666666666, 'instances_where_a_switch_beats_every_matched_baseline': 0.4677777777777778, 'best_fixed_switch_vs_best_any_alpha_baseline_pct': -41.76544139923569}
+  444: {'instances_whose_best_is_a_switch': 0.8844444444444446, 'instances_where_a_switch_beats_every_matched_baseline': 0.4766666666666667, 'best_fixed_switch_vs_best_any_alpha_baseline_pct': -34.939359022615314}
+
+SELECTION CONTROL (mean over w_c 0.3-0.7; positive = 32-assignment oracle better)
+  111: {'oracle_vs_per_instance_best_fixed_alpha_pct': -33.1444522031933, 'oracle_vs_per_instance_best_matched_baseline_pct': -4.961286782954228, 'instances_where_best_switch_beats_best_fixed_alpha': 0.17222222222222222}
+  222: {'oracle_vs_per_instance_best_fixed_alpha_pct': -43.27940698530047, 'oracle_vs_per_instance_best_matched_baseline_pct': -12.062817319660764, 'instances_where_best_switch_beats_best_fixed_alpha': 0.10777777777777778}
+  333: {'oracle_vs_per_instance_best_fixed_alpha_pct': -44.90654028835121, 'oracle_vs_per_instance_best_matched_baseline_pct': -9.329428745179497, 'instances_where_best_switch_beats_best_fixed_alpha': 0.11666666666666667}
+  444: {'oracle_vs_per_instance_best_fixed_alpha_pct': -30.74030060420818, 'oracle_vs_per_instance_best_matched_baseline_pct': -6.146925421879095, 'instances_where_best_switch_beats_best_fixed_alpha': 0.1733333333333333}
+
+DIAGNOSTICS by stage (5 segments of 10 decisions), pooled over seeds and instances
+  on states visited by spec_m:
+    differ   overall 0.581   by stage 0.743 0.626 0.608 0.566 0.362
+    jsd      overall 0.503   by stage 0.657 0.534 0.526 0.493 0.305
+    H_m      overall 0.369   by stage 0.638 0.355 0.351 0.310 0.192
+    H_c      overall 0.303   by stage 0.490 0.304 0.285 0.271 0.163
+    top3     overall 0.817   by stage 0.584 0.843 0.836 0.867 0.957
+    n_valid  overall 4.450   by stage 9.652 3.584 3.578 3.291 2.147
+  on states visited by spec_c:
+    differ   overall 0.529   by stage 0.717 0.582 0.550 0.471 0.322
+    jsd      overall 0.457   by stage 0.639 0.499 0.473 0.397 0.276
+    H_m      overall 0.280   by stage 0.504 0.287 0.262 0.205 0.144
+    H_c      overall 0.298   by stage 0.517 0.280 0.283 0.234 0.174
+    top3     overall 0.858   by stage 0.617 0.882 0.898 0.935 0.959
+    n_valid  overall 4.028   by stage 9.313 3.193 3.033 2.567 2.032
+  on states visited by prob_0.50:
+    differ   overall 0.566   by stage 0.730 0.598 0.600 0.555 0.345
+    jsd      overall 0.489   by stage 0.645 0.517 0.515 0.478 0.289
+    H_m      overall 0.333   by stage 0.587 0.312 0.311 0.285 0.174
+    H_c      overall 0.313   by stage 0.527 0.296 0.306 0.273 0.165
+    top3     overall 0.839   by stage 0.611 0.867 0.864 0.889 0.965
+    n_valid  overall 4.245   by stage 9.425 3.350 3.353 3.051 2.046
