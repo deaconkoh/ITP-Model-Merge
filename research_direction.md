@@ -1,69 +1,50 @@
 # Research Overview
 
-* **Problem:** Multi-objective scheduling policies must serve operational preferences that change
-  over time. Training a fresh RL policy for each preference is expensive, and the cost is paid in
-  environment interaction rather than memory.
-* **Central Theme / Study:** **Initialisation quality and its effect on optimisation cost.** How
-  cheaply can a good starting point for a multi-objective scheduling policy be obtained, and how
-  much optimisation does it save?
-* **Position of model merging:** merging is the **tool**, not the object of study. It is a
-  zero-cost way to compose independently trained single-objective specialists into a sub-optimal
-  but well-placed initialisation. The claims below are about what that initialisation buys, not
-  about merging as an end in itself.
+**Direction (2026-09-26): recombining the DECISIONS of frozen objective specialists.**
 
-**Core claim.** Three independently trained single-objective specialists (makespan, carbon,
-operation-priority) can be composed at zero cost into a starting point from which modest
-fine-tuning approaches the Pareto front substantially faster than training from scratch on a
-three-objective reward.
+* **Theme.** Do independently learned objective specialists contain complementary scheduling behaviours
+  that can be RECOMBINED, rather than relearned, to solve multi-objective FJSP efficiently? "Efficiently"
+  means training cost -- environment interactions AND GPU-hours -- to reach a target hypervolume.
+* **Model merging is no longer the method.** It is prior work and a baseline. The specialists' WEIGHTS are
+  unrelated (the permutation-alignment test: same-objective specialists are no more alignable than random
+  networks), and weight merging adds nothing over the best single specialist (Step 4: the tardiness
+  specialist alone matches the merge; the makespan specialist overtakes it). But at every step all
+  specialists score the SAME set of valid operation-machine pairs, so their DECISIONS are directly
+  comparable even though their weights are not.
+* **The specialists stay FROZEN.** The eventual method is a small learned router that combines their
+  decisions at every step, and it must be STATE-DEPENDENT:
+
+      alpha_t = g(s_t, w, pi_M(.|s_t), pi_C(.|s_t), ...)
+
+  so two scheduling states with the same preference w can receive different expert combinations. A router
+  that outputs alpha = w, or samples an expert with probability w, is a BASELINE, not the method.
+* **Not claimed as contributions** (prior work / baselines): model merging, mixture-of-experts / expert
+  gating, preference-conditioned policies, specialist reuse (Rewarded Soups, MAPEX, CoMEx, DCAN), and
+  preference-proportional expert selection (e.g. Wu et al. 2025).
 
 ---
 
 ### Research Questions
 
-* **RQ1 — Budget.** At what optimisation budget, measured in PPO updates / environment interaction
-  steps, does a composed initialisation reach a given quality, and how does that compare with
-  training from scratch on the three-objective reward?
-* **RQ2 — Is it composition, or just warm-starting?** Does composing multiple specialists help
-  specifically, or does any single pretrained specialist serve as an equally good initialisation?
-* **RQ3 — Persistence.** Does the choice of starting composition leave a lasting imprint on the
-  final policy, or do different starting points converge to equivalent performance given enough
-  budget?
-* **RQ4 — The per-instance bound.** Can composition be selected per scheduling instance to beat a
-  single static composition? *(Closed — see Established Findings. Retained because the negative
-  result bounds what instance-aware adaptation can ever contribute.)*
+* **RQ1 -- Complementarity.** Do independently trained objective specialists make usefully different
+  decisions at different points in a schedule, enough that STATE-DEPENDENT switching could beat every
+  fixed combination?
+* **RQ2 -- Efficiency.** Can a learned state-dependent router over frozen specialists reach good
+  Pareto-front quality with less training than a preference-conditioned DANIEL trained from scratch?
+* **RQ3 -- Mechanism.** Does a router using candidate-level disagreement beat a plain gate that weights
+  whole specialists?
+
+Current scope: 10x5, two objectives (makespan, carbon), the canonical makespan and carbon specialists at
+seeds 111/222/333/444, frozen. Tardiness is out of scope for now. RQ1 is addressed first by an
+evaluation-only pilot (`results/complementarity_pilot.md`).
 
 ---
 
-### Hypotheses
+### Established Findings from the merging programme (prior work; not to be re-derived)
 
-**Overall Hypothesis.**
-The dominant cost in adapting an RL scheduler to a new multi-objective preference is optimisation,
-not representation. A composed initialisation removes most of that cost because it starts inside
-the region of parameter space that the objective requires, rather than because it is itself
-near-optimal.
-
-* **H1 — Initialisation Efficiency.**
-  Fine-tuning from a composed initialisation reaches a given quality at a substantially smaller
-  budget than training from scratch on the three-objective reward, with the advantage largest at
-  low budgets and narrowing as budget grows. The scarce resource is environment interaction: the
-  policy has ~29k parameters, so parameter-efficient methods (LoRA/QLoRA) do not apply.
-
-* **H2 — Composition Specificity.**
-  A composed initialisation outperforms any single specialist used as the starting point. If it
-  does not, the finding reduces to "warm-starting helps", which is weaker and largely known.
-
-* **H3 — Convergence over Persistence.**
-  Different starting compositions converge to equivalent final performance as budget grows; the
-  initialisation determines the *path length*, not the *destination*. Lasting path dependence
-  would be the surprising result.
-
-* **H4 — Bounded Instance Adaptivity.**
-  Per-instance composition selection cannot be exploited: the optimal composition for an instance
-  is a property of the specialists that were trained, not of the instance.
-
----
-
-### Established Findings (not to be re-derived)
+The hypotheses H1-H4 referred to below belong to the earlier initialisation-quality framing, where
+merging was the method: H1 initialisation efficiency, H2 composition specificity, H3 convergence over
+persistence, H4 bounded instance adaptivity.
 
 **Initialisation (supports H1).**
 * Merge-initialised fine-tuning dominates from-scratch training at **every** budget tested
@@ -285,10 +266,8 @@ transfer to trained policies at this size. The pre-registered 20x10 Gate 1 failu
 
 ### Thesis (Provisional)
 
-> Adapting a reinforcement-learning scheduler to a new multi-objective preference is primarily an
-> optimisation-cost problem, and most of that cost can be removed by initialisation rather than by
-> better optimisation or by adaptivity. Independently trained single-objective specialists can be
-> composed at zero cost into a starting point from which modest fine-tuning approaches the Pareto
-> front far faster than training from scratch. The benefit is a property of where the composition
-> places the policy in parameter space, not of the instance being scheduled: per-instance
-> composition selection is bounded near zero and does not generalise across training runs.
+> Independently trained objective specialists score the same candidate decisions at every scheduling step,
+> so their behaviours can be recombined at the level of decisions even when their weights cannot be
+> merged. If they disagree in structured, state-dependent ways, a small router over frozen specialists can
+> reach a good Pareto front for a fraction of the training cost of a preference-conditioned policy trained
+> from scratch. Whether that precondition holds is RQ1, and it is tested before any router is built.
