@@ -163,6 +163,8 @@ def coordinate_descent(n_units, start, eval_fn, tag):
             b = s.argmin(1); bs = s[np.arange(len(U)), b]
             better = bs < cur_s[U] - 1e-12
             cur[U[better], k] = b[better]; cur_s[U[better]] = bs[better]; improved[U[better]] = True
+            log(f"      {tag}: pass {p + 1} segment {k + 1}: {better.sum()}/{len(U)} improved, "
+                f"GPU {GPU_SECONDS[0] / 60:.1f} min")      # per-sweep heartbeat for the 7-minute hang guard
         log(f"    {tag}: pass {p + 1} done, {improved.sum()}/{n_units} units improved "
             f"(active {active.sum()}), GPU {GPU_SECONDS[0] / 60:.1f} min")
         active &= improved
