@@ -271,10 +271,11 @@ def main():
         assert json.loads(sp.read_text())["fit_idx"] == fit.tolist(), "split changed between runs"
     sp.write_text(json.dumps(split, indent=1))
     t0 = time.time()
-    todo = [int(a) for a in sys.argv[1:] if a.isdigit()] or SEEDS
+    argv = P._ARGV          # importing the pilot module replaces sys.argv; its _ARGV holds this script's args
+    todo = [int(a) for a in argv if a.isdigit()] or SEEDS
     for s in todo:
         run_seed(s, data, fit, held)
-    if "--a6" in sys.argv or len(sys.argv) == 1:
+    if "--a6" in argv or len(argv) == 0:
         run_a6(data, held)
     log(f"SEGMENT_ORACLE_DONE: rollout GPU time this run {GPU_SECONDS[0] / 60:.1f} min, wall {(time.time() - t0) / 60:.1f} min")
 
