@@ -1,0 +1,53 @@
+{
+ "arm": "F2",
+ "seed": 111,
+ "model_name": "10x5+carbon+priority+bft_F2_k125s060_s111",
+ "init_from": "three specialists",
+ "b3_alpha_permille": [
+  100,
+  100,
+  800
+ ],
+ "trainable_parameters": 19714,
+ "train_seconds": 1503.1,
+ "eval_seconds": 28.4,
+ "snapshot_sha256": {
+  "0": "b9b73510a8e94851d20ea77ba976101d1ef9b46e54d4e647bab7b287c3b3f1cd",
+  "50": "85b2a63718797e59e496a755b08780f10cf04be72b4b0453077f61488f7c5d6d",
+  "100": "fb6a8b44bd8e26168f2457ab5c149c5b0eebc211c1a0dfe016f03890d6646083",
+  "250": "b7a01eae447cbec09cb284369822631f5d383aecf634f60a98d621a948d55749",
+  "500": "b5bc8be4d323a5e0cc8bd7590992371aae1fc897b25d2310406cd3a316c740b1",
+  "1000": "986d0e8dd95106935a3b25e6abd687202c4e1c4a4a143f6da2b7961d15da975e"
+ },
+ "argv": [
+  "train.py",
+  "--config",
+  "../configs/canonical/mct.json",
+  "--train_data_path",
+  "./data/data_train/SD2/10x5+carbon+priority",
+  "--validation_data_path",
+  "./data/data_validation/SD2/10x5+carbon+priority",
+  "--test_data_path",
+  "./data/data_final_test/SD2/10x5+carbon+priority",
+  "--n_j",
+  "10",
+  "--n_m",
+  "5",
+  "--data_suffix",
+  "carbon+priority",
+  "--carbon_reward_weight",
+  "0.002384",
+  "--tardiness_reward_weight",
+  "5.815362",
+  "--max_updates",
+  "1000",
+  "--device",
+  "cuda",
+  "--budget_checkpoints",
+  "0,50,100,250,500,1000",
+  "--seed_train",
+  "111",
+  "--model_suffix",
+  "bft_F2_k125s060_s111"
+ ]
+}
