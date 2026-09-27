@@ -106,6 +106,7 @@ def main():
     ap.add_argument("--seeds", nargs="+", type=int, default=SC.SEEDS)
     ap.add_argument("--insts", nargs="+", type=int, default=None, help="pool indices (default: all HELD-OUT)")
     a = ap.parse_args()
+    sys.argv = sys.argv[:1]                      # daniel's params module parses sys.argv on import (via SC loaders)
     insts_idx = a.insts if a.insts is not None else [int(i) for i in SC.HELD]
     assert set(insts_idx) <= set(int(i) for i in SC.HELD), "HELD-OUT instances only"
     out_dir = SC.OUT / "raw" / f"cpsat_t{a.limit}"; out_dir.mkdir(parents=True, exist_ok=True)
