@@ -282,3 +282,4 @@ transfer to trained policies at this size. The pre-registered 20x10 Gate 1 failu
 > reach a good Pareto front for a fraction of the training cost of a preference-conditioned policy trained
 > from scratch. Whether that precondition holds is RQ1, and it is tested before any router is built.
 - Soft-weight segment oracle (does a time- or state-varying blend weight beat the best fixed weight?): `results/segment_blend_oracle.md`.
+- Zero-training three-specialist blend on the Step 4 metric (NOT MEANINGFUL: does not match or beat fine-tuning): `results/blend_zero_training.md`.

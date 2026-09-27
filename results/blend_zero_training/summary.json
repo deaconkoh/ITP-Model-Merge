@@ -1,0 +1,292 @@
+{
+ "b3_alpha_permille_mct": {
+  "111": [
+   100,
+   100,
+   800
+  ],
+  "222": [
+   300,
+   200,
+   500
+  ],
+  "333": [
+   600,
+   100,
+   300
+  ],
+  "444": [
+   200,
+   0,
+   800
+  ]
+ },
+ "comparisons": {
+  "B1 logit, alpha = w vs R makespan spec @1000 | 111": {
+   "gain": 0.012218385724594574,
+   "lo": -0.014863621131146625,
+   "hi": 0.040275447681231945,
+   "mean_diff": 0.010453448996056224,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R makespan spec @1000 | 222": {
+   "gain": -0.05285845068773594,
+   "lo": -0.08315041932782441,
+   "hi": -0.02422076414169946,
+   "mean_diff": -0.04437212190495947,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R makespan spec @1000 | 333": {
+   "gain": -0.1420034890516374,
+   "lo": -0.1889430729124436,
+   "hi": -0.09786587554423873,
+   "mean_diff": -0.12225055195799382,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R makespan spec @1000 | 444": {
+   "gain": -0.06136575438293267,
+   "lo": -0.09623320563170736,
+   "hi": -0.026797424015896285,
+   "mean_diff": -0.05559725752868888,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R makespan spec @1000 | pooled": {
+   "gain": -0.06117061452608949,
+   "lo": -0.08481647275321982,
+   "hi": -0.0380914687270704,
+   "mean_diff": -0.05294162059889647,
+   "beats": null
+  },
+  "B1 logit, alpha = w vs R merge @0 | 111": {
+   "gain": 0.016602304725313724,
+   "lo": -0.004796386522092784,
+   "hi": 0.037627395389192,
+   "mean_diff": 0.014267435118180495,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R merge @0 | 222": {
+   "gain": -0.0015467553819225135,
+   "lo": -0.034869067078613314,
+   "hi": 0.031063754431980155,
+   "mean_diff": -0.0013649481765943487,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R merge @0 | 333": {
+   "gain": -0.0981720369463639,
+   "lo": -0.14586596689217174,
+   "hi": -0.053770966572964984,
+   "mean_diff": -0.08788943353894538,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R merge @0 | 444": {
+   "gain": -0.030371476841796457,
+   "lo": -0.06686698066103011,
+   "hi": 0.005143543062878087,
+   "mean_diff": -0.028344215762754834,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R merge @0 | pooled": {
+   "gain": -0.028941593796051535,
+   "lo": -0.04855384119566257,
+   "hi": -0.009834587226796199,
+   "mean_diff": -0.02583279059002851,
+   "beats": null
+  },
+  "B1 logit, alpha = w vs R scratch @1000 | 111": {
+   "gain": 0.02274595839336985,
+   "lo": -0.007516274269355213,
+   "hi": 0.05153687995139004,
+   "mean_diff": 0.01966996000022646,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R scratch @1000 | 222": {
+   "gain": -0.01155607252397756,
+   "lo": -0.04388652278031385,
+   "hi": 0.02050498466792255,
+   "mean_diff": -0.010096853441456319,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R scratch @1000 | 333": {
+   "gain": -0.06308640714252876,
+   "lo": -0.11109662343815321,
+   "hi": -0.020106238614926712,
+   "mean_diff": -0.05834269325316251,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R scratch @1000 | 444": {
+   "gain": 0.024014946568536942,
+   "lo": -0.01620439286227917,
+   "hi": 0.06433140076970255,
+   "mean_diff": 0.023660876061406867,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs R scratch @1000 | pooled": {
+   "gain": -0.006881820121112414,
+   "lo": -0.03500831046775341,
+   "hi": 0.019834514779444912,
+   "mean_diff": -0.006277177658246376,
+   "beats": null
+  },
+  "B3 logit, tuned alpha vs R makespan spec @1000 | 111": {
+   "gain": -0.0033526223282959833,
+   "lo": -0.029865200310936563,
+   "hi": 0.02332598058904271,
+   "mean_diff": -0.002868338527022849,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R makespan spec @1000 | 222": {
+   "gain": -0.014073189159419259,
+   "lo": -0.046552710744134966,
+   "hi": 0.01730593939875558,
+   "mean_diff": -0.011813764059456113,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R makespan spec @1000 | 333": {
+   "gain": -0.03306972754391821,
+   "lo": -0.06346562613639839,
+   "hi": -0.002001285696510045,
+   "mean_diff": -0.028469669811242233,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R makespan spec @1000 | 444": {
+   "gain": -0.0397622550154202,
+   "lo": -0.07707000358259593,
+   "hi": -0.00412518878731805,
+   "mean_diff": -0.036024527918596984,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R makespan spec @1000 | pooled": {
+   "gain": -0.022870772047882827,
+   "lo": -0.03981128080215215,
+   "hi": -0.006271999944023708,
+   "mean_diff": -0.019794075079079543,
+   "beats": null
+  },
+  "B3 logit, tuned alpha vs R merge @0 | 111": {
+   "gain": 0.0011004030792208794,
+   "lo": -0.020679561882589213,
+   "hi": 0.02210100345752848,
+   "mean_diff": 0.0009456475951014223,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R merge @0 | 222": {
+   "gain": 0.03534828289691813,
+   "lo": 0.0048098787697538736,
+   "hi": 0.06341683339527455,
+   "mean_diff": 0.031193409668909,
+   "beats": true
+  },
+  "B3 logit, tuned alpha vs R merge @0 | 333": {
+   "gain": 0.006580717238743707,
+   "lo": -0.022788069690618626,
+   "hi": 0.035535878907900796,
+   "mean_diff": 0.005891448607806202,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R merge @0 | 444": {
+   "gain": -0.009398848455839,
+   "lo": -0.03693809835927453,
+   "hi": 0.0168733932375923,
+   "mean_diff": -0.008771486152662938,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R merge @0 | pooled": {
+   "gain": 0.008195036659234033,
+   "lo": -0.004619671487388023,
+   "hi": 0.02052075841866698,
+   "mean_diff": 0.007314754929788424,
+   "beats": null
+  },
+  "B3 logit, tuned alpha vs R scratch @1000 | 111": {
+   "gain": 0.007340902932058093,
+   "lo": -0.02172568893271844,
+   "hi": 0.035956127553317126,
+   "mean_diff": 0.006348172477147389,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R scratch @1000 | 222": {
+   "gain": 0.0257076895684212,
+   "lo": -0.005141481027963542,
+   "hi": 0.05437724893182792,
+   "mean_diff": 0.022461504404047036,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R scratch @1000 | 333": {
+   "gain": 0.03831958876553273,
+   "lo": -0.005104810747172691,
+   "hi": 0.07948107696378005,
+   "mean_diff": 0.03543818889358908,
+   "beats": false
+  },
+  "B3 logit, tuned alpha vs R scratch @1000 | 444": {
+   "gain": 0.04388057007997826,
+   "lo": 0.006373210854930281,
+   "hi": 0.07851136394355482,
+   "mean_diff": 0.04323360567149877,
+   "beats": true
+  },
+  "B3 logit, tuned alpha vs R scratch @1000 | pooled": {
+   "gain": 0.02945862747225667,
+   "lo": 0.0071580389813639235,
+   "hi": 0.05035049862144439,
+   "mean_diff": 0.026870367861570564,
+   "beats": null
+  },
+  "B1 logit, alpha = w vs B2 prob, alpha = w | 111": {
+   "gain": 0.02897654746326024,
+   "lo": 0.0019369445180120717,
+   "hi": 0.05449501812425452,
+   "mean_diff": 0.025218754308326628,
+   "beats": true
+  },
+  "B1 logit, alpha = w vs B2 prob, alpha = w | 222": {
+   "gain": 0.014208658651342606,
+   "lo": -0.012611222455824534,
+   "hi": 0.03949004195531491,
+   "mean_diff": 0.012738955980019818,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs B2 prob, alpha = w | 333": {
+   "gain": -0.07181626794526191,
+   "lo": -0.11193309485406477,
+   "hi": -0.03458838164789714,
+   "mean_diff": -0.06587516746494756,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs B2 prob, alpha = w | 444": {
+   "gain": -0.006903701059336751,
+   "lo": -0.03948654921595084,
+   "hi": 0.025492975924787407,
+   "mean_diff": -0.006593050512047346,
+   "beats": false
+  },
+  "B1 logit, alpha = w vs B2 prob, alpha = w | pooled": {
+   "gain": -0.009483110500171098,
+   "lo": -0.02482953514328343,
+   "hi": 0.0053518842308316345,
+   "mean_diff": -0.00862762692216211,
+   "beats": null
+  }
+ },
+ "follow_most_confident": 0.6497811131957474,
+ "follow_null_mean": 0.33299979153637693,
+ "follow_null_95": 0.3435688972274338,
+ "compromise_share_nonunanimous": 0.07212112171837709,
+ "category_shares": {
+  "unanimous (all three top-1s equal, blend takes it)": 0.3296,
+  "majority (blend takes a top-1 shared by exactly two)": 0.3822,
+  "follows M only": 0.06465,
+  "follows C only": 0.1282,
+  "follows T only": 0.047,
+  "compromise (none of the top-1s)": 0.04835
+ },
+ "verdict": "NOT MEANINGFUL",
+ "strong_seed_counts": {
+  "B1 logit, alpha = w": 0,
+  "B3 logit, tuned alpha": 0
+ },
+ "meaningful_seed_counts": {
+  "B1 logit, alpha = w": 0,
+  "B3 logit, tuned alpha": 0
+ }
+}
