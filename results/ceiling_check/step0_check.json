@@ -1,0 +1,46 @@
+{
+ "pass": true,
+ "max_abs_diff_score": 2.220446049250313e-16,
+ "per_seed": {
+  "111": {
+   "n": 49,
+   "rollout_equals_step4_file": true,
+   "max_abs_diff_makespan": 0.0,
+   "max_abs_diff_carbon": 0.0,
+   "max_abs_diff_tardiness": 1.1368683772161603e-13,
+   "max_abs_diff_score": 1.1102230246251565e-16,
+   "pooled_score_evaluator": 0.8555507439100138,
+   "pooled_score_scorer": 0.8555507439100138
+  },
+  "222": {
+   "n": 49,
+   "rollout_equals_step4_file": true,
+   "max_abs_diff_makespan": 0.0,
+   "max_abs_diff_carbon": 0.0,
+   "max_abs_diff_tardiness": 1.1368683772161603e-13,
+   "max_abs_diff_score": 2.220446049250313e-16,
+   "pooled_score_evaluator": 0.8394518062417357,
+   "pooled_score_scorer": 0.8394518062417357
+  },
+  "333": {
+   "n": 49,
+   "rollout_equals_step4_file": true,
+   "max_abs_diff_makespan": 0.0,
+   "max_abs_diff_carbon": 0.0,
+   "max_abs_diff_tardiness": 1.1368683772161603e-13,
+   "max_abs_diff_score": 2.220446049250313e-16,
+   "pooled_score_evaluator": 0.8608982270396122,
+   "pooled_score_scorer": 0.8608982270396122
+  },
+  "444": {
+   "n": 49,
+   "rollout_equals_step4_file": true,
+   "max_abs_diff_makespan": 0.0,
+   "max_abs_diff_carbon": 0.0,
+   "max_abs_diff_tardiness": 5.684341886080802e-14,
+   "max_abs_diff_score": 2.220446049250313e-16,
+   "pooled_score_evaluator": 0.9059981106359871,
+   "pooled_score_scorer": 0.9059981106359871
+  }
+ }
+}
