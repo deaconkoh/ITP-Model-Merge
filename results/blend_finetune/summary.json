@@ -1,0 +1,240 @@
+{
+ "seeds_available": {
+  "C1 makespan spec (Step 4)": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "C2 makespan spec + fresh critic": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "C3 merge + fresh critic": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "F1 blend, joint fine-tune": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "F2 blend + residual": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "Step 4 merge": [
+   111,
+   222,
+   333,
+   444
+  ],
+  "Step 4 scratch": [
+   111,
+   222,
+   333,
+   444
+  ]
+ },
+ "best_single_control": "C1 makespan spec (Step 4)",
+ "comparisons": {
+  "F1 blend, joint fine-tune vs C1 makespan spec (Step 4) | 111": [
+   0.00824072410975476,
+   -0.016109669427910492,
+   0.031701336547951896,
+   false,
+   false
+  ],
+  "F1 blend, joint fine-tune vs C1 makespan spec (Step 4) | 222": [
+   -0.0205022001870701,
+   -0.05567441230624654,
+   0.01459326325899825,
+   false,
+   false
+  ],
+  "F1 blend, joint fine-tune vs C1 makespan spec (Step 4) | 333": [
+   0.01410769163743751,
+   -0.011435513821628735,
+   0.037988388635282574,
+   false,
+   false
+  ],
+  "F1 blend, joint fine-tune vs C1 makespan spec (Step 4) | 444": [
+   -0.008133725651793423,
+   -0.03998398510043801,
+   0.023123409768223867,
+   false,
+   false
+  ],
+  "F1 blend, joint fine-tune vs C1 makespan spec (Step 4) | pooled": [
+   -0.001555246084772701,
+   -0.01798685534456549,
+   0.014854949041497654,
+   null,
+   null
+  ],
+  "F2 blend + residual vs C1 makespan spec (Step 4) | 111": [
+   -0.001629613981350095,
+   -0.0248327396766917,
+   0.022517231447013036,
+   false,
+   false
+  ],
+  "F2 blend + residual vs C1 makespan spec (Step 4) | 222": [
+   -0.008374044579649948,
+   -0.03458341585308824,
+   0.01859124877310506,
+   false,
+   false
+  ],
+  "F2 blend + residual vs C1 makespan spec (Step 4) | 333": [
+   0.00779021866440067,
+   -0.02054412214135999,
+   0.035461245506976616,
+   false,
+   false
+  ],
+  "F2 blend + residual vs C1 makespan spec (Step 4) | 444": [
+   -0.02015045237659151,
+   -0.04790833529338336,
+   0.007864468747102466,
+   false,
+   false
+  ],
+  "F2 blend + residual vs C1 makespan spec (Step 4) | pooled": [
+   -0.0057695245570038856,
+   -0.0195081505233539,
+   0.0071589992122083074,
+   null,
+   null
+  ],
+  "C3 merge + fresh critic vs Step 4 merge | 111": [
+   0.023540950146137177,
+   -0.003201815749082003,
+   0.04990979876170859,
+   false,
+   false
+  ],
+  "C3 merge + fresh critic vs Step 4 merge | 222": [
+   -0.013476501502362598,
+   -0.04439353532447994,
+   0.015518704799620968,
+   false,
+   false
+  ],
+  "C3 merge + fresh critic vs Step 4 merge | 333": [
+   0.033524709671153424,
+   0.008410470234279524,
+   0.059030574200393024,
+   true,
+   false
+  ],
+  "C3 merge + fresh critic vs Step 4 merge | 444": [
+   -0.0020631726679411467,
+   -0.03783743398231679,
+   0.03370659594190458,
+   false,
+   false
+  ],
+  "C3 merge + fresh critic vs Step 4 merge | pooled": [
+   0.010340409640177831,
+   -0.005720302139639895,
+   0.026276036196594462,
+   null,
+   null
+  ]
+ },
+ "threshold": {
+  "C1 makespan spec (Step 4)": {
+   "pooled": 1000,
+   "per_seed": {
+    "111": 250,
+    "222": 1000,
+    "333": 250,
+    "444": 1000
+   },
+   "by500": 2
+  },
+  "C2 makespan spec + fresh critic": {
+   "pooled": null,
+   "per_seed": {
+    "111": 500,
+    "222": null,
+    "333": null,
+    "444": null
+   },
+   "by500": 1
+  },
+  "C3 merge + fresh critic": {
+   "pooled": null,
+   "per_seed": {
+    "111": 100,
+    "222": null,
+    "333": null,
+    "444": null
+   },
+   "by500": 1
+  },
+  "F1 blend, joint fine-tune": {
+   "pooled": null,
+   "per_seed": {
+    "111": 250,
+    "222": null,
+    "333": 1000,
+    "444": 500
+   },
+   "by500": 2
+  },
+  "F2 blend + residual": {
+   "pooled": null,
+   "per_seed": {
+    "111": null,
+    "222": null,
+    "333": 500,
+    "444": null
+   },
+   "by500": 1
+  },
+  "Step 4 merge": {
+   "pooled": null,
+   "per_seed": {
+    "111": null,
+    "222": null,
+    "333": null,
+    "444": null
+   },
+   "by500": 0
+  },
+  "Step 4 scratch": {
+   "pooled": null,
+   "per_seed": {
+    "111": null,
+    "222": null,
+    "333": null,
+    "444": null
+   },
+   "by500": 0
+  }
+ },
+ "verdict": "TIE",
+ "win_parts": {
+  "F1 blend, joint fine-tune": {
+   "beats_at_1000": 0,
+   "reaches_by_500": 2
+  },
+  "F2 blend + residual": {
+   "beats_at_1000": 0,
+   "reaches_by_500": 1
+  }
+ },
+ "lose_seeds": 0,
+ "c3_seeds": 1,
+ "secondary": "not supported"
+}
