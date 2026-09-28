@@ -285,3 +285,4 @@ transfer to trained policies at this size. The pre-registered 20x10 Gate 1 failu
 - Zero-training three-specialist blend on the Step 4 metric (NOT MEANINGFUL: does not match or beat fine-tuning): `results/blend_zero_training.md`.
 - Fine-tuning the three-specialist blend vs one specialist at equal PPO updates (TIE; merge-stall critic hypothesis not supported): `results/blend_finetune.md`.
 - Performance ceiling on 10x5, CP-SAT and best-of-N sampling (POLICY-OR-BUDGET-LIMITED: C1@1000 greedy +41% above CP-SAT best-known, best-of-100 +23%): `results/ceiling_check.md`.
+- Input and reward audit (FAIL: due dates invisible to the policy; tardiness reward term 7.7x the makespan term; carbon feature unnormalised; longer training not run): `results/input_reward_audit.md`.
