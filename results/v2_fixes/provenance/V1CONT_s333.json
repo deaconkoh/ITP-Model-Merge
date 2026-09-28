@@ -1,0 +1,15 @@
+{
+ "arm": "V1CONT",
+ "seed": 333,
+ "checkpoint": "10x5+carbon+priority+t_k125s060_s333_v1cont.pth",
+ "checkpoint_sha256": "e7dd38bbd68f22229f2aeb57369edd9f88cf45236e718da56aec8fc387745660",
+ "best_validation_update": 520,
+ "selection_metric": 3.262318278900113,
+ "wall_clock_seconds": 810.0,
+ "command": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/bin/python train.py --config ../configs/canonical/t.json --train_data_path ./data/data_train/SD2/10x5+carbon+priority --validation_data_path ./data/data_validation/SD2/10x5+carbon+priority --test_data_path ./data/data_final_test/SD2/10x5+carbon+priority --n_j 10 --n_m 5 --data_suffix carbon+priority --seed_train 333 --device cuda --init_from /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+carbon+priority+t_k125s060_s333.pth --model_suffix t_k125s060_s333_v1cont",
+ "held_out_means": {
+  "mk": 450.46938775510205,
+  "cb": 2502.0,
+  "tard": 336.0123934693877
+ }
+}
