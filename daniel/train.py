@@ -108,7 +108,8 @@ class Trainer:
         # Due dates are READ from the frozen manifest (hash-checked), never derived here, and only
         # for tardiness goals -- every other goal trains exactly as before.
         self.train_due, vali_due, self.due_date_provenance = None, None, None
-        if self.objective.uses_tardiness:
+        # v2 observations need due dates for every goal (results/v2_fixes.md)
+        if self.objective.uses_tardiness or config.obs_version == "v2":
             from due_dates import (MANIFEST, load_manifest, due_dates_for_directory,
                                    manifest_tag, file_sha256)
             manifest_path = Path(config.due_date_manifest or MANIFEST)
@@ -128,9 +129,24 @@ class Trainer:
                 "k": dd_manifest["k_by_size"][Path(self.train_data_path).name.split("+")[0]],
             }
 
+        # v2 reward: frozen, hash-checked references (results/v2_fixes.md, A3); None under v1
+        self.train_refs, vali_refs, self.reward_ref_provenance = None, None, None
+        if config.reward_version == "v2":
+            import reward_refs as RR
+            ref_path = Path(config.reward_ref_manifest or RR.MANIFEST)
+            rr = RR.load_manifest(ref_path)
+            ref_seed = config.reward_ref_seed if config.reward_ref_seed is not None else config.seed_train
+            train_pairs, tbar = RR.refs_for_directory(self.train_data_path, rr, ref_seed)
+            vali_pairs, _ = RR.refs_for_directory(self.vali_data_path, rr, ref_seed)
+            self.train_refs = {"goal": config.goal, "tbar": tbar, "pairs": train_pairs}
+            vali_refs = {"goal": config.goal, "tbar": tbar, "mk": [p[0] for p in vali_pairs],
+                         "cb": [p[1] for p in vali_pairs]}
+            self.reward_ref_provenance = {"manifest": str(ref_path.resolve()), "manifest_sha256": RR.file_sha256(ref_path),
+                                          "seed": ref_seed, "tbar": tbar}
+
         if self.uses_priority_carbon_files:
             self.vali_env.set_initial_data(vali_data[0], vali_data[1], vali_data[2], vali_data[3],
-                                           due_date_list=vali_due)
+                                           due_date_list=vali_due, reward_refs=vali_refs)
         else:
             self.vali_env.set_initial_data(vali_data[0], vali_data[1])
 
@@ -149,6 +165,7 @@ class Trainer:
             "data_fingerprints": self.data_fingerprints,
             "final_test_path_not_loaded": str(Path(self.test_data_path).resolve()),
             "due_dates": getattr(self, "due_date_provenance", None),
+            "reward_refs": getattr(self, "reward_ref_provenance", None),
             "parents": self.parent_checkpoints,
             "git": git_state(Path(__file__).resolve().parents[1]),
             "runtime": runtime_environment(),
@@ -196,9 +213,14 @@ class Trainer:
                     dataset_job_length, dataset_op_pt, dataset_op_priority, dataset_op_carbon = sampled_data
                     due = ([self.train_due[i] for i in self.last_sample_idxs]
                            if self.train_due is not None else None)
+                    refs = None
+                    if self.train_refs is not None:
+                        pairs = [self.train_refs["pairs"][i] for i in self.last_sample_idxs]
+                        refs = {"goal": self.train_refs["goal"], "tbar": self.train_refs["tbar"],
+                                "mk": [p[0] for p in pairs], "cb": [p[1] for p in pairs]}
                     state = self.env.set_initial_data(dataset_job_length, dataset_op_pt,
                                                       dataset_op_priority, dataset_op_carbon,
-                                                      due_date_list=due)
+                                                      due_date_list=due, reward_refs=refs)
                 elif len(sampled_data) == 3:
                     dataset_job_length, dataset_op_pt, dataset_op_priority = sampled_data
                     state = self.env.set_initial_data(dataset_job_length, dataset_op_pt, dataset_op_priority)
@@ -265,7 +287,10 @@ class Trainer:
                 else:
                     validation_metrics = self.validate_envs_with_same_op_nums()
 
-                selection_metric = self.objective.selection_metric(validation_metrics)
+                if self.config.reward_version == "v2":
+                    selection_metric = validation_metrics["score_v2"]      # mean Step 4 score (= -mean return)
+                else:
+                    selection_metric = self.objective.selection_metric(validation_metrics)
                 if selection_metric < self.record:
                     self.save_model(i_update + 1, validation_metrics, selection_metric)
                     self.record = selection_metric

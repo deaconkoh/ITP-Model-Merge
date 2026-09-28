@@ -140,6 +140,15 @@ parser.add_argument('--goal', type=str, default='m', choices=['m', 'c', 'p', 'mc
                     help='Inherited objective: makespan/carbon/operation-priority and their combinations')
 
 # args for PPO Algorithm
+# v2 observation/reward (results/v2_fixes.md). v1 is the default and is untouched by these flags.
+parser.add_argument('--obs_version', type=str, default='v1', choices=['v1', 'v2'],
+                    help='v2 adds due-date observations (2 operation + 1 pair feature) and scales carbon by 1/100')
+parser.add_argument('--reward_version', type=str, default='v1', choices=['v1', 'v2'],
+                    help='v2 normalises each reward term by the Step 4 score references (return = -score)')
+parser.add_argument('--reward_ref_manifest', type=str, default='',
+                    help='Frozen v2 reward-reference manifest (default: data/reward_refs/reward_ref_manifest.json)')
+parser.add_argument('--reward_ref_seed', type=int, default=None,
+                    help='Seed whose centroid references normalise the v2 reward (default: --seed_train)')
 parser.add_argument('--num_envs', type=int, default=20, help='Batch size for training environments')
 parser.add_argument('--max_updates', type=int, default=1000, help='No. of episodes of each env for training')
 parser.add_argument('--lr', type=float, default=3e-4, help='Learning rate')
@@ -191,3 +200,7 @@ if (configs.enable_priority or configs.enable_carbon) and configs.fea_j_input_di
     configs.fea_j_input_dim = 11
 if configs.enable_carbon and configs.carbon_feature and configs.fea_pair_input_dim == 8:
     configs.fea_pair_input_dim = 9
+if configs.obs_version == 'v2':
+    # v1 layout kept in place; 2 operation features and 1 pair feature appended (results/v2_fixes.md)
+    configs.fea_j_input_dim, configs.fea_pair_input_dim = 13, 10
+    configs.feature_schema = 'canonical_f13_p10_obsv2'

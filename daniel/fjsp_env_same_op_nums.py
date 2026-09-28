@@ -3,7 +3,7 @@ import numpy as np
 import numpy.ma as ma
 import copy
 from params import configs
-from objectives import ObjectiveSpec, operation_priority_weighted_completion, tardiness_potential
+from objectives import ObjectiveSpec, RewardV2, operation_priority_weighted_completion, tardiness_potential
 from environment_utils import (candidate_incompatibility, machine_min_processing_time,
                                normalize_processing_times)
 import sys
@@ -94,11 +94,18 @@ class FJSPEnvForSameOpNums:
         fea_pairs: pair features with shape [sz_b, J, M, 8]
     """
 
-    def __init__(self, n_j, n_m):
+    # v2 observations divide carbon by the generator's maximum (results/v2_fixes.md, A2)
+    CARBON_SCALE = 100.0
+
+    def __init__(self, n_j, n_m, obs_version=None, reward_version=None):
         """
         :param n_j: the number of jobs
         :param n_m: the number of machines
+        :param obs_version / reward_version: 'v1' (default, from configs) or 'v2' (results/v2_fixes.md)
         """
+        self.obs_version = obs_version or getattr(configs, "obs_version", "v1")
+        self.reward_version = reward_version or getattr(configs, "reward_version", "v1")
+        cfg_v2 = getattr(configs, "obs_version", "v1") == "v2"
         self.number_of_jobs = n_j
         self.number_of_machines = n_m
         self.old_state = EnvState()
@@ -107,10 +114,10 @@ class FJSPEnvForSameOpNums:
         self.carbon_feature = configs.enable_carbon and configs.carbon_feature
 
         # the dimension of operation raw features
-        self.op_fea_dim = configs.fea_j_input_dim
+        self.op_fea_dim = configs.fea_j_input_dim - (2 if cfg_v2 else 0) + (2 if self.obs_version == "v2" else 0)
         # the dimension of machine raw features
         self.mch_fea_dim = 8
-        self.pair_fea_dim = configs.fea_pair_input_dim
+        self.pair_fea_dim = configs.fea_pair_input_dim - (1 if cfg_v2 else 0) + (1 if self.obs_version == "v2" else 0)
         self.priority_rng = np.random.default_rng(configs.priority_seed)
         self.priority_scope = configs.priority_scope
         self.objective = ObjectiveSpec(
@@ -132,7 +139,7 @@ class FJSPEnvForSameOpNums:
         self.op_idx = np.arange(self.number_of_ops)[np.newaxis, :]
 
     def set_initial_data(self, job_length_list, op_pt_list, priority_list=None, carbon_list=None,
-                         due_date_list=None):
+                         due_date_list=None, reward_refs=None):
         """
             initialize the data of the instances
 
@@ -172,6 +179,7 @@ class FJSPEnvForSameOpNums:
 
         self.initialize_priorities(priority_list)
         self.initialize_due_dates(due_date_list)
+        self.initialize_v2(reward_refs)
 
         self.initial_vars()
 
@@ -222,6 +230,8 @@ class FJSPEnvForSameOpNums:
         # tardiness, so the first step also charges any tardiness already unavoidable at t=0.
         # The episode return is then exactly -T/time_scale rather than -T/time_scale + const.
         self.tardiness_score = np.zeros(self.number_of_envs)
+        # v2 makespan potential also starts at zero (return = -score exactly; results/v2_fixes.md, A3)
+        self.v2_mk_potential = np.zeros(self.number_of_envs)
         """
             compute machine raw features
         """
@@ -283,6 +293,7 @@ class FJSPEnvForSameOpNums:
         self.max_endTime = self.init_quality
         self.max_priority_score = np.copy(self.old_max_priority_score)
         self.tardiness_score = np.zeros(self.number_of_envs)
+        self.v2_mk_potential = np.zeros(self.number_of_envs)
         self.candidate_pt = np.copy(self.old_candidate_pt)
         self.candidate_process_relation = np.copy(self.old_candidate_process_relation)
         self.mch_current_available_op_nums = np.copy(self.old_mch_current_available_op_nums)
@@ -394,6 +405,43 @@ class FJSPEnvForSameOpNums:
             ])
 
         self.op_match_job_priority = self.op_priorities
+
+    def initialize_v2(self, reward_refs=None):
+        """v2 observation helpers and reward references (results/v2_fixes.md). No-op under v1."""
+        if self.obs_version == "v2":
+            if self.due_dates is None:
+                raise ValueError("--obs_version v2 observes due dates; the environment was given none")
+            if not self.enable_carbon or not self.carbon_feature:
+                raise ValueError("--obs_version v2 keeps the carbon pair feature; enable it")
+            # operation -> job index and one-hot, [E, N] and [E, N, J]
+            self.v2_op_job = np.array([np.repeat(np.arange(self.number_of_jobs), self.job_length[k])
+                                       for k in range(self.number_of_envs)])
+            self.v2_op_job_onehot = (self.v2_op_job[:, :, None] == np.arange(self.number_of_jobs)).astype(np.float64)
+        if self.reward_version == "v2":
+            if reward_refs is None:
+                raise ValueError("--reward_version v2 needs reward references (reward_refs=...)")
+            self.reward_v2 = RewardV2(reward_refs["goal"], float(reward_refs["tbar"]))
+            self.v2_mk_ref = np.asarray(reward_refs["mk"], dtype=np.float64)
+            self.v2_cb_ref = np.asarray(reward_refs["cb"], dtype=np.float64)
+            if self.v2_mk_ref.shape != (self.number_of_envs,) or self.v2_cb_ref.shape != (self.number_of_envs,):
+                raise ValueError("reward references must give one makespan and one carbon value per environment")
+            if self.reward_v2.uses_tardiness and self.due_dates is None:
+                raise ValueError("reward v2 with a tardiness goal needs due dates")
+
+    def v2_job_state(self):
+        """Scaled job-level quantities at the current decision step (results/v2_fixes.md, A1).
+        Returns EST [E,J] (earliest start of the job's next operation; completion time if finished),
+        W [E,J] (min-pt lower bound on the job's unscheduled work), pair_start [E,J,M] = max(job ready, machine
+        free), finished [E,J]."""
+        ready = self.candidate_free_time
+        pair_start = np.maximum(ready[:, :, None], self.mch_free_time[:, None, :])
+        eligible = self.process_relation[self.env_job_idx, self.candidate]            # [E, J, M]
+        est = np.min(np.where(eligible, pair_start, np.inf), axis=2)
+        finished = self.mask.astype(bool)
+        est = np.where(finished, ready, est)
+        unscheduled_min_pt = self.op_min_pt * (1 - self.op_scheduled_flag)
+        work = np.einsum("en,enj->ej", unscheduled_min_pt, self.v2_op_job_onehot)
+        return est, work, pair_start, finished
 
     def initialize_due_dates(self, due_date_list=None):
         """Per-job due dates in RAW time units, shape [E, J]. None = no tardiness objective."""
@@ -573,8 +621,15 @@ class FJSPEnvForSameOpNums:
         tardiness_reward = self.tardiness_score - tardiness_score
         self.tardiness_score = tardiness_score
 
-        reward = self.objective.step_reward(makespan_reward, chosen_carbon, priority_reward,
-                                            tardiness_reward)
+        if self.reward_version == "v2":
+            mk_potential = np.max(self.op_ct_lb, axis=1)
+            reward = self.reward_v2.step_reward(self.v2_mk_potential - mk_potential, chosen_carbon,
+                                                tardiness_reward, self.pt_upper_bound,
+                                                self.v2_mk_ref, self.v2_cb_ref)
+            self.v2_mk_potential = mk_potential
+        else:
+            reward = self.objective.step_reward(makespan_reward, chosen_carbon, priority_reward,
+                                                tardiness_reward)
 
         self.max_endTime = np.max(self.op_ct_lb, axis=1)
 
@@ -607,6 +662,12 @@ class FJSPEnvForSameOpNums:
                     self.op_available_mch_nums]
         if self.enable_priority or self.enable_carbon:
             features.append(self.op_match_job_priority)
+        if self.obs_version == "v2":
+            est, work, _, _ = self.v2_job_state()
+            slack = self.due_dates - est - work                                        # [E, J]
+            time_to_due = self.due_dates - est
+            features.append(np.take_along_axis(slack, self.v2_op_job, axis=1))
+            features.append(np.take_along_axis(time_to_due, self.v2_op_job, axis=1))
         self.fea_j = np.stack(features, axis=2)
 
         if self.step_count != self.number_of_ops:
@@ -702,7 +763,18 @@ class FJSPEnvForSameOpNums:
                 self.op_carbon[k][self.candidate[k]]
                 for k in range(self.number_of_envs)
             ])
+            if self.obs_version == "v2":
+                candidate_carbon = candidate_carbon / self.CARBON_SCALE
             features.append(candidate_carbon)
+
+        if self.obs_version == "v2":
+            est, work, pair_start, finished = self.v2_job_state()
+            cand_min_pt = self.op_min_pt[self.env_job_idx, self.candidate]            # [E, J]
+            due = self.due_dates[:, :, None]
+            late = np.maximum(0.0, pair_start + self.candidate_pt + (work - cand_min_pt)[:, :, None] - due)
+            done_late = np.maximum(0.0, self.candidate_free_time[:, :, None] - due)
+            late = np.where(finished[:, :, None], np.broadcast_to(done_late, late.shape), late)
+            features.append(late)
 
         self.fea_pairs = np.stack(features, axis=-1)
 

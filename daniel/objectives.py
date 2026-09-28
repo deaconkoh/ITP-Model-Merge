@@ -91,6 +91,54 @@ class ObjectiveSpec:
         return value
 
 
+@dataclass(frozen=True)
+class RewardV2:
+    """v2 reward (results/v2_fixes.md): each term normalised by the Step 4 score references, so the undiscounted
+    return of an episode is exactly -(w_m MK/MKref + w_c CB/CBref + w_t T/Tbar), with no additive constant.
+    Weights: 1/|goal| for each objective named by the goal. Time potentials arrive in the environment's scaled
+    units (divided by U = pt_upper_bound) and are converted back with U."""
+    goal: str
+    tbar: float
+
+    def __post_init__(self) -> None:
+        if self.goal not in VALID_GOALS or "p" in self.goal:
+            raise ValueError(f"reward v2 supports goals built from m, c, t; got {self.goal!r}")
+        if not self.tbar > 0:
+            raise ValueError("reward v2 needs a positive tardiness normaliser Tbar")
+
+    @property
+    def weights(self) -> tuple[float, float, float]:
+        n = len(self.goal)
+        return tuple((1.0 / n) if k in self.goal else 0.0 for k in "mct")
+
+    @property
+    def uses_tardiness(self) -> bool:
+        return "t" in self.goal
+
+    def step_reward(self, mk_potential_delta, chosen_carbon, tardiness_delta, u, mk_ref, cb_ref):
+        w_m, w_c, w_t = self.weights
+        reward = np.zeros_like(np.asarray(chosen_carbon, dtype=np.float64))
+        if w_m:
+            reward = reward + w_m * u * np.asarray(mk_potential_delta) / mk_ref
+        if w_c:
+            reward = reward - w_c * np.asarray(chosen_carbon) / cb_ref
+        if w_t:
+            reward = reward + w_t * u * np.asarray(tardiness_delta) / self.tbar
+        return reward
+
+    def score(self, makespan, carbon, tardiness, mk_ref, cb_ref):
+        """Per-instance Step 4 score (= minus the v2 return)."""
+        w_m, w_c, w_t = self.weights
+        out = np.zeros_like(np.asarray(makespan, dtype=np.float64))
+        if w_m:
+            out = out + w_m * (np.asarray(makespan) / mk_ref)
+        if w_c:
+            out = out + w_c * (np.asarray(carbon) / cb_ref)
+        if w_t:
+            out = out + w_t * (np.asarray(tardiness) / self.tbar)
+        return out
+
+
 def operation_priority_weighted_completion(
     operation_completion_times: np.ndarray,
     operation_priorities: np.ndarray,
@@ -171,4 +219,9 @@ def environment_metrics(env) -> dict[str, float]:
     if getattr(env, "true_due_dates", None) is not None:
         completion = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
         metrics["tardiness"] = float(np.mean(total_tardiness(completion, env.true_due_dates)))
+    if getattr(env, "reward_version", "v1") == "v2":
+        t = (total_tardiness(env.true_op_ct[env.env_job_idx, env.job_last_op_id], env.true_due_dates)
+             if env.true_due_dates is not None else np.zeros(env.number_of_envs))
+        metrics["score_v2"] = float(np.mean(env.reward_v2.score(env.current_makespan, env.total_carbon, t,
+                                                                env.v2_mk_ref, env.v2_cb_ref)))
     return metrics

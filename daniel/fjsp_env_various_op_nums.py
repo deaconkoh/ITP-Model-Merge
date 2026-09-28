@@ -17,6 +17,8 @@ class FJSPEnvForVariousOpNums:
     """
 
     def __init__(self, n_j, n_m):
+        if getattr(configs, "obs_version", "v1") != "v1" or getattr(configs, "reward_version", "v1") != "v1":
+            raise NotImplementedError("v2 observations/reward are implemented for FJSPEnvForSameOpNums only")
         self.number_of_jobs = n_j
         self.number_of_machines = n_m
         self.old_state = EnvState()
