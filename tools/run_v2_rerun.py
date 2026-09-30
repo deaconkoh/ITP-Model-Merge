@@ -106,6 +106,8 @@ def train_one(a):
     """Runs in its own process: sys.argv is rewritten for DANIEL's params module before train is imported."""
     arm, seed, until, smoke = a.arms[0], a.seeds[0], a.until, a.smoke
     P = Paths(a)
+    for f in P.ck.glob(f".partial_v2rr_{arm}_s{seed}@u*.pth"):          # left by a kill during a save
+        f.unlink()
     obs, init, start = arm_spec(arm, seed)
     snaps, _ = plan(arm, smoke)
     on_disk = [u for u in snapshots_on_disk(P, arm, seed) if u <= until and (smoke or u % RESET_EVERY == 0)]
@@ -144,7 +146,7 @@ def train_one(a):
         bundle.update(policy_old_state_dict=trainer.ppo.policy_old.state_dict(),
                       optimizer_state_dict=trainer.ppo.optimizer.state_dict(), rng_state=_rng_state(),
                       study="v2_rerun", arm=arm, seed=seed)
-        dst = P.ckpt(arm, seed, u); tmp = dst.with_suffix(".tmp")
+        dst = P.ckpt(arm, seed, u); tmp = dst.with_name(".partial_" + dst.name)      # atomic; *.pth stays git-ignored
         torch.save(bundle, tmp); os.replace(tmp, dst)
         rec = P.prov / f"{arm}_s{seed}_checkpoints.json"
         d = json.loads(rec.read_text()) if rec.exists() else {}
@@ -223,6 +225,8 @@ def evaluate(a):
     from model.main_model import DANIEL
     from common_utils import load_checkpoint_state_dict
     held = SC.HELD[:3] if a.smoke else SC.HELD
+    for f in P.eval.glob(".partial_*"):
+        f.unlink()
     data = V.P.load_data("data_train_vali"); due = SC.due_dates()
     for arm in a.arms:
         for seed in a.seeds:
@@ -241,7 +245,8 @@ def evaluate(a):
                 o = V.run(net, data, due, held, obs=obs)
                 score = np.array([SC.score(seed, i, o["mk"][k], o["cb"][k], o["tard"][k], ref=ref)
                                   for k, i in enumerate(held)])
-                np.savez_compressed(f, held=held, score=score, **o)
+                tmp = f.with_name(".partial_" + f.name)                      # atomic: a kill never leaves a half file
+                np.savez_compressed(tmp, held=held, score=score, **o); os.replace(tmp, f)
                 print(f"eval {arm} s{seed} @u{u}: score {score.mean():.4f}", flush=True)
     return 0
 

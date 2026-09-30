@@ -127,7 +127,7 @@ status "starting"
 # ---- pre-flight -------------------------------------------------------------------------------------------------
 [ -x "$PY" ] || die "python not found at $PY"
 if [ "$SMOKE" = 0 ]; then   # a previous interrupted run may have left its own logs/results uncommitted
-  commit_outputs "v2 re-run seed 111: recover outputs of an interrupted run" || die "could not commit leftover outputs"
+  commit_outputs "v2 re-run seed 111: run start (log; plus any leftover outputs of an earlier run)" || die "could not commit leftover outputs"
 fi
 [ -z "$(git status --porcelain)" ] || die "git working tree not clean: $(git status --porcelain | head -5 | tr '\n' ' ')"
 log "pre-flight: git working tree clean"
