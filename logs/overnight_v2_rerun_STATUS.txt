@@ -1,4 +1,4 @@
-v2 re-run STATUS  (updated 2026-10-01 06:07:49)
+v2 re-run STATUS  (updated 2026-10-01 06:08:01)
 elapsed since start: 2.37 h
 
   V2-M     seed 111: done        update reached  3000 / 3000   last evaluated score 0.8733 @u3000
@@ -11,5 +11,5 @@ estimated remaining: 0.00 h training (+ evaluation)
 
 failures: none
 
-last event: V2-T s111 done
+last event: finished (no failures)
 log: logs/overnight_v2_rerun_20261001_034545.log
