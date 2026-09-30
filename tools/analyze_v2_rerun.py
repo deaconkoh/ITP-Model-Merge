@@ -39,6 +39,7 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out-root", default="")
     a = ap.parse_args()
+    sys.argv = sys.argv[:1]                  # daniel's params module parses sys.argv on import (via SC loaders)
     if a.smoke:
         root = Path(a.out_root).resolve()
         res, report = root / "results", root / "v2_rerun_seed111.md"
