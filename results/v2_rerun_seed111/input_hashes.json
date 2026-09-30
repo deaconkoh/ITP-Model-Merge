@@ -1,0 +1,14 @@
+{
+ "10x5+carbon+priority+m_s111_obsv2.pth": {
+  "sha256": "00a155d1ebfa65cef46055ad55ce462d63413e1607494bd7addf7e82a0889bd9",
+  "recorded_in": "results/v2_fixes/converted_checkpoints_sha256.json"
+ },
+ "10x5+carbon+priority+t_k125s060_s111_v2ft.pth": {
+  "sha256": "ae94e18696d0c3b6a698d06ef5f54dd8c71b8efc4cda38f38964061b03c55952",
+  "recorded_in": "results/v2_fixes/provenance/V2_s111.json"
+ },
+ "10x5+carbon+priority+s4t_spec_m_k125s060_s111@u1000.pth": {
+  "sha256": "1998af4453ab6c4691adc9f4197715e4552be244917088d3581645c7f5ec3504",
+  "recorded_in": "here (Step 4 checkpoint, hashed 2026-10-01)"
+ }
+}
