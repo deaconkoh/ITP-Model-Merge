@@ -57,6 +57,21 @@ FAILURES=()
 
 log() { echo "[$(date '+%F %T')] $*"; }
 
+# one instance at a time (a second start while one is running refuses immediately)
+if [ "$SMOKE" = 1 ]; then LOCK="$OUT/.overnight_v2_rerun.lock"; else LOCK="$REPO/daniel/train_log/.overnight_v2_rerun.lock"; fi
+mkdir -p "$(dirname "$LOCK")"; exec 9>"$LOCK"
+if ! flock -n 9; then log "another overnight_v2_rerun.sh is already running (lock $LOCK); exiting"; exit 3; fi
+
+# Ctrl-C / kill / terminal closed: stop the running step too (timeout gives each step its own process group)
+CUR=""
+on_signal() {   # stop the step first (the log pipe may already be gone after a hangup)
+  trap '' INT TERM HUP PIPE
+  if [ -n "$CUR" ]; then kill -TERM -- "-$CUR" 2>/dev/null; sleep 5; kill -KILL -- "-$CUR" 2>/dev/null; fi
+  log "INTERRUPTED by signal; the running step was stopped (re-run the same command to resume)"
+  FAILURES+=("interrupted by signal"); status "INTERRUPTED (re-run the same command to resume)"; exit 130
+}
+trap on_signal INT TERM HUP
+
 status() {   # $1: last event
   "$PY" tools/run_v2_rerun.py status --arms $ARMS --seeds $SEEDS --t0 "$T0" --status-file "$STATUS" "${RUNARGS[@]}" >/dev/null 2>&1 \
     || echo "(status summary unavailable)" > "$STATUS"
@@ -94,8 +109,11 @@ run_step() {   # $1 name, $2 timeout, rest: command. Two attempts; the training 
   local name="$1" t="$2"; shift 2
   for attempt in 1 2; do
     log "$name: attempt $attempt"
-    timeout --signal=TERM --kill-after=60 "$t" "$@"
+    timeout --signal=TERM --kill-after=60 "$t" "$@" &
+    CUR=$!
+    wait "$CUR"
     local rc=$?
+    CUR=""
     if [ "$rc" -eq 0 ]; then return 0; fi
     if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then log "$name: TIMED OUT after ${t}s (rc $rc)"; else log "$name: FAILED (rc $rc)"; fi
     nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used --format=csv,noheader 2>/dev/null | sed 's/^/  GPU: /'
