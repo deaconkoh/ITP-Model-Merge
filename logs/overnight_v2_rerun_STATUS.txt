@@ -1,15 +1,15 @@
-v2 re-run STATUS  (updated 2026-10-01 03:44:54)
-elapsed since start: 0.00 h
+v2 re-run STATUS  (updated 2026-10-01 04:24:17)
+elapsed since start: 0.64 h
 
-  V2-M     seed 111: pending     update reached     - / 3000   last evaluated score -
+  V2-M     seed 111: done        update reached  3000 / 3000   last evaluated score 0.8733 @u3000
   V2-S     seed 111: pending     update reached     - / 3000   last evaluated score -
   V1-CONT  seed 111: pending     update reached     - / 3000   last evaluated score -
   V2-T     seed 111: pending     update reached     - / 3000   last evaluated score -
 
-median training speed: (no chunk finished yet)
-
+median training speed: 0.744 s/update
+estimated remaining: 1.65 h training (+ evaluation)
 
 failures: none
 
-last event: pre-flight passed
-log: logs/overnight_v2_rerun_20261001_034441.log
+last event: V2-M s111 done
+log: logs/overnight_v2_rerun_20261001_034545.log
