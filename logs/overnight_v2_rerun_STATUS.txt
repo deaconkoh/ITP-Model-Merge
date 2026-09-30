@@ -1,15 +1,15 @@
-v2 re-run STATUS  (updated 2026-10-01 05:03:50)
-elapsed since start: 1.30 h
+v2 re-run STATUS  (updated 2026-10-01 05:29:43)
+elapsed since start: 1.73 h
 
   V2-M     seed 111: done        update reached  3000 / 3000   last evaluated score 0.8733 @u3000
   V2-S     seed 111: done        update reached  3000 / 3000   last evaluated score 0.8390 @u3000
-  V1-CONT  seed 111: pending     update reached     - / 3000   last evaluated score -
+  V1-CONT  seed 111: done        update reached  3000 / 3000   last evaluated score 0.8534 @u3000
   V2-T     seed 111: pending     update reached     - / 3000   last evaluated score -
 
 median training speed: 0.764 s/update
-estimated remaining: 1.06 h training (+ evaluation)
+estimated remaining: 0.64 h training (+ evaluation)
 
 failures: none
 
-last event: V2-S s111 done
+last event: V1-CONT s111 done
 log: logs/overnight_v2_rerun_20261001_034545.log
