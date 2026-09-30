@@ -70,3 +70,24 @@ problem. Does the v1 plateau (0.866-0.90 at update 1,000; best C1 0.8655 pooled,
   BETTER if gain >= 1% with the CI excluding 0; WORSE if gain <= -1% with the CI excluding 0; otherwise TIED.
 * If an arm is FAILED or incomplete, every rule that depends on it is NOT DETERMINED; no verdict is computed from
   partial data.
+
+## Deviations
+
+* **V1-CONT is not an exact continuation.** Step 4 saved neither the Adam state nor the random-number-generator
+  states at update 1,000, so V1-CONT starts from C1@1000's weights with a fresh Adam optimiser, and its generators
+  are re-seeded with 111 (its instance-sampling stream repeats the one Step 4 used from update 0). Stated in the
+  pre-registration; recorded here as required.
+* **Loop-fidelity check (before launch; scratch outputs, not committed).** 40 updates from a warm start (v1: C1@1000
+  with Step 4 weights; v2: `m_s111_obsv2` with v2 flags), seed 111: the chunked runner (2 chunks of 20, resumed from
+  the saved checkpoint) and an uninterrupted runner (1 chunk of 40) gave bit-identical policy, policy_old and Adam
+  state, and both were bit-identical to `daniel/train.py` run with the same flags (policy at update 40). Measured
+  speed 0.77-0.97 s/update.
+* (Anything that happens during the overnight run is appended below by hand in a later session.)
+
+<!-- BEGIN GENERATED RESULTS (tools/analyze_v2_rerun.py) -->
+_(filled in automatically by `tools/analyze_v2_rerun.py` at the end of `scripts/overnight_v2_rerun.sh`)_
+<!-- END GENERATED RESULTS -->
+
+## Plain-English summary
+
+_(placeholder: 5-8 sentences, to be written in a later session after reading the results)_
