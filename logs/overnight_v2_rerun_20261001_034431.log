@@ -1,0 +1,4 @@
+[2026-10-01 03:44:31] v2 re-run (seed 111, EXPLORATORY) starting; smoke=0 shutdown=1; log logs/overnight_v2_rerun_20261001_034431.log
+[2026-10-01 03:44:31] STOPPED before training: git working tree not clean (outside this study's logs/results):  M scripts/overnight_v2_rerun.sh ?? zz_dirty_test.txt 
+[2026-10-01 03:44:31] not shutting down: pre-flight failures leave the PC on. Fix the problem and re-run the same command.
+[2026-10-01 03:44:31] END (exit 1). Status: logs/overnight_v2_rerun_STATUS.txt

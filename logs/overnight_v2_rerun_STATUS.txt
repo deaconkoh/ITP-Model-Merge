@@ -1,4 +1,4 @@
-v2 re-run STATUS  (updated 2026-10-01 03:40:19)
+v2 re-run STATUS  (updated 2026-10-01 03:44:31)
 elapsed since start: 0.00 h
 
   V2-M     seed 111: pending     update reached     - / 3000   last evaluated score -
@@ -11,7 +11,7 @@ median training speed: (no chunk finished yet)
 
 failures: none
 
-last event: STOPPED: git working tree not clean:  M logs/overnight_v2_rerun_20261001_034018.log 
-log: logs/overnight_v2_rerun_20261001_034018.log
+last event: STOPPED before training: git working tree not clean (outside this study's logs/results):  M scripts/overnight_v2_rerun.sh ?? zz_dirty_test.txt 
+log: logs/overnight_v2_rerun_20261001_034431.log
 logged failures:
-  - git working tree not clean:  M logs/overnight_v2_rerun_20261001_034018.log 
+  - git working tree not clean (outside this study's logs/results):  M scripts/overnight_v2_rerun.sh ?? zz_dirty_test.txt 

@@ -1,3 +1,6 @@
 [2026-10-01 03:40:18] v2 re-run (seed 111, EXPLORATORY) starting; smoke=0 shutdown=1; log logs/overnight_v2_rerun_20261001_034018.log
 [2026-10-01 03:40:18] committed: v2 re-run seed 111: run start (log; plus any leftover outputs of an earlier run) (889f46a)
 [2026-10-01 03:40:18] STOPPED: git working tree not clean:  M logs/overnight_v2_rerun_20261001_034018.log 
+[2026-10-01 03:40:19] committed: v2 re-run seed 111: stopped (git working tree not clean:  M logs/overnight_v2_rerun_20261001_034018.log ) (160fe6b)
+[2026-10-01 03:40:19] shutting Windows down in 60 s (/mnt/c/Windows/System32/shutdown.exe /s /t 60)
+[2026-10-01 03:40:19] END (exit 1). Status: logs/overnight_v2_rerun_STATUS.txt

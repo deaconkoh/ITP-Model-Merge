@@ -4,6 +4,7 @@
 #
 #   scripts/overnight_v2_rerun.sh               run (or resume) the study
 #   scripts/overnight_v2_rerun.sh --shutdown    ... and shut Windows down at the very end
+#   scripts/overnight_v2_rerun.sh --preflight-only   run the pre-flight checks only, then exit (never shuts down)
 #   scripts/overnight_v2_rerun.sh --smoke       tiny end-to-end test; outputs under $V2RR_SMOKE_ROOT (or a temp dir),
 #                                               never inside the repository, no commits
 #
@@ -16,12 +17,13 @@ set -u -o pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO" || exit 1
 PY="$REPO/.venv/bin/python"
-SHUTDOWN=0; SMOKE=0
+SHUTDOWN=0; SMOKE=0; PREFLIGHT_ONLY=0
 for arg in "$@"; do
   case "$arg" in
     --shutdown) SHUTDOWN=1 ;;
     --smoke) SMOKE=1 ;;
-    *) echo "usage: $0 [--shutdown] [--smoke]"; exit 2 ;;
+    --preflight-only) PREFLIGHT_ONLY=1 ;;
+    *) echo "usage: $0 [--shutdown] [--smoke] [--preflight-only]"; exit 2 ;;
   esac
 done
 
@@ -94,15 +96,18 @@ Claude-Session: https://claude.ai/code/session_01Rcu6f737di34xSocjiJkEU"; then
 
 finish() {   # $1: exit code
   if [ "$SHUTDOWN" = 1 ]; then
-    log "shutting Windows down in 60 s (/mnt/c/Windows/System32/shutdown.exe /s /t 60)"
-    /mnt/c/Windows/System32/shutdown.exe /s /t 60 || log "Windows shutdown command FAILED"
+    local exe="${V2RR_SHUTDOWN_EXE:-/mnt/c/Windows/System32/shutdown.exe}"   # override only for testing
+    log "shutting Windows down in 60 s ($exe /s /t 60)"
+    "$exe" /s /t 60 || log "Windows shutdown command FAILED"
   fi
   log "END (exit $1). Status: $STATUS"
   exit "$1"
 }
 
-die() {   # pre-flight or fatal failure: logged, committed, then (optional) shutdown
-  log "STOPPED: $*"; FAILURES+=("$*"); status "STOPPED: $*"; commit_outputs "v2 re-run seed 111: stopped ($*)"; finish 1
+die() {   # pre-flight failure: logged and reported; NEVER shuts down (you are at the machine when it starts)
+  log "STOPPED before training: $*"; FAILURES+=("$*"); status "STOPPED before training: $*"
+  log "not shutting down: pre-flight failures leave the PC on. Fix the problem and re-run the same command."
+  SHUTDOWN=0; finish 1
 }
 
 run_step() {   # $1 name, $2 timeout, rest: command. Two attempts; the training subcommand resumes from its last checkpoint.
@@ -126,11 +131,11 @@ status "starting"
 
 # ---- pre-flight -------------------------------------------------------------------------------------------------
 [ -x "$PY" ] || die "python not found at $PY"
-if [ "$SMOKE" = 0 ]; then   # a previous interrupted run may have left its own logs/results uncommitted
-  commit_outputs "v2 re-run seed 111: run start (log; plus any leftover outputs of an earlier run)" || die "could not commit leftover outputs"
-fi
-[ -z "$(git status --porcelain)" ] || die "git working tree not clean: $(git status --porcelain | head -5 | tr '\n' ' ')"
-log "pre-flight: git working tree clean"
+# This study's own logs and results are excluded: the live log is written continuously, and a previous interrupted
+# run may have left outputs uncommitted (they are committed with the next arm).
+DIRTY="$(git status --porcelain -- . ':(exclude)logs/overnight_v2_rerun_*' ':(exclude)results/v2_rerun_seed111' ':(exclude)results/v2_rerun_seed111.md')"
+[ -z "$DIRTY" ] || die "git working tree not clean (outside this study's logs/results): $(echo "$DIRTY" | head -5 | tr '\n' ' ')"
+log "pre-flight: git working tree clean (this study's own logs/results excluded)"
 nvidia-smi -L >/dev/null 2>&1 && nvidia-smi -L | grep -q GPU || die "no GPU visible (nvidia-smi)"
 log "pre-flight: GPU: $(nvidia-smi -L | head -1)"
 FREE_GB=$(df -Pk "$REPO" | awk 'NR==2 {print int($4/1024/1024)}')
@@ -160,6 +165,7 @@ rm -f "$LOGDIR/.v1test_$TS.txt"
 [ "$V1RC" -eq 0 ] || die "tests/test_v1_reproduction.py did not pass (rc $V1RC; a skip counts as a failure)"
 log "pre-flight: all checks passed"
 status "pre-flight passed"
+if [ "$PREFLIGHT_ONLY" = 1 ]; then log "--preflight-only: stopping here (no training, no shutdown)"; SHUTDOWN=0; finish 0; fi
 
 # ---- arms ---------------------------------------------------------------------------------------------------------
 for ARM in $ARMS; do
