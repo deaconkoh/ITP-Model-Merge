@@ -82,6 +82,13 @@ problem. Does the v1 plateau (0.866-0.90 at update 1,000; best C1 0.8655 pooled,
   the saved checkpoint) and an uninterrupted runner (1 chunk of 40) gave bit-identical policy, policy_old and Adam
   state, and both were bit-identical to `daniel/train.py` run with the same flags (policy at update 40). Measured
   speed 0.77-0.97 s/update.
+* **Smoke tests (before launch; scratch outputs, deleted, never committed).** `scripts/overnight_v2_rerun.sh --smoke`
+  (2 updates per arm in 2 chunks, 3 instances): all four arms start, checkpoint, evaluate and are analysed; a crash
+  injected once is retried from the last checkpoint; the whole script killed mid-step stops its running step and a
+  re-run skips completed arms and resumes the interrupted one; an arm failing twice is marked FAILED, the run moves
+  on and the dependent rule is NOT DETERMINED; a later re-run retries the FAILED arm from its last checkpoint; a
+  second concurrent start is refused. Fixes made from these tests before hand-over: argv reset in the analysis
+  script, signal trap and single-instance lock, atomic checkpoint and evaluation writes.
 * (Anything that happens during the overnight run is appended below by hand in a later session.)
 
 <!-- BEGIN GENERATED RESULTS (tools/analyze_v2_rerun.py) -->

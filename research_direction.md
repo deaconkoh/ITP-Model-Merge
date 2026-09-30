@@ -287,3 +287,4 @@ transfer to trained policies at this size. The pre-registered 20x10 Gate 1 failu
 - Performance ceiling on 10x5, CP-SAT and best-of-N sampling (POLICY-OR-BUDGET-LIMITED: C1@1000 greedy +41% above CP-SAT best-known, best-of-100 +23%): `results/ceiling_check.md`.
 - Input and reward audit (FAIL: due dates invisible to the policy; tardiness reward term 7.7x the makespan term; carbon feature unnormalised; longer training not run): `results/input_reward_audit.md`.
 - v2 observations (due dates visible, carbon scaled) and reward (= -score), function-preserving checkpoint conversion, v2 tardiness specialist (NO EFFECT by the pre-registered rule: -19% tardiness pooled, tightness rho +0.28, both short of the bars; 20x10 not run): `results/v2_fixes.md`.
+- v2 re-run of the three-objective warm-start comparison, seed 111, to 3,000 updates (EXPLORATORY; pre-registered, script ready, not yet run): `results/v2_rerun_seed111.md`.
