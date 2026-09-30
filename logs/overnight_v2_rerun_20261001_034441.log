@@ -1,0 +1,17 @@
+[2026-10-01 03:44:41] v2 re-run (seed 111, EXPLORATORY) starting; smoke=0 shutdown=1; log logs/overnight_v2_rerun_20261001_034441.log
+[2026-10-01 03:44:41] pre-flight: git working tree clean (this study's own logs/results excluded)
+[2026-10-01 03:44:41] pre-flight: GPU: GPU 0: NVIDIA GeForce RTX 5060 Ti (UUID: GPU-4382a0d0-016e-fdea-d3d5-e119d9752c93)
+[2026-10-01 03:44:41] pre-flight: 853 GB free (need ~50 MB; threshold 1 GB)
+  input OK: 10x5+carbon+priority+m_s111_obsv2.pth
+  input OK: 10x5+carbon+priority+t_k125s060_s111_v2ft.pth
+  input OK: 10x5+carbon+priority+s4t_spec_m_k125s060_s111@u1000.pth
+[2026-10-01 03:44:41] pre-flight: v1 reproduction test
+test_c1_at_1000_held_out (tests.test_v1_reproduction.V1ReproducesStep4.test_c1_at_1000_held_out) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 10.393s
+
+OK
+[2026-10-01 03:44:54] pre-flight: all checks passed
+[2026-10-01 03:44:54] --preflight-only: stopping here (no training, no shutdown)
+[2026-10-01 03:44:54] END (exit 0). Status: logs/overnight_v2_rerun_STATUS.txt
