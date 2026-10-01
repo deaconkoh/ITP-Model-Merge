@@ -1,0 +1,4 @@
+{
+ "episodes end at the last step (the only case training produces)": 2.1240940650812945e-07,
+ "an episode ends mid-buffer (never produced: all environments end together)": 2.221610151830935
+}

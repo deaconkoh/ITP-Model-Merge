@@ -1,0 +1,219 @@
+{
+ "targets": [
+  [
+   12,
+   98.0
+  ],
+  [
+   20,
+   98.0
+  ],
+  [
+   59,
+   98.0
+  ],
+  [
+   65,
+   98.0
+  ],
+  [
+   74,
+   97.0
+  ],
+  [
+   0,
+   99.0
+  ],
+  [
+   2,
+   99.0
+  ],
+  [
+   3,
+   99.0
+  ],
+  [
+   4,
+   99.0
+  ],
+  [
+   5,
+   99.0
+  ]
+ ],
+ "cases": {
+  "C1@1000 s111 (v1)": [
+   {
+    "inst": 12,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 0.8155885422624279,
+    "score_with_99": 0.8026341282910632
+   },
+   {
+    "inst": 20,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8111697650651077,
+    "score_with_99": 0.8111697650651077
+   },
+   {
+    "inst": 59,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.9335974791696923,
+    "score_with_99": 0.9335974791696923
+   },
+   {
+    "inst": 65,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8661955515162456,
+    "score_with_99": 0.8661955515162456
+   },
+   {
+    "inst": 74,
+    "own_max": 97.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 0.9486701678668664,
+    "score_with_99": 0.9169592860979165
+   },
+   {
+    "inst": 0,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.9550897505730149,
+    "score_with_99": 0.9550897505730149
+   },
+   {
+    "inst": 2,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8408042012509835,
+    "score_with_99": 0.8408042012509835
+   },
+   {
+    "inst": 3,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.7447331476185317,
+    "score_with_99": 0.7447331476185317
+   },
+   {
+    "inst": 4,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8141788564162113,
+    "score_with_99": 0.8141788564162113
+   },
+   {
+    "inst": 5,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.7887412692449719,
+    "score_with_99": 0.7887412692449719
+   }
+  ],
+  "V2-M@3000 s111 (v2)": [
+   {
+    "inst": 12,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 0.7770399926515699,
+    "score_with_99": 0.7018167225854113
+   },
+   {
+    "inst": 20,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 0.7706372293505241,
+    "score_with_99": 0.7161023177601462
+   },
+   {
+    "inst": 59,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 0.858019161590114,
+    "score_with_99": 0.8003527028697571
+   },
+   {
+    "inst": 65,
+    "own_max": 98.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8745865607181428,
+    "score_with_99": 0.8745865607181428
+   },
+   {
+    "inst": 74,
+    "own_max": 97.0,
+    "same_max_identical": true,
+    "max99_identical": false,
+    "score_alone": 1.0454737216303727,
+    "score_with_99": 1.0454737216303727
+   },
+   {
+    "inst": 0,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8233400319466657,
+    "score_with_99": 0.8233400319466657
+   },
+   {
+    "inst": 2,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.8749312282750897,
+    "score_with_99": 0.8749312282750897
+   },
+   {
+    "inst": 3,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.7577506625084036,
+    "score_with_99": 0.7577506625084036
+   },
+   {
+    "inst": 4,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 1.026464210846213,
+    "score_with_99": 1.026464210846213
+   },
+   {
+    "inst": 5,
+    "own_max": 99.0,
+    "same_max_identical": true,
+    "max99_identical": true,
+    "score_alone": 0.7029407032755902,
+    "score_with_99": 0.7029407032755902
+   }
+  ]
+ },
+ "training_pool": {
+  "n": 63,
+  "own_max_counts": {
+   "97.0": 2,
+   "98.0": 11,
+   "99.0": 50
+  },
+  "share_of_20_instance_batches_with_max_99": 1.0
+ }
+}

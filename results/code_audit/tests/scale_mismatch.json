@@ -1,0 +1,88 @@
+{
+ "n_heldout": 49,
+ "n_low_max": 8,
+ "low_max_values": {
+  "12": 98.0,
+  "20": 98.0,
+  "59": 98.0,
+  "65": 98.0,
+  "74": 97.0,
+  "77": 98.0,
+  "96": 98.0,
+  "98": 96.0
+ },
+ "rows": [
+  {
+   "checkpoint": "C1@1000 s111",
+   "heldout_canonical": 0.8555507439100138,
+   "heldout_as_trained": 0.8546392072622524,
+   "low_canonical": 0.854521380696472,
+   "low_as_trained": 0.8489382187289327,
+   "low_changed": 2
+  },
+  {
+   "checkpoint": "C1@1000 s222",
+   "heldout_canonical": 0.8394518062417357,
+   "heldout_as_trained": 0.8389461258346741,
+   "low_canonical": 0.8335474560971903,
+   "low_as_trained": 0.8304501636039385,
+   "low_changed": 1
+  },
+  {
+   "checkpoint": "C1@1000 s333",
+   "heldout_canonical": 0.8608982270396122,
+   "heldout_as_trained": 0.8608982270396122,
+   "low_canonical": 0.9004187423074771,
+   "low_as_trained": 0.9004187423074771,
+   "low_changed": 0
+  },
+  {
+   "checkpoint": "C1@1000 s444",
+   "heldout_canonical": 0.9059981106359871,
+   "heldout_as_trained": 0.9049779279579917,
+   "low_canonical": 0.8905136208044422,
+   "low_as_trained": 0.8842650019017199,
+   "low_changed": 1
+  },
+  {
+   "checkpoint": "Step4 scratch@1000 s111",
+   "heldout_canonical": 0.8647672549141842,
+   "heldout_as_trained": 0.8647672549141842,
+   "low_canonical": 0.8589154937074193,
+   "low_as_trained": 0.8589154937074193,
+   "low_changed": 0
+  },
+  {
+   "checkpoint": "V2-M@1000 s111",
+   "heldout_canonical": 0.8370164526528678,
+   "heldout_as_trained": 0.8367448689493837,
+   "low_canonical": 0.8544743886987443,
+   "low_as_trained": 0.8528109385149041,
+   "low_changed": 1
+  },
+  {
+   "checkpoint": "V2-M@3000 s111",
+   "heldout_canonical": 0.8732942904703833,
+   "heldout_as_trained": 0.8690687763449793,
+   "low_canonical": 0.8983912697611263,
+   "low_as_trained": 0.8725099957430273,
+   "low_changed": 4
+  },
+  {
+   "checkpoint": "V2-S@3000 s111",
+   "heldout_canonical": 0.8390067879311288,
+   "heldout_as_trained": 0.8391027003303656,
+   "low_canonical": 0.837289879325855,
+   "low_as_trained": 0.8378773427711805,
+   "low_changed": 2
+  },
+  {
+   "checkpoint": "V2-T@3000 s111",
+   "heldout_canonical": 0.8765694495969584,
+   "heldout_as_trained": 0.8771457953962889,
+   "low_canonical": 0.8852009156207077,
+   "low_as_trained": 0.8887310336416074,
+   "low_changed": 1
+  }
+ ]
+}

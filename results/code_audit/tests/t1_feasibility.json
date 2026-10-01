@@ -1,0 +1,11 @@
+{
+ "random_policy_episodes": 1000,
+ "greedy_schedules": {
+  "m_s111 (v1 makespan specialist)": 49,
+  "C1@1000 s111 (v1)": 49,
+  "V2-M@3000 s111 (v2)": 49,
+  "V2-S@3000 s111 (v2)": 49
+ },
+ "violations": 0,
+ "examples": []
+}

@@ -1,0 +1,16 @@
+{
+ "v1 C1@1000": {
+  "transitions": 1000,
+  "max_abs_logprob_diff": 5.9604644775390625e-06,
+  "max_abs_ratio_minus_1": 5.900859832763672e-06,
+  "max_prob_on_masked_actions": 0.0,
+  "mean_entropy_nats": 0.19652961194515228
+ },
+ "v2 V2-M@1000": {
+  "transitions": 1000,
+  "max_abs_logprob_diff": 3.6954879760742188e-06,
+  "max_abs_ratio_minus_1": 3.6954879760742188e-06,
+  "max_prob_on_masked_actions": 0.0,
+  "mean_entropy_nats": 0.15195049345493317
+ }
+}
