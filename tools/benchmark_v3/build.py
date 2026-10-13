@@ -1,7 +1,7 @@
 """Build and freeze benchmark v3 (daniel/benchmark_v3.py, docs/benchmark_v3.md). Run ONCE; refuses to overwrite.
 
 Instance tree daniel/data/benchmark_v3/<split>/SD2/<size>+mix/ (plain SD2 format, no carbon/priority columns):
-  train        <- data_train/SD2/<size>+mix               (byte copies; the canonical grouped split)
+  train        <- data_train/SD2/<size>+mix               (copies with LF line endings; the canonical grouped split)
   validation   <- data_validation/SD2/<size>+mix
   development  <- data_development/SD2/<size>+mix
   evaluation   <- data_train_vali/SD2/<size>+carbon+priority, annotations stripped (the 100-instance pool every
@@ -16,7 +16,7 @@ per size the tardiness reference Tref (mean reference tardiness over the TRAIN p
     python tools/benchmark_v3/build.py
 """
 from __future__ import annotations
-import json, re, shutil, sys, time
+import json, sys, time
 from pathlib import Path
 import numpy as np
 
@@ -79,7 +79,9 @@ def main():
             for src in sorted_instance_files(str(src_dir)):
                 src = Path(src); dst = dst_dir / src.name
                 if suffix == "+mix":
-                    shutil.copyfile(src, dst)
+                    # LF line endings: the working copies are CRLF but git stores LF, and .gitattributes marks this
+                    # tree -text so the bytes (and the manifest's SHA-256) survive a fresh checkout on any platform
+                    dst.write_bytes(src.read_bytes().replace(b"\r\n", b"\n"))
                     same = structural_fjsp_sha256(dst) == structural_fjsp_sha256(src)
                 else:
                     # compare matrices: data_manifest.structural_fjsp_sha256 tries the PLAIN layout first, and an

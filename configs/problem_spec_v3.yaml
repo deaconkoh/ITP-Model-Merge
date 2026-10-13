@@ -56,5 +56,5 @@ observation_v3:                           # feature schema benchmark_v3_f12_m9_p
   time_scale: "fixed 99 (SD2 maximum processing time) instead of the batch maximum"
 manifest:
   path: daniel/data/benchmark_v3/manifest_benchmark_v3.json
-  sha256: 6a8d6dab143156a9c737479e92c033c40b163a4ea42dd08e72182c3d201c33d0
+  sha256: dc34667fbc3c4e02788d3deb8f763d1657da474a62142b81722e75e20115cfec
   builder: tools/benchmark_v3/build.py

@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# benchmark v3: instance files and manifest are hashed byte-for-byte; never convert line endings
+daniel/data/benchmark_v3/** -text

@@ -45,7 +45,7 @@ score_i = w_m * MK_i / MKref_i  +  w_c * C_i / Cref_i  +  w_t * T_i / Tref
 
 | Split | 10x5 | 20x10 | Source |
 |---|---|---|---|
-| train | 63 | 73 | `data_train/SD2/<size>+mix` (byte copies of the canonical grouped split) |
+| train | 63 | 73 | `data_train/SD2/<size>+mix` (the canonical grouped split; copies with LF line endings) |
 | validation | 18 | 13 | `data_validation/SD2/<size>+mix` |
 | development | 19 | 14 | `data_development/SD2/<size>+mix` |
 | evaluation | 100 | 100 | `data_train_vali/SD2/<size>+carbon+priority`, with the carbon and priority columns stripped |
@@ -53,7 +53,7 @@ score_i = w_m * MK_i / MKref_i  +  w_c * C_i / Cref_i  +  w_t * T_i / Tref
 - **The evaluation pool** is the pool every earlier evaluation used. Its 10x5 HELD-OUT subset of 49 instances is recorded in the manifest as `evaluation/10x5/heldout_49`.
 - **The reserved final-test sets were not read** and are not part of v3.
 - **Disjointness.** The builder checks every copy against its source, and checks that the splits are disjoint (exact and structural hashes) and disjoint from the objective-validation DEV instances.
-- **The manifest** `daniel/data/benchmark_v3/manifest_benchmark_v3.json` has SHA-256 `6a8d6dab143156a9c737479e92c033c40b163a4ea42dd08e72182c3d201c33d0`.
+- **The manifest** `daniel/data/benchmark_v3/manifest_benchmark_v3.json` has SHA-256 `dc34667fbc3c4e02788d3deb8f763d1657da474a62142b81722e75e20115cfec`.
   - Per instance it stores: file and structural SHA-256, source, P_m, v_j, k_j, W_j, d_j and the reference objectives.
   - It also stores: Tref per size, definitions, and the SHA-256 of the generating code.
 - **Loading.** The loader (`benchmark_v3.load_directory`) checks every file hash. Carbon is computed from the frozen P_m by the definition above. Due dates and references are read from the manifest, never re-derived.
@@ -103,5 +103,9 @@ python evaluate_v3.py --models ... --split evaluation --size 10x5 --subset heldo
 - **Legacy tools stay on v1/v2.** `test_trained_model.py`, `tools/ceiling_scorer.py`, the v2 tools and SD1 / the various-operations environment are unchanged and do not support v3.
 - **Inherited quirks, not changed:**
   - `data_manifest.structural_fjsp_sha256` tries the plain layout first, so an annotated row can be misread as plain. It happens for `data_train_vali/SD2/10x5+carbon+priority/10x5+mix_050.fjs`: the "99/100 overlap" between the train_vali `+mix` and `+carbon+priority` pools is an artefact, and the pools are structurally identical. v3 uses plain files only and compares matrices when converting.
+  - Line endings: the inherited instance files are CRLF in this working copy but stored as LF by git (`* text=auto`).
+    The legacy due-date and reward-reference manifests hash the CRLF working copies, so a fresh clone would fail
+    their hash checks. v3 is immune: its files are written with LF and `.gitattributes` marks
+    `daniel/data/benchmark_v3/**` as `-text`; a `git archive` export of the tree passes every manifest hash.
   - `reset()` restores the state object but not the attribute `env.dynamic_pair_mask`; the policy only reads the state.
   - The `priority` validation metric is reported but is meaningless under v3 (all weights 1).

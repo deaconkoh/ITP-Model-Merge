@@ -1,7 +1,7 @@
 {
  "version": "sd2-mo-v3",
  "tag": "bv3",
- "created": "2026-10-13 20:57:30",
+ "created": "2026-10-13 21:09:05",
  "spec": "configs/problem_spec_v3.yaml",
  "definitions": {
   "time_unit": "1 SD2 time unit = 1 minute",
@@ -282,7 +282,7 @@
  "final_test": "NOT INCLUDED: the reserved final-test sets were not read (docs/benchmark_v3.md)",
  "code_sha256": {
   "daniel/benchmark_v3.py": "9e1a40c1b4d6d62eafb254aa16f65f3b7ca7b12e62ca084c10cf9208275e3b26",
-  "tools/benchmark_v3/build.py": "1ce9c650f15522632cca4ec50d44244c6b2f7d977115eb8aade66f00a00a0596",
+  "tools/benchmark_v3/build.py": "6cb09cdce4c7e6ff81d43159009d30af8b3612a067619f4ca11958e95db34eb5",
   "tools/objective_validation/schedules.py": "b176476c5d258265f3131b652608432df4c3c410f0aab54f0bdc8053c999817e"
  },
  "n_instances": 400,
@@ -291,7 +291,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_002.fjs",
-   "sha256": "e7b41c9ace9960a31136a048b6205ceeed6fcd2d8f016e1beeb70798147323e6",
+   "sha256": "de9a0b33e4122a153d3b2468819027feea11f3872dbaaeb11813efb0a5645722",
    "structural_sha256": "eed8cfa6c83f3377e80150e2429633b7e320009b05eacac5a87c163c41ff404a",
    "power_kw": [
     4.956723008067747,
@@ -360,7 +360,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_005.fjs",
-   "sha256": "82e7049f9ef84bc94dc36d5adad28a24fcf97051c8b815c02c32312fed6827d6",
+   "sha256": "309e83d1f146ff129a40a4d8d44f9c40e6cd36733c5afdab319241d3660a064c",
    "structural_sha256": "24f6ff224a707c6a25b9a3d54a5b8ad5661675d1ca6eaeb82adb4b1a8b64e65c",
    "power_kw": [
     13.670038467966172,
@@ -429,7 +429,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_007.fjs",
-   "sha256": "9d2e6a1e539b05d0fed5ea983b951f8badbe2e9b8652a39f4a77c5174ad01ee5",
+   "sha256": "9de7cc0efa9d44be1cf45e24426043df2d7fcf8413b959f8fa4853710b9411fe",
    "structural_sha256": "677b96f0e2dbe89f187e48e0f924db2c4468050199ccb030a4ea50eb80369bb3",
    "power_kw": [
     14.671333651330395,
@@ -498,7 +498,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_010.fjs",
-   "sha256": "7bca339b4e15132bc5ac2fe78e6b2745e0cb73cb57a84cc64ace9bbfca03f94c",
+   "sha256": "5c2eda7bdf6cb2aa9369b1cb7b431a08942ada22345299b806df8b6ad75a72b6",
    "structural_sha256": "93c59f6ec6df995e41b00288fbf797841c28379033ba50f81f9b0023bbff814f",
    "power_kw": [
     4.40850314269062,
@@ -567,7 +567,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_011.fjs",
-   "sha256": "33acfeea731c60d9df9becfc702dede5860090c3d40327b1b4422269dd92c741",
+   "sha256": "c7ab515fbb5c21165cfd8dfe2835720c5c2c8b632ac1e9fc8296dde72266fbe0",
    "structural_sha256": "60adfd2458615ef308185d2c967eabcd9b80e0080e44992bb89a7197870565b7",
    "power_kw": [
     6.162180487076572,
@@ -636,7 +636,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_013.fjs",
-   "sha256": "1339a9f49866f711ded6c29ef2c74d1a2505e3b60a2da4afe4ee7f599c4bfef1",
+   "sha256": "e3381d79b3545414f518b6df279778c2f2013042521e38f3eb102ea5aa5bffb3",
    "structural_sha256": "0c22b4ebb15536ba3a159af7f44bcf6addfed5dbbc794e8d6f27ad9368776fc7",
    "power_kw": [
     13.27404778106035,
@@ -705,7 +705,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_014.fjs",
-   "sha256": "72c6da392a720f17dc738c5ba553bde3c5b14f99601ce2cee523aa23efd4cae2",
+   "sha256": "21291065a845ef36d362e1ebe25df7d164bb1bfe268c64efdb8263912f0d4a92",
    "structural_sha256": "31dff755769ff5c274e6085796e0f63125211fcd064cd8282c6890ae3981c882",
    "power_kw": [
     5.102096358266465,
@@ -774,7 +774,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_015.fjs",
-   "sha256": "2ac3b3d744b61fb7ccb679db21be5e03dbc61a4bdf31d41d65db3e2d4e4f90ff",
+   "sha256": "b6c40416479186b00d1618c8caa6b1a27bb1ff493f2d785469c2ecca152ac007",
    "structural_sha256": "dc202fe8f355ce7580d2dfd516cecf91c06f9607bb814c5be38e6d289a422777",
    "power_kw": [
     13.377973633860812,
@@ -843,7 +843,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_017.fjs",
-   "sha256": "366449d4cda4711afa346c3abe8057ae9889112148a69a9f696c52f99f6855f6",
+   "sha256": "6e338b3225e5f3bfde6aee1567efc8577c7e6a0b25f6a30c1bcb421ddc6aadfa",
    "structural_sha256": "2252a1feff18cc75a52e376d62f10bc989a0b521e0f9b04bfcaf76acfa5532b8",
    "power_kw": [
     12.00256726436722,
@@ -912,7 +912,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_018.fjs",
-   "sha256": "0569415672f88795d73d903aa7f3c23b17dbf223b0c9373d2cceae406260a4f4",
+   "sha256": "5ad3fcb5c4f99d773a2781eec2c8134b7fc94b3629c51add94ec293b25f3175a",
    "structural_sha256": "f94b1160b3afdd84d364f2006c329e4bd355b563b681679fb39cc1442772bca6",
    "power_kw": [
     7.105681252114714,
@@ -981,7 +981,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_019.fjs",
-   "sha256": "d3a0e81d781f548296763adf4a2572181a92ee52e1a5ac585ed974a3c4c05bbb",
+   "sha256": "87c7323ef9cf1aa4ae3f7d7308822f4997b5cb443eae0e03f3c693f58366da96",
    "structural_sha256": "562f8de615bdb99ffc31abc6ef6515c3bf04de945aabd48870ba520f8785f3e7",
    "power_kw": [
     13.12259862409869,
@@ -1050,7 +1050,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_021.fjs",
-   "sha256": "f064541fcb09facaf4b3e59f7a133d8923858b76f317a9936effebc627b0f14e",
+   "sha256": "3ce9289073292ac1c42ce7cff0fb10f2b9a3dc75dabf784dd84d8b2c9ae56d72",
    "structural_sha256": "2b07bb6a3b0efc3c4d2acf55cb3c4c4c9b7b49ce7de8d60402dd9206f794d00d",
    "power_kw": [
     8.280756168350212,
@@ -1119,7 +1119,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_022.fjs",
-   "sha256": "2b1cdc3cc704757dbdf0a3e1a374230ab1fb15abc02dcb17b795269fc23204e2",
+   "sha256": "1a451f01e866b360570072606ab930739b6ea707749fa3a19e2f9f1e1b5b5fc8",
    "structural_sha256": "dc7ad16b0b7d99310e6ecd814497ea2a7de6e8b6ee8fb4bce36c1d2d284a2d3e",
    "power_kw": [
     11.178110263150673,
@@ -1188,7 +1188,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_025.fjs",
-   "sha256": "bb2a47cfb1b9c3cafa7dcd4a7857d195f733937f8c9fa84cd559d688a822fa3a",
+   "sha256": "9912d8fdb8600d33a8b8ba67161fd54bfc62743c6b246fdd87f6af59a9a07e16",
    "structural_sha256": "b44e2e1cabbaf5f71ecfdd75f6906c5334c413570f9c3d9ed24d34cb8084cc3b",
    "power_kw": [
     7.679316621484757,
@@ -1257,7 +1257,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_027.fjs",
-   "sha256": "5b5dfcfd6d6c2195277dfcad28620e4407ea928fd2d1617d62fb11a9233c9a68",
+   "sha256": "7cab22a1b0f10ddd5928705c5d62c1d900b0703841c1d2c13072e59fa902557b",
    "structural_sha256": "02ff5438ef9ad4ef5e81295e0f73cedbd4b79bddcc63e5906b61c5f84f88bc57",
    "power_kw": [
     6.950623387058636,
@@ -1326,7 +1326,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_028.fjs",
-   "sha256": "4d53ef9daf74b61d452c9bf9df0924f12d0d55e750aeaa5e1397d2d160961803",
+   "sha256": "64aa33f54bd0bfe3842ad770150aa860a5e929f3be420cfc597d6c431c8cc98b",
    "structural_sha256": "85428350f5e887c87ae11d6606a0fbbe1f74cea7c9cd9abbb863761778c509f0",
    "power_kw": [
     10.780662820829527,
@@ -1395,7 +1395,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_029.fjs",
-   "sha256": "8cf1101e7e2c2705ea62dfa3e674e1b24c592ccf05a357ac082d62abf7695080",
+   "sha256": "bff217bf7bea10233f45efc03a826239f2bfc2044a9b9ffd097ba736ed9b7b91",
    "structural_sha256": "a56b3689e84efac6c3d7e0fc6526a256f42fd241d05d731417832f4e6f240488",
    "power_kw": [
     6.236414605916551,
@@ -1464,7 +1464,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_030.fjs",
-   "sha256": "23acb224783e17f40ce1524f19368b8c623a47d3da9a773b0a4cefd468e40328",
+   "sha256": "ce1c12ada6e87b7aee9cdfc3086ba15d0c50bbf365c7a4576465afe76f43871d",
    "structural_sha256": "ad39b4a40c7f721c6ae4dc570d8828dfee43aa51f6248e780a414f628bb98826",
    "power_kw": [
     4.4992373136985755,
@@ -1533,7 +1533,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_031.fjs",
-   "sha256": "def4051043d088d95686d9dfe973969046cda06855593c085c198f87122f728b",
+   "sha256": "bb8fbfcecf3acc405209d6c10728137ab8bcf87268f11ab2eb7181db60a305e9",
    "structural_sha256": "02f17cf06614f764fccb93d535357d4a48825f502930375cb1e1bf34c41efcf8",
    "power_kw": [
     4.610757139309002,
@@ -1602,7 +1602,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_032.fjs",
-   "sha256": "7ff8585bb91b32006993ff8eb8b3042f768334b79ebcebdaacfe9683f688da31",
+   "sha256": "999b6e539f0c0c14aa532664cdb6e0a83facce3469f42d61797b5786ab3a5d15",
    "structural_sha256": "47d4fe649d11463aaecb1fa0cb5f8d7b899ddd0d8c83fb6d03fb2514ff5b545d",
    "power_kw": [
     11.202824349529175,
@@ -1671,7 +1671,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_033.fjs",
-   "sha256": "90024ace8de720055ab519635a05493e56b953fad04db0c8c6ed5e726d6cd79f",
+   "sha256": "29adf47a0409d3d2067ce2808a52fcb78b5907959b27ee05cd2d6556b476a688",
    "structural_sha256": "d864c89c9d520704848b7a711be229718b5da872ab054bf0a30658739e747397",
    "power_kw": [
     14.395690561538025,
@@ -1740,7 +1740,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_035.fjs",
-   "sha256": "5dec515d790542dd2d7f460d8ec14c9edac84f99a684d2f7ac739408418f20c4",
+   "sha256": "4d109c71953579bb1b08daabc63f88e6c8e0b44a9da219c70d63fdabd470d2a7",
    "structural_sha256": "b21a22b9b738ee1a683856e6f2fd10a6b870c4cd62a8b2dad225df2d8feedbb5",
    "power_kw": [
     11.52384917245317,
@@ -1809,7 +1809,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_037.fjs",
-   "sha256": "68c93f9361cf33b546b251f0c5443097ed552af2fca8e5836d275038803a3a91",
+   "sha256": "979653157d3ecf5a337a6befcdd832ab7968d2adf4e5addf26b35678cf14605f",
    "structural_sha256": "47f60608cf0b17006ec887810d28ba1316f17f7ee16c7ff52a50e68825434b8b",
    "power_kw": [
     7.522044397150745,
@@ -1878,7 +1878,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_038.fjs",
-   "sha256": "ae49c00751499e9c43a93ec015210acda17b6f3cde7c42900b11bbd25f3dd8ff",
+   "sha256": "da182b78ecc601b6206674a98a603b527b2770f3936071af06531713684df8a7",
    "structural_sha256": "642b72f9ed4dbf126692b6f581adf9e356f33f88044c76385681912b17cc7c3b",
    "power_kw": [
     14.740591642518778,
@@ -1947,7 +1947,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_039.fjs",
-   "sha256": "0cb69c3327531bca0ac6ffefc344c479306df605f47c0c49b7629e0b0f1a2e35",
+   "sha256": "1f96088ca01042d673bce37bea98ead0c196bf70c699f7e9abccf0c82cebd9fa",
    "structural_sha256": "48f560d33fd80f90baabd7b4e41678bc1176e046602c8e08e4becf84a84286e0",
    "power_kw": [
     12.195200916460484,
@@ -2016,7 +2016,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_040.fjs",
-   "sha256": "6901e7d56213d0b631bff3869258f42aebf1721bb1c4a1bd2ced91cfec5756e8",
+   "sha256": "e2452118d4e2301f276aece30d54f2d29f72de75d37ca1b7b5186df20eab24e9",
    "structural_sha256": "c4953bc13a6a6d16c392cf2ef4d3d90f7f40c81e4bde4533d131f9c181791bbf",
    "power_kw": [
     13.07055670449301,
@@ -2085,7 +2085,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_043.fjs",
-   "sha256": "1210da0100ce9bef89cb263c52a1f7120319bc091eb6ac42c20e7de5c165abbb",
+   "sha256": "e6a7ef8562ac8cc3dfe35e2e8a1fdca9c011c37be79f42b604ecc455c7cf7713",
    "structural_sha256": "e34ae86b2f527e9f0881eb3db9b3d2a0d2a25c3184e7a3de0943c1ae0379fac6",
    "power_kw": [
     4.1657734073564745,
@@ -2154,7 +2154,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_046.fjs",
-   "sha256": "43875183ca617ad358c9a09c40d842d25307227bd3c38348798f07f0731842ea",
+   "sha256": "b0a79520a50bba2ae74963adba809d93da6ad87d2502e27a43fe8d907c2091f7",
    "structural_sha256": "52039ce125c1724d5b301ee62114331df1f3915cdcdf7f53dbdffd69b72e10a2",
    "power_kw": [
     6.498821356630211,
@@ -2223,7 +2223,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_047.fjs",
-   "sha256": "c242f108eb46594ab17789a9f207ceee3fd1f234eb5f3887ae3f9fafab6a85c3",
+   "sha256": "ec56bb744b5bf6847992e0d1f6bdd736f702f3fc6a6eec909f7c68ab4a848929",
    "structural_sha256": "f3c82a631e3d76f2302192d68d38ab85d1d020aaa464e6bbec1af883bb1c6425",
    "power_kw": [
     5.334394631028319,
@@ -2292,7 +2292,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_048.fjs",
-   "sha256": "53aa9f859672eead98f40c867562f4e86a2f17799bca1225a8e0404c2f982b25",
+   "sha256": "82ee8a8b11337413c2a15cb7c21c92bcdb87623a55a25cb5c024b5a4a613e1e7",
    "structural_sha256": "dd600f91a16495cc73da702e1a8f26eae4a5c4f42c1dda8322359294ec8a30e1",
    "power_kw": [
     5.684690393168444,
@@ -2361,7 +2361,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_049.fjs",
-   "sha256": "b3149b8fa0ed2d8724de2bca22a26cd57854a2363840a7e0a238acc0b698ab4d",
+   "sha256": "b252a75d3ee8c4daff7912e2f35b06041b613824f211639ddbcb77b372b57fad",
    "structural_sha256": "a4adda27ba10ce99f62a568ee802e8db6bfe626f980c990183c6159400085d77",
    "power_kw": [
     4.323572351512065,
@@ -2430,7 +2430,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_050.fjs",
-   "sha256": "8139248c32aabeb60e254d05a96ea6b1efcdfaf84880c27b9de2cbbb18655f42",
+   "sha256": "699404782918f204776db5618727db27ffb8cf1eeb14db4a85a69188d9ee7288",
    "structural_sha256": "ed619e60497eceb9ad3b0511dcd93d80f51d11d7523d6cf5ac8833b58958d6fb",
    "power_kw": [
     12.59544522151701,
@@ -2499,7 +2499,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_051.fjs",
-   "sha256": "e399ba0b76ad30de543f4eb33879c17e35d93adb5a5e78a272c5541c7438fc30",
+   "sha256": "abd457d8b539debfd68dec483301b3d7aa54869078d12205decfbb31d265e369",
    "structural_sha256": "f3659d92e73f6ab90ad7afa96cd8ebfb31837150026a3bb7843dcb213c1d7bad",
    "power_kw": [
     13.110609300892326,
@@ -2568,7 +2568,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_054.fjs",
-   "sha256": "4b5dd0245ea8ae6420837cf9dd6988f42001e0867a76b625e835c311529ed8bf",
+   "sha256": "ebc6936208493af94139824234bc551e313ec82b3c31a721bc16a9ae9059eafd",
    "structural_sha256": "f0f1360b42bfbf1e24e1f49000c18153d9c7f160583f9987094ef1240cf40894",
    "power_kw": [
     7.256637413696726,
@@ -2637,7 +2637,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_056.fjs",
-   "sha256": "848d402d29583d943a4ef577a75824622e55f083f2b6fd128dd28a4335ae6693",
+   "sha256": "adf8a72785e19ea67c2f64afe723653c24ad90ae8628230e21374ba8e2ccabea",
    "structural_sha256": "728a59b4bd0a67946a8a90e509412a772bf1e0ac733ebb92ed7c1fe7f8763148",
    "power_kw": [
     4.109103460946558,
@@ -2706,7 +2706,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_059.fjs",
-   "sha256": "530d25c0c4bee875037dba9758e293d2e175c9fd67e3daccd019b4a1e2280cb6",
+   "sha256": "fc4f36b716b275e913a100eb24445860e5ed7cdc3d558042dce2455684620116",
    "structural_sha256": "a24b9162950da47750dbd1fe5a1bd203dfb2e5126b6767d7a5de8f7ba8f40d5e",
    "power_kw": [
     11.96378626114893,
@@ -2775,7 +2775,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_060.fjs",
-   "sha256": "c7d5bc326ff364381eb870a2d4241822f67dc0c455a9bc2f1db6219ec7498b51",
+   "sha256": "e5aa4c6478df85b453b5997d5c3f19b7574b30fb7b3f7dacf3ae7284e1e193a8",
    "structural_sha256": "4df6cbdbeb9ab9922860d62bde8efeb6c54a4cc7617e2337845c071e173ab001",
    "power_kw": [
     14.883026214379253,
@@ -2844,7 +2844,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_062.fjs",
-   "sha256": "0b418d038fba87ebdbb0c42ff2d1b96731542fb82768835036b31a499d79bb76",
+   "sha256": "196c5a1059c1161cbb2a75443e5a4912cc948897ecbb35e577eefe838cc30783",
    "structural_sha256": "a2e04082ef27c90ee84772f536c7a9ce713644f76beba4f98829bcf5a498c115",
    "power_kw": [
     12.796610106003095,
@@ -2913,7 +2913,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_063.fjs",
-   "sha256": "5b75d4bfdd18810107bda4eb8473157c9d23672a898e5b0eed63429e822b7d0d",
+   "sha256": "48f20da6df4b512ac672c1bb147414d14f6b267807863c85626ce599b49c871c",
    "structural_sha256": "7000a044eabf55f819ccca0fe65f8a3a18d6537c1502c13ea57fda14bd9b56c7",
    "power_kw": [
     9.316064319276833,
@@ -2982,7 +2982,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_064.fjs",
-   "sha256": "00bb1a02d706fe6007cbdefc7f804db313dd3ec0679bf9e795eb5933a3f6465c",
+   "sha256": "eba55e5e3ca2a72b29d50635ec22bafb4f18eb9bc600e3d93caf08b43fd74fe5",
    "structural_sha256": "2289a2adb00c8ecceb507774967c6b4f0b81fe70b611450753b0a602c91a74ff",
    "power_kw": [
     12.737191753730283,
@@ -3051,7 +3051,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_065.fjs",
-   "sha256": "73041271224c26c30278e8a10dfbce66f403c2ab4993681ee7ce6a617434ed0d",
+   "sha256": "faa1aed9cc0a42016a049eaf9b66caeca093439329f7374a130e4dfa543c6555",
    "structural_sha256": "3005074827fc6afd3494cbb061f579d49ff9955b1e07f034614dad5c19acb0f3",
    "power_kw": [
     12.80295373550073,
@@ -3120,7 +3120,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_066.fjs",
-   "sha256": "59fd36315fdeef9cd77b5d71ca4429ad8a69426740ebe1d457d9aeffd88fa246",
+   "sha256": "35c8cc7d00ddf4c239fcc7c64a6b4c11c71db4e148693e67c17042c59f247c5a",
    "structural_sha256": "c297cf16987bd1383fb7f7ea796589229d3b49d9dfd1bebbc643d1df4bc170d5",
    "power_kw": [
     12.830911998769341,
@@ -3189,7 +3189,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_067.fjs",
-   "sha256": "c5fbe9b7d6fbd439e243859aaa0a8430836c6bb6cf524784eccc07189bbdd1b8",
+   "sha256": "cce8cc2711577bc170b8ecaff093f40e3bec18382164f67b50f5965be3651fd7",
    "structural_sha256": "ba45be9693a8eeb5e2a2dde32ef8d06f105bd7694e7fd387510ccbe491fc0641",
    "power_kw": [
     13.174099875419587,
@@ -3258,7 +3258,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_068.fjs",
-   "sha256": "2d88f5457775df062683bb7fb5eed3c54f844907e1c625c8e845f5c3a26f2b62",
+   "sha256": "e622a38d2c3d86c7f906de80aae5190bc039618ae0fe66018f4a10aed5e18750",
    "structural_sha256": "fc79cd0ccf09249f697525582a3535b6c22e886eeb9607c3ea74000725aeacf2",
    "power_kw": [
     12.158652247699004,
@@ -3327,7 +3327,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_074.fjs",
-   "sha256": "b1907761a37d0a12748e6b811f2aa2fecc9b252fe758b6c834d20b0edc13e32b",
+   "sha256": "b13f2c7221efbdbde68463d83e41b5f983df44984c642d3dbfe1792edf4a6e39",
    "structural_sha256": "afeb2c3af3ce7edf7019b6965365ae56db90792df3137d44ae20ae60ff1d02f0",
    "power_kw": [
     10.510772134912731,
@@ -3396,7 +3396,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_075.fjs",
-   "sha256": "72585dc28ba659d5a1dafeaf661e6686056dd87966fe759c9c155286c2f88919",
+   "sha256": "bfd8a92808782ec4209abaf18a08b100becfb0a043378f54ec36fbff28e7ebfc",
    "structural_sha256": "e3bac33e9b0787379cdbc5376814098eeb4c5c78c48ed1c9f15b62db4cce0a9c",
    "power_kw": [
     9.48383855040768,
@@ -3465,7 +3465,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_076.fjs",
-   "sha256": "452b5c1052218f163df3491c8b071e228f450284ee18660d91a4258269f50f9a",
+   "sha256": "dc434a755b57e608f7a086ac4649c9aa268a8d7dbf26d06e16dded94243c6358",
    "structural_sha256": "4caba46552dc0fe9e49ee4b834d43d974ec208aaeeebf1199f69528b0c8b5127",
    "power_kw": [
     4.5526554769463,
@@ -3534,7 +3534,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_077.fjs",
-   "sha256": "deb8e7fe9000f89667f1f50518e8a2e13e1bd3df8625d5febe6e2c69ff8f1fb0",
+   "sha256": "3489b60aa3e4abb913249b75b109fdc65f41edea2b916f03f8897b673a7adef1",
    "structural_sha256": "7bbace2499494efcc3852d829e5d53f8d9905ebb8246d008c9cedc9ae6bd7dfc",
    "power_kw": [
     11.869009976510483,
@@ -3603,7 +3603,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_079.fjs",
-   "sha256": "f43b70b9613d927a113b8aae38865b4546e7f4001ce71a77494868eaac721416",
+   "sha256": "24560ce0c25fdc1c753ce641fcbf806d332aa6172139de519c2fba8954892648",
    "structural_sha256": "43604bb774a5735e8dfb9dc92757e73b35cde2e4c2ddfa22449a6f6bb2746473",
    "power_kw": [
     6.260642965586969,
@@ -3672,7 +3672,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_080.fjs",
-   "sha256": "cd13840b76f8ab64a03c4de7d6dddb125a582921c38e46800c2ebd4442f0070b",
+   "sha256": "27b3d3a879640dd6cd68f92504befb3b128882a34e990fde57425779d433b4aa",
    "structural_sha256": "e2749f0987198759af34542c57bfd27d3a842438778d28920247f7d768b4a5cb",
    "power_kw": [
     14.161782738213994,
@@ -3741,7 +3741,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_082.fjs",
-   "sha256": "3454f8eade16cb2e55947b9c96e2806c884b961ea3ea1221dbdfe4929ff6bf25",
+   "sha256": "172163ab066732a6c0a90af60ed1793985536926f9f2105aa7fef019bed7a032",
    "structural_sha256": "2a601e35a96b330c5713fc661c888857197b50e7c34d25be9e90c3cda3bb421d",
    "power_kw": [
     9.703564661263103,
@@ -3810,7 +3810,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_085.fjs",
-   "sha256": "d48d7314b1eee3b6b6494abb597615bdba1fa69ad0e5e93cda76795933ab025f",
+   "sha256": "aaac7af07ad3b1fc997304a6180d5167572760bf8ea22690b13c7668370515b5",
    "structural_sha256": "4219a1d831a4d2618cd739636d9eaed198ad8da249d9685019e9268096b84c09",
    "power_kw": [
     4.094048752445009,
@@ -3879,7 +3879,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_086.fjs",
-   "sha256": "a69376a5e7dab8db96f9768a7dd8b1d5216d551b2998df06f33b06f9bce3f4b2",
+   "sha256": "3e9f1d2d892216add2f52cad2f24cfca885d01ef9b2587a73394589d8931ecef",
    "structural_sha256": "8daa6f75c4b15c0734569df843df33d5bfd7028f5b7f1baa6672be7395468bf2",
    "power_kw": [
     12.316405862225185,
@@ -3948,7 +3948,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_087.fjs",
-   "sha256": "ceea4c930b5ddd68078bc312d80db888d20d7eccf672b4829bd5b8f3ed322ca2",
+   "sha256": "9a69f507ebf53aa28a239465cc9f8a8ccb4c6f5053e7fa5b79a14dd8feb8da4d",
    "structural_sha256": "9bc2eb3a24c3811ba57f47c115d37f53f511d75140b7853c4a3ec556316a5f60",
    "power_kw": [
     11.82355809632022,
@@ -4017,7 +4017,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_088.fjs",
-   "sha256": "93bc4020b1a3bf8e063194b05d30d738f8b6fb3e0b5b54129542e7ea9021886a",
+   "sha256": "ead9191a26c6e638066fcfc58cbd24c9700916102437cb8d043422f3da5503be",
    "structural_sha256": "248a1932a61177a6d82462ab40e7064b8fe9e209e65124ebe3315e772d65f053",
    "power_kw": [
     6.975336827994761,
@@ -4086,7 +4086,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_090.fjs",
-   "sha256": "ac65218ab582b639b06a3e5076895f40041c0b6fe8de2afaf78a41c279a9bbec",
+   "sha256": "3a9a4caf9a8df6525340cbbe395c5ff150ad4e0cda8348970e293c763c383b36",
    "structural_sha256": "dcda4813d008abc5fb2cbbcdf1d41b695d1adf79a71fdb3172b49121a07e7fb5",
    "power_kw": [
     8.744300264478163,
@@ -4155,7 +4155,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_091.fjs",
-   "sha256": "4508ce0f82c2a4b97e9fc324ab7336f62434deaf988421fbbdac014007a52891",
+   "sha256": "d94c6afd2fc4e52ba5d3a620b99441a337b4814e9db8165be4595f7fc88902df",
    "structural_sha256": "ef67992962c2c6ca78153fd260ade9f0ecbad4a356b302f866eb167877431775",
    "power_kw": [
     12.57156834502485,
@@ -4224,7 +4224,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_092.fjs",
-   "sha256": "69e652c2f466243421f177d7abbe289ff620e2faa433f72576dd5598f306bd54",
+   "sha256": "effe01782e3b854dbafd4d7bd4ab60a9f0b32af996a93c675f61930afbc206cf",
    "structural_sha256": "69013117ede6296dda7a1ad977ba9d5b4a2db61917d4f24662826a6f1685a15e",
    "power_kw": [
     9.588521200805125,
@@ -4293,7 +4293,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_093.fjs",
-   "sha256": "c2d81117df4b689f428ae69dc39218f1f85cdd249a86f9686a08c45e9a3b7daa",
+   "sha256": "1b53c2c8d286d48cfac56e1947374ac5a688884c96413a685bb0ad8f9c1a63ac",
    "structural_sha256": "fc000dfd34eeb5d837218f65b5a26c009f21708742d75be7c3269343c2de6773",
    "power_kw": [
     4.621716902548695,
@@ -4362,7 +4362,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_094.fjs",
-   "sha256": "ed3bb9ff1678ee455a138b9e60dec069e44cc8641a57a5bebdb53bf1e4fb05fa",
+   "sha256": "6056039d08f093a1bcabad88fd4bf71b14be2f3dba0afa7b1dc8e4dde5f18eb5",
    "structural_sha256": "14460a48ade646181fdf5a49a38531d071f4aed9f36ad87e29fab95d60a5a201",
    "power_kw": [
     7.019377321049151,
@@ -4431,7 +4431,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_097.fjs",
-   "sha256": "0785aa798d8d326728b708c9232d38fc865b207ac7f33f94f70bb4cf65844294",
+   "sha256": "42b88d42e76d467115c15eb19fb4220cd50a8470b082f2226d0abaf56233ce7e",
    "structural_sha256": "c525ac9a0cc75d8cb65dfc5a4e6ba9bcc3e25d63c29445e147283b3a55a1fb1c",
    "power_kw": [
     13.997012237613866,
@@ -4500,7 +4500,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_099.fjs",
-   "sha256": "0db0f4560aee071dd5cf3971cdbfa38e70dd0c9137151ae78f86e44e63cd93d5",
+   "sha256": "8818e13ee2561034248e398cb035815537f69b8cdcfc8d7afb609a20b709b7c7",
    "structural_sha256": "b072e4d81a305dcc32021dfc95bc9f4a1bc0e0ad5284fe44bc7a94ba61970448",
    "power_kw": [
     6.311593750554893,
@@ -4569,7 +4569,7 @@
    "split": "train",
    "size": "10x5",
    "source": "daniel/data/data_train/SD2/10x5+mix/10x5+mix_100.fjs",
-   "sha256": "894c78d101deac995c44e4a7c6767433be60656558ea1797cc35824f783fd7b4",
+   "sha256": "886687cc6172c1c29ee447e36a90a9a82d420bc727ca0906e6f7007ebe6273d6",
    "structural_sha256": "fd6790bc0605945380210356e84edc8d23381e6946809e60d7f537dc09436d19",
    "power_kw": [
     11.76399692608151,
@@ -4638,7 +4638,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_001.fjs",
-   "sha256": "f3a34a55479350b6ec176ee86b4d75796562e5e4d6a1bbbc2fc41214c7d0218e",
+   "sha256": "eccde364444c30763acd4aa44bbd8919a004f9247125992f3ead0d4d92f647cb",
    "structural_sha256": "27328d5ed8dcd79bc21b3ab8e86e1e61fccd50b0de05036bc2de6963e7c8e03f",
    "power_kw": [
     7.431558328500116,
@@ -4707,7 +4707,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_012.fjs",
-   "sha256": "b0fdef8214132efe16276ed5aed5b04db6ca5ddbcf6615b89c564f6d21cd658d",
+   "sha256": "e2e2bd063c3980708e450f9bcd6578165f520241685adeb481490bee25f047c9",
    "structural_sha256": "71b60af7ad5593c852546981ce1f353751c09cd86f28174c5a0a6e487ca5442e",
    "power_kw": [
     12.861647864638117,
@@ -4776,7 +4776,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_016.fjs",
-   "sha256": "70f4be6778a4269e87d63c9ea4a9a698b04deed1ca9016f661c2e6a59498159f",
+   "sha256": "058b8a2a3792be41dac7246004f36f075d79819e5e2dad631c90dfee3f789732",
    "structural_sha256": "6908a1577aee352e869ac3970a817845a4b3b6c5910e29a99a5d317cb33cdbfe",
    "power_kw": [
     4.264770604927929,
@@ -4845,7 +4845,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_023.fjs",
-   "sha256": "47115e02f1ec50ecbc8db37afbdde436292be61eee92c8cf960228f18f884eb1",
+   "sha256": "80049f85b263e46d1ede4060f6e2aa56deb4242b2575e0965abce942159991e7",
    "structural_sha256": "a1ddb125427957073dcae6ae8540c4aa578a4bf3e0a1501172b527baceb72bad",
    "power_kw": [
     14.57032311033669,
@@ -4914,7 +4914,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_041.fjs",
-   "sha256": "ca718b907428769bce6d287c1f82c54fbbc08fac35d79ea2607e54fc4eeb953b",
+   "sha256": "f9ca8d9ab548f8e95d83b1559e2a44b80f0fb43f61d307fdd319adf13fee4b89",
    "structural_sha256": "3ed8230bca5e131a4dd85a76e630760fa0197fa56d50bdc9e1dfb0d51dd466b5",
    "power_kw": [
     7.639192374645571,
@@ -4983,7 +4983,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_045.fjs",
-   "sha256": "e31bd069ea59fcab4d421fc90214bde8d5da796f9a346f5e282c59304736001e",
+   "sha256": "2971b7b9eb8c1a6058f5585323fbae826af806e97df747c5db72afe3df8b69fe",
    "structural_sha256": "c755c644afbe54f9d751fc0f91af39cf7be50f6e7e6d070fdf35e1fcb2f1e034",
    "power_kw": [
     12.828379434219967,
@@ -5052,7 +5052,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_055.fjs",
-   "sha256": "ba83ccc1d56ed2a0f635f496ce0c5c21db9b86fcef582d40ede6000c652f4114",
+   "sha256": "31c4c2415de21fdd32abb6a0d1796a3e138a4b8796a6bc3d70c9c9694ede309d",
    "structural_sha256": "286212e3ab676b05fee8eb4fb0b93fe8a911021c0424c3e2c2c36aa371b6dca7",
    "power_kw": [
     13.577241776501277,
@@ -5121,7 +5121,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_057.fjs",
-   "sha256": "574a2d7f57ae72a7e142fdad06ce18df627a420b56970479af27f15f3c4f9e16",
+   "sha256": "55be291364adb070d027aed3472ac9dbaab137fe90c8ad21576d2607a3ed7eaf",
    "structural_sha256": "fc69037afe8e39b4a5d1ff0eeb63fa9a656cb73b278e4cd95eb49a4fb8c405d0",
    "power_kw": [
     7.268377967716594,
@@ -5190,7 +5190,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_058.fjs",
-   "sha256": "9993690ef5de75bf53f87ccb46ab12e91b1e2d952f05c419dbee9a15c39a5a47",
+   "sha256": "116504019000de9ebcea4f61262418f9d7d71fd2a62c2f2af49612d819a1bd37",
    "structural_sha256": "6d6fc2a24cb8d9cefd7779edee5de34c6acfb1e9dfe387f1b392b767402b479a",
    "power_kw": [
     6.601266925100119,
@@ -5259,7 +5259,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_069.fjs",
-   "sha256": "0572ee15c42bbccaa52cdbc6f04c5c9546a9f9c6a3f2b18103ea74563e5d72bd",
+   "sha256": "c70cb099a3902e4633808170682c0dbe2970f51c471d6d502451f34ef79d37a3",
    "structural_sha256": "50dd1c477371789255b39b1921a4b239f8475742db130063f8c05ffab0b23e11",
    "power_kw": [
     9.39142466298139,
@@ -5328,7 +5328,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_070.fjs",
-   "sha256": "14364764430d640c79595070d6804746e07ddc57ac630b681b341e61a960db50",
+   "sha256": "581edcddf3e437fad36bea2c592fe86738b98754211372cb50edd688d0c0980e",
    "structural_sha256": "b3d7c5451598b079f435bf54c82c64754131b7ea7bdd70909ab873faa1d2b5db",
    "power_kw": [
     13.210343850766531,
@@ -5397,7 +5397,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_071.fjs",
-   "sha256": "1558529145185523d6f8adc9034248df981b39c23c42a14944ce0d3815cb8090",
+   "sha256": "f34952a8517a24fca05b7ae84179599805a65508ed7e3b68a8c48bb858917c4c",
    "structural_sha256": "08620b219e4a5936052372a8f1c3b2e438700591dcac971002dca14cad175608",
    "power_kw": [
     4.363747262776153,
@@ -5466,7 +5466,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_078.fjs",
-   "sha256": "e2e6f5e8dc93cb06ed6c4ce1c73989777e4cf3df7190778d2a17106bcb307333",
+   "sha256": "941f9178b6776a7463a3e78bef119847f9333c1e7228d033bfaa45b6406d1993",
    "structural_sha256": "5e0d9da7476dc59462c042328b20ed57a91035965b0f9ff8e136422b975f0325",
    "power_kw": [
     6.11911720692677,
@@ -5535,7 +5535,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_081.fjs",
-   "sha256": "aacb3badb8cd8c66da619f15844e511c6d2c1002bcbc8f19535280f46d3db5e4",
+   "sha256": "df275a6a1d296b6f14a3913cc40c7ddc262e011a159e0851b64a9823de1b25ce",
    "structural_sha256": "d9542ccbb7c61ee417f5a63767d7c671b8b24608de2301f4d13711abf1521d32",
    "power_kw": [
     9.078760281017544,
@@ -5604,7 +5604,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_084.fjs",
-   "sha256": "5a049742a7b63e2fb7b5d0e6ed350853f875904129f889130032bcf2ba939fd5",
+   "sha256": "c78ffb278b6e75842095a85db3489c222a372c0c538912a3da4c5f3290d3ee36",
    "structural_sha256": "8f2dd1dfa44266a87e478c8c57bf80db8b44ed502b7c9555185b9119ec75e3f4",
    "power_kw": [
     12.814570511420333,
@@ -5673,7 +5673,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_089.fjs",
-   "sha256": "4d6f24b2e6f6e5125042ecd25200c020f3d81e1a928a7c7267c6d9a2ee25dd87",
+   "sha256": "8990c8c27bf72f48cd483bd2881d892322b9e04610c38e36313488bef34df7da",
    "structural_sha256": "20ce8c5737280d370ba827b380d03e5b53dd2f3f3f70d921c7a91e80602ce891",
    "power_kw": [
     11.3392184262948,
@@ -5742,7 +5742,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_095.fjs",
-   "sha256": "1804e8391fdc717c795e2cf07f1ebb78747c3bc59b605041074bb67120be8aa6",
+   "sha256": "325c1e3ea6d7647d1df62720c6047c2898bf9d745a4b67bee1b618b26afd3f5e",
    "structural_sha256": "0e170b98c6845ec1b178fc19910780aa111074260f6520ff012484081090ec39",
    "power_kw": [
     5.182131085398582,
@@ -5811,7 +5811,7 @@
    "split": "validation",
    "size": "10x5",
    "source": "daniel/data/data_validation/SD2/10x5+mix/10x5+mix_096.fjs",
-   "sha256": "0cc8f1cdb2e66bef9c7d16a99ea4ff482900bacc6aa499bb09f06625bcc0698b",
+   "sha256": "2f85a9f1c43c4d2efe3f924e55c561704eacb985e24a4faa3c020a59aa6c6c55",
    "structural_sha256": "f988131a4d2c426c4c953a33a4135cfd176b779ae28247a5d875b91d75b387f4",
    "power_kw": [
     8.308977991027083,
@@ -5880,7 +5880,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_003.fjs",
-   "sha256": "8542390bd788d0d80b975267a2af5c20a97b4aabf01cfc42f1a77e7734da01b1",
+   "sha256": "ffbc67f8ac3d614cf32ef9ea872f455db20448895767d970d058709135fc543f",
    "structural_sha256": "4fb4a1e711735a2cfc54bbec9065d11fab064139f342776c264cb2fb8707b3da",
    "power_kw": [
     4.523579316716466,
@@ -5949,7 +5949,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_004.fjs",
-   "sha256": "a60e2a9352c98c09f812f65ec645ce3c40b157746aea38855e4599162fe85f2e",
+   "sha256": "f3428e41e65f1a2301ca8cf2b3f384b3ae9b40f2e551f67237fcaf505be62e09",
    "structural_sha256": "677a4a5d39887f1f2189f6b0359b659fb489b8d661c9ad99c20f398e57d55448",
    "power_kw": [
     9.229235052200753,
@@ -6018,7 +6018,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_006.fjs",
-   "sha256": "3e1e456358e6d1b75b7f8ee2b43d5ac1faf4f8fb1cf951b117efa4dbcac20b1e",
+   "sha256": "1cfb2b9737b369f86bf4629c5a5ec1b09112c5d4a6e483d367eb89e1732af23a",
    "structural_sha256": "359b93cde7e80426bfb9d0158eb1d0d1000af984d0b548364d78b8db5d43f1f0",
    "power_kw": [
     10.989195329174914,
@@ -6087,7 +6087,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_008.fjs",
-   "sha256": "5af689e291ee3af91b1fd0be8b0a1a05b4c4d0f96ce54952969b26799d0f5420",
+   "sha256": "d513e50fbb2dd0328ebe1c2492cb723b819fdbc0beec2965f426549261f8d017",
    "structural_sha256": "92491fbbc6b865c534da2fb2f749f490802018eb6872d0d333a1b97aad066d84",
    "power_kw": [
     11.353534518771383,
@@ -6156,7 +6156,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_009.fjs",
-   "sha256": "8019e667d2e16982b1ba90e5f08619f3187b5b73d7cf6450df14b7120f47136b",
+   "sha256": "cfbe572cbcf645f45f89be2f23173491b089eff8c2dc6ebb0c3796ad5e33956a",
    "structural_sha256": "7f95244de81dc2148749d31488e335ec630aaed2805f7f38de01ce9d71e8e7f3",
    "power_kw": [
     9.716679687288648,
@@ -6225,7 +6225,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_020.fjs",
-   "sha256": "71a58f9812f7eed399ab1f8368859c4cad513a908078595bd34a8964c2167ef9",
+   "sha256": "91ef104f0f63d72b50b0cf4acbbe113f642cb2102b8afc35a93611abfa553af8",
    "structural_sha256": "03ee2fb47d9d259ba0c58ffc3713406276e44ddf5fad5d388e10e286fe9f2f06",
    "power_kw": [
     5.786461136303146,
@@ -6294,7 +6294,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_024.fjs",
-   "sha256": "4783f368b108a036b6d34d2ebc7b864d425423b1f5ca5b8f0f6484b19bb4b6dd",
+   "sha256": "5f2b82eb3839f477f12b309da50a792a8184ba2ef1efd25ed468e1405bb4fe95",
    "structural_sha256": "a692e1449618323f6aeb2faf7ceb00a20ac6a35894380c3da32dbe39711559c0",
    "power_kw": [
     13.919523689773431,
@@ -6363,7 +6363,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_026.fjs",
-   "sha256": "f3f6de136397b52302ccc6a53c807c7513a8564f8139688f745f4fd0cf852f38",
+   "sha256": "18c47267b78a6a85d14750d682bd90a3db52793b004ccd0372c01b3bcadf28a9",
    "structural_sha256": "26ab3a511767fde38e0caf748a7ad2be7b0db270ca9d17dc5ec30578856dc09d",
    "power_kw": [
     12.900457879304671,
@@ -6432,7 +6432,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_034.fjs",
-   "sha256": "a11f3af1a0714e40be94eb56bdc5bfa284a33238456545d225e1fb62750a147f",
+   "sha256": "69b80c19319e75161c230ffb43c5a73e32ae587146fb8f0160a6eb6d146256f8",
    "structural_sha256": "6cb10068e1d9fb9f81d1aad1188f09fe3c2ae19c0df6b00fcbce3182280aaf32",
    "power_kw": [
     13.85444283139461,
@@ -6501,7 +6501,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_036.fjs",
-   "sha256": "03e03b82857812d3ab7708cd574d39bbd8fedb91c0d524db9e3d6ddcc2f8cdc9",
+   "sha256": "0bf7444c21e01c4368e8a375832c997619242c7fa7397cb0b39869996c213920",
    "structural_sha256": "0245aca68b636621db93088e42f4db8e276531c9d6f64d704c5d303107cd740f",
    "power_kw": [
     12.785724102042304,
@@ -6570,7 +6570,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_042.fjs",
-   "sha256": "3167eb1ae4ad4a6b291dafed7fe7c60b3f00da3a80f667c6a0f37d14dca10be8",
+   "sha256": "d1feed6bc03ec61606e44362fe55db693eabefd95f7f42a24b3c0abfa6c5146a",
    "structural_sha256": "af14e65a08f80a96451b9d61a15f1083f19a717294976e7513fe23d46172ae38",
    "power_kw": [
     12.131266760981095,
@@ -6639,7 +6639,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_044.fjs",
-   "sha256": "13925c44ca52180345b4044318c864a49990aafa5188efb9143dc6675814ce31",
+   "sha256": "77a55c1e2be44c1f8d4abecf4f8a4389bb0176173a3f13a577f8410a338d8dee",
    "structural_sha256": "b3b413ec423caad842cbb4ad7c0d98b6d51c97b982210fb16554f128b6c68730",
    "power_kw": [
     11.26008869055253,
@@ -6708,7 +6708,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_052.fjs",
-   "sha256": "9af2169d06d6eaf55d51f1ec4b316ba3072f528b163cbc1169fd36dced082ad8",
+   "sha256": "8477e3f9bfd53d777121c14cec67656646f17faa812f860285b73020ded2e3b3",
    "structural_sha256": "44b6187350553f539cae73cf5500a6b6f91d1510c94a15b6c2430c1f1038de71",
    "power_kw": [
     8.633016416446704,
@@ -6777,7 +6777,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_053.fjs",
-   "sha256": "f945000b789f964adae7a915993dd577c53d508c2d0a23d823deaefdad6f7bd8",
+   "sha256": "84ac09320fe9cd515f3df1f2d917964fedd5af2d855c0171ac3c304d433e0ab5",
    "structural_sha256": "a78038a7e831c02942aab5b6d1ac6e46559be7f3cf69bd2709c30221de8e1a62",
    "power_kw": [
     14.281697596909236,
@@ -6846,7 +6846,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_061.fjs",
-   "sha256": "f8e1ae804d0581cc799404a0412ed93584df2e09c5002cfbd1a5a5c271641357",
+   "sha256": "412aedd1dfacfd04cd858f9128114645eb8c2bb1e5f39fb28ec755b4f3aa56d9",
    "structural_sha256": "01d8c78fbdd5fa9b0018039f1cafd6258934d70951d54b55c425b45d79eb3262",
    "power_kw": [
     14.424551957948406,
@@ -6915,7 +6915,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_072.fjs",
-   "sha256": "9d3637d1ce8dea6672cebd89f7b64bf7641bd4da5fd2f3315bafaad1d1d81c53",
+   "sha256": "d445b24a19d56e360454dceab7b0c5dd8ff71de881dadb91e449429c2a28fe7a",
    "structural_sha256": "0f63d382f64104b0ef83ae96e4029bc6cbd4bb9bc9904690b0a71eca51c4f448",
    "power_kw": [
     12.243831707586565,
@@ -6984,7 +6984,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_073.fjs",
-   "sha256": "32c23c731e621b14d45ff26ed8e7ac9825bbe0c12b77a2db28a50dcff7764577",
+   "sha256": "7c96e8e7ca2874bc90103345b6d9aef658e0caca493f8f6d911dc8890a20483c",
    "structural_sha256": "2ac6ea32ff5aa78296a2c5af0166b5e2a434c9aab5563f70fcfa9267e1eb9b1d",
    "power_kw": [
     4.302119517475271,
@@ -7053,7 +7053,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_083.fjs",
-   "sha256": "b6cdfaed38a078f3e6f21a9d167159981d132c12fe4120b14d01427a3552f2f7",
+   "sha256": "4c66cef859fba7c107fd3b02c0917061549922621ee8b9781ee9dd302af9f68d",
    "structural_sha256": "14e6dea436e18b34da6c1e153e3b589302d2f85aaed1e49af419d6704e99694c",
    "power_kw": [
     14.37192423908506,
@@ -7122,7 +7122,7 @@
    "split": "development",
    "size": "10x5",
    "source": "daniel/data/data_development/SD2/10x5+mix/10x5+mix_098.fjs",
-   "sha256": "6c7a9d90ca3b0259dc93bde324ff97e463b1d2f38a9bcd998abd16f36031f25f",
+   "sha256": "deea07aa984b54492548756e7b721f28baedca4c67e9f72278a3011e20f459c8",
    "structural_sha256": "b10ec5732adce9599de6fdab277e15999ac29125ed2345cf4bd2095e2d67f13a",
    "power_kw": [
     7.961333694179455,
@@ -14091,7 +14091,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_001.fjs",
-   "sha256": "33984310758c09468cab0154ac065da973f92f3beba0cfd53d75bcaf87b0789d",
+   "sha256": "6efd67df43ca9a59e9a5d7011ef6de7a9f891733a3b0810504dc7a54e3644926",
    "structural_sha256": "610dfafdc06dcfe9363e36d8a02645dc1de71d843689ae9dc576ac923642fac0",
    "power_kw": [
     11.253293425857965,
@@ -14205,7 +14205,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_002.fjs",
-   "sha256": "9d1d32f0dadfe704cdd87d3f709a8869ab9eaf2048b6c4bfabc8b70efae50d9b",
+   "sha256": "b18d442d1c50cb6857deff8fd0fb9a79e0d832edd8fd837859990c78b54911c4",
    "structural_sha256": "2084188ca0d26230e5192c66611146b02b8062f6d9b326d1c17356401865f912",
    "power_kw": [
     5.015035458819771,
@@ -14319,7 +14319,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_003.fjs",
-   "sha256": "be48731476ffbcb55580e29bbb8960cf71f84560ce6ff1a391725ab4cd9ca1a1",
+   "sha256": "9b9bb8c2540dc4a0a962dfe024ab9c4bea4fea03ed91a47e9352eb357f0b4ecc",
    "structural_sha256": "ca36d363a4bb6dd4491104181724e8c0188773698d36fe30ad751cab0b80d708",
    "power_kw": [
     4.200819820650104,
@@ -14433,7 +14433,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_004.fjs",
-   "sha256": "9f0ec310d969bc39b13da5eb7bef05b1e23792b5086db74ad668c30288d4d802",
+   "sha256": "938c06ffec8699e3b762a4ca99f3e003c3318a737c21e456faa2dc5d7768a8ee",
    "structural_sha256": "05992a862a3cae0251bde3c7240ec240766b5597c5457a60b1d31ec554e1a400",
    "power_kw": [
     6.142395757619175,
@@ -14547,7 +14547,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_005.fjs",
-   "sha256": "96b3c723e2760c5fde0cdcda042b90e2910f40468f0412bcb217902a58ec2c4a",
+   "sha256": "da413fb7cde23582966dde8c3c90576748075ec2050394c7f68bf9df9219fe01",
    "structural_sha256": "29de77b5d606dad5aea036de47f8a15e8d4165dd58eff3a15e8880efd551d50d",
    "power_kw": [
     14.496257995872034,
@@ -14661,7 +14661,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_006.fjs",
-   "sha256": "5c8a6c7a2720318e3cd1b139f1ccc83564298cb2714654115238664e5727334c",
+   "sha256": "2bf27fcb48941a2f29bc1e80861cfd7c34e5ea7e8f0d6a3c26e44c3fdf6f012d",
    "structural_sha256": "1d7d115b80cba10afdff391702e66ba97155b6c5bfd76f7cfb23143cf2b85204",
    "power_kw": [
     10.185536231845653,
@@ -14775,7 +14775,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_007.fjs",
-   "sha256": "d220ddd16d32447411f48948eef6a8ec52661bb033f8581bf09df0a372e453e2",
+   "sha256": "eab8590616e21bd2f23c53a1ff51771a3ee43dceffb85a5e5e9cddc2d7c7ee85",
    "structural_sha256": "5a141ff64b71b6e000f5dca73051af32dbda6cf9ca987a85d586ff9a3a00ca73",
    "power_kw": [
     6.055698153613737,
@@ -14889,7 +14889,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_008.fjs",
-   "sha256": "5de662e840bda70310582e1fa071c96fee53737c21e4c68c796ec3e0a672ecbb",
+   "sha256": "407cbc9453de58199f6e70f1ce88e3d0b0401afb1cb023c35e029a6b8aee0ce0",
    "structural_sha256": "94a71c0a381c65749af3f1b698b4da8901b7b3bb669a5a319e6621029c71722e",
    "power_kw": [
     4.924112947307167,
@@ -15003,7 +15003,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_010.fjs",
-   "sha256": "00ef90f7d9e51d9817772b1f8c62ebc1490002e886b2a006501b0ed3b798900e",
+   "sha256": "a4b2be61d986be821c8de11b15f06f794a1a351cd98b2dec58d322c2a7ff20d3",
    "structural_sha256": "8a26018c8cb6cc6a596508a2783cc7bc1d07318af2c9a67e7292b83b8877da56",
    "power_kw": [
     8.518459558818776,
@@ -15117,7 +15117,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_011.fjs",
-   "sha256": "989ffd70e4802095368e11caa4842d8f79f6dcc2062321d6396d4da04900f840",
+   "sha256": "5a365cfb4e496074511f370ab738da753e02235e83fc3f5538e4a5d3fa52c02f",
    "structural_sha256": "45d32a49f6d93485e3cd2ed970f3f8bac6d311710ff3b12d1b4289797779441b",
    "power_kw": [
     10.910196848350006,
@@ -15231,7 +15231,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_012.fjs",
-   "sha256": "83eae34d6965cd0bbbe281f06c7cda5e555a81b28dff1efddaaa6b5ba70f086f",
+   "sha256": "b7214e3ce4daeb561a53adbdea381a40363d5ee27e957c9e4320958d4d742ae9",
    "structural_sha256": "e469f2609ea09970334832a54fa212d1b41a0536fef5e58d25ac670674425fc3",
    "power_kw": [
     4.030088098471558,
@@ -15345,7 +15345,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_014.fjs",
-   "sha256": "2dbde5ee5e4a3ec02be49313e02e9eff43ccd5c26247d82442214ad25060dabe",
+   "sha256": "bb25689249d7834013e646c352768e11887895088282b470c184bc86f0261b3a",
    "structural_sha256": "adc147c118f2943431f6f2eb49b6ed91567f4a71d9dc2c6a289eb5c342c28554",
    "power_kw": [
     10.421036663665038,
@@ -15459,7 +15459,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_015.fjs",
-   "sha256": "ac32add38c5dac4aa380115982dea99eb79db126f8f4fd79ea33264e7227d011",
+   "sha256": "2975740f8515ee0b4ebf1525ae26f09031aebeaafb76eafa32089a220ea3865e",
    "structural_sha256": "8dc768d8cd092b9a099dcd5b51b42bce1e5b9b41508daef6f2fab65fc439ad93",
    "power_kw": [
     7.494245429325192,
@@ -15573,7 +15573,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_016.fjs",
-   "sha256": "9aab4b3bd9e1f1e0b1327dd747518bc1ea2ebaf7dfec749b871db449b032e587",
+   "sha256": "080a33dc622cb735caee49895bdc6f4c2cdaaa0f160567d3f05b69929a893959",
    "structural_sha256": "9268b2cc0d62cbe419ec465da63657d7c6d411ff14f3ec6d76d9c1bf00939226",
    "power_kw": [
     6.485835533972037,
@@ -15687,7 +15687,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_017.fjs",
-   "sha256": "c8d2ed6bd41294cdab4b659262aed6dc83cb7c5ff621fdd66a8e34f3cfcc160a",
+   "sha256": "1c23a365996be26ffcbe4dbd252bcb6f7774f39984bac075dc69eb0d532a9f1b",
    "structural_sha256": "e0e278bde6c5478a108f0e7a023c0d8e934374a834eadf3649f2c5281a2d92ff",
    "power_kw": [
     12.699072124223054,
@@ -15801,7 +15801,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_019.fjs",
-   "sha256": "bb74701b8e9a80d655644eb6db619930eb59c7cda959c5ce9f8ce9725eb8a631",
+   "sha256": "3ddd3d449f4b4c1f5468461fa71ebd16b5c147c550bcc9bbf1c69c903f5d6e35",
    "structural_sha256": "9ed717b8acb7223e4f538a9bb45ac084ede99633ee637f17c5cdc1452bcfdcec",
    "power_kw": [
     14.52184422230429,
@@ -15915,7 +15915,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_020.fjs",
-   "sha256": "6d9d23c722d8956eb57443afaa1a8230f8a8ed4a48cad5897668f1647b798683",
+   "sha256": "fcf8bb25b87f5f01671340d0829a5d7432d3e03971ce3793bce6590520422408",
    "structural_sha256": "9db47693ddb459a2a6b32c4331bc66b3d5b8a3d0dd3587fc8803a6f49430ad70",
    "power_kw": [
     12.568356769410375,
@@ -16029,7 +16029,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_021.fjs",
-   "sha256": "e475c47ec08c1081dc5993f1c96a93f485d07c465655ea2ff80dd1a95fc51268",
+   "sha256": "35eb66487b9a3b91d9925368980508e3e69fde3fa769244d3d2aeb18967389a6",
    "structural_sha256": "3d11dc8269c50caa436e298429c53829703aa8c11f20d46a411f8deb07e4b94c",
    "power_kw": [
     7.746537169294294,
@@ -16143,7 +16143,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_024.fjs",
-   "sha256": "0734ecb0ce6e4bdca47fdb6519274178417a5534b04cb7b09333b9c62eb38b72",
+   "sha256": "8918973f02169d1c4340462ee9c0d1f114b7e1688f61353cbda3368540c49af2",
    "structural_sha256": "d2c4b4f604643a60e3ec560f3137fb92070c66d0f76c9c49199fad3e67edae78",
    "power_kw": [
     14.221494867617267,
@@ -16257,7 +16257,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_025.fjs",
-   "sha256": "74afceec5e0875a583ce04dc34622c88f5e6fd27ceecd45fb4aedb8fe05297b8",
+   "sha256": "cdd2e91e9cef042b03ab61a8f8d34e71e1b6c64ffb4a5b9c4cafc20f1fff0972",
    "structural_sha256": "cd73298c3c71a10f7e8dbfd41ce25fdc1c6cb7ecee0b4255c9310e23dc0c1115",
    "power_kw": [
     14.22183901902881,
@@ -16371,7 +16371,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_027.fjs",
-   "sha256": "0775976f4cc68e2a6d940f783c24982d97b9f76d795f8f7d67451002802a7e58",
+   "sha256": "ae3d1176649b1fd69fd6602a2cf5af863d23c1284d6bf00f8dee24307e679d8a",
    "structural_sha256": "d1102d4511947c4bf5d74906a16c7f1d20b4cfea9cd55de75461f71212034afb",
    "power_kw": [
     12.73559268826718,
@@ -16485,7 +16485,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_030.fjs",
-   "sha256": "90326be4d4846bd3d1495f9ae6d70a7453c8cf54d4b7328bd8e516873193654b",
+   "sha256": "e604ad8bec8c5d22a6a2c638d041f00e8ac2e7df63ec2c857c2e2fb95974dffa",
    "structural_sha256": "775abd9a2833836c98dfe687f2fc1016246c7839d6384280531a0d37932c5c85",
    "power_kw": [
     4.345459083276437,
@@ -16599,7 +16599,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_031.fjs",
-   "sha256": "1b8e3eb42bccb616b5ca7907de5000ec24a8438e9f66a30d03d312437eaba3b7",
+   "sha256": "7b80eafda00c29924da65104b1011e208809ec66b8a58c289c248f1bc1051c8a",
    "structural_sha256": "ad4db71b3e73a5256fd7421e0909af2e87f32b9a512c477ad2a24390c86d0141",
    "power_kw": [
     10.130611461897992,
@@ -16713,7 +16713,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_034.fjs",
-   "sha256": "dffdb69dbe7d329352d5a135686ec841ff021de834950828b54ea09c240ab0be",
+   "sha256": "6907897ff2b8fb81a7acb6f9a140ef08379e3b95a92445288d38efec65760711",
    "structural_sha256": "3f6fa668dadfc84eb3ad16c61c02f959c363543eb4505b4f274677f2e9420451",
    "power_kw": [
     8.865913933455651,
@@ -16827,7 +16827,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_035.fjs",
-   "sha256": "cd5d8beeb3d7258b6fafbb7b5b04fb0dd571039659759d83227af360d8e168d1",
+   "sha256": "a1c9342900168b34b5fea222467ab00e57e6c0243b4032ee7989536d01a12064",
    "structural_sha256": "7110658b171e08adb38046dc9e695909cae2099bfaca88b63c194b79b72e87d5",
    "power_kw": [
     12.269926972370673,
@@ -16941,7 +16941,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_037.fjs",
-   "sha256": "1f645c1312ac1e521ce81e7ce179fb9ab7642af53a6445e926eacedfff6d2148",
+   "sha256": "972c9963340bab1906de2a9f671abeebad056e031efd7ad4c82cb4287f2bf32e",
    "structural_sha256": "8dfd6ebfcb10e97dd0c395e8d2427b357d654079abf1ce2971e88b01a8f3465e",
    "power_kw": [
     4.666043547805989,
@@ -17055,7 +17055,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_039.fjs",
-   "sha256": "ab87e6b4998ae127b20663f504093ef76077d417c900f095a1e397484bddb8e6",
+   "sha256": "45e76087ff71a9d4996b5d7a23c06d6443ec833996d9166c9cd66fce84076cf6",
    "structural_sha256": "897ab77e615661f00777da5c158f808dd9da88f64f22636776434903585fe178",
    "power_kw": [
     4.273435178447931,
@@ -17169,7 +17169,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_040.fjs",
-   "sha256": "607f121f620252078138451b9abccca83778cd8c7fbc701e8807f51dca09d1f3",
+   "sha256": "8beb4fe24c08c14ee02d942e858f4714cb735cd4f606647d69d511e94e90b123",
    "structural_sha256": "d7c1387f13757d32b5119669860850b7cae2521d02e708f0851c7f30eac253ee",
    "power_kw": [
     8.404258619522826,
@@ -17283,7 +17283,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_041.fjs",
-   "sha256": "407d61665e4caa3afb8965c0427e6b202a3462fe71860ade9976ba84f4c8a201",
+   "sha256": "de73b6325be8fef90ed203becb3de8f047c7ee9f16de6bdcfabd8ca009640331",
    "structural_sha256": "f3b749633a35b2a2157664c47e8b3d2ddc350dae3f6c7ce10ec7f83090f5eb1c",
    "power_kw": [
     10.2692319594485,
@@ -17397,7 +17397,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_042.fjs",
-   "sha256": "5ad1a60c7b18d00753220befb08682c1fa4f3c86177c7de3e05780a6a3a85219",
+   "sha256": "3f64874947c0c18ff239d69822f585377810740612dd58b8289a3b54ff779ad6",
    "structural_sha256": "4e1fecdcb72b7016476759edfb9fabc332d89010f52481c47acc09a165ae702c",
    "power_kw": [
     6.338970440894243,
@@ -17511,7 +17511,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_043.fjs",
-   "sha256": "a22dea20d57d190c979b6ea969047c1c906819c8ddad8027d95244e572817ddd",
+   "sha256": "b3969c072af0612aba59253180af7910db030a2e2cfec3704f6517ba1358a64e",
    "structural_sha256": "71021cde684409fcaf219530e2e2a03b90ae119316d291932d4e19b6921b7e4e",
    "power_kw": [
     12.403937172066634,
@@ -17625,7 +17625,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_044.fjs",
-   "sha256": "a66b6558bdbe6108680bb1d5b5d45ee4ed26855e74cc353dff727cf3d2af9196",
+   "sha256": "a4fa732c937849cc5423eb04dfbe6a87a643c1378824b3a788cff0919152dc14",
    "structural_sha256": "2b84a2e2f860cdd1b79bfd56702787164899a40ca657e95d0ab1250c32c386d0",
    "power_kw": [
     11.922604882358964,
@@ -17739,7 +17739,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_045.fjs",
-   "sha256": "2b79caacd8b81a77f0188c372598905f907ac0045ceb1179d481186e61eade56",
+   "sha256": "e27f0e995a6d89474aff65e1a809ac048a2b7b96d605f7b8037f529315e2fbce",
    "structural_sha256": "e6cdfc0d2d828bde9eeef61444050960530d05904b3a8d363e52eb285063ce6b",
    "power_kw": [
     12.463838499620637,
@@ -17853,7 +17853,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_047.fjs",
-   "sha256": "d306c9aaa4c4ec6ad7bb0ac731802278c94fb77120b1ba698f998060a56e4a26",
+   "sha256": "481fcf143c23c953bc26787b662aef412866a1f984ae59c71a3676d707b4beaf",
    "structural_sha256": "f7027b3c0bcd82faf0e783845333e6af38eaab8d75bb783befe85f8e9969d6eb",
    "power_kw": [
     5.261243553657908,
@@ -17967,7 +17967,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_049.fjs",
-   "sha256": "2966c0fefe9eb0f3813366c46fac0bff18e963871b250bc953d66fd74d37fd0a",
+   "sha256": "782728715117fffaa16aad141633bf0ea60d2c249a9eb4e09f314c316dca38ff",
    "structural_sha256": "f0cb195e524c287f808e6152032c35f2ab9ea4dc4cf4788b0116623f8ca3e6c1",
    "power_kw": [
     6.058667988325358,
@@ -18081,7 +18081,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_050.fjs",
-   "sha256": "2205781afdf5a7c6c247d2a738156f99a24097b760b8a789798fb28412d6e913",
+   "sha256": "6a73a0548b0ad4c1e3bdca8ca3100cba0e89845e67c06008e069b0e8e68aa401",
    "structural_sha256": "af69a292e53763f96c486c04fc81d902bcbb79d94d15fcde42fdcb5040d4ce7d",
    "power_kw": [
     7.87706084804087,
@@ -18195,7 +18195,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_051.fjs",
-   "sha256": "8a678fb9727ede289908a51449250f6b59e7025189e84cec0b981ae5e3ef43ad",
+   "sha256": "6b4191e59aab827a504a314db7c0adf5c403698702ab10c3a44b92946626964a",
    "structural_sha256": "ed0e76bd8d06b029b1fe774873d951b09212e1f3d113271d6da2f55020344166",
    "power_kw": [
     10.072108923060618,
@@ -18309,7 +18309,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_052.fjs",
-   "sha256": "9a208bb1be853f6b6be536855d2ecbf75dc58873fc183a6cc43fa472f302477d",
+   "sha256": "f50cc600a7d4e6b460db2ff062699a0b2982adc4b9d6aa65c05ee87e663a5952",
    "structural_sha256": "93788bab21b71d0846df86425743850b6756c410f4b576057135398a78fe3a32",
    "power_kw": [
     12.580984253747333,
@@ -18423,7 +18423,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_053.fjs",
-   "sha256": "20d97bb56b1323286d597dd2c6b147f34f50c06e602b91fad4f91ffaeb3b95e9",
+   "sha256": "79cf930e98a6b88ff3447471c30f5f725917886fa26138d05b08ce2b75ea52dc",
    "structural_sha256": "1b4ce3733adea08ae5118fb498fbe68b4bd4d49a89ae9ef0c2c283152f1e7177",
    "power_kw": [
     10.075981460702883,
@@ -18537,7 +18537,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_054.fjs",
-   "sha256": "3d5e71e61307ffba1bccaab3fdeefb39069ad52f8e86ea72173206c296fddbd1",
+   "sha256": "4c0588282d37c737e8e77a6a2c85b241710ef575f09697cd5e27bf308d6d5259",
    "structural_sha256": "e8c2b0f6d5178d070c8f1aaf8398f904ce68365112065aec622c7b3e259970f8",
    "power_kw": [
     8.930929009012821,
@@ -18651,7 +18651,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_055.fjs",
-   "sha256": "766c41cbfb90e32c091fc0ebdd365b2c639d234fce8182b2b9cb2bc4e8ece37e",
+   "sha256": "70fa53c97feb310b3568b4353649dcbeae0d848e497dc8577c66c289caa37903",
    "structural_sha256": "0afe3b9710a9eae91382bf574a70838587c49aa17959aab5c8c0c4fc47da2113",
    "power_kw": [
     10.076899723687914,
@@ -18765,7 +18765,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_056.fjs",
-   "sha256": "33760c9a233a4450634538dc2eb4e4e8cecf21f5c519ee89a2ce3c6d19cbf0b2",
+   "sha256": "777216866a350f4587795b46b1f9279188dcc2fe8264b3b6a4c79f1b80ad530a",
    "structural_sha256": "c7ed267c24523d26966dcf735cec4c28f40c409d58cefb80ee0ad3cd8195f1e5",
    "power_kw": [
     8.376523572739238,
@@ -18879,7 +18879,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_057.fjs",
-   "sha256": "e95ff258e4d28e4c7857250b01c8efd4bfcecfdd84c123e971af4bbc67a13018",
+   "sha256": "2fa15c9cab18dfa770fc09429497d98bab2be76da5a23ca696ca80bc28cd9ef2",
    "structural_sha256": "9952bc5b770a54f94d1546e685dc0ffb57d59b88e8f7dd595aae56c822c6b134",
    "power_kw": [
     7.833748451610587,
@@ -18993,7 +18993,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_059.fjs",
-   "sha256": "17c47841e624765a00c8dd480f6f76ee2de8b5bf9805e87a1aeb9ecf3a1af93a",
+   "sha256": "ac958eb68ddf3799535c83e932558f5bf215993a26158f9bdd508ac59c598a37",
    "structural_sha256": "2c823c6dd7072fe598ce0989564cd6c0883d683ebe64f3b7030ba8cc123298c3",
    "power_kw": [
     14.35401607977595,
@@ -19107,7 +19107,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_061.fjs",
-   "sha256": "b89d40fa9cc8fe158a89458a4f0b961740725c884385c2b90d16eedbd422dff5",
+   "sha256": "dfde8d1defd2472265fb273dcbf74a7b896770e2cfad9b9c5349486bdb58a79e",
    "structural_sha256": "8d90fd16b1b5edc71a0c9b76f29a54de5b3fef42a0b556dfa64db860d1659dba",
    "power_kw": [
     10.425426068764724,
@@ -19221,7 +19221,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_063.fjs",
-   "sha256": "0056537645ffc5cceb7f76d233da1e618de3657a2500e635d3e93ff6c126f953",
+   "sha256": "7c33fe14f9c9ec67e6e4167cff401dd0de3cbec69e37a3efe930958748ed94c8",
    "structural_sha256": "b4626189cba3e839fca577dbc8ecaadde1f50bb252cf0b67ebc9bd130465ad2e",
    "power_kw": [
     5.479314938176153,
@@ -19335,7 +19335,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_064.fjs",
-   "sha256": "18873dd383491bfe492fe3a0d72e5a22de90d36e0ecb1f700ce13342174d7806",
+   "sha256": "683ead42b9787a1bc6803cf8640183f89f6a1bc7c28be1eacd635bba37cb6b76",
    "structural_sha256": "423524d5af1fb1d25e12e520fdd0ed7911d34726b782bb47c8cefcd319ff74a9",
    "power_kw": [
     14.873651488790385,
@@ -19449,7 +19449,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_065.fjs",
-   "sha256": "f89e60a468e8ac0307812e8eb65c45101dd89fbdebb214608fa1d2be55e68d45",
+   "sha256": "7af64e7821f5f59d07f76d008256561dd819d5f413c9e8c0a8f6ff775e5a6bb7",
    "structural_sha256": "402f36ced87d7a2bc8765be1986aa539639031bf5f730886bb11af06718317a3",
    "power_kw": [
     6.734370561589493,
@@ -19563,7 +19563,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_066.fjs",
-   "sha256": "82c676179124307591495c94bf6aa1803266a7db31d6c614fe0603e9f26e71b2",
+   "sha256": "a2cb449f9b4ebae2619c9ed415188a5a3a507c0ceff81685e7f44f2688422215",
    "structural_sha256": "540a53cfbe3b44662108429b1357bc5d18751013b369e8c400dfa882965725af",
    "power_kw": [
     6.095545628852926,
@@ -19677,7 +19677,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_067.fjs",
-   "sha256": "ad3704b138e1a4fb67d6e73b728c9ba94a1c765bbbae96f45d7f33f3e7d47809",
+   "sha256": "6245541fbce23015170368db28bb69e730c33ad299b80c94fc49404235e1d696",
    "structural_sha256": "d7cebf7000af014f13ffacaeeab948b7584dcef918e380658a8e2352d28fd7c8",
    "power_kw": [
     4.744496297968916,
@@ -19791,7 +19791,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_068.fjs",
-   "sha256": "de494f481b0b587dc1a5151493539fc7207f438784dd8666cd1017a917a86d37",
+   "sha256": "bc2b7f504e20ec90e8ba38d42c3b1b88bebdbc014e2996fab4d964ecefc188cf",
    "structural_sha256": "f58ca8a69d765eb598b5b808192c887e41ff84d7f1279f2ef51705256d9cfee4",
    "power_kw": [
     13.82927609701968,
@@ -19905,7 +19905,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_069.fjs",
-   "sha256": "805ecae32aa61192be203f0fa2476fed979a89351c135638d4c33e298ee02031",
+   "sha256": "af125d868a6c6ee36dd34f3bc66208077dbcce8ab832566f022cfaf9db19cc2a",
    "structural_sha256": "6e7449a223012ca1fae0df53cdae6fe8af0f0e2185f8a28b70c6dd0c7b5da9c9",
    "power_kw": [
     11.024035357147845,
@@ -20019,7 +20019,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_071.fjs",
-   "sha256": "afb376499da4d7e49b366b057381548d98abe6383173e8200d235bce3fe90ead",
+   "sha256": "cd64c95fb62725b384c5c7e4274a6ec0045cd40aaf7888e623cea8cded71e504",
    "structural_sha256": "e933a5155f87df49502a6ea690a4cdcd67e67f815f5b687628bcd696aefd0100",
    "power_kw": [
     6.792899688062926,
@@ -20133,7 +20133,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_072.fjs",
-   "sha256": "0d2eeace1c67558d19e69712b10a0147eedac444986c51b0c6d85c105c37be0d",
+   "sha256": "57a32354a10637489103f8ab20fc557e175dbc3c6bd0faccbbdc7657c60b8c1d",
    "structural_sha256": "7f55a9a95dae7a7c4e2cc4fe0a0c512a91657a5d616cb781f402a57b427979a0",
    "power_kw": [
     12.49766390280667,
@@ -20247,7 +20247,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_076.fjs",
-   "sha256": "c8b60214bb44b1e418913199eae3872e573fe50e3effddacbacf201dad61f64d",
+   "sha256": "1b854ab7555015f9ee70963d728aee71e79baf0cd5180c9b13addd5841ea47d0",
    "structural_sha256": "941b6923d917c40788b794a3f42bd74129eb383a3274493a5ade4e6f43b61746",
    "power_kw": [
     8.268337455699767,
@@ -20361,7 +20361,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_077.fjs",
-   "sha256": "f48e8031a3f437d32c211bb23b1e828226fa975487c729bf7f56ab0150415230",
+   "sha256": "d83a9721c86d2b61fb18734043dbb888d70efcf6056bfa7edb2c2d71de0ece54",
    "structural_sha256": "cb2f15e4344af732cdb115182f9a12205424dfc3f18f04c235e815ef84eb9cfe",
    "power_kw": [
     11.912742727411365,
@@ -20475,7 +20475,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_078.fjs",
-   "sha256": "e5819dc0127161a699efcbfe89ee9d91bd6c5717b1601ecd828ca82bf90b5105",
+   "sha256": "fc473da147c4139f1af96fe93dc78f0b4845aaebe8ee28c03e8124434cd2e2f2",
    "structural_sha256": "09bd54a78ba8548af98bd279f3561606b2168c68dc721910be5a1bba98f5ec42",
    "power_kw": [
     4.310231670045424,
@@ -20589,7 +20589,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_081.fjs",
-   "sha256": "18119cfcbc0583d01a34ea49545a7e84efa77d99578e0755cb358d519d34b0e2",
+   "sha256": "43e64bbc69a9e58067e868d5c451c124ae47efbae93e61280cac98cae81429de",
    "structural_sha256": "9cb2a6b41ba38c2623fd70d1a19385dba739511592c33e331a87e50b862530a5",
    "power_kw": [
     13.644066093194041,
@@ -20703,7 +20703,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_082.fjs",
-   "sha256": "5d1448c4c72634bd88adda57e21c4764462a86d0bc34cc8ddc5d117d8718ac49",
+   "sha256": "71b24e491f2ae9500f5be47e6e46fb8c0e0a8909937f5f4044665ad38f3fd907",
    "structural_sha256": "f3639f9cf1de53a6d6b52347551cb08d24f1f1a1bfb8cfe156b6c93913b2e7f9",
    "power_kw": [
     7.659781241605175,
@@ -20817,7 +20817,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_083.fjs",
-   "sha256": "30b436c555b6c7f469fdec874249eb5a207df88b8b5c92b7575456edec8e112a",
+   "sha256": "6f1277ad0749ceb7a3195a3d7e4702a39bbdebda43fdd05daaa2f258c82374df",
    "structural_sha256": "c12c45877d96d19b1bcd4cea4e3c4d669c4f049d68f176ac3844bd61115407f2",
    "power_kw": [
     11.11581163288638,
@@ -20931,7 +20931,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_084.fjs",
-   "sha256": "e953228175a346ea4853d7212d6fdbdcd6496c6061a28b6ffb47d7c9c8b18794",
+   "sha256": "8923ceaf5fa1e3812e8af6b8d6393a5c58ad04ccb6c0448eec8be090dfb8efc6",
    "structural_sha256": "9f0099b90da8cc52c1ca9ad13683543bbf669e1221e6011bab6e306597d554c5",
    "power_kw": [
     7.191378796849891,
@@ -21045,7 +21045,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_087.fjs",
-   "sha256": "6f694c4835f3e23b96dde0b87c45a75fffc6dadebce5fdeb3fdba6c4f1fcd89f",
+   "sha256": "9f22ed28c5ec56395b02ba0891510e96f41419d58dc594c9921ee0e44a14161b",
    "structural_sha256": "99783164b9dbfa28c78945d7360fec50515a07f2c66594da750cc08422ad2a02",
    "power_kw": [
     4.8088812533717045,
@@ -21159,7 +21159,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_088.fjs",
-   "sha256": "07638c0d4918464ad1c71b13573643b01562f1ae6a1d153b2a6e6ce9b98bf208",
+   "sha256": "97c6f1a8007392b23866a3e222e731e778a42ad21b70f84a099c8ed3c82b90f3",
    "structural_sha256": "9e6968ac07a48b9ef48b1d60f71952f2f3d97f412f3e04afc467594e673e3b74",
    "power_kw": [
     9.60637352704523,
@@ -21273,7 +21273,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_089.fjs",
-   "sha256": "a23cb9ea261e169e3106a6250b065e9ac275da7e5dc2d7bd1f039b11807adaab",
+   "sha256": "6ad8aae9ea83bcbcb8130e8d07878d78bdcee192fa7dedad82e7958c64ac7883",
    "structural_sha256": "e60b2fff22ee3162154cad472c08f705719342e686077c192ffaa0523bf3b94a",
    "power_kw": [
     6.8564669386363075,
@@ -21387,7 +21387,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_090.fjs",
-   "sha256": "81faab74698d54059cca693ed6a2a9df323dc18a7c06fbb7be6a39a58bd64b8a",
+   "sha256": "483caa6533e37b02e2f18119c330b58dcb8cc5ec669f3cfd0cc7f27ae9e6dcfa",
    "structural_sha256": "72ad0a788dad1f9665083eb8f3b1edb74200bbbd4eae1f3210ec30b668772f54",
    "power_kw": [
     9.529694799739154,
@@ -21501,7 +21501,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_092.fjs",
-   "sha256": "294ff9d103d8fe952a80df5fe17d0e04fd1c2b7510085fba5e4eac7a82a7656d",
+   "sha256": "3ed9d0519f227df0d8bae5c2a6b3d9daabadd1f9c6b3afec47f16365ff37d955",
    "structural_sha256": "eeaaf53ba841f0188d93cf6396867c02ff248712793ba9590b045a0946f72b27",
    "power_kw": [
     7.299999783160911,
@@ -21615,7 +21615,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_093.fjs",
-   "sha256": "66d14a0be68a4c709a80dcb7ec0ada85d5d33384780f58834303366f2d3e7afd",
+   "sha256": "fabd83aa91c1c397fd10ff91cb7aa4b20b7e51ac5c275a3ceccb78c5adba362d",
    "structural_sha256": "350e6e13e5554932f03a6a2b8dda3f62e8cb812fbeceec66098b496d2562577b",
    "power_kw": [
     7.61045657458195,
@@ -21729,7 +21729,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_094.fjs",
-   "sha256": "7abcc7730589f69454d9d1a2d418d671fc385a69216559c32d2ca22475beeefd",
+   "sha256": "b80ff513609effaf48c0199f484c8174403c20ef459818a74942dc034e8d0867",
    "structural_sha256": "3dfafbb7e8a2eb69f02d9831c5b7aedf65a2b244d7abea1abaf97f4b9a93284d",
    "power_kw": [
     11.126079711656029,
@@ -21843,7 +21843,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_095.fjs",
-   "sha256": "88bb7407df544a3ae366fd051b1acfe4863d3e20eff6fe8a9fc210e26b9734f9",
+   "sha256": "dea3742a96b81c8328a6f9e5b6810aafd7d29bedbf23d6ed6914eabfdf81102e",
    "structural_sha256": "c44d2cdb95edc8ed84b4bdcb39e4763f08f66d931a130167ac7e229f31bee2fe",
    "power_kw": [
     4.02484276518812,
@@ -21957,7 +21957,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_096.fjs",
-   "sha256": "6a218c7a2daf744f5d4a09abb9e27a0648acbd90a9f44014f26b083ff323f08a",
+   "sha256": "526424fa0f9d5c6e5ca46c4bff8e039b1a3169043fc2b06a8a185999c17e9440",
    "structural_sha256": "1b4d06a141ea23032e77df622cceca8162db0c7cffb50e1f53bcc1941453bccc",
    "power_kw": [
     13.2902406789358,
@@ -22071,7 +22071,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_097.fjs",
-   "sha256": "104210e9fe17b918c42a764d47e6efdac699025bbb82ff07318d1a77033a67e5",
+   "sha256": "dd00474e6f59b916f26a8a2e04a4f326c536d3ba4ec579a6c5ec46bce93eaa78",
    "structural_sha256": "6b7fde0e54e620098014d22bc2c320553739e6141e72905c9d74bf46a4377f0b",
    "power_kw": [
     8.943742514944397,
@@ -22185,7 +22185,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_098.fjs",
-   "sha256": "319b17b139d320bba095a75605818459aceb67998fa43edda2a2923471de794f",
+   "sha256": "5043f1092d592db24c1bb142b41d3070eda23e008fd10d6cbc5b1d29109e5729",
    "structural_sha256": "649f43d9bb0df58b813439788cbdbf49e9e32fdd7f9d9692264048b7617f287e",
    "power_kw": [
     6.56346615554355,
@@ -22299,7 +22299,7 @@
    "split": "train",
    "size": "20x10",
    "source": "daniel/data/data_train/SD2/20x10+mix/20x10+mix_099.fjs",
-   "sha256": "17357d096291e9d555541e72193ad1431755c6514192675241ec45f47f6c8c72",
+   "sha256": "4ff8901b5cb49d4e61e709fd71d78ca41473fcaa4846124714524d8bac3002ed",
    "structural_sha256": "34f111908a629465435b97ffee3b9fb6e6f6953314f57ddfd9f59e14f4232576",
    "power_kw": [
     8.299973563839586,
@@ -22413,7 +22413,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_013.fjs",
-   "sha256": "e3c88f92cf80cb94b3f76490d59251e02f1127840b288b562655a03c5a399e5a",
+   "sha256": "10367dbd4f4e606ff4765f48a325df37e2047dec1a8c821107ef200638e5924e",
    "structural_sha256": "f4c9ecf29f88d4ca4b20680eea36ef2510d8b29608b1942065abf7fa6ce25efe",
    "power_kw": [
     7.192682236507288,
@@ -22527,7 +22527,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_018.fjs",
-   "sha256": "f2d2cf0f0890d236da129e2183138a92548b356a1adf95340d1978356a072dd4",
+   "sha256": "f29ca46c9f940078e74e9da400cb2aa08da1d5d82cb439526692a2ff5840818e",
    "structural_sha256": "450bea048e5ac86a1b96c125c87dddfbadf25a9ce3f95f46782056fc9e124821",
    "power_kw": [
     6.751044662984786,
@@ -22641,7 +22641,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_022.fjs",
-   "sha256": "05ace3602c9d9ed9a63b75474377a525a423c3e30984babf676685b243e00f93",
+   "sha256": "2a6785bcfd35a07f356aa84081b78f6dd980ae49a8a457327351ba2df61c82c2",
    "structural_sha256": "3ebd1e929a25eb034fdc67d6ef23fe5c955c061eb252758034d63aaa23f17a2f",
    "power_kw": [
     6.945830876275092,
@@ -22755,7 +22755,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_023.fjs",
-   "sha256": "8b09605df58919e4379e3a2d0ed98e3c772adbdddac605fb63ec6da163a74b80",
+   "sha256": "2efbfa9cf7ae802bb95bb12bd6e74440e0b11430e4a5bf76c6cf6f153df1b270",
    "structural_sha256": "f53e7a7879068523f801e5ae9c702fd9fb0bc8000b6c616202517886780c261d",
    "power_kw": [
     8.998423269814298,
@@ -22869,7 +22869,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_028.fjs",
-   "sha256": "3165fc41db2ee0336b694b42b88a7a33e4499617fa5f0d191803c9af0be9451a",
+   "sha256": "c0679666b207f1b474ba44f03c15c65c1198dddab7145f262d5ec919d83761dd",
    "structural_sha256": "a3f0aa799eb9b5abc127a99dff41227913ed78df88a7eb21f1f4989a37473d76",
    "power_kw": [
     14.243087562322287,
@@ -22983,7 +22983,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_029.fjs",
-   "sha256": "ba5becbb1a178a3dabb9e716d2e20755ca787676a6ed78c6e864cd65820a7817",
+   "sha256": "5b3f96e0650bc6eb5abd9f31366157eb428424971f6f4affcfb12b0e6590100d",
    "structural_sha256": "d3a71e78a884ea83119fa7c964ee2febd23e25520d352319a8c126cc16c83bc0",
    "power_kw": [
     5.470276601062983,
@@ -23097,7 +23097,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_032.fjs",
-   "sha256": "d28e9be910e93b0b184a569e144ad047d904f5dc5a3bafd2694486dee03d6c0c",
+   "sha256": "959600004e0c0a8ac675a71986917211a3721d322d39d6d507e1105ced9de25a",
    "structural_sha256": "9570cd2b3a7c0e2d441a69b2acde3bb1a98c1929205c881461af28916d024ca9",
    "power_kw": [
     13.567197663299329,
@@ -23211,7 +23211,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_046.fjs",
-   "sha256": "2dc2cd9e701205c81d9b5da24d4f92ae7fdb885cfc382213a8b8ac0379a24820",
+   "sha256": "aed5a8bcc37aacaa3adc56dcbdcee3e9794c350bb1dd8a6b8e91809c2999fc2a",
    "structural_sha256": "08d10b45c5e66b53e7ed87ce9737ef00de751f1f855089f5157516bba083f16f",
    "power_kw": [
     14.660500942960846,
@@ -23325,7 +23325,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_048.fjs",
-   "sha256": "290515bf4cc550f9e0e5966996df0b9e4d9d2d1057f6a4d2ebdcdff140052f71",
+   "sha256": "120caf176a69b246fc46f3e2de120415d2f91c373959455b4d2333c9da35304f",
    "structural_sha256": "06717d9909de186e2799eb0058407dbb3466d792c8e650d8ca2e1444dc208de6",
    "power_kw": [
     13.22339313676358,
@@ -23439,7 +23439,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_058.fjs",
-   "sha256": "ff0a71d92296eb231136df1558aa960b1c9ab6733056d3d4b217f818e1663555",
+   "sha256": "092ba69a491be5229f47a13321659db6a1d4b23e7749acff74ae660c6707f588",
    "structural_sha256": "ee59ddf6be8afaab74188bcdd63356f2c21d9713b310f06a172a8fc47412b814",
    "power_kw": [
     8.373665120030033,
@@ -23553,7 +23553,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_080.fjs",
-   "sha256": "537b20481c691f34c19e594a8bb9f16e864ab943a4f2ca074a483985617ee94e",
+   "sha256": "77f276b6d0caa81cb7d7ae661b8daa3d66faaf45ef610d3d5fdef1ef0b4c1d0e",
    "structural_sha256": "8a1591e93505a5a5f7c7d05d56e6ef7568dd818ccba351a00253c096f520d101",
    "power_kw": [
     5.388194932757473,
@@ -23667,7 +23667,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_091.fjs",
-   "sha256": "fea946ce20418c0311ee3e901b7610a23eef0abbfb7fc1e907340c06fd31e4df",
+   "sha256": "10585dbd3bfa727da011e4bebe4acb60427c4a6ecb9b83a7c9e0acee74922da9",
    "structural_sha256": "61f55cd35e46a9c10a254966dd527fbac8f6ba4c2f458519da8eaab04a862caf",
    "power_kw": [
     11.668983559624593,
@@ -23781,7 +23781,7 @@
    "split": "validation",
    "size": "20x10",
    "source": "daniel/data/data_validation/SD2/20x10+mix/20x10+mix_100.fjs",
-   "sha256": "b546b9397e59f9abd1fe235b419ddeb0133453387b7ccea1055b5b8e318a2967",
+   "sha256": "21b8984b1e5644bf96108b5412f48f9bdc78ddf011d16cf810504928e7948afd",
    "structural_sha256": "08760fe3be91aebaf2e5afa958ae07e3d887051e1af88ea904f3bf084c3636cc",
    "power_kw": [
     4.215390097102896,
@@ -23895,7 +23895,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_009.fjs",
-   "sha256": "b886b92e4abf24096b9d1a5f7c530323eb0b054c265d75ae0c22b13f5cd2627d",
+   "sha256": "b5612722ccd7997292caf570a7aed32d4a1461ca5d7bc297b781b7e9e9a8a180",
    "structural_sha256": "e3ce748c2c3670d5d1c66460db0e2ac3c25a78d024d89d445b0ee2c25e4eed65",
    "power_kw": [
     14.89873217552491,
@@ -24009,7 +24009,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_026.fjs",
-   "sha256": "2205e3643c1738112ceb3c5088d2b1ed338b516a95288ae351b661c6d97789bd",
+   "sha256": "11fd21ef6c1996a2f26f32c34d9a9fe563b0925bfaa75b4d7b19addd2999d699",
    "structural_sha256": "c1903cd9420ccad713d6a4893fa51ed4c36310bfaa9490a7e6b8435a03816f52",
    "power_kw": [
     5.911337346320332,
@@ -24123,7 +24123,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_033.fjs",
-   "sha256": "93328bec72d1985909da9689a7abd28e23bd198a47ba9b4c4c692c9ae8f6b4c6",
+   "sha256": "22460630ecdad25236bfa2a923608e0fb08238aa7bfa99aaa3cd17b3291688d5",
    "structural_sha256": "39b049cd91c9caa86cad3c2c19f29dbfdbc8f5f21479c37925793b973a960533",
    "power_kw": [
     11.491326391100257,
@@ -24237,7 +24237,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_036.fjs",
-   "sha256": "4f3cdede3d0b2e66883634ccee9302fc8fd2caa972209cc65fee17d4e07414d7",
+   "sha256": "53643f1b2d05733c2ca137b6502720fcf5fcc8b9b309dc3c1cccdd674e71e257",
    "structural_sha256": "f9072cd601d426ac8d53a45ef5c685f255b64f6adfe428c8c57aeb286b47502c",
    "power_kw": [
     9.992572568290772,
@@ -24351,7 +24351,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_038.fjs",
-   "sha256": "c2598d7daac44462c4c61b1a87622cb36c285d4bc859e0d9b6a7fd45c102eb61",
+   "sha256": "75c03f1d59c79c3b375d4aaa14b5fc306653c8b018a48d4c3d6a89bf94b2f78a",
    "structural_sha256": "16f4b5098d3c4732415176863a90190d531425122bca23f1a69d96d239e8c2ff",
    "power_kw": [
     8.501107941453093,
@@ -24465,7 +24465,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_060.fjs",
-   "sha256": "e7319d039529aea889fbce2d404817fc1bd116564c09d8196e167ccc72bf5a65",
+   "sha256": "86207f66073c46fef20f2617adae732af0a46f2c8a079eca995dda7f5db94a07",
    "structural_sha256": "bda3ed81cd282f9b2dadac43566cec22a81e8ab8c3bb2a4b7561871af3186bf7",
    "power_kw": [
     10.243631679551989,
@@ -24579,7 +24579,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_062.fjs",
-   "sha256": "148a7dadbeb1ee4dcd08b85e0752ed5c380ed71b08ed34269aa55269c23be5e0",
+   "sha256": "a30d8ce15a85a4a018c3e63c995477ed063780e9380e31a372c1a1af03eaea5c",
    "structural_sha256": "99c4197a545c78ef29430bbdecd51f86385c6a28c247a207ea25639e2389594d",
    "power_kw": [
     5.534809353732025,
@@ -24693,7 +24693,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_070.fjs",
-   "sha256": "b6336869bb1dd66e7c561720a28b0a8c91bfa3633265ae70fe89ffb933f90707",
+   "sha256": "5cf9d1612e48ec2f8e2f8fbebab3d5ada549a28c3396192f2344dcd5e8fa6f57",
    "structural_sha256": "f0e1146291cd1754d30d7f64dc22908172fc3d693230c3eda744e0feca520130",
    "power_kw": [
     14.226697910758471,
@@ -24807,7 +24807,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_073.fjs",
-   "sha256": "c042db333f0396340a11de2e347c1afcdd8a463d41935479382200600a031854",
+   "sha256": "8c2e43d4e278575a914cfbb94c00696101e626ca1be9beaeb46db0016eea7b6c",
    "structural_sha256": "8833da398dcdc125099c53897c6f3fff4abba8c093d91f04b4f27d8f25dd7092",
    "power_kw": [
     7.308183342652859,
@@ -24921,7 +24921,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_074.fjs",
-   "sha256": "b11ad22fd8ed0a7404461ceeceb7f4d691237ee7033c959ec17770416da18cde",
+   "sha256": "c71f9511bd9f65b6d6bdd8dddc0cecb0547cbd13608986be079f3afab4672d47",
    "structural_sha256": "f5a51e12ec4ce2d547e4845fe1e86471ecbee3678aa1e1e6a50e8416e76c8cc4",
    "power_kw": [
     13.286985058444044,
@@ -25035,7 +25035,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_075.fjs",
-   "sha256": "fd74211eaf9665da015819de0701bd2467678949beae5c2278a67f14248fc41c",
+   "sha256": "c8ac1618c8fef2648b39775a63dee51bf1d426ca5a6eec3ee1f8fb07cd268488",
    "structural_sha256": "ed4722be1ca395fc7e7b9d4bb52d5e9c74d7347f31a0055c5373168c2cdf66fc",
    "power_kw": [
     8.428594439644908,
@@ -25149,7 +25149,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_079.fjs",
-   "sha256": "a6e39ea14fe43aa8ac03313bdf9ca020a11ae3ed8633456ff9f0d3548cb02f7b",
+   "sha256": "09dbbac39618ef627b06db70f707b9b5316b16a2be1202d68c3d8ef46c9a760f",
    "structural_sha256": "f3c50ba6ce1344a204e85a4beb2dda7f92646274533c6188e23f0315c92d0f10",
    "power_kw": [
     8.689614680086542,
@@ -25263,7 +25263,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_085.fjs",
-   "sha256": "8e43c61e41bfa24a901f0ac8638a4ba3897d13c2dc83ab6b3ce5e6571db7911e",
+   "sha256": "a21b00ca614bc8ffae3d3937a28fe40ab2376a90085f637b3f9029ccbb794259",
    "structural_sha256": "045e4d0e44538d58109b2350e6eb563a01052056a6f115727fc9825a2e14b3d4",
    "power_kw": [
     13.270752448411983,
@@ -25377,7 +25377,7 @@
    "split": "development",
    "size": "20x10",
    "source": "daniel/data/data_development/SD2/20x10+mix/20x10+mix_086.fjs",
-   "sha256": "bdc0d5b6590bdb4498d4d4e139e393fe244325b354499022be173a42fd218bda",
+   "sha256": "b44d229eed4168ad7855fa661286a17e3190bdfb1adb6f84f5096d1ba409fb64",
    "structural_sha256": "92275aac19a72fd5aa74ba87c976ade2d3e46a97a0dd41fbd0dc01064e7caa40",
    "power_kw": [
     10.993922212885655,
