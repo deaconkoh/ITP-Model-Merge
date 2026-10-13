@@ -141,10 +141,14 @@ parser.add_argument('--goal', type=str, default='m', choices=['m', 'c', 'p', 'mc
 
 # args for PPO Algorithm
 # v2 observation/reward (results/v2_fixes.md). v1 is the default and is untouched by these flags.
-parser.add_argument('--obs_version', type=str, default='v1', choices=['v1', 'v2'],
-                    help='v2 adds due-date observations (2 operation + 1 pair feature) and scales carbon by 1/100')
-parser.add_argument('--reward_version', type=str, default='v1', choices=['v1', 'v2'],
-                    help='v2 normalises each reward term by the Step 4 score references (return = -score)')
+parser.add_argument('--obs_version', type=str, default='v1', choices=['v1', 'v2', 'v3'],
+                    help='v2 adds due-date observations (2 operation + 1 pair feature) and scales carbon by 1/100; '
+                         'v3 = benchmark v3 observations (docs/benchmark_v3.md)')
+parser.add_argument('--reward_version', type=str, default='v1', choices=['v1', 'v2', 'v3'],
+                    help='v2 normalises each reward term by the Step 4 score references (return = -score); '
+                         'v3 = the same form with the benchmark v3 references')
+parser.add_argument('--benchmark_manifest', type=str, default='',
+                    help='Frozen benchmark v3 manifest (default: data/benchmark_v3/manifest_benchmark_v3.json)')
 parser.add_argument('--reward_ref_manifest', type=str, default='',
                     help='Frozen v2 reward-reference manifest (default: data/reward_refs/reward_ref_manifest.json)')
 parser.add_argument('--reward_ref_seed', type=int, default=None,
@@ -204,3 +208,10 @@ if configs.obs_version == 'v2':
     # v1 layout kept in place; 2 operation features and 1 pair feature appended (results/v2_fixes.md)
     configs.fea_j_input_dim, configs.fea_pair_input_dim = 13, 10
     configs.feature_schema = 'canonical_f13_p10_obsv2'
+if configs.obs_version == 'v3' or configs.reward_version == 'v3':
+    # benchmark v3 (docs/benchmark_v3.md): no priority slot; machine power; fixed carbon and time scales
+    if configs.obs_version != configs.reward_version:
+        raise ValueError('benchmark v3 needs both --obs_version v3 and --reward_version v3')
+    configs.fea_j_input_dim, configs.fea_m_input_dim, configs.fea_pair_input_dim = 12, 9, 10
+    configs.feature_schema = 'benchmark_v3_f12_m9_p10'
+    configs.enable_priority, configs.enable_carbon, configs.carbon_feature = False, True, True

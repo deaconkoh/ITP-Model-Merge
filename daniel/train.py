@@ -67,10 +67,18 @@ class Trainer:
         elif self.data_source == 'SD2':
             self.data_name = f'{self.n_j}x{self.n_m}{strToSuffix(config.data_suffix)}'
 
+        # benchmark v3 (docs/benchmark_v3.md): plain SD2 files + frozen hashed parameter manifest
+        self.v3 = config.obs_version == "v3"
+        if self.v3:
+            import benchmark_v3
+            if self.data_source != 'SD2':
+                raise ValueError("benchmark v3 is defined for SD2 only")
+            v3_split = lambda split: str(benchmark_v3.ROOT / split / self.data_source / self.data_name)
         self.train_data_path = config.train_data_path or \
-            f'{self.data_root}/data_train/{self.data_source}/{self.data_name}'
+            (v3_split("train") if self.v3 else f'{self.data_root}/data_train/{self.data_source}/{self.data_name}')
         self.vali_data_path = config.validation_data_path or \
-            f'{self.data_root}/data_validation/{self.data_source}/{self.data_name}'
+            (v3_split("validation") if self.v3 else
+             f'{self.data_root}/data_validation/{self.data_source}/{self.data_name}')
         # Retained only as provenance. Training deliberately never reads final-test data.
         self.test_data_path = config.test_data_path or \
             f'{self.data_root}/data_final_test/{self.data_source}/{self.data_name}'
@@ -109,7 +117,7 @@ class Trainer:
         # for tardiness goals -- every other goal trains exactly as before.
         self.train_due, vali_due, self.due_date_provenance = None, None, None
         # v2 observations need due dates for every goal (results/v2_fixes.md)
-        if self.objective.uses_tardiness or config.obs_version == "v2":
+        if not self.v3 and (self.objective.uses_tardiness or config.obs_version == "v2"):
             from due_dates import (MANIFEST, load_manifest, due_dates_for_directory,
                                    manifest_tag, file_sha256)
             manifest_path = Path(config.due_date_manifest or MANIFEST)
@@ -144,7 +152,10 @@ class Trainer:
             self.reward_ref_provenance = {"manifest": str(ref_path.resolve()), "manifest_sha256": RR.file_sha256(ref_path),
                                           "seed": ref_seed, "tbar": tbar}
 
-        if self.uses_priority_carbon_files:
+        self.benchmark_provenance = None
+        if self.v3:
+            self.init_benchmark_v3(config)
+        elif self.uses_priority_carbon_files:
             self.vali_env.set_initial_data(vali_data[0], vali_data[1], vali_data[2], vali_data[3],
                                            due_date_list=vali_due, reward_refs=vali_refs)
         else:
@@ -156,6 +167,29 @@ class Trainer:
         self.save_run_manifest()
         self.memory = Memory(gamma=config.gamma, gae_lambda=config.gae_lambda)
 
+    def init_benchmark_v3(self, config):
+        """Benchmark v3 train/validation data with frozen carbon, due dates and score references (hash-checked)."""
+        import benchmark_v3
+        if config.reward_version != "v3":
+            raise ValueError("benchmark v3 observations need --reward_version v3")
+        if benchmark_v3.TAG not in (config.model_suffix or ""):
+            raise ValueError(f"benchmark v3 checkpoints must carry the tag {benchmark_v3.TAG!r} in --model_suffix "
+                             f"(got {config.model_suffix!r})")
+        benchmark_v3.goal_weights(config.goal)                  # m, c, t combinations only
+        manifest_path = Path(config.benchmark_manifest or benchmark_v3.MANIFEST)
+        manifest = benchmark_v3.load_manifest(manifest_path)
+        self.v3_train = benchmark_v3.load_directory(self.train_data_path, manifest)
+        v3_vali = benchmark_v3.load_directory(self.vali_data_path, manifest)
+        if self.v3_train.size != v3_vali.size:
+            raise ValueError("benchmark v3 training and validation sizes differ")
+        self.vali_env.set_initial_data(**v3_vali.env_kwargs(range(len(v3_vali)), config.goal))
+        self.benchmark_provenance = {
+            "version": manifest["version"], "manifest": str(manifest_path.resolve()),
+            "manifest_sha256": benchmark_v3.file_sha256(manifest_path), "size": self.v3_train.size,
+            "due_k": manifest["sizes"][self.v3_train.size]["k"], "due_s": manifest["sizes"][self.v3_train.size]["s"],
+            "t_ref": self.v3_train.t_ref, "n_train": len(self.v3_train), "n_validation": len(v3_vali),
+        }
+
     def save_run_manifest(self):
         manifest = {
             "schema_version": 2,
@@ -166,6 +200,7 @@ class Trainer:
             "final_test_path_not_loaded": str(Path(self.test_data_path).resolve()),
             "due_dates": getattr(self, "due_date_provenance", None),
             "reward_refs": getattr(self, "reward_ref_provenance", None),
+            "benchmark": getattr(self, "benchmark_provenance", None),
             "parents": self.parent_checkpoints,
             "git": git_state(Path(__file__).resolve().parents[1]),
             "runtime": runtime_environment(),
@@ -207,7 +242,11 @@ class Trainer:
             ep_st = time.time()
 
             # resampling the training data
-            if i_update % self.reset_env_timestep == 0:
+            if i_update % self.reset_env_timestep == 0 and self.v3:
+                idxs = [random.randrange(len(self.v3_train)) for _ in range(self.num_envs)]
+                self.last_sample_idxs = idxs
+                state = self.env.set_initial_data(**self.v3_train.env_kwargs(idxs, self.config.goal))
+            elif i_update % self.reset_env_timestep == 0:
                 sampled_data = self.sample_training_instances()
                 if len(sampled_data) == 4:
                     dataset_job_length, dataset_op_pt, dataset_op_priority, dataset_op_carbon = sampled_data
@@ -287,8 +326,9 @@ class Trainer:
                 else:
                     validation_metrics = self.validate_envs_with_same_op_nums()
 
-                if self.config.reward_version == "v2":
-                    selection_metric = validation_metrics["score_v2"]      # mean Step 4 score (= -mean return)
+                if self.config.reward_version in ("v2", "v3"):
+                    # mean normalised score (= -mean return): Step 4 score (v2) or benchmark v3 score
+                    selection_metric = validation_metrics[f"score_{self.config.reward_version}"]
                 else:
                     selection_metric = self.objective.selection_metric(validation_metrics)
                 if selection_metric < self.record:
@@ -301,10 +341,12 @@ class Trainer:
                     "selection_metric": selection_metric,
                 })
                 self.save_validation_log()
+                third = (f"tardiness={validation_metrics['tardiness']:.6g}; " if self.v3 else
+                         f"operation-priority={validation_metrics['priority']:.6g}; ")
                 tqdm.write(
                     f"Validation makespan={validation_metrics['makespan']:.6g}; "
                     f"carbon={validation_metrics['carbon']:.6g}; "
-                    f"operation-priority={validation_metrics['priority']:.6g}; "
+                    + third +
                     f"selection={selection_metric:.6g} (best={self.record:.6g})"
                 )
 

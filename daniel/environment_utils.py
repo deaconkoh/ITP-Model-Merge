@@ -6,7 +6,9 @@ import numpy as np
 import numpy.ma as ma
 
 
-def normalize_processing_times(raw_processing_times):
+def normalize_processing_times(raw_processing_times, fixed_upper=None):
+    """Divide by the batch maximum (inherited behaviour) or, when given, by a fixed upper bound (benchmark v3), so
+    that an instance's observations do not depend on the other instances in its batch."""
     raw = np.asarray(raw_processing_times, dtype=np.float64)
     relation = raw > 0
     if not np.any(relation):
@@ -14,6 +16,10 @@ def normalize_processing_times(raw_processing_times):
     positive = raw[relation]
     lower = float(np.min(positive))
     upper = float(np.max(positive))
+    if fixed_upper is not None:
+        if upper > fixed_upper:
+            raise ValueError(f"processing time {upper} exceeds the fixed time scale {fixed_upper}")
+        upper = float(fixed_upper)
     normalized = np.zeros_like(raw)
     normalized[relation] = raw[relation] / max(upper, 1e-8)
     return normalized, relation, ~relation, lower, upper

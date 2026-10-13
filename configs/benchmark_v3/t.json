@@ -1,0 +1,13 @@
+{
+  "obs_version": "v3",
+  "reward_version": "v3",
+  "feature_schema": "benchmark_v3_f12_m9_p10",
+  "fea_j_input_dim": 12,
+  "fea_m_input_dim": 9,
+  "fea_pair_input_dim": 10,
+  "enable_priority": false,
+  "enable_carbon": true,
+  "carbon_feature": true,
+  "data_suffix": "mix",
+  "goal": "t"
+}

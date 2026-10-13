@@ -219,9 +219,10 @@ def environment_metrics(env) -> dict[str, float]:
     if getattr(env, "true_due_dates", None) is not None:
         completion = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
         metrics["tardiness"] = float(np.mean(total_tardiness(completion, env.true_due_dates)))
-    if getattr(env, "reward_version", "v1") == "v2":
+    reward_version = getattr(env, "reward_version", "v1")
+    if reward_version in ("v2", "v3"):
         t = (total_tardiness(env.true_op_ct[env.env_job_idx, env.job_last_op_id], env.true_due_dates)
              if env.true_due_dates is not None else np.zeros(env.number_of_envs))
-        metrics["score_v2"] = float(np.mean(env.reward_v2.score(env.current_makespan, env.total_carbon, t,
+        metrics[f"score_{reward_version}"] = float(np.mean(env.reward_v2.score(env.current_makespan, env.total_carbon, t,
                                                                 env.v2_mk_ref, env.v2_cb_ref)))
     return metrics

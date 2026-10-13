@@ -369,3 +369,10 @@ test: for about 85% of operations the fastest machine is also the greenest, so c
 total machine time a schedule uses. There is still a real makespan-versus-carbon trade-off at the schedule level, but
 it comes mainly from overloading the cheapest machines rather than from per-operation choices. As agreed in advance we
 stopped there, and the proposed specification marks carbon as needing your decision.
+
+## Decision and implementation (2026-10-13, added after the report)
+
+The user approved the spec with these decisions. Carbon: adopt the processing-energy model as proposed; the 20% C1
+threshold was our own diagnostic, not a literature requirement, so the result above is documented and not tuned.
+Tardiness: TWK with the calibrated (k, s). Implemented as benchmark v3: `configs/problem_spec_v3.yaml` (FROZEN),
+`docs/benchmark_v3.md`. The PROPOSED spec above is kept unchanged as the record of this validation.

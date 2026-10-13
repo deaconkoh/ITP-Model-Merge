@@ -6,6 +6,8 @@ from params import configs
 from objectives import ObjectiveSpec, RewardV2, operation_priority_weighted_completion, tardiness_potential
 from environment_utils import (candidate_incompatibility, machine_min_processing_time,
                                normalize_processing_times)
+from benchmark_v3 import (PT_SCALE as V3_PT_SCALE, CARBON_SCALE as V3_CARBON_SCALE,
+                          POWER_SCALE as V3_POWER_SCALE)
 import sys
 import torch
 
@@ -105,6 +107,11 @@ class FJSPEnvForSameOpNums:
         """
         self.obs_version = obs_version or getattr(configs, "obs_version", "v1")
         self.reward_version = reward_version or getattr(configs, "reward_version", "v1")
+        # benchmark v3 (docs/benchmark_v3.md): its observations and its reward only exist together
+        if (self.obs_version == "v3") != (self.reward_version == "v3"):
+            raise ValueError("benchmark v3 needs both --obs_version v3 and --reward_version v3")
+        if getattr(configs, "obs_version", "v1") == "v3" and self.obs_version != "v3":
+            raise ValueError("a v1/v2 environment cannot be built from a benchmark v3 config")
         cfg_v2 = getattr(configs, "obs_version", "v1") == "v2"
         self.number_of_jobs = n_j
         self.number_of_machines = n_m
@@ -118,6 +125,9 @@ class FJSPEnvForSameOpNums:
         # the dimension of machine raw features
         self.mch_fea_dim = 8
         self.pair_fea_dim = configs.fea_pair_input_dim - (1 if cfg_v2 else 0) + (1 if self.obs_version == "v2" else 0)
+        if self.obs_version == "v3":
+            # 10 base + 2 due-date operation features; 8 base + power machine features; 8 base + carbon + lateness
+            self.op_fea_dim, self.mch_fea_dim, self.pair_fea_dim = 12, 9, 10
         self.priority_rng = np.random.default_rng(configs.priority_seed)
         self.priority_scope = configs.priority_scope
         self.objective = ObjectiveSpec(
@@ -139,13 +149,22 @@ class FJSPEnvForSameOpNums:
         self.op_idx = np.arange(self.number_of_ops)[np.newaxis, :]
 
     def set_initial_data(self, job_length_list, op_pt_list, priority_list=None, carbon_list=None,
-                         due_date_list=None, reward_refs=None):
+                         due_date_list=None, reward_refs=None, machine_power_list=None):
         """
             initialize the data of the instances
 
         :param job_length_list: the list of 'job_length'
         :param op_pt_list: the list of 'op_pt'
+        :param machine_power_list: per-machine power P_m in kW, [M] per instance (benchmark v3 only)
         """
+        if self.obs_version == "v3":
+            if carbon_list is None or due_date_list is None or machine_power_list is None or reward_refs is None:
+                raise ValueError("benchmark v3 needs carbon, due dates, machine power and reward references "
+                                 "(benchmark_v3.BenchmarkData.env_kwargs)")
+            if priority_list is not None:
+                raise ValueError("benchmark v3 has no operation priorities")
+        elif machine_power_list is not None:
+            raise ValueError("machine power is a benchmark v3 input")
 
         self.number_of_envs = len(job_length_list)
         self.job_length = np.array(job_length_list)
@@ -160,7 +179,12 @@ class FJSPEnvForSameOpNums:
         # [E, N, M]
         self.true_op_pt = np.copy(self.op_pt)
         (self.op_pt, self.process_relation, self.reverse_process_relation,
-         self.pt_lower_bound, self.pt_upper_bound) = normalize_processing_times(self.true_op_pt)
+         self.pt_lower_bound, self.pt_upper_bound) = normalize_processing_times(
+            self.true_op_pt, fixed_upper=V3_PT_SCALE if self.obs_version == "v3" else None)
+        if self.obs_version == "v3":
+            self.machine_power = np.asarray(machine_power_list, dtype=np.float64)
+            if self.machine_power.shape != (self.number_of_envs, self.number_of_machines):
+                raise ValueError(f"machine power must be [envs, machines], got {self.machine_power.shape}")
 
         # number of compatible machines of each operation ([E,N])
         self.compatible_op = np.sum(self.process_relation, 2)
@@ -407,19 +431,20 @@ class FJSPEnvForSameOpNums:
         self.op_match_job_priority = self.op_priorities
 
     def initialize_v2(self, reward_refs=None):
-        """v2 observation helpers and reward references (results/v2_fixes.md). No-op under v1."""
-        if self.obs_version == "v2":
+        """v2/v3 observation helpers and reward references (results/v2_fixes.md, docs/benchmark_v3.md). No-op
+        under v1. Reward v3 is the v2 normalised form with the benchmark v3 references."""
+        if self.obs_version in ("v2", "v3"):
             if self.due_dates is None:
-                raise ValueError("--obs_version v2 observes due dates; the environment was given none")
-            if not self.enable_carbon or not self.carbon_feature:
+                raise ValueError(f"--obs_version {self.obs_version} observes due dates; the environment was given none")
+            if self.obs_version == "v2" and (not self.enable_carbon or not self.carbon_feature):
                 raise ValueError("--obs_version v2 keeps the carbon pair feature; enable it")
             # operation -> job index and one-hot, [E, N] and [E, N, J]
             self.v2_op_job = np.array([np.repeat(np.arange(self.number_of_jobs), self.job_length[k])
                                        for k in range(self.number_of_envs)])
             self.v2_op_job_onehot = (self.v2_op_job[:, :, None] == np.arange(self.number_of_jobs)).astype(np.float64)
-        if self.reward_version == "v2":
+        if self.reward_version in ("v2", "v3"):
             if reward_refs is None:
-                raise ValueError("--reward_version v2 needs reward references (reward_refs=...)")
+                raise ValueError(f"--reward_version {self.reward_version} needs reward references (reward_refs=...)")
             self.reward_v2 = RewardV2(reward_refs["goal"], float(reward_refs["tbar"]))
             self.v2_mk_ref = np.asarray(reward_refs["mk"], dtype=np.float64)
             self.v2_cb_ref = np.asarray(reward_refs["cb"], dtype=np.float64)
@@ -621,7 +646,7 @@ class FJSPEnvForSameOpNums:
         tardiness_reward = self.tardiness_score - tardiness_score
         self.tardiness_score = tardiness_score
 
-        if self.reward_version == "v2":
+        if self.reward_version in ("v2", "v3"):
             mk_potential = np.max(self.op_ct_lb, axis=1)
             reward = self.reward_v2.step_reward(self.v2_mk_potential - mk_potential, chosen_carbon,
                                                 tardiness_reward, self.pt_upper_bound,
@@ -660,9 +685,11 @@ class FJSPEnvForSameOpNums:
                     self.op_match_job_left_op_nums,
                     self.op_match_job_remain_work,
                     self.op_available_mch_nums]
-        if self.enable_priority or self.enable_carbon:
+        if self.obs_version == "v3":
+            pass                    # benchmark v3 retires operation priorities: no priority slot
+        elif self.enable_priority or self.enable_carbon:
             features.append(self.op_match_job_priority)
-        if self.obs_version == "v2":
+        if self.obs_version in ("v2", "v3"):
             est, work, _, _ = self.v2_job_state()
             slack = self.due_dates - est - work                                        # [E, J]
             time_to_due = self.due_dates - est
@@ -694,14 +721,17 @@ class FJSPEnvForSameOpNums:
         """
             construct machine raw features
         """
-        self.fea_m = np.stack((self.mch_current_available_jc_nums,
-                               self.mch_current_available_op_nums,
-                               self.mch_min_pt,
-                               self.mch_mean_pt,
-                               self.mch_waiting_time,
-                               self.mch_remain_work,
-                               self.mch_free_time,
-                               self.mch_working_flag), axis=2)
+        columns = (self.mch_current_available_jc_nums,
+                   self.mch_current_available_op_nums,
+                   self.mch_min_pt,
+                   self.mch_mean_pt,
+                   self.mch_waiting_time,
+                   self.mch_remain_work,
+                   self.mch_free_time,
+                   self.mch_working_flag)
+        if self.obs_version == "v3":
+            columns = columns + (self.machine_power / V3_POWER_SCALE,)     # P_m, the only per-machine carbon input
+        self.fea_m = np.stack(columns, axis=2)
 
         if self.step_count != self.number_of_ops:
             self.norm_machine_features()
@@ -758,16 +788,18 @@ class FJSPEnvForSameOpNums:
                     self.candidate_pt / chosen_job_remain_work,
                     pair_wait_time]
 
-        if self.carbon_feature:
+        if self.carbon_feature or self.obs_version == "v3":
             candidate_carbon = np.array([
                 self.op_carbon[k][self.candidate[k]]
                 for k in range(self.number_of_envs)
             ])
             if self.obs_version == "v2":
                 candidate_carbon = candidate_carbon / self.CARBON_SCALE
+            elif self.obs_version == "v3":
+                candidate_carbon = candidate_carbon / V3_CARBON_SCALE     # fixed: largest possible operation carbon
             features.append(candidate_carbon)
 
-        if self.obs_version == "v2":
+        if self.obs_version in ("v2", "v3"):
             est, work, pair_start, finished = self.v2_job_state()
             cand_min_pt = self.op_min_pt[self.env_job_idx, self.candidate]            # [E, J]
             due = self.due_dates[:, :, None]

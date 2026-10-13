@@ -1,5 +1,8 @@
 # Canonical scientific protocol (v2)
 
+> Benchmark v3 (`docs/benchmark_v3.md`, frozen 2026-10-13) replaces the objectives below for new runs: energy-based
+> carbon, TWK total tardiness and the v3 observation schema. Operation priorities are retired there.
+
 This protocol preserves the inherited makespan, carbon, and operation-priority
 methodology while removing implementation ambiguity.
 

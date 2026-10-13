@@ -15,11 +15,21 @@ class FeatureSchema:
     pair_carbon: bool
     legacy: bool = False
     due_date_obs: bool = False      # v2 observations (results/v2_fixes.md)
+    obs_version: str = "v1"
+
+
+SCHEMA_V3 = "benchmark_v3_f12_m9_p10"
 
 
 SCHEMAS = {
+    # benchmark v3 (docs/benchmark_v3.md): 10 base + slack + time-to-due operation features; 8 base + machine power
+    # machine features; 8 base + carbon / 13.365 kg + lateness pair features
+    SCHEMA_V3: FeatureSchema(
+        SCHEMA_V3, 12, 9, 10, operation_priority=False, pair_carbon=True, due_date_obs=True, obs_version="v3"
+    ),
     "canonical_f13_p10_obsv2": FeatureSchema(
-        "canonical_f13_p10_obsv2", 13, 8, 10, operation_priority=True, pair_carbon=True, due_date_obs=True
+        "canonical_f13_p10_obsv2", 13, 8, 10, operation_priority=True, pair_carbon=True, due_date_obs=True,
+        obs_version="v2"
     ),
     "canonical_f11_p9_v2": FeatureSchema(
         "canonical_f11_p9_v2", 11, 8, 9, operation_priority=True, pair_carbon=True
@@ -56,7 +66,7 @@ def validate_config_against_schema(config) -> FeatureSchema:
         observes_operation_slot = config.enable_priority or (schema.legacy and config.enable_carbon)
         if not observes_operation_slot:
             raise ValueError(f"Schema {schema.name} requires its eleventh operation-feature slot")
-    if schema.due_date_obs != (getattr(config, "obs_version", "v1") == "v2"):
+    if schema.obs_version != getattr(config, "obs_version", "v1"):
         raise ValueError(f"Schema {schema.name} does not match --obs_version {getattr(config, 'obs_version', 'v1')}")
     if schema.pair_carbon and not (config.enable_carbon and config.carbon_feature):
         raise ValueError(f"Schema {schema.name} requires the carbon pair feature")
