@@ -183,7 +183,13 @@ class Trainer:
         if self.v3_train.size != v3_vali.size:
             raise ValueError("benchmark v3 training and validation sizes differ")
         self.vali_env.set_initial_data(**v3_vali.env_kwargs(range(len(v3_vali)), config.goal))
+        self.v3_generator = None
+        if config.v3_train_source == "generator":
+            # original DANIEL scheme: fresh SD2 instances, v3 parameters from the frozen code (training-data decision)
+            from benchmark_v3_generator import GeneratorSource
+            self.v3_generator = GeneratorSource(config, self.v3_train.size, manifest)
         self.benchmark_provenance = {
+            "train_source": config.v3_train_source,
             "version": manifest["version"], "manifest": str(manifest_path.resolve()),
             "manifest_sha256": benchmark_v3.file_sha256(manifest_path), "size": self.v3_train.size,
             "due_k": manifest["sizes"][self.v3_train.size]["k"], "due_s": manifest["sizes"][self.v3_train.size]["s"],
@@ -216,6 +222,13 @@ class Trainer:
         self.log = []
         self.validation_log = []
         self.record = float('inf')
+        self.best_update = None
+        self.train_seconds = 0.0                 # wall clock inside the update loop, validation included
+        self.run_status = "RUNNING"
+        chunk = self.config.chunk_updates
+        if chunk > 0 and (chunk % self.reset_env_timestep or chunk % self.validate_timestep):
+            raise ValueError("--chunk_updates must be a multiple of --reset_env_timestep and --validate_timestep")
+        start_update = self.load_resume_state() if self.config.resume else 0
 
         # print the setting
         print("-" * 25 + "Training Setting" + "-" * 25)
@@ -238,11 +251,23 @@ class Trainer:
         if 0 in self.budget_checkpoints:
             self.save_budget_checkpoint(0)
 
-        for i_update in tqdm(range(self.max_updates), file=sys.stdout, desc="progress", colour='blue'):
+        if self.config.converge_window > 0 and start_update == 0:
+            t0 = time.time()
+            self.validate_and_select(0, t0)
+            self.train_seconds += time.time() - t0
+        stop_update = self.max_updates if chunk <= 0 else min(self.max_updates, start_update + chunk)
+        next_update = start_update
+
+        for i_update in tqdm(range(start_update, stop_update), file=sys.stdout, desc="progress", colour='blue'):
+            if self.run_status == "CONVERGED":
+                break
             ep_st = time.time()
 
             # resampling the training data
-            if i_update % self.reset_env_timestep == 0 and self.v3:
+            if i_update % self.reset_env_timestep == 0 and self.v3 and self.v3_generator is not None:
+                batch = self.v3_generator.sample(self.num_envs)
+                state = self.env.set_initial_data(**batch.env_kwargs(range(self.num_envs), self.config.goal))
+            elif i_update % self.reset_env_timestep == 0 and self.v3:
                 idxs = [random.randrange(len(self.v3_train)) for _ in range(self.num_envs)]
                 self.last_sample_idxs = idxs
                 state = self.env.set_initial_data(**self.v3_train.env_kwargs(idxs, self.config.goal))
@@ -321,36 +346,11 @@ class Trainer:
 
             # validate the trained model
             if (i_update + 1) % self.validate_timestep == 0:
-                if self.data_source == "SD1":
-                    validation_metrics = self.validate_envs_with_various_op_nums()
-                else:
-                    validation_metrics = self.validate_envs_with_same_op_nums()
-
-                if self.config.reward_version in ("v2", "v3"):
-                    # mean normalised score (= -mean return): Step 4 score (v2) or benchmark v3 score
-                    selection_metric = validation_metrics[f"score_{self.config.reward_version}"]
-                else:
-                    selection_metric = self.objective.selection_metric(validation_metrics)
-                if selection_metric < self.record:
-                    self.save_model(i_update + 1, validation_metrics, selection_metric)
-                    self.record = selection_metric
-
-                self.validation_log.append({
-                    "update": i_update + 1,
-                    **validation_metrics,
-                    "selection_metric": selection_metric,
-                })
-                self.save_validation_log()
-                third = (f"tardiness={validation_metrics['tardiness']:.6g}; " if self.v3 else
-                         f"operation-priority={validation_metrics['priority']:.6g}; ")
-                tqdm.write(
-                    f"Validation makespan={validation_metrics['makespan']:.6g}; "
-                    f"carbon={validation_metrics['carbon']:.6g}; "
-                    + third +
-                    f"selection={selection_metric:.6g} (best={self.record:.6g})"
-                )
+                self.validate_and_select(i_update + 1, ep_st)
 
             ep_et = time.time()
+            self.train_seconds += ep_et - ep_st
+            next_update = i_update + 1
             
             # print the reward, makespan, loss and training time of the current episode
             tqdm.write(
@@ -361,8 +361,124 @@ class Trainer:
 
         self.train_et = time.time()
 
+        finished = self.run_status == "CONVERGED" or next_update >= self.max_updates
+        if finished and self.config.converge_window > 0 and self.run_status != "CONVERGED":
+            self.run_status = "NOT_CONVERGED"            # hit the cap: reported, never silently
+        elif finished and self.run_status == "RUNNING":
+            self.run_status = "FINISHED"
+        if chunk > 0 or self.config.resume:
+            self.save_resume_state(next_update)
+        self.write_status(next_update)
+        with open(f'./train_log/{self.data_source}/reward_{self.model_name}.json', 'w', encoding='utf-8') as handle:
+            json.dump(self.log, handle, indent=2)
+        if not finished:
+            return                                       # chunk done; the next process resumes
+
         # log results
         self.save_training_log()
+
+    def validate_and_select(self, update, ep_st):
+        """Greedy validation, best-checkpoint selection and (if enabled) the convergence rule."""
+        if self.data_source == "SD1":
+            validation_metrics = self.validate_envs_with_various_op_nums()
+        else:
+            validation_metrics = self.validate_envs_with_same_op_nums()
+
+        if self.config.reward_version in ("v2", "v3"):
+            # mean normalised score (= -mean return): Step 4 score (v2) or benchmark v3 score
+            selection_metric = validation_metrics[f"score_{self.config.reward_version}"]
+        else:
+            selection_metric = self.objective.selection_metric(validation_metrics)
+        if selection_metric < self.record:
+            self.save_model(update, validation_metrics, selection_metric)
+            self.record = selection_metric
+            self.best_update = update
+
+        entry = {"update": update, **validation_metrics, "selection_metric": selection_metric,
+                 "train_seconds": self.train_seconds + (time.time() - ep_st)}
+        if self.config.converge_window > 0:
+            from convergence import is_converged
+            converged, rel = is_converged([(e["update"], e["selection_metric"]) for e in self.validation_log + [entry]],
+                                          self.config.converge_window, self.config.converge_tol,
+                                          self.config.min_updates)
+            entry["rel_improvement_window"] = rel
+            if converged:
+                self.run_status = "CONVERGED"
+        self.validation_log.append(entry)
+        self.save_validation_log()
+        self.write_status(update)
+        third = (f"tardiness={validation_metrics['tardiness']:.6g}; " if self.v3 else
+                 f"operation-priority={validation_metrics['priority']:.6g}; ")
+        tqdm.write(
+            f"Validation makespan={validation_metrics['makespan']:.6g}; "
+            f"carbon={validation_metrics['carbon']:.6g}; "
+            + third +
+            f"selection={selection_metric:.6g} (best={self.record:.6g})"
+        )
+
+    def resume_path(self):
+        return Path(f'./trained_network/{self.data_source}/{self.model_name}.resume.pth')
+
+    def run_identity(self):
+        c = self.config
+        return {"model_name": self.model_name, "goal": c.goal, "seed_train": c.seed_train, "n_j": c.n_j, "n_m": c.n_m,
+                "obs_version": c.obs_version, "reward_version": c.reward_version,
+                "v3_train_source": c.v3_train_source, "num_envs": c.num_envs, "lr": c.lr,
+                "reset_env_timestep": c.reset_env_timestep, "validate_timestep": c.validate_timestep,
+                "converge_window": c.converge_window, "converge_tol": c.converge_tol, "min_updates": c.min_updates,
+                "max_updates": c.max_updates}
+
+    def write_status(self, update):
+        last = self.validation_log[-1] if self.validation_log else {}
+        status = {"model_name": self.model_name, "goal": self.config.goal, "update": update,
+                  "max_updates": self.max_updates, "status": self.run_status, "best_value": self.record,
+                  "best_update": self.best_update, "latest_value": last.get("selection_metric"),
+                  "rel_improvement_window": last.get("rel_improvement_window"), "train_seconds": self.train_seconds,
+                  "generator": self.v3_generator.provenance() if getattr(self, "v3_generator", None) else None,
+                  "written": time.strftime("%Y-%m-%d %H:%M:%S")}
+        Path(f'./train_log/{self.data_source}/{self.model_name}.status.json').write_text(json.dumps(status, indent=1))
+
+    def save_resume_state(self, next_update):
+        """Everything needed to continue bit-for-bit: weights, optimiser, RNG states, logs, best checkpoint."""
+        best = Path(f'./trained_network/{self.data_source}/{self.model_name}.pth')
+        gen = getattr(self, "v3_generator", None)
+        state = {"identity": self.run_identity(), "next_update": next_update,
+                 "policy": self.ppo.policy.state_dict(), "policy_old": self.ppo.policy_old.state_dict(),
+                 "optimizer": self.ppo.optimizer.state_dict(),
+                 "rng": {"python": random.getstate(), "numpy": np.random.get_state(), "torch": torch.get_rng_state(),
+                         "cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None},
+                 "record": self.record, "best_update": self.best_update, "run_status": self.run_status,
+                 "log": self.log, "validation_log": self.validation_log, "train_seconds": self.train_seconds,
+                 "best_bundle": torch.load(best, map_location="cpu", weights_only=False) if best.exists() else None,
+                 "generator": (gen.generated, gen.collisions) if gen else None}
+        path = self.resume_path(); tmp = path.with_suffix(".tmp")
+        torch.save(state, tmp)
+        os.replace(tmp, path)
+
+    def load_resume_state(self):
+        path = self.resume_path()
+        if not path.exists():
+            return 0
+        state = torch.load(path, map_location=device, weights_only=False)
+        if state["identity"] != self.run_identity():
+            raise ValueError(f"resume state {path} belongs to a different run configuration")
+        self.ppo.policy.load_state_dict(state["policy"])
+        self.ppo.policy_old.load_state_dict(state["policy_old"])
+        self.ppo.optimizer.load_state_dict(state["optimizer"])
+        self.record, self.best_update = state["record"], state["best_update"]
+        self.run_status, self.train_seconds = state["run_status"], state["train_seconds"]
+        self.log, self.validation_log = state["log"], state["validation_log"]
+        if state["best_bundle"] is not None:   # discard any best checkpoint written by an interrupted chunk
+            torch.save(state["best_bundle"], f'./trained_network/{self.data_source}/{self.model_name}.pth')
+        if state["generator"] is not None:
+            self.v3_generator.generated, self.v3_generator.collisions = state["generator"]
+        self.save_validation_log()
+        rng = state["rng"]
+        random.setstate(rng["python"]); np.random.set_state(rng["numpy"]); torch.set_rng_state(rng["torch"].cpu())
+        if rng["cuda"] is not None and torch.cuda.is_available():
+            torch.cuda.set_rng_state_all([r.cpu() for r in rng["cuda"]])
+        print(f"resumed {self.model_name} at update {state['next_update']} ({self.run_status})")
+        return state["next_update"]
 
     def save_training_log(self):
         """

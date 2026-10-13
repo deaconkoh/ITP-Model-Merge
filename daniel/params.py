@@ -153,6 +153,20 @@ parser.add_argument('--reward_ref_manifest', type=str, default='',
                     help='Frozen v2 reward-reference manifest (default: data/reward_refs/reward_ref_manifest.json)')
 parser.add_argument('--reward_ref_seed', type=int, default=None,
                     help='Seed whose centroid references normalise the v2 reward (default: --seed_train)')
+# v3 baselines (docs/evaluation_protocol_v3.md); every default leaves earlier behaviour unchanged
+parser.add_argument('--v3_train_source', type=str, default='pool', choices=['pool', 'generator'],
+                    help='benchmark v3 training data: the fixed v3 train pool, or fresh SD2-generator instances '
+                         '(the original DANIEL scheme) with v3 parameters from the frozen code')
+parser.add_argument('--converge_window', type=int, default=0,
+                    help='Stop when the best validation value improved by < --converge_tol over this many updates '
+                         '(0 disables; validation also runs at update 0 when enabled)')
+parser.add_argument('--converge_tol', type=float, default=0.005, help='Relative improvement threshold')
+parser.add_argument('--min_updates', type=int, default=0, help='No convergence stop before this many updates')
+parser.add_argument('--chunk_updates', type=int, default=0,
+                    help='Run at most this many updates in this process, then save a resume state and exit '
+                         '(0 disables; must be a multiple of --reset_env_timestep and --validate_timestep)')
+parser.add_argument('--resume', type=str2bool, default=False,
+                    help='Continue from <model>.resume.pth (optimiser and RNG states included) if it exists')
 parser.add_argument('--num_envs', type=int, default=20, help='Batch size for training environments')
 parser.add_argument('--max_updates', type=int, default=1000, help='No. of episodes of each env for training')
 parser.add_argument('--lr', type=float, default=3e-4, help='Learning rate')

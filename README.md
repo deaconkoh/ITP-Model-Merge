@@ -4,7 +4,8 @@ This repository contains the code, datasets, model checkpoints, and result files
 
 New research runs use [benchmark v3](docs/benchmark_v3.md) (frozen 2026-10-13: energy-based carbon, calibrated TWK
 due dates, `--config configs/benchmark_v3/<goal>.json`, evaluation with `daniel/evaluate_v3.py`) and must follow
-[the canonical scientific protocol](docs/scientific_protocol.md).
+[the canonical scientific protocol](docs/scientific_protocol.md). v3 baselines (specialists to convergence and CP-SAT
+bounds): [pre-registered protocol](docs/evaluation_protocol_v3.md), runner `scripts/run_baselines_v3.sh`.
 Inherited checkpoints and results are governed by [the legacy artifact policy](docs/legacy_artifacts.md).
 
 The project extends DANIEL-style scheduling experiments with carbon and priority objectives, then compares specialist models, Model Soup merges, Task Arithmetic merges, and a combined-objective baseline.
