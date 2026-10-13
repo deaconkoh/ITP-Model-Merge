@@ -1,0 +1,20 @@
+{
+ "10x5": {
+  "statuses": {
+   "OPTIMAL": 29,
+   "FEASIBLE": 1
+  },
+  "TM_makespan_median": 0.7794913320328316,
+  "TM_carbon_median": 0.15727643134790123,
+  "n": 10
+ },
+ "20x10": {
+  "statuses": {
+   "FEASIBLE": 19,
+   "OPTIMAL": 11
+  },
+  "TM_makespan_median": 1.1035584286124243,
+  "TM_carbon_median": 0.203548038658978,
+  "n": 10
+ }
+}
