@@ -30,6 +30,37 @@
     "seconds": 20.269025564193726,
     "independent_rescore": "all schedules feasible; objectives identical to the environment"
    }
+  },
+  "10x5+mix+bv3_spec_m_s222": {
+   "checkpoint_sha256": "ff3a894daba6e9e419e9c46ee372e146c725957ae9655c895d294f399b61bfd5",
+   "goal": "m",
+   "update": 1200,
+   "greedy": {
+    "makespan": 406.58,
+    "carbon": 152.78503893036148,
+    "tardiness": 364.78082088880046,
+    "tardy_share": 0.45799999999999996,
+    "mk_ratio": 0.9962108373963442,
+    "carbon_ratio": 1.0246905506582384,
+    "tardiness_ratio": 0.6544116010260144,
+    "score_goal": 0.9962108373963442,
+    "score_balanced": 0.8917709963601989,
+    "seconds": 1.2333199977874756,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample100": {
+    "makespan": 359.49,
+    "carbon": 146.20520528181046,
+    "tardiness": 293.8126132068404,
+    "tardy_share": 0.445,
+    "mk_ratio": 0.8806052411188705,
+    "carbon_ratio": 0.9795753848902519,
+    "tardiness_ratio": 0.5270956464812012,
+    "score_goal": 0.8806052411188705,
+    "score_balanced": 0.7957587574967745,
+    "seconds": 20.874406814575195,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
   }
  },
  "split": "evaluation",
