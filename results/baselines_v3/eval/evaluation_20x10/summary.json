@@ -1,0 +1,41 @@
+{
+ "models": {
+  "20x10+mix+bv3_spec_m_s111": {
+   "checkpoint_sha256": "d3bae1df1ca0bd7e49bfb34cd2f4484be673669e020ed9ceb199351767903b60",
+   "goal": "m",
+   "update": 1950,
+   "greedy": {
+    "makespan": 602.16,
+    "carbon": 478.47125080579644,
+    "tardiness": 1303.1675989859168,
+    "tardy_share": 0.804,
+    "mk_ratio": 1.0138633179946814,
+    "carbon_ratio": 1.0926143324434778,
+    "tardiness_ratio": 0.9569023782248837,
+    "score_goal": 1.0138633179946814,
+    "score_balanced": 1.0211266762210145,
+    "seconds": 6.345452785491943,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample100": {
+    "makespan": 549.29,
+    "carbon": 456.4855724340926,
+    "tardiness": 1005.2978263307347,
+    "tardy_share": 0.7490000000000001,
+    "mk_ratio": 0.9246181538878399,
+    "carbon_ratio": 1.0423153586809448,
+    "tardiness_ratio": 0.7381797104138882,
+    "score_goal": 0.9246181538878399,
+    "score_balanced": 0.901704407660891,
+    "seconds": 364.228586435318,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  }
+ },
+ "split": "evaluation",
+ "size": "20x10",
+ "subset": null,
+ "n": 100,
+ "manifest_sha256": "dc34667fbc3c4e02788d3deb8f763d1657da474a62142b81722e75e20115cfec",
+ "t_ref": 1361.8605498748761
+}
