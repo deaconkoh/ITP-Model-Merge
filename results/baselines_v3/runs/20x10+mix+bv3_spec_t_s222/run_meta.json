@@ -1,0 +1,21 @@
+{
+ "mode": "concurrent",
+ "train_cpus": "0-3",
+ "omp_threads": "4",
+ "gpu": "NVIDIA GeForce RTX 5060 Ti",
+ "cpu_model": "AMD Ryzen 5 7500F 6-Core Processor",
+ "objective": "t",
+ "seed": "222",
+ "size": "20x10",
+ "process_seconds": 5722.354046583176,
+ "chunk_rc": [
+  "0",
+  "0",
+  "0",
+  "0",
+  "0",
+  "0",
+  "0",
+  "0"
+ ]
+}

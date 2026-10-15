@@ -1,0 +1,22 @@
+{
+ "model_name": "20x10+mix+bv3_spec_t_s222",
+ "goal": "t",
+ "update": 1450,
+ "max_updates": 5000,
+ "status": "CONVERGED",
+ "best_value": 0.8356134284140799,
+ "best_update": 450,
+ "latest_value": 1.6417374762043524,
+ "rel_improvement_window": 0.0,
+ "train_seconds": 5699.829180955887,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 1460,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 127,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "written": "2026-10-15 12:05:49"
+}
