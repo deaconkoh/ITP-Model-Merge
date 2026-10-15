@@ -1,0 +1,320 @@
+[2026-10-14 14:38:17] pre-flight: repo /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp, mode concurrent, part all, sizes '10x5 20x10', objectives 'm c t', seeds '111 222 333'
+[2026-10-14 14:38:21] GPU: NVIDIA GeForce RTX 5060 Ti, 16311 MiB
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+test_c1_at_1000_held_out (tests.test_v1_reproduction.V1ReproducesStep4.test_c1_at_1000_held_out) ... ok
+test_schema (tests.test_benchmark_v3.ConfigsAndSchema.test_schema) ... ok
+test_specialist_configs (tests.test_benchmark_v3.ConfigsAndSchema.test_specialist_configs) ... ok
+test_carbon_formula (tests.test_benchmark_v3.Definitions.test_carbon_formula) ... ok
+test_due_dates_twk (tests.test_benchmark_v3.Definitions.test_due_dates_twk) ... ok
+test_goal_weights (tests.test_benchmark_v3.Definitions.test_goal_weights) ... ok
+test_independent_scorer_rejects_infeasible (tests.test_benchmark_v3.Definitions.test_independent_scorer_rejects_infeasible) ... ok
+test_keyed_draws (tests.test_benchmark_v3.Definitions.test_keyed_draws) ... ok
+test_batch_invariance (tests.test_benchmark_v3.EnvironmentV3.test_batch_invariance)
+Fixed scales: an instance's observations do not depend on the rest of its batch. ... ok
+test_carbon_and_power_observations (tests.test_benchmark_v3.EnvironmentV3.test_carbon_and_power_observations) ... ok
+test_dimensions_and_fixed_scales (tests.test_benchmark_v3.EnvironmentV3.test_dimensions_and_fixed_scales) ... ok
+test_guards (tests.test_benchmark_v3.EnvironmentV3.test_guards) ... ok
+test_model_forward (tests.test_benchmark_v3.EnvironmentV3.test_model_forward) ... /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+ok
+test_objectives_match_independent_scorer_and_return_is_minus_score (tests.test_benchmark_v3.EnvironmentV3.test_objectives_match_independent_scorer_and_return_is_minus_score) ... ok
+test_reset_reproduces_episode (tests.test_benchmark_v3.EnvironmentV3.test_reset_reproduces_episode) ... ok
+test_every_parameter_regenerates_exactly (tests.test_benchmark_v3.FrozenManifest.test_every_parameter_regenerates_exactly) ... ok
+test_heldout_subset_maps_to_the_original_pool (tests.test_benchmark_v3.FrozenManifest.test_heldout_subset_maps_to_the_original_pool) ... ok
+test_loader_verifies_hashes (tests.test_benchmark_v3.FrozenManifest.test_loader_verifies_hashes) ... ok
+test_ranges (tests.test_benchmark_v3.FrozenManifest.test_ranges) ... ok
+test_reference_heuristic_and_tref_regenerate (tests.test_benchmark_v3.FrozenManifest.test_reference_heuristic_and_tref_regenerate) ... ok
+test_retired_format_rejected (tests.test_benchmark_v3.FrozenManifest.test_retired_format_rejected) ... ok
+test_spec_records_this_manifest (tests.test_benchmark_v3.FrozenManifest.test_spec_records_this_manifest) ... ok
+test_splits_disjoint_and_no_final_test (tests.test_benchmark_v3.FrozenManifest.test_splits_disjoint_and_no_final_test) ... ok
+test_rule (tests.test_baselines_v3.Convergence.test_rule) ... ok
+test_final_test_stream_is_the_generator_with_its_seed (tests.test_baselines_v3.Generator.test_final_test_stream_is_the_generator_with_its_seed) ... ok
+test_forbidden_instances_are_redrawn (tests.test_baselines_v3.Generator.test_forbidden_instances_are_redrawn) ... ok
+test_fresh_instances_use_the_frozen_definitions (tests.test_baselines_v3.Generator.test_fresh_instances_use_the_frozen_definitions) ... ok
+test_matrix_hash_equals_file_hash (tests.test_baselines_v3.Generator.test_matrix_hash_equals_file_hash) ... ok
+test_seeded_and_rng_untouched_by_final_test_regeneration (tests.test_baselines_v3.Generator.test_seeded_and_rng_untouched_by_final_test_regeneration) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 17.398s
+
+OK
+[2026-10-14 14:38:41] pre-flight OK: 12 CPUs (training 0-3, CP-SAT 4-11 x8 workers), 849 GB free, manifest verified, tree clean, v1+v3 tests pass
+[2026-10-14 14:38:41] START  log logs/baselines_v3_20261014_143817.log  status logs/baselines_v3_STATUS.txt
+[2026-10-14 14:38:41] concurrent: Part A pinned to CPUs 0-3, Part B pinned to CPUs 4-11
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_m_s111 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_m_s222 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_m_s333 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_c_s111 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_c_s222 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_c_s333 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_t_s111 (done)
+[2026-10-14 14:38:41] A skip 10x5+mix+bv3_spec_t_s222 (done)
+[2026-10-14 14:38:41] A train 10x5+mix+bv3_spec_t_s333: chunk of 500 updates (status RUNNING, timeout 1920s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 14:39:18] B b1 20x10 instances 60..69 (attempt 1, timeout 3900s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+b1 20x10 20x10+mix_068 192s {"mk": ["FEASIBLE", {"makespan": 449.0, "carbon": 423.9654637239937, "tardiness": 140.94402977325274, "tardy_share": 0.35}], "tard": ["OPTIMAL", {"makespan": 543.0, "carbon": 414.06895211071424, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 724.0, "carbon": 410.6471001231515, "tardiness": 1081.8403611829788, "tardy_share": 0.25}]}
+[2026-10-14 14:45:32] A train 10x5+mix+bv3_spec_t_s333: chunk of 500 updates (status RUNNING, timeout 1920s)
+b1 20x10 20x10+mix_069 222s {"mk": ["FEASIBLE", {"makespan": 504.0, "carbon": 445.32273422732646, "tardiness": 573.6419390905191, "tardy_share": 0.6}], "tard": ["FEASIBLE", {"makespan": 589.0, "carbon": 456.93983000137956, "tardiness": 149.3048988251213, "tardy_share": 0.25}], "carbon": ["OPTIMAL", {"makespan": 932.0, "carbon": 402.8630203312439, "tardiness": 2693.608391815129, "tardy_share": 0.45}]}
+b1 20x10 20x10+mix_070 221s {"mk": ["FEASIBLE", {"makespan": 473.0, "carbon": 380.7016389345222, "tardiness": 293.0054651204119, "tardy_share": 0.35}], "tard": ["FEASIBLE", {"makespan": 572.0, "carbon": 362.5086023278452, "tardiness": 96.35853234675739, "tardy_share": 0.2}], "carbon": ["OPTIMAL", {"makespan": 1036.0, "carbon": 306.39600658703785, "tardiness": 3790.8148654263405, "tardy_share": 0.55}]}
+CPSAT_B1_BATCH_DONE
+[2026-10-14 14:49:57] commit: baselines v3: CP-SAT b1 20x10 instances 60-69
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 14:49:59] B b1 20x10 instances 70..79 (attempt 1, timeout 3900s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 14:52:33] A train 10x5+mix+bv3_spec_t_s333: chunk of 500 updates (status RUNNING, timeout 1920s)
+b1 20x10 20x10+mix_071 221s {"mk": ["FEASIBLE", {"makespan": 499.0, "carbon": 359.09859054529835, "tardiness": 260.1848787409475, "tardy_share": 0.25}], "tard": ["FEASIBLE", {"makespan": 600.0, "carbon": 359.6595915998556, "tardiness": 116.94134080693061, "tardy_share": 0.05}], "carbon": ["OPTIMAL", {"makespan": 1236.0, "carbon": 332.14450451600663, "tardiness": 3995.381463091597, "tardy_share": 0.45}]}
+b1 20x10 20x10+mix_072 221s {"mk": ["FEASIBLE", {"makespan": 494.0, "carbon": 433.6065448210514, "tardiness": 384.0831881850541, "tardy_share": 0.3}], "tard": ["FEASIBLE", {"makespan": 628.0, "carbon": 433.15492800441893, "tardiness": 354.3014607715937, "tardy_share": 0.45}], "carbon": ["OPTIMAL", {"makespan": 1712.0, "carbon": 371.8885305644822, "tardiness": 6278.080300903808, "tardy_share": 0.6}]}
+[2026-10-14 14:59:38] A 10x5+mix+bv3_spec_t_s333 training CONVERGED: update 1500, best 0.373 @ 500, train 0.35 h
+[2026-10-14 14:59:38] A eval 10x5+mix+bv3_spec_t_s333 on evaluation (all): greedy + best of 100
+[2026-10-14 15:00:04] commit: baselines v3: 10x5+mix+bv3_spec_t_s333 (CONVERGED)
+[2026-10-14 15:00:04] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status NONE, timeout 3240s)
+b1 20x10 20x10+mix_073 218s {"mk": ["FEASIBLE", {"makespan": 466.0, "carbon": 379.7922369202826, "tardiness": 153.88955692691292, "tardy_share": 0.25}], "tard": ["OPTIMAL", {"makespan": 537.0, "carbon": 367.3165498081373, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1410.0, "carbon": 324.8355345817456, "tardiness": 5385.545568653956, "tardy_share": 0.55}]}
+b1 20x10 20x10+mix_074 186s {"mk": ["FEASIBLE", {"makespan": 461.0, "carbon": 332.34104282445765, "tardiness": 73.01860012194936, "tardy_share": 0.1}], "tard": ["OPTIMAL", {"makespan": 539.0, "carbon": 308.2404807710457, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1184.0, "carbon": 280.3935588744449, "tardiness": 2678.7584427342217, "tardy_share": 0.6}]}
+b1 20x10 20x10+mix_075 220s {"mk": ["FEASIBLE", {"makespan": 523.0, "carbon": 335.4531255428041, "tardiness": 487.45946056782225, "tardy_share": 0.55}], "tard": ["FEASIBLE", {"makespan": 609.0, "carbon": 361.0537832188028, "tardiness": 301.1334614012127, "tardy_share": 0.4}], "carbon": ["OPTIMAL", {"makespan": 882.0, "carbon": 317.26059614129406, "tardiness": 2987.8166648704514, "tardy_share": 0.65}]}
+b1 20x10 20x10+mix_076 220s {"mk": ["FEASIBLE", {"makespan": 475.0, "carbon": 438.18930612683084, "tardiness": 184.68764370684033, "tardy_share": 0.2}], "tard": ["FEASIBLE", {"makespan": 500.0, "carbon": 433.3406883332912, "tardiness": 36.682891761586575, "tardy_share": 0.15}], "carbon": ["OPTIMAL", {"makespan": 1183.0, "carbon": 399.30127280808154, "tardiness": 2496.2054719214752, "tardy_share": 0.35}]}
+b1 20x10 20x10+mix_077 169s {"mk": ["FEASIBLE", {"makespan": 432.0, "carbon": 315.080820683609, "tardiness": 0.3472715251555769, "tardy_share": 0.05}], "tard": ["OPTIMAL", {"makespan": 555.0, "carbon": 284.79613246978147, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 682.0, "carbon": 273.87711078953237, "tardiness": 1039.7027991429277, "tardy_share": 0.4}]}
+[2026-10-14 15:17:02] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b1 20x10 20x10+mix_078 221s {"mk": ["FEASIBLE", {"makespan": 488.0, "carbon": 408.1994855086317, "tardiness": 454.8044947826857, "tardy_share": 0.45}], "tard": ["FEASIBLE", {"makespan": 550.0, "carbon": 393.9407960752671, "tardiness": 108.96063683907414, "tardy_share": 0.4}], "carbon": ["OPTIMAL", {"makespan": 812.0, "carbon": 380.66736036559934, "tardiness": 1345.109551659588, "tardy_share": 0.25}]}
+b1 20x10 20x10+mix_079 179s {"mk": ["FEASIBLE", {"makespan": 449.0, "carbon": 361.30675605902036, "tardiness": 5.6665107250529445, "tardy_share": 0.05}], "tard": ["OPTIMAL", {"makespan": 528.0, "carbon": 340.4654352435367, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 912.0, "carbon": 317.9167153326649, "tardiness": 2537.4751419899544, "tardy_share": 0.4}]}
+b1 20x10 20x10+mix_080 227s {"mk": ["FEASIBLE", {"makespan": 499.0, "carbon": 355.05067921744796, "tardiness": 323.39269723320245, "tardy_share": 0.45}], "tard": ["FEASIBLE", {"makespan": 638.0, "carbon": 361.98489556132506, "tardiness": 277.09092664745276, "tardy_share": 0.3}], "carbon": ["OPTIMAL", {"makespan": 892.0, "carbon": 304.6112330855208, "tardiness": 2405.849611404379, "tardy_share": 0.6}]}
+CPSAT_B1_BATCH_DONE
+[2026-10-14 15:24:44] commit: baselines v3: CP-SAT b1 20x10 instances 70-79
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 15:24:46] B b1 20x10 instances 80..89 (attempt 1, timeout 3900s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+b1 20x10 20x10+mix_081 227s {"mk": ["FEASIBLE", {"makespan": 478.0, "carbon": 353.41029528233855, "tardiness": 327.74612964242476, "tardy_share": 0.5}], "tard": ["FEASIBLE", {"makespan": 637.0, "carbon": 375.4708735615841, "tardiness": 137.00381728845474, "tardy_share": 0.3}], "carbon": ["OPTIMAL", {"makespan": 828.0, "carbon": 322.3638840830607, "tardiness": 2177.0685239623303, "tardy_share": 0.5}]}
+b1 20x10 20x10+mix_082 182s {"mk": ["FEASIBLE", {"makespan": 457.0, "carbon": 332.45104343227365, "tardiness": 90.68582674427802, "tardy_share": 0.15}], "tard": ["OPTIMAL", {"makespan": 527.0, "carbon": 318.99431908717884, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1092.0, "carbon": 289.8579076453706, "tardiness": 3220.2908983748202, "tardy_share": 0.6}]}
+[2026-10-14 15:33:57] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b1 20x10 20x10+mix_083 142s {"mk": ["FEASIBLE", {"makespan": 414.0, "carbon": 420.1995047367809, "tardiness": 0.0, "tardy_share": 0.0}], "tard": ["OPTIMAL", {"makespan": 521.0, "carbon": 376.11602938529825, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 713.0, "carbon": 369.34258626775755, "tardiness": 921.3693377156625, "tardy_share": 0.35}]}
+b1 20x10 20x10+mix_084 136s {"mk": ["FEASIBLE", {"makespan": 391.0, "carbon": 334.57858991606, "tardiness": 12.541252483731057, "tardy_share": 0.05}], "tard": ["OPTIMAL", {"makespan": 501.0, "carbon": 319.33986832977604, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1404.0, "carbon": 304.40263880605204, "tardiness": 5022.126807900318, "tardy_share": 0.55}]}
+b1 20x10 20x10+mix_085 191s {"mk": ["FEASIBLE", {"makespan": 465.0, "carbon": 379.32164334010747, "tardiness": 101.20167125937007, "tardy_share": 0.2}], "tard": ["OPTIMAL", {"makespan": 493.0, "carbon": 366.5999543838599, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1431.0, "carbon": 320.43010314846805, "tardiness": 4488.99858639219, "tardy_share": 0.6}]}
+b1 20x10 20x10+mix_086 220s {"mk": ["FEASIBLE", {"makespan": 527.0, "carbon": 434.8154932530634, "tardiness": 841.4124572538685, "tardy_share": 0.65}], "tard": ["FEASIBLE", {"makespan": 647.0, "carbon": 435.072684619699, "tardiness": 174.75348881260135, "tardy_share": 0.2}], "carbon": ["OPTIMAL", {"makespan": 834.0, "carbon": 406.88304234902296, "tardiness": 2199.189039212742, "tardy_share": 0.45}]}
+b1 20x10 20x10+mix_087 220s {"mk": ["FEASIBLE", {"makespan": 459.0, "carbon": 308.34981750156544, "tardiness": 149.614151998473, "tardy_share": 0.35}], "tard": ["FEASIBLE", {"makespan": 501.0, "carbon": 299.34140066656295, "tardiness": 21.955979174757374, "tardy_share": 0.1}], "carbon": ["OPTIMAL", {"makespan": 1246.0, "carbon": 249.2549501286341, "tardiness": 4024.8920174840687, "tardy_share": 0.55}]}
+b1 20x10 20x10+mix_088 221s {"mk": ["FEASIBLE", {"makespan": 483.0, "carbon": 477.0071724793102, "tardiness": 272.02214373606995, "tardy_share": 0.45}], "tard": ["FEASIBLE", {"makespan": 594.0, "carbon": 465.08112625558067, "tardiness": 78.21373713611888, "tardy_share": 0.2}], "carbon": ["OPTIMAL", {"makespan": 634.0, "carbon": 441.37811172852014, "tardiness": 974.0855023530496, "tardy_share": 0.3}]}
+[2026-10-14 15:50:53] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b1 20x10 20x10+mix_089 197s {"mk": ["FEASIBLE", {"makespan": 470.0, "carbon": 265.02062056086487, "tardiness": 65.28950637472286, "tardy_share": 0.1}], "tard": ["OPTIMAL", {"makespan": 564.0, "carbon": 254.13766400999418, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 717.0, "carbon": 241.0398997987143, "tardiness": 1294.2043186583078, "tardy_share": 0.4}]}
+b1 20x10 20x10+mix_090 198s {"mk": ["FEASIBLE", {"makespan": 448.0, "carbon": 389.89237849884944, "tardiness": 29.244716716414246, "tardy_share": 0.1}], "tard": ["OPTIMAL", {"makespan": 502.0, "carbon": 376.08868932355756, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 651.0, "carbon": 370.45846652894807, "tardiness": 527.4120817091816, "tardy_share": 0.3}]}
+CPSAT_B1_BATCH_DONE
+[2026-10-14 15:57:04] commit: baselines v3: CP-SAT b1 20x10 instances 80-89
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 15:57:05] B b1 20x10 instances 90..99 (attempt 1, timeout 3900s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+b1 20x10 20x10+mix_091 187s {"mk": ["FEASIBLE", {"makespan": 502.0, "carbon": 378.43576333473356, "tardiness": 87.70269042172492, "tardy_share": 0.05}], "tard": ["OPTIMAL", {"makespan": 528.0, "carbon": 366.62833323367977, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 742.0, "carbon": 354.3699135383006, "tardiness": 1059.2266075201244, "tardy_share": 0.3}]}
+b1 20x10 20x10+mix_092 166s {"mk": ["FEASIBLE", {"makespan": 427.0, "carbon": 405.5160077625924, "tardiness": 0.0, "tardy_share": 0.0}], "tard": ["OPTIMAL", {"makespan": 499.0, "carbon": 377.57754041506246, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1665.0, "carbon": 332.86695050924175, "tardiness": 5626.204141330455, "tardy_share": 0.5}]}
+b1 20x10 20x10+mix_093 208s {"mk": ["FEASIBLE", {"makespan": 483.0, "carbon": 363.7228060600604, "tardiness": 85.05536766591985, "tardy_share": 0.25}], "tard": ["OPTIMAL", {"makespan": 494.0, "carbon": 357.24971583269314, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 887.0, "carbon": 327.7742566649774, "tardiness": 2699.5408802010807, "tardy_share": 0.5}]}
+[2026-10-14 16:07:48] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b1 20x10 20x10+mix_094 208s {"mk": ["FEASIBLE", {"makespan": 475.0, "carbon": 335.85929094384, "tardiness": 105.8746293809067, "tardy_share": 0.25}], "tard": ["OPTIMAL", {"makespan": 496.0, "carbon": 327.3538553857379, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 746.0, "carbon": 308.706065036714, "tardiness": 1464.4423178790025, "tardy_share": 0.55}]}
+b1 20x10 20x10+mix_095 192s {"mk": ["FEASIBLE", {"makespan": 462.0, "carbon": 291.72845052822026, "tardiness": 261.32206281832947, "tardy_share": 0.25}], "tard": ["OPTIMAL", {"makespan": 524.0, "carbon": 287.2175596536539, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 650.0, "carbon": 274.6594612292055, "tardiness": 682.7878038077961, "tardy_share": 0.35}]}
+b1 20x10 20x10+mix_096 220s {"mk": ["FEASIBLE", {"makespan": 471.0, "carbon": 400.98924502268375, "tardiness": 216.5204046918185, "tardy_share": 0.35}], "tard": ["OPTIMAL", {"makespan": 529.0, "carbon": 390.3209818669501, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1026.0, "carbon": 361.36443381188315, "tardiness": 2628.600813633679, "tardy_share": 0.5}]}
+b1 20x10 20x10+mix_097 159s {"mk": ["FEASIBLE", {"makespan": 422.0, "carbon": 329.95755536427333, "tardiness": 34.036266625263295, "tardy_share": 0.15}], "tard": ["OPTIMAL", {"makespan": 554.0, "carbon": 306.39285897784566, "tardiness": 0.0, "tardy_share": 0.0}], "carbon": ["OPTIMAL", {"makespan": 1008.0, "carbon": 297.63599304680656, "tardiness": 1863.0375396521044, "tardy_share": 0.4}]}
+b1 20x10 20x10+mix_098 220s {"mk": ["FEASIBLE", {"makespan": 505.0, "carbon": 382.71623156999044, "tardiness": 756.232132501774, "tardy_share": 0.6}], "tard": ["FEASIBLE", {"makespan": 632.0, "carbon": 381.40301301735593, "tardiness": 311.09725898747075, "tardy_share": 0.45}], "carbon": ["OPTIMAL", {"makespan": 915.0, "carbon": 336.62437891848276, "tardiness": 2278.7062560472777, "tardy_share": 0.35}]}
+[2026-10-14 16:24:47] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b1 20x10 20x10+mix_099 220s {"mk": ["FEASIBLE", {"makespan": 505.0, "carbon": 355.7093387739245, "tardiness": 187.59953625229076, "tardy_share": 0.25}], "tard": ["FEASIBLE", {"makespan": 528.0, "carbon": 375.31425168732915, "tardiness": 180.85934843422086, "tardy_share": 0.25}], "carbon": ["OPTIMAL", {"makespan": 1230.0, "carbon": 324.7074972872563, "tardiness": 3607.3606972110138, "tardy_share": 0.4}]}
+b1 20x10 20x10+mix_100 220s {"mk": ["FEASIBLE", {"makespan": 449.0, "carbon": 297.33754098658153, "tardiness": 296.1374595153646, "tardy_share": 0.4}], "tard": ["FEASIBLE", {"makespan": 506.0, "carbon": 305.80380505488387, "tardiness": 4.062222782590538, "tardy_share": 0.1}], "carbon": ["OPTIMAL", {"makespan": 876.0, "carbon": 283.48210332982745, "tardiness": 1450.1959697307448, "tardy_share": 0.25}]}
+CPSAT_B1_BATCH_DONE
+[2026-10-14 16:30:28] commit: baselines v3: CP-SAT b1 20x10 instances 90-99
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 16:30:30] B b2 20x10 instances 0..4 (attempt 1, timeout 11550s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 16:41:59] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_001 1193s {"front": 8, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 16:59:28] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_002 1203s {"front": 15, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "UNKNOWN", "OPTIMAL", "INFEASIBLE", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 17:16:39] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_003 1230s {"front": 11, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "UNKNOWN", "OPTIMAL", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 17:33:43] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 17:51:16] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_004 1322s {"front": 10, "statuses": ["INFEASIBLE", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 18:08:31] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_005 1290s {"front": 13, "statuses": ["INFEASIBLE", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "OPTIMAL", "FEASIBLE", "UNKNOWN", "UNKNOWN", "OPTIMAL", "OPTIMAL", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+CPSAT_B2_BATCH_DONE
+[2026-10-14 18:14:30] commit: baselines v3: CP-SAT b2 20x10 instances 0-4
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 18:14:32] B b2 20x10 instances 5..9 (attempt 1, timeout 11550s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-10-14 18:25:46] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_006 1322s {"front": 11, "statuses": ["INFEASIBLE", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 18:43:04] A train 20x10+mix+bv3_spec_m_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_007 1203s {"front": 14, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "UNKNOWN", "OPTIMAL", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 19:00:18] A 20x10+mix+bv3_spec_m_s111 training CONVERGED: update 2800, best 0.98904 @ 1950, train 3.99 h
+[2026-10-14 19:00:18] A eval 20x10+mix+bv3_spec_m_s111 on evaluation (all): greedy + best of 100
+[2026-10-14 19:06:31] commit: baselines v3: 20x10+mix+bv3_spec_m_s111 (CONVERGED)
+[2026-10-14 19:06:31] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status NONE, timeout 3240s)
+b2 20x10 20x10+mix_008 1322s {"front": 8, "statuses": ["INFEASIBLE", "INFEASIBLE", "UNKNOWN", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 19:23:58] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_009 1257s {"front": 14, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "OPTIMAL", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+[2026-10-14 19:41:21] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 19:58:51] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+b2 20x10 20x10+mix_010 1262s {"front": 11, "statuses": ["INFEASIBLE", "INFEASIBLE", "INFEASIBLE", "UNKNOWN", "OPTIMAL", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "UNKNOWN", "UNKNOWN", "UNKNOWN", "UNKNOWN", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE", "FEASIBLE"]}
+CPSAT_B2_BATCH_DONE
+[2026-10-14 20:00:40] commit: baselines v3: CP-SAT b2 20x10 instances 5-9
+[2026-10-14 20:00:40] PART B finished
+[2026-10-14 20:12:08] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 20:24:48] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 20:37:32] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 20:50:07] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 21:02:55] A train 20x10+mix+bv3_spec_m_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 21:15:37] A 20x10+mix+bv3_spec_m_s222 training CONVERGED: update 1800, best 1.008 @ 800, train 2.14 h
+[2026-10-14 21:15:37] A eval 20x10+mix+bv3_spec_m_s222 on evaluation (all): greedy + best of 100
+[2026-10-14 21:20:20] commit: baselines v3: 20x10+mix+bv3_spec_m_s222 (CONVERGED)
+[2026-10-14 21:20:20] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-14 21:33:02] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 21:45:31] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 21:58:39] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 22:11:56] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 22:25:31] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 22:38:10] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 22:50:44] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 23:03:23] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 23:16:14] A train 20x10+mix+bv3_spec_m_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 23:25:53] A 20x10+mix+bv3_spec_m_s333 training CONVERGED: update 1950, best 0.98505 @ 950, train 2.08 h
+[2026-10-14 23:25:53] A eval 20x10+mix+bv3_spec_m_s333 on evaluation (all): greedy + best of 100
+[2026-10-14 23:30:32] commit: baselines v3: 20x10+mix+bv3_spec_m_s333 (CONVERGED)
+[2026-10-14 23:30:32] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-14 23:43:16] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-14 23:56:14] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 00:09:07] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 00:21:56] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 00:34:49] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 00:47:35] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 01:00:20] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 01:13:14] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 01:26:00] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 01:39:00] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 01:52:13] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 02:05:01] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 02:17:45] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 02:30:35] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 02:43:12] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 02:55:55] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 03:08:48] A train 20x10+mix+bv3_spec_c_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 03:12:04] A 20x10+mix+bv3_spec_c_s111 training CONVERGED: update 3450, best 1.0857 @ 2450, train 3.68 h
+[2026-10-15 03:12:04] A eval 20x10+mix+bv3_spec_c_s111 on evaluation (all): greedy + best of 100
+[2026-10-15 03:16:44] commit: baselines v3: 20x10+mix+bv3_spec_c_s111 (CONVERGED)
+[2026-10-15 03:16:44] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-15 03:29:38] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 03:42:19] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 03:55:08] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 04:08:12] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 04:21:00] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 04:33:50] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 04:46:38] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 04:59:38] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 05:12:32] A train 20x10+mix+bv3_spec_c_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 05:25:29] A 20x10+mix+bv3_spec_c_s222 training CONVERGED: update 2000, best 1.1182 @ 1850, train 2.14 h
+[2026-10-15 05:25:29] A eval 20x10+mix+bv3_spec_c_s222 on evaluation (all): greedy + best of 100
+[2026-10-15 05:30:08] commit: baselines v3: 20x10+mix+bv3_spec_c_s222 (CONVERGED)
+[2026-10-15 05:30:08] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-15 05:43:13] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 05:55:56] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 06:08:58] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 06:21:50] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 06:34:45] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 06:47:41] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 07:00:38] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 07:13:37] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 07:26:34] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 07:39:33] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 07:52:28] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 08:05:22] A train 20x10+mix+bv3_spec_c_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 08:11:46] A 20x10+mix+bv3_spec_c_s333 training CONVERGED: update 2500, best 1.081 @ 2400, train 2.68 h
+[2026-10-15 08:11:46] A eval 20x10+mix+bv3_spec_c_s333 on evaluation (all): greedy + best of 100
+[2026-10-15 08:16:25] commit: baselines v3: 20x10+mix+bv3_spec_c_s333 (CONVERGED)
+[2026-10-15 08:16:25] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-15 08:29:26] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 08:42:38] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 08:55:24] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 09:08:26] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 09:21:20] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 09:34:18] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 09:47:12] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 10:00:07] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 10:13:05] A train 20x10+mix+bv3_spec_t_s111: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 10:25:46] A 20x10+mix+bv3_spec_t_s111 training CONVERGED: update 2000, best 0.87367 @ 1300, train 2.15 h
+[2026-10-15 10:25:46] A eval 20x10+mix+bv3_spec_t_s111 on evaluation (all): greedy + best of 100
+[2026-10-15 10:30:27] commit: baselines v3: 20x10+mix+bv3_spec_t_s111 (CONVERGED)
+[2026-10-15 10:30:27] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-15 10:43:26] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 10:56:21] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 11:09:29] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 11:22:31] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 11:35:26] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 11:49:02] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 12:02:32] A train 20x10+mix+bv3_spec_t_s222: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 12:05:50] A 20x10+mix+bv3_spec_t_s222 training CONVERGED: update 1450, best 0.83561 @ 450, train 1.58 h
+[2026-10-15 12:05:50] A eval 20x10+mix+bv3_spec_t_s222 on evaluation (all): greedy + best of 100
+[2026-10-15 12:10:25] commit: baselines v3: 20x10+mix+bv3_spec_t_s222 (CONVERGED)
+[2026-10-15 12:10:25] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status NONE, timeout 3240s)
+[2026-10-15 12:22:49] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 12:35:37] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 12:48:02] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 13:00:30] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 13:12:52] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 13:25:55] A train 20x10+mix+bv3_spec_t_s333: chunk of 200 updates (status RUNNING, timeout 3240s)
+[2026-10-15 13:31:57] A 20x10+mix+bv3_spec_t_s333 training CONVERGED: update 1300, best 1.0128 @ 300, train 1.35 h
+[2026-10-15 13:31:57] A eval 20x10+mix+bv3_spec_t_s333 on evaluation (all): greedy + best of 100
+[2026-10-15 13:36:32] commit: baselines v3: 20x10+mix+bv3_spec_t_s333 (CONVERGED)
+[2026-10-15 13:36:32] PART A finished
+[2026-10-15 13:36:32] analysis: tools/analyze_baselines_v3.py
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote results/baselines_v3.md
+[2026-10-15 13:36:37] DONE
+[2026-10-15 13:36:37] commit: baselines v3: analysis and final status

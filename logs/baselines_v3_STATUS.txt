@@ -1,9 +1,9 @@
-baselines v3 STATUS   updated 2026-10-15 13:35:59   mode concurrent   started 2026-10-14 14:38:41   elapsed 23.0 h
+baselines v3 STATUS   updated 2026-10-15 13:36:37   mode concurrent   started 2026-10-14 14:38:41   elapsed 23.0 h
 log: logs/baselines_v3_20261014_143817.log
 
-PART A  specialists: 17/18 done (converged 17, NOT converged 0), failed 0
-  current: 20x10+mix+bv3_spec_t_s333   update 1300/5000   latest val 1.2862107184094047   best 1.0128 @ 300   rel-impr(window) 0.0   CONVERGED   train time 1.4 h
-  est. remaining training: 0.7 h (every run stops at ~2000 updates) to 3.9 h (every run to the cap 5000)
+PART A  specialists: 18/18 done (converged 18, NOT converged 0), failed 0
+  current: none
+  est. remaining training: 0.0 h (every run stops at ~2000 updates) to 0.0 h (every run to the cap 5000)
 
 PART B  CP-SAT:
   B1 10x5: 100/100 instances   mean 10 s/instance
