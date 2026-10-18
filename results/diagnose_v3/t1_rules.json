@@ -1,0 +1,86 @@
+{
+ "10x5": {
+  "MWKR+ECT": {
+   "mk_ratio": 1.0,
+   "carbon_ratio": 1.0,
+   "tardiness_ratio": 1.0228266171046294,
+   "makespan": 410.18,
+   "carbon": 149.68916461241687,
+   "tardiness": 570.141990804209,
+   "tardy_share": 0.6040000000000001
+  },
+  "EDD+ECT": {
+   "mk_ratio": 1.2868706520891116,
+   "carbon_ratio": 0.9476742460312199,
+   "tardiness_ratio": 0.3774690677930236,
+   "makespan": 526.08,
+   "carbon": 141.4546903452031,
+   "tardiness": 210.40806152242368,
+   "tardy_share": 0.315
+  },
+  "MWKR+MINE": {
+   "mk_ratio": 1.489620045514624,
+   "carbon_ratio": 0.7936733054850685,
+   "tardiness_ratio": 2.509137663204888,
+   "makespan": 607.65,
+   "carbon": 118.82692154422038,
+   "tardiness": 1398.6385557222125,
+   "tardy_share": 0.7350000000000001
+  },
+  "EDD+MINE": {
+   "mk_ratio": 1.6130393644577126,
+   "carbon_ratio": 0.7936733054850685,
+   "tardiness_ratio": 1.7352915986504742,
+   "makespan": 657.05,
+   "carbon": 118.82692154422038,
+   "tardiness": 967.2828122923138,
+   "tardy_share": 0.6399999999999999
+  },
+  "min-energy assignment (carbon LB)": {
+   "carbon": 118.82692154422038,
+   "carbon_ratio": 0.7936733054850685
+  }
+ },
+ "20x10": {
+  "MWKR+ECT": {
+   "mk_ratio": 1.0,
+   "carbon_ratio": 1.0,
+   "tardiness_ratio": 1.0327726053431203,
+   "makespan": 595.09,
+   "carbon": 438.6753689559844,
+   "tardiness": 1406.4922682082904,
+   "tardy_share": 0.7955000000000001
+  },
+  "EDD+ECT": {
+   "mk_ratio": 1.3862483029436692,
+   "carbon_ratio": 0.9462080485084902,
+   "tardiness_ratio": 0.6985350419620446,
+   "makespan": 823.74,
+   "carbon": 414.30959052485605,
+   "tardiness": 951.3073163532998,
+   "tardy_share": 0.37450000000000006
+  },
+  "MWKR+MINE": {
+   "mk_ratio": 1.7757412687195846,
+   "carbon_ratio": 0.7481148307036442,
+   "tardiness_ratio": 4.207500009709369,
+   "makespan": 1053.45,
+   "carbon": 328.4262477054419,
+   "tardiness": 5730.028276821347,
+   "tardy_share": 0.932
+  },
+  "EDD+MINE": {
+   "mk_ratio": 1.8721492171557788,
+   "carbon_ratio": 0.7481148307036442,
+   "tardiness_ratio": 3.610212572152528,
+   "makespan": 1110.63,
+   "carbon": 328.4262477054419,
+   "tardiness": 4916.606078676833,
+   "tardy_share": 0.8305
+  },
+  "min-energy assignment (carbon LB)": {
+   "carbon": 328.4262477054419,
+   "carbon_ratio": 0.7481148307036442
+  }
+ }
+}

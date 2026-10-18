@@ -1,0 +1,263 @@
+{
+ "10x5": {
+  "instances": {
+   "validation": 18,
+   "development": 2
+  },
+  "min_energy_allowed": {
+   "mk_ratio": 1.2968421802936518,
+   "carbon_ratio": 1.0940646327866577,
+   "tardiness_ratio": 0.8756199652623272,
+   "makespan": 541.55,
+   "carbon": 157.47273841718234,
+   "tardiness": 488.0863499580861,
+   "share_steps_some_min_machine_masked": 0.916,
+   "share_steps_no_min_pair_allowed": 0.2,
+   "share_ops_not_on_min_machine": 0.352,
+   "carbon_unrestricted_min": 115.9822301142591,
+   "carbon_ratio_unrestricted_min": 0.7978636161850859,
+   "carbon_excess_over_min_pct": 37.85359063841609,
+   "env_schedules_with_nondelay_violation": 0
+  },
+  "EDD_allowed": {
+   "mk_ratio": 1.471086368501931,
+   "carbon_ratio": 1.3314212359737256,
+   "tardiness_ratio": 1.2116929152264746,
+   "makespan": 607.6,
+   "carbon": 188.8434416779777,
+   "tardiness": 675.4194693194115
+  },
+  "replay_EDD+ECT": {
+   "target": {
+    "mk_ratio": 1.312470804923659,
+    "carbon_ratio": 0.9702971418044875,
+    "tardiness_ratio": 0.4002666516884287,
+    "makespan": 544.55,
+    "carbon": 139.66076921081807,
+    "tardiness": 223.11584566715584
+   },
+   "through_mask": {
+    "mk_ratio": 1.2120992581160328,
+    "carbon_ratio": 1.1551960363898996,
+    "tardiness_ratio": 0.7050529791380404,
+    "makespan": 500.6,
+    "carbon": 165.39021681604686,
+    "tardiness": 393.0092377592872
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 14.3,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 9.75
+  },
+  "replay_EDD+MINE": {
+   "target": {
+    "mk_ratio": 1.6559743832409874,
+    "carbon_ratio": 0.7978636161850859,
+    "tardiness_ratio": 1.9139871964672412,
+    "makespan": 687.9,
+    "carbon": 115.9822301142591,
+    "tardiness": 1066.890959150676
+   },
+   "through_mask": {
+    "mk_ratio": 1.2592678991525084,
+    "carbon_ratio": 1.1786355008681806,
+    "tardiness_ratio": 0.8923491446893961,
+    "makespan": 520.55,
+    "carbon": 168.57343085684295,
+    "tardiness": 497.41149608115984
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 21.7,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 14.95
+  },
+  "replay_CPSAT_tard": {
+   "target": {
+    "mk_ratio": 1.142887497696638,
+    "carbon_ratio": 0.9703688335285815,
+    "tardiness_ratio": 0.051840061859315945,
+    "makespan": 470.05,
+    "carbon": 139.46179915216246,
+    "tardiness": 28.896584795133755
+   },
+   "through_mask": {
+    "mk_ratio": 1.1793790846542394,
+    "carbon_ratio": 1.1602489590121494,
+    "tardiness_ratio": 0.7124459383238215,
+    "makespan": 487.7,
+    "carbon": 165.16921642791627,
+    "tardiness": 397.1302064529327
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 16.25,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 9.3
+  },
+  "replay_CPSAT_mk": {
+   "target": {
+    "mk_ratio": 0.7927042098493738,
+    "carbon_ratio": 0.9162975379649753,
+    "tardiness_ratio": 0.5606827100523061,
+    "makespan": 330.15,
+    "carbon": 132.49919412802038,
+    "tardiness": 312.5346477818738
+   },
+   "through_mask": {
+    "mk_ratio": 1.0382916220348988,
+    "carbon_ratio": 1.0929714871738456,
+    "tardiness_ratio": 0.9521850418272513,
+    "makespan": 429.0,
+    "carbon": 156.84524547129791,
+    "tardiness": 530.7651035696936
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 13.8,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 8.05
+  },
+  "cpsat_status": {
+   "tard": {
+    "OPTIMAL": 18,
+    "FEASIBLE": 2
+   },
+   "mk": {
+    "OPTIMAL": 19,
+    "FEASIBLE": 1
+   }
+  }
+ },
+ "20x10": {
+  "instances": {
+   "validation": 13,
+   "development": 7
+  },
+  "min_energy_allowed": {
+   "mk_ratio": 1.3997679481564198,
+   "carbon_ratio": 1.2982620333843697,
+   "tardiness_ratio": 1.8462590840470468,
+   "makespan": 852.35,
+   "carbon": 576.2222231109722,
+   "tardiness": 2514.347411411796,
+   "share_steps_some_min_machine_masked": 0.981,
+   "share_steps_no_min_pair_allowed": 0.2945,
+   "share_ops_not_on_min_machine": 0.49875,
+   "carbon_unrestricted_min": 334.5555169400932,
+   "carbon_ratio_unrestricted_min": 0.7521601839729894,
+   "carbon_excess_over_min_pct": 72.8879580826738,
+   "env_schedules_with_nondelay_violation": 0
+  },
+  "EDD_allowed": {
+   "mk_ratio": 1.82457193941821,
+   "carbon_ratio": 1.7639750669210712,
+   "tardiness_ratio": 4.296270924220101,
+   "makespan": 1113.0,
+   "carbon": 782.800237426015,
+   "tardiness": 5850.921883269829
+  },
+  "replay_EDD+ECT": {
+   "target": {
+    "mk_ratio": 1.4040276452723972,
+    "carbon_ratio": 0.948522987060284,
+    "tardiness_ratio": 0.7677610912496099,
+    "makespan": 856.75,
+    "carbon": 421.1380275851229,
+    "tardiness": 1045.5835419017287
+   },
+   "through_mask": {
+    "mk_ratio": 1.3420095494687678,
+    "carbon_ratio": 1.3393828172438198,
+    "tardiness_ratio": 2.0324792932792812,
+    "makespan": 816.6,
+    "carbon": 594.5463899697639,
+    "tardiness": 2767.9533679546216
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 70.1,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 56.15
+  },
+  "replay_EDD+MINE": {
+   "target": {
+    "mk_ratio": 1.9453326196590488,
+    "carbon_ratio": 0.7521601839729894,
+    "tardiness_ratio": 4.155516063329614,
+    "makespan": 1189.8,
+    "carbon": 334.5555169400932,
+    "tardiness": 5659.233391019949
+   },
+   "through_mask": {
+    "mk_ratio": 1.4869962922102657,
+    "carbon_ratio": 1.4507400688685168,
+    "tardiness_ratio": 2.9002615259011972,
+    "makespan": 905.6,
+    "carbon": 644.9972132654949,
+    "tardiness": 3949.7517564447517
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 97.4,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 77.4
+  },
+  "replay_CPSAT_tard": {
+   "target": {
+    "mk_ratio": 1.0660643255114486,
+    "carbon_ratio": 0.9382093040315059,
+    "tardiness_ratio": 0.23104090485631792,
+    "makespan": 649.4,
+    "carbon": 416.40097963105075,
+    "tardiness": 314.64549373121406
+   },
+   "through_mask": {
+    "mk_ratio": 1.2770160119226737,
+    "carbon_ratio": 1.3157586134735648,
+    "tardiness_ratio": 2.066118788828882,
+    "makespan": 776.8,
+    "carbon": 584.3918878744391,
+    "tardiness": 2813.7656698613146
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 83.9,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 53.15
+  },
+  "replay_CPSAT_mk": {
+   "target": {
+    "mk_ratio": 0.8618704092980553,
+    "carbon_ratio": 0.9727095385645608,
+    "tardiness_ratio": 0.8344660980345129,
+    "makespan": 525.2,
+    "carbon": 432.29266885528943,
+    "tardiness": 1136.426459121224
+   },
+   "through_mask": {
+    "mk_ratio": 1.2294903762810907,
+    "carbon_ratio": 1.3410198222709282,
+    "tardiness_ratio": 2.5865083497841352,
+    "makespan": 748.05,
+    "carbon": 594.7110494025894,
+    "tardiness": 3522.4636834929806
+   },
+   "instances_zero_deviation": 0,
+   "targets_non_delay": 0,
+   "mean_waiting_ops_with_idle_eligible_machine": 96.25,
+   "replayed_schedules_with_nondelay_violation": 0,
+   "mean_deviation_steps": 52.35
+  },
+  "cpsat_status": {
+   "tard": {
+    "OPTIMAL": 2,
+    "FEASIBLE": 18
+   },
+   "mk": {
+    "FEASIBLE": 20
+   }
+  }
+ }
+}
