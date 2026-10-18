@@ -140,6 +140,9 @@ def main():
         if not sr:
             continue
         keys = [str(k) for k in sr[0]["eval"]["keys"]]
+        if any(k not in norm for k in keys):
+            L += [f"## {size}", "", f"_Normalisation points missing for {size} ({a.norm}); section skipped._", ""]
+            continue
         data = B.load_split(a.eval_split, size)
         b2 = load_cpsat("b2", a.eval_split, size); b1 = load_cpsat("b1", a.eval_split, size)
         sub = [k for k in keys if k in b2]

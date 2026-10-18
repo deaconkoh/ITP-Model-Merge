@@ -258,7 +258,7 @@ done
 rm -f "$STATE/current"
 log "analysis: tools/analyze_mo_daniel_v3.py"
 NORM_ARGS=(); if [ "$SMOKE" = 1 ]; then
-  NORM_ARGS=(--norm); for size in $SIZES; do NORM_ARGS+=("$RES/validation_normalisation_points_development_$size.json"); done
+  NORM_ARGS=(--norm "$RES"/validation_normalisation_points_development_*.json)
 fi
 run_guarded 1800 "$PY" tools/analyze_mo_daniel_v3.py --eval_split "$EVAL_SPLIT" "${NORM_ARGS[@]}" \
   >>"$LOG" 2>&1 || log "analysis FAILED (see log); results are committed"
