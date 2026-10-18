@@ -355,7 +355,38 @@ After each run, its best-validation checkpoint is evaluated on the 100 evaluatio
 
 ### A7. Smoke-test evidence (before launch)
 
-(Recorded below, after the smoke tests on the committed code.)
+`scripts/run_mo_daniel_v3.sh --smoke` ran on 2026-10-19 in a scratch git clone of the committed code, which was deleted afterwards.
+- **Smoke settings:**
+  - validation on 3 instances with a 6-preference grid (step 0.5);
+  - evaluation on the first 3 *development* instances with a 15-preference grid plus equal weights;
+  - 40 updates in 20-update chunks;
+  - CP-SAT limits of 2 s and 1 s.
+- **Pass 1** (10x5 and 20x10, seed 111, `--shutdown` with a stub):
+  - pre-flight passed: tests, manifest, clean tree, GPU and specialist checkpoints;
+  - development and validation points were frozen and committed;
+  - the 20x10 validation points started on CPUs 4–11 in the background while 10x5 trained;
+  - killed with SIGTERM during the 10x5 run's second chunk: all children stopped, including the background CP-SAT job; no shutdown; resume state kept.
+- **Pass 2** (same command):
+  - resumed at update 20 and completed;
+  - the 20x10 points finished and were committed;
+  - 20x10 trained;
+  - both runs were evaluated (independent re-scoring passed) and committed;
+  - the analysis wrote `results/mo_daniel_v3.md` and all six figures;
+  - the shutdown stub was called only after the final commit;
+  - the tree was clean.
+- **Pass 3** (hang guard, 5 s chunk timeout): the chunk timed out, was retried once and was marked FAILED. The runner committed and continued.
+- **Pass 4** (plain re-run): the FAILED run was retried and completed; the analysis succeeded.
+- **Determinism:**
+  - Chunked-and-resumed MO training (2 × 20 updates) is bit-identical to uninterrupted training (40 updates): best checkpoint, per-update reward/PPO-statistics/preference log and validation log, including the preference sampler.
+  - With the new code, default v1 training and v3 specialist training (20 updates each) are bit-identical to the previous commit: weights, rewards and validation.
+  - An update with PPO-statistics logging is bit-identical to one without (`tests/test_mo_daniel_v3.py`).
+- **Report rows that need the evaluation split's references** (B2 subset, IGD+, specialists, CP-SAT B1) were exercised once with a synthetic MO result made only of the committed seed-111 specialist schedules. No MO checkpoint was rolled out on the evaluation split for this.
+- **Disclosure.** During development, before this addendum, an untrained 10-update scratch checkpoint was evaluated on 5 evaluation instances to test `evaluate_mo_v3.py`. The output was deleted, and nothing was selected or tuned from it.
+- **Fixed during smoke:**
+  - the runner scripts lacked the executable bit in git (`run_baselines_v3.sh` too);
+  - `--mo_val_norm` is resolved against the working directory;
+  - the analysis skips a size whose normalisation points are missing.
+- **Measured speed:** 0.84 s per update at 10x5 and 4.49 s at 20x10 (A3). Evaluation takes about 16 s and 3 min per run at 10x5 and 20x10.
 
 ### Deviations (Addendum A)
 
