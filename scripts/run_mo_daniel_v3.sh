@@ -148,7 +148,7 @@ norm_one() {      # norm_one <size>: compute and freeze; retried once; returns n
       --workers "$CPSAT_WORKERS" >>"$LOG" 2>&1 && [ -f "$f" ] && break
     log "N normalisation $size FAILED (attempt $attempt)"
   done
-  commit "MO-DANIEL v3: frozen validation normalisation points $size" "$RES/cpsat" "$f" "$STATUS_FILE"
+  commit "MO-DANIEL v3: frozen $NORM_SPLIT normalisation points $size" "$RES/cpsat" "$f" "$STATUS_FILE"
   [ -f "$f" ]
 }
 norm_background() {   # the subshell needs its own trap to stop its child
