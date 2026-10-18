@@ -25,6 +25,7 @@ class Memory:
         self.comp_idx_seq = []  # [N, tensor[sz_b, M, M, J]]
         self.candidate_seq = []  # [N, tensor[sz_b, J]]
         self.fea_pairs_seq = []  # [N, tensor[sz_b, J]]
+        self.pref_seq = []  # MO-DANIEL preference [N, tensor[sz_b, 3]]; stays empty for every other model
 
         # other variables
         self.action_seq = []  # action index with shape [N, tensor[sz_b]]
@@ -50,6 +51,7 @@ class Memory:
         del self.comp_idx_seq[:]
         del self.candidate_seq[:]
         del self.fea_pairs_seq[:]
+        del self.pref_seq[:]
 
     def push(self, state):
         """
@@ -65,6 +67,8 @@ class Memory:
         self.comp_idx_seq.append(state.comp_idx_tensor)
         self.candidate_seq.append(state.candidate_tensor)
         self.fea_pairs_seq.append(state.fea_pairs_tensor)
+        if getattr(state, "pref_tensor", None) is not None:
+            self.pref_seq.append(state.pref_tensor)
 
     def transpose_data(self):
         """
@@ -85,6 +89,8 @@ class Memory:
         t_val_seq = self.t_old_val_seq.flatten(0, 1)
         t_done_seq = torch.stack(self.done_seq, dim=0).transpose(0, 1).flatten(0, 1)
         t_logprobs_seq = torch.stack(self.log_probs, dim=0).transpose(0, 1).flatten(0, 1)
+        self.t_pref_seq = (torch.stack(self.pref_seq, dim=0).transpose(0, 1).flatten(0, 1)
+                           if self.pref_seq else None)
 
         return t_Fea_j_seq, t_op_mask_seq, t_Fea_m_seq, t_mch_mask_seq, t_dynamicMask_seq, \
                t_Compete_m_seq, t_candidate_seq, t_pairMessage_seq, \
@@ -150,6 +156,9 @@ class PPO:
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.lr)
         self.V_loss_2 = nn.MSELoss()
         self.device = torch.device(config.device)
+        # observation only (docs/evaluation_protocol_v3.md, Addendum A): statistics of each update, never fed back
+        self.log_stats = bool(getattr(config, "log_ppo_stats", False))
+        self.last_stats = None
 
     def update(self, memory):
         '''
@@ -163,9 +172,12 @@ class PPO:
 
         full_batch_size = len(t_data[-1])
         num_batch = np.ceil(full_batch_size / self.minibatch_size)
+        t_pref = memory.t_pref_seq
 
         loss_epochs = 0
         v_loss_epochs = 0
+        stats = {"entropy": [], "approx_kl": [], "clip_fraction": [], "policy_loss": [], "value_loss": [],
+                 "grad_norm": []} if self.log_stats else None
 
         for _ in range(self.k_epochs):
 
@@ -186,7 +198,8 @@ class PPO:
                                         mch_mask=t_data[3][start_idx:end_idx],
                                         comp_idx=t_data[5][start_idx:end_idx],
                                         dynamic_pair_mask=t_data[4][start_idx:end_idx],
-                                        fea_pairs=t_data[7][start_idx:end_idx])
+                                        fea_pairs=t_data[7][start_idx:end_idx],
+                                        pref=None if t_pref is None else t_pref[start_idx:end_idx])
 
                 action_batch = t_data[8][start_idx: end_idx]
                 logprobs, ent_loss = eval_actions(pis, action_batch)
@@ -205,10 +218,33 @@ class PPO:
                 loss_epochs += loss.mean().detach()
                 v_loss_epochs += v_loss.mean().detach()
                 loss.mean().backward()
+                if stats is not None:
+                    with torch.no_grad():
+                        log_ratio = logprobs.detach() - t_data[12][start_idx: end_idx].detach()
+                        ratio = torch.exp(log_ratio)
+                        stats["entropy"].append(float(-ent_loss.detach()))
+                        stats["approx_kl"].append(float(((ratio - 1) - log_ratio).mean()))   # k3 estimator
+                        stats["clip_fraction"].append(float(((ratio - 1).abs() > self.eps_clip).float().mean()))
+                        stats["policy_loss"].append(float(p_loss.detach().mean()))
+                        stats["value_loss"].append(float(v_loss.detach().mean()))
+                        grads = [q.grad.detach().reshape(-1) for q in self.policy.parameters() if q.grad is not None]
+                        stats["grad_norm"].append(float(torch.linalg.vector_norm(torch.cat(grads))))  # not clipped
                 self.optimizer.step()
         # soft update
         for policy_old_params, policy_params in zip(self.policy_old.parameters(), self.policy.parameters()):
             policy_old_params.data.copy_(self.tau * policy_old_params.data + (1 - self.tau) * policy_params.data)
+
+        if stats is not None:
+            with torch.no_grad():
+                old_v = t_data[10].detach()
+                target = v_target_seq.detach()
+                var_t = torch.var(target)
+                ev = float(1 - torch.var(target - old_v) / var_t) if float(var_t) > 0 else float("nan")
+            self.last_stats = {**{k: float(np.mean(v)) for k, v in stats.items()},
+                               "approx_kl_last_epoch": float(np.mean(stats["approx_kl"][-int(num_batch):])),
+                               "grad_norm_max": float(np.max(stats["grad_norm"])),
+                               "explained_variance": ev,
+                               "value_target_mean": float(target.mean()), "value_target_std": float(target.std())}
 
         return loss_epochs.item() / self.k_epochs, v_loss_epochs.item() / self.k_epochs
 

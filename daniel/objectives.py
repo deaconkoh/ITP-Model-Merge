@@ -126,6 +126,15 @@ class RewardV2:
             reward = reward + w_t * u * np.asarray(tardiness_delta) / self.tbar
         return reward
 
+    def step_reward_weighted(self, weights, mk_potential_delta, chosen_carbon, tardiness_delta, u, mk_ref, cb_ref):
+        """The same per-step terms with a per-environment preference weights [E, 3] = (w_m, w_c, w_t) on the simplex
+        (MO-DANIEL, docs/evaluation_protocol_v3.md Addendum A): the episode return is exactly
+        -(w_m MK/MKref + w_c C/Cref + w_t T/Tbar). The goal's own weights are not used."""
+        w = np.asarray(weights, dtype=np.float64)
+        return (w[:, 0] * u * np.asarray(mk_potential_delta) / mk_ref
+                - w[:, 1] * np.asarray(chosen_carbon) / cb_ref
+                + w[:, 2] * u * np.asarray(tardiness_delta) / self.tbar)
+
     def score(self, makespan, carbon, tardiness, mk_ref, cb_ref):
         """Per-instance Step 4 score (= minus the v2 return)."""
         w_m, w_c, w_t = self.weights

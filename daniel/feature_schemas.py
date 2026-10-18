@@ -16,9 +16,11 @@ class FeatureSchema:
     legacy: bool = False
     due_date_obs: bool = False      # v2 observations (results/v2_fixes.md)
     obs_version: str = "v1"
+    preference_dim: int = 0         # MO-DANIEL: preference appended to the actor and critic inputs
 
 
 SCHEMA_V3 = "benchmark_v3_f12_m9_p10"
+SCHEMA_V3_MO = "benchmark_v3_f12_m9_p10_w3"
 
 
 SCHEMAS = {
@@ -26,6 +28,11 @@ SCHEMAS = {
     # machine features; 8 base + carbon / 13.365 kg + lateness pair features
     SCHEMA_V3: FeatureSchema(
         SCHEMA_V3, 12, 9, 10, operation_priority=False, pair_carbon=True, due_date_obs=True, obs_version="v3"
+    ),
+    # MO-DANIEL (docs/evaluation_protocol_v3.md, Addendum A): the v3 inputs plus the preference w (3 values)
+    SCHEMA_V3_MO: FeatureSchema(
+        SCHEMA_V3_MO, 12, 9, 10, operation_priority=False, pair_carbon=True, due_date_obs=True, obs_version="v3",
+        preference_dim=3
     ),
     "canonical_f13_p10_obsv2": FeatureSchema(
         "canonical_f13_p10_obsv2", 13, 8, 10, operation_priority=True, pair_carbon=True, due_date_obs=True,
@@ -68,6 +75,9 @@ def validate_config_against_schema(config) -> FeatureSchema:
             raise ValueError(f"Schema {schema.name} requires its eleventh operation-feature slot")
     if schema.obs_version != getattr(config, "obs_version", "v1"):
         raise ValueError(f"Schema {schema.name} does not match --obs_version {getattr(config, 'obs_version', 'v1')}")
+    if schema.preference_dim != getattr(config, "preference_dim", 0):
+        raise ValueError(f"Schema {schema.name} has preference_dim {schema.preference_dim}; "
+                         f"--preference_dim is {getattr(config, 'preference_dim', 0)}")
     if schema.pair_carbon and not (config.enable_carbon and config.carbon_feature):
         raise ValueError(f"Schema {schema.name} requires the carbon pair feature")
     return schema

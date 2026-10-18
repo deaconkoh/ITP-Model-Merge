@@ -25,6 +25,7 @@ class EnvState:
     comp_idx_tensor: torch.Tensor = None
     candidate_tensor: torch.Tensor = None
     fea_pairs_tensor: torch.Tensor = None
+    pref_tensor: torch.Tensor = None             # MO-DANIEL preference [sz_b, 3]; None for every other model
 
     device = torch.device(configs.device)
 
@@ -175,6 +176,8 @@ class FJSPEnvForSameOpNums:
         self.number_of_jobs = job_length_list[0].shape[0]
 
         self.set_static_properties()
+        self.pref_weights = None                 # MO-DANIEL: set_preference() after every set_initial_data()
+        self.old_state.pref_tensor = None
 
         # [E, N, M]
         self.true_op_pt = np.copy(self.op_pt)
@@ -324,6 +327,23 @@ class FJSPEnvForSameOpNums:
         self.mch_current_available_jc_nums = np.copy(self.old_mch_current_available_jc_nums)
         # copy the old state
         self.state = copy.deepcopy(self.old_state)
+        return self.state
+
+    def set_preference(self, weights):
+        """MO-DANIEL (docs/evaluation_protocol_v3.md, Addendum A): one preference w = (w_m, w_c, w_t) per environment,
+        [E, 3], on the simplex. Sets the reward weights and the state's preference input, and survives reset(); call it
+        again after set_initial_data(). Only before the first step of an episode."""
+        if self.reward_version != "v3":
+            raise ValueError("preferences are defined for benchmark v3 only")
+        w = np.asarray(weights, dtype=np.float64)
+        if w.shape != (self.number_of_envs, 3) or np.any(w < -1e-12) or np.any(np.abs(w.sum(1) - 1) > 1e-9):
+            raise ValueError(f"preferences must be [{self.number_of_envs}, 3] non-negative rows summing to 1")
+        if self.step_count != 0:
+            raise ValueError("set the preference before the first step of an episode")
+        self.pref_weights = w
+        t = torch.from_numpy(w).float().to(self.state.device)
+        self.old_state.pref_tensor = t
+        self.state.pref_tensor = t
         return self.state
 
     def initial_vars(self):
@@ -646,7 +666,13 @@ class FJSPEnvForSameOpNums:
         tardiness_reward = self.tardiness_score - tardiness_score
         self.tardiness_score = tardiness_score
 
-        if self.reward_version in ("v2", "v3"):
+        if self.reward_version == "v3" and self.pref_weights is not None:
+            mk_potential = np.max(self.op_ct_lb, axis=1)
+            reward = self.reward_v2.step_reward_weighted(self.pref_weights, self.v2_mk_potential - mk_potential,
+                                                         chosen_carbon, tardiness_reward, self.pt_upper_bound,
+                                                         self.v2_mk_ref, self.v2_cb_ref)
+            self.v2_mk_potential = mk_potential
+        elif self.reward_version in ("v2", "v3"):
             mk_potential = np.max(self.op_ct_lb, axis=1)
             reward = self.reward_v2.step_reward(self.v2_mk_potential - mk_potential, chosen_carbon,
                                                 tardiness_reward, self.pt_upper_bound,

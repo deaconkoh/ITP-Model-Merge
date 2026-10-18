@@ -167,6 +167,20 @@ parser.add_argument('--chunk_updates', type=int, default=0,
                          '(0 disables; must be a multiple of --reset_env_timestep and --validate_timestep)')
 parser.add_argument('--resume', type=str2bool, default=False,
                     help='Continue from <model>.resume.pth (optimiser and RNG states included) if it exists')
+# v3 MO-DANIEL (docs/evaluation_protocol_v3.md, Addendum A); every default leaves earlier behaviour unchanged
+parser.add_argument('--preference_dim', type=int, default=0, choices=[0, 3],
+                    help='3 = preference-conditioned DANIEL: w = (w_m, w_c, w_t) appended to the actor and critic inputs, '
+                         'reward -(w . (MK/MKref, C/Cref, T/Tref)); needs benchmark v3 and --goal mct')
+parser.add_argument('--pref_dirichlet', type=float, default=1.0,
+                    help='Training preferences: w ~ Dirichlet(alpha, alpha, alpha), drawn per environment every update')
+parser.add_argument('--mo_val_grid_step', type=float, default=0.25,
+                    help='MO validation: simplex grid step of the greedy validation preferences (0.25 -> 15 vectors)')
+parser.add_argument('--mo_val_norm', type=str, default='',
+                    help='MO validation: frozen per-instance ideal/nadir points of the validation split (JSON)')
+parser.add_argument('--mo_val_first', type=int, default=0, help='MO validation: only the first N instances (smoke tests)')
+parser.add_argument('--log_ppo_stats', type=str2bool, default=False,
+                    help='Log per-update PPO statistics (entropy, approx. KL, clip fraction, losses, explained variance, '
+                         'gradient norm); observation only, the update is unchanged')
 parser.add_argument('--num_envs', type=int, default=20, help='Batch size for training environments')
 parser.add_argument('--max_updates', type=int, default=1000, help='No. of episodes of each env for training')
 parser.add_argument('--lr', type=float, default=3e-4, help='Learning rate')
@@ -229,3 +243,9 @@ if configs.obs_version == 'v3' or configs.reward_version == 'v3':
     configs.fea_j_input_dim, configs.fea_m_input_dim, configs.fea_pair_input_dim = 12, 9, 10
     configs.feature_schema = 'benchmark_v3_f12_m9_p10'
     configs.enable_priority, configs.enable_carbon, configs.carbon_feature = False, True, True
+if configs.preference_dim:
+    if configs.obs_version != 'v3':
+        raise ValueError('--preference_dim needs benchmark v3 (--obs_version v3 --reward_version v3)')
+    if configs.goal != 'mct':
+        raise ValueError('a preference-conditioned model is trained with --goal mct (the preference sets the weights)')
+    configs.feature_schema = 'benchmark_v3_f12_m9_p10_w3'

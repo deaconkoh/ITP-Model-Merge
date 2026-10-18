@@ -182,7 +182,11 @@ class Trainer:
         v3_vali = benchmark_v3.load_directory(self.vali_data_path, manifest)
         if self.v3_train.size != v3_vali.size:
             raise ValueError("benchmark v3 training and validation sizes differ")
-        self.vali_env.set_initial_data(**v3_vali.env_kwargs(range(len(v3_vali)), config.goal))
+        self.mo = bool(getattr(config, "preference_dim", 0))
+        if self.mo:
+            self.init_mo_validation(config, v3_vali)
+        else:
+            self.vali_env.set_initial_data(**v3_vali.env_kwargs(range(len(v3_vali)), config.goal))
         self.v3_generator = None
         if config.v3_train_source == "generator":
             # original DANIEL scheme: fresh SD2 instances, v3 parameters from the frozen code (training-data decision)
@@ -196,6 +200,64 @@ class Trainer:
             "t_ref": self.v3_train.t_ref, "n_train": len(self.v3_train), "n_validation": len(v3_vali),
         }
 
+    def init_mo_validation(self, config, v3_vali):
+        """MO-DANIEL validation (docs/evaluation_protocol_v3.md, Addendum A): every validation instance under every
+        preference of the coarse simplex grid, greedy; metric = mean normalised hypervolume over instances."""
+        import mo_metrics
+        if not config.mo_val_norm:
+            raise ValueError("MO validation needs --mo_val_norm (frozen validation ideal/nadir points)")
+        norm_path = Path(config.mo_val_norm).resolve()               # relative to the working directory
+        norm = json.loads(norm_path.read_text())["instances"]
+        n = len(v3_vali) if config.mo_val_first <= 0 else min(config.mo_val_first, len(v3_vali))
+        self.mo_grid = mo_metrics.simplex_grid(config.mo_val_grid_step)
+        self.mo_val_keys = v3_vali.keys[:n]
+        missing = [k for k in self.mo_val_keys if k not in norm]
+        if missing:
+            raise KeyError(f"{len(missing)} validation instances lack normalisation points in {norm_path}")
+        self.mo_val_norm = [mo_metrics.ideal_nadir(norm[k]) for k in self.mo_val_keys]
+        g = len(self.mo_grid)
+        idx = [i for i in range(n) for _ in range(g)]                     # instance-major, preference-minor
+        self.vali_env.set_initial_data(**v3_vali.env_kwargs(idx, config.goal))
+        self.vali_env.set_preference(np.tile(self.mo_grid, (n, 1)))
+        self.mo_provenance = {"validation_norm": str(norm_path), "validation_norm_sha256": file_sha256(norm_path),
+                              "grid_step": config.mo_val_grid_step, "grid_size": g, "instances": n,
+                              "pref_dirichlet": config.pref_dirichlet}
+
+    def validate_mo(self):
+        """Greedy rollouts of all (validation instance, grid preference) pairs; per instance the non-dominated set of its
+        schedules, normalised hypervolume (reference 1.1); returns the mean and per-objective means."""
+        import mo_metrics
+        self.ppo.policy.eval()
+        state = self.vali_env.reset()
+        while True:
+            with torch.no_grad():
+                pi, _ = self.ppo.policy(fea_j=state.fea_j_tensor, op_mask=state.op_mask_tensor,
+                                        candidate=state.candidate_tensor, fea_m=state.fea_m_tensor,
+                                        mch_mask=state.mch_mask_tensor, comp_idx=state.comp_idx_tensor,
+                                        dynamic_pair_mask=state.dynamic_pair_mask_tensor,
+                                        fea_pairs=state.fea_pairs_tensor, pref=state.pref_tensor)
+            state, _, done = self.vali_env.step(greedy_select_action(pi).cpu().numpy())
+            if done.all():
+                break
+        self.ppo.policy.train()
+        env = self.vali_env
+        comp = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
+        tard = np.maximum(0.0, comp - env.true_due_dates).sum(1)
+        obj = np.stack([env.current_makespan, env.total_carbon, tard], 1).reshape(len(self.mo_val_keys),
+                                                                                    len(self.mo_grid), 3)
+        hv = [mo_metrics.instance_hv(obj[i], *self.mo_val_norm[i]) for i in range(len(obj))]
+        w = env.pref_weights
+        score = (w[:, 0] * env.current_makespan / env.v2_mk_ref + w[:, 1] * env.total_carbon / env.v2_cb_ref
+                 + w[:, 2] * tard / env.reward_v2.tbar)
+        return {"hv": float(np.mean(hv)), "hv_per_instance": [float(h) for h in hv],
+                "makespan": float(obj[..., 0].mean()), "carbon": float(obj[..., 1].mean()),
+                "tardiness": float(obj[..., 2].mean()), "score_pref_mean": float(score.mean())}
+
+    def sample_preferences(self):
+        """Training preferences: w ~ Dirichlet(alpha, alpha, alpha), one per environment, from a dedicated generator."""
+        a = self.config.pref_dirichlet
+        return self.pref_rng.dirichlet([a, a, a], size=self.num_envs)
+
     def save_run_manifest(self):
         manifest = {
             "schema_version": 2,
@@ -207,6 +269,7 @@ class Trainer:
             "due_dates": getattr(self, "due_date_provenance", None),
             "reward_refs": getattr(self, "reward_ref_provenance", None),
             "benchmark": getattr(self, "benchmark_provenance", None),
+            "mo": getattr(self, "mo_provenance", None),
             "parents": self.parent_checkpoints,
             "git": git_state(Path(__file__).resolve().parents[1]),
             "runtime": runtime_environment(),
@@ -228,6 +291,9 @@ class Trainer:
         chunk = self.config.chunk_updates
         if chunk > 0 and (chunk % self.reset_env_timestep or chunk % self.validate_timestep):
             raise ValueError("--chunk_updates must be a multiple of --reset_env_timestep and --validate_timestep")
+        if getattr(self, "mo", False):
+            # dedicated stream: the instance generator's global numpy stream is the same as the specialists'
+            self.pref_rng = np.random.default_rng([self.seed_train, 20261019])
         start_update = self.load_resume_state() if self.config.resume else 0
 
         # print the setting
@@ -293,6 +359,9 @@ class Trainer:
                     state = self.env.set_initial_data(dataset_job_length, dataset_op_pt)
             else:
                 state = self.env.reset()
+            if getattr(self, "mo", False):
+                prefs = self.sample_preferences()
+                state = self.env.set_preference(prefs)
 
             # Log the reward actually supplied to PPO.  The previous makespan
             # offset made carbon/priority run logs contain an unrelated term.
@@ -311,7 +380,8 @@ class Trainer:
                                                              mch_mask=state.mch_mask_tensor,  # [sz_b, M, M]
                                                              comp_idx=state.comp_idx_tensor,  # [sz_b, M, M, J]
                                                              dynamic_pair_mask=state.dynamic_pair_mask_tensor,  # [sz_b, J, M]
-                                                             fea_pairs=state.fea_pairs_tensor)  # [sz_b, J, M]
+                                                             fea_pairs=state.fea_pairs_tensor,  # [sz_b, J, M]
+                                                             pref=state.pref_tensor)  # MO-DANIEL only
 
                 # sample the action
                 action_envs, action_logprob_envs = sample_action(pi_envs)
@@ -339,7 +409,18 @@ class Trainer:
             mean_carbon_all_env = np.mean(self.env.total_carbon)
 
             # save the mean rewards of all instances in current training data
-            self.log.append({"update": i_update, "mean_return": float(mean_rewards_all_env)})
+            entry = {"update": i_update, "mean_return": float(mean_rewards_all_env)}
+            if self.ppo.last_stats is not None:
+                entry["ppo"] = self.ppo.last_stats
+            if getattr(self, "mo", False):
+                entry["pref"] = {"mean": prefs.mean(0).tolist(), "min": prefs.min(0).tolist(),
+                                 "max": prefs.max(0).tolist()}
+                entry["objectives"] = {"makespan": float(np.mean(self.env.current_makespan)),
+                                       "carbon": float(np.mean(self.env.total_carbon)),
+                                       "tardiness": float(np.mean(np.maximum(
+                                           0.0, self.env.true_op_ct[self.env.env_job_idx, self.env.job_last_op_id]
+                                           - self.env.true_due_dates).sum(1)))}
+            self.log.append(entry)
 
             if (i_update + 1) in self.budget_checkpoints:
                 self.save_budget_checkpoint(i_update + 1)
@@ -379,12 +460,16 @@ class Trainer:
 
     def validate_and_select(self, update, ep_st):
         """Greedy validation, best-checkpoint selection and (if enabled) the convergence rule."""
-        if self.data_source == "SD1":
+        if getattr(self, "mo", False):
+            validation_metrics = self.validate_mo()
+        elif self.data_source == "SD1":
             validation_metrics = self.validate_envs_with_various_op_nums()
         else:
             validation_metrics = self.validate_envs_with_same_op_nums()
 
-        if self.config.reward_version in ("v2", "v3"):
+        if getattr(self, "mo", False):
+            selection_metric = -validation_metrics["hv"]           # lower is better: minus the validation hypervolume
+        elif self.config.reward_version in ("v2", "v3"):
             # mean normalised score (= -mean return): Step 4 score (v2) or benchmark v3 score
             selection_metric = validation_metrics[f"score_{self.config.reward_version}"]
         else:
@@ -426,7 +511,11 @@ class Trainer:
                 "v3_train_source": c.v3_train_source, "num_envs": c.num_envs, "lr": c.lr,
                 "reset_env_timestep": c.reset_env_timestep, "validate_timestep": c.validate_timestep,
                 "converge_window": c.converge_window, "converge_tol": c.converge_tol, "min_updates": c.min_updates,
-                "max_updates": c.max_updates}
+                "max_updates": c.max_updates,
+                **({"preference_dim": c.preference_dim, "pref_dirichlet": c.pref_dirichlet,
+                    "mo_val_grid_step": c.mo_val_grid_step, "mo_val_first": c.mo_val_first,
+                    "mo_val_norm": c.mo_val_norm, "log_ppo_stats": c.log_ppo_stats}
+                   if getattr(c, "preference_dim", 0) else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}
@@ -450,7 +539,8 @@ class Trainer:
                  "record": self.record, "best_update": self.best_update, "run_status": self.run_status,
                  "log": self.log, "validation_log": self.validation_log, "train_seconds": self.train_seconds,
                  "best_bundle": torch.load(best, map_location="cpu", weights_only=False) if best.exists() else None,
-                 "generator": (gen.generated, gen.collisions) if gen else None}
+                 "generator": (gen.generated, gen.collisions) if gen else None,
+                 "pref_rng": self.pref_rng.bit_generator.state if getattr(self, "mo", False) else None}
         path = self.resume_path(); tmp = path.with_suffix(".tmp")
         torch.save(state, tmp)
         os.replace(tmp, path)
@@ -472,6 +562,8 @@ class Trainer:
             torch.save(state["best_bundle"], f'./trained_network/{self.data_source}/{self.model_name}.pth')
         if state["generator"] is not None:
             self.v3_generator.generated, self.v3_generator.collisions = state["generator"]
+        if state.get("pref_rng") is not None:
+            self.pref_rng.bit_generator.state = state["pref_rng"]
         self.save_validation_log()
         rng = state["rng"]
         random.setstate(rng["python"]); np.random.set_state(rng["numpy"]); torch.set_rng_state(rng["torch"].cpu())
@@ -615,7 +707,7 @@ class Trainer:
             config=json_safe_config(self.config),
             data_fingerprints=self.data_fingerprints,
             update=update,
-            validation_metrics=validation_metrics,
+            validation_metrics={k: v for k, v in validation_metrics.items() if not isinstance(v, list)},
             selection_metric=selection_metric,
             parents=self.parent_checkpoints,
             repo_root=Path(__file__).resolve().parents[1],

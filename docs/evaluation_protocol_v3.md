@@ -214,3 +214,149 @@ Each specialist's own objective is compared with CP-SAT per instance.
 ## Deviations
 
 (none)
+
+## Addendum A: MO-DANIEL from random initialisation (PRE-REGISTERED)
+
+**Status: PRE-REGISTERED on 2026-10-19, before any MO-DANIEL run.** Sections 1–7 and Deviations above are unchanged. Later changes to this addendum are recorded, with date and reason, under **Deviations (Addendum A)** at its end.
+
+- **Scope.** One preference-conditioned DANIEL per (size, seed), trained from random initialisation on makespan, carbon and tardiness together, on benchmark `sd2-mo-v3`.
+- **Runner:** `scripts/run_mo_daniel_v3.sh`. Analysis: `tools/analyze_mo_daniel_v3.py`, which writes `results/mo_daniel_v3.md`.
+- **Unchanged:**
+  - the frozen spec, the manifest, and the reward and score definitions;
+  - DANIEL's action mask;
+  - the PPO algorithm and all its hyperparameters (section 2: no gradient clipping, lr 3e-4);
+  - the fresh-instance training scheme (section 1).
+- **Additions:** only preference conditioning and logging.
+- **Known limitation, reported and not changed:**
+  - DANIEL's mask admits only non-delay schedules (`results/diagnose_v3.md`, Test 2). The carbon optimum and the CP-SAT/EDD tardiness schedules are unreachable.
+  - The 20x10 DANIEL-T specialist degraded during training for an undiagnosed reason. This run logs the PPO statistics that diagnosis lacked.
+
+### A1. Model, reward and training preferences
+
+**Conditioning.** The preference w = (w_m, w_c, w_t) on the simplex is concatenated to the inputs of the actor and the critic (`daniel/model/main_model.py`, `--preference_dim 3`):
+- **Actor:** every candidate pair's input (4 pooled and candidate embeddings plus 10 pair features) gets the 3 preference values appended, so the first actor layer is 42 → 45 inputs.
+- **Critic:** the pooled operation and machine embeddings get w appended, so the first critic layer is 16 → 19 inputs.
+- **Feature extractor:** the dual-attention extractor does **not** receive w. Its embeddings describe the scheduling state, which is the same under every preference. The preference changes only the decision and the value.
+- **Unchanged:** every other layer, width, initialisation and the action mask.
+- **Checkpoint schema:** `benchmark_v3_f12_m9_p10_w3`. Names: `<size>+mix+bv3_mo_s<seed>`.
+
+**Why this design.** Feeding the preference as an input to the policy and value networks is the established "conditioned network" approach of multi-objective deep RL: Abels et al., *Dynamic Weights in Multi-Objective Deep Reinforcement Learning*, ICML 2019; Yang et al., *A Generalized Algorithm for Multi-Objective Reinforcement Learning and Policy Adaptation*, NeurIPS 2019. It is the smallest change that makes one network cover the whole preference simplex.
+- The established alternative in neural combinatorial optimisation is PMOCO (Lin, Yang and Zhang, *Pareto Set Learning for Neural Multi-Objective Combinatorial Optimization*, ICLR 2022). There, a hypernetwork maps w to the decoder's parameters.
+- That would replace DANIEL's actor with generated weights, a much larger architectural change. It is not used here.
+
+**Reward.** For an episode with preference w, the per-step terms are the specialists' terms (section 2) weighted by w (`objectives.RewardV2.step_reward_weighted`). The undiscounted return is therefore exactly −(w_m·MK/MKref + w_c·C/Cref + w_t·T/Tref), with the frozen v3 references.
+- `tests/test_mo_daniel_v3.py` checks this to within 1e-9.
+- At a corner preference the reward equals the corresponding specialist's reward exactly.
+
+**Training preferences:**
+- w ~ Dirichlet(1, 1, 1), drawn independently for each of the 20 training environments at every PPO update. Each training episode is one (instance, preference) pair. A fresh batch of 20 instances is drawn every 20 updates (section 1), so each instance is seen under 20 different preferences.
+- The draws use a dedicated generator, `numpy default_rng([seed, 20261019])`. Its state is saved in the resume state.
+- The instance stream (global numpy RNG seeded by `--seed_train`) is therefore the same as the specialists' for the same seed.
+
+**Seeds and sizes:**
+- Seeds 111, 222 and 333.
+- Sizes: 10x5 first, then 20x10, so six runs by default.
+- `--goal mct` (the preference sets the weights), `--v3_train_source generator`.
+
+### A2. Validation metric
+
+**Definition.**
+- Every 50 PPO updates and at update 0, the current policy is run greedily on every validation instance (18 at 10x5, 13 at 20x10) under each of the 15 preferences of the simplex grid with step 0.25.
+- Per instance, the non-dominated set of its 15 schedules is normalised with the instance's frozen ideal and nadir points (section 6 rule, including dropping an objective whose nadir equals its ideal). Its hypervolume is computed with reference point 1.1 in every objective; only points that strictly dominate the reference contribute.
+- **The validation metric is the mean over instances.** Higher is better.
+- Implementation: `daniel/mo_metrics.py`, an exact 3-D hypervolume tested against Monte Carlo.
+
+**Validation normalisation points: a necessary extension.** `results/baselines_v3/normalisation_points.json` (section 6) is frozen for the 200 *evaluation* instances only, and ideal and nadir are per instance. The validation split therefore gets its own points by the same section-6 definitions, restricted to what exists on that split (`tools/mo_v3_normalisation.py`):
+- **ideal:**
+  - the best makespan and best tardiness over every CP-SAT B1 schedule of the instance (exactly B1's procedure: 60 s primary solves, 20 s lexicographic stages, 8 workers, seed 20261013, warm starts);
+  - the analytic minimum carbon.
+- **nadir:** the worst value of each objective over:
+  - those CP-SAT schedules;
+  - the greedy schedules of the nine selected specialists (M/C/T × 111/222/333);
+  - the MWKR/ECT reference schedule.
+
+  There is no B2 front on the validation split, so B2 is not included.
+- **Storage.** The points are computed once per size before that size's first training chunk, written to `results/mo_daniel_v3/validation_normalisation_points_<size>.json` with the specialists' checkpoint hashes, committed, and never overwritten.
+- **Cost.** About 5 min at 10x5. Up to about 1 h at 20x10, on CPUs 4–11 while 10x5 trains.
+- **Separation.** Only validation data are used. The evaluation split is not touched by any of this.
+
+### A3. Convergence, cap, checkpoint, degradation flag
+
+| Item | Value |
+|---|---|
+| CONVERGED | The specialists' rule (section 2) applied to the validation hypervolume: at a validation step u ≥ 1,000, the best validation HV at updates ≤ u improved by less than 0.5% relative to the best at updates ≤ u − 1,000. Implemented by selecting on −HV with `daniel/convergence.py` unchanged; its denominator is \|best\|. If the older best is 0 (no point inside the reference box), the improvement counts as infinite. |
+| Hard cap | **8,000 updates.** A run that reaches it is reported as **NOT CONVERGED** in every table. |
+| Checkpoint | The best validation hypervolume (`train.py` `save_model`), the only checkpoint evaluated |
+| DEGRADED flag | Reported separately from convergence. A run is flagged when the mean of its last three validation HVs is more than 5% below its best validation HV (`tools/mo_daniel_v3_status.py`). The flag does not change the checkpoint. |
+| Chunks | 500 updates (10x5) and 200 (20x10), with bit-exact resume. The preference sampler's state is included and verified bit-exact. |
+| Hang guard | Timeout per chunk = chunk × measured s/update × 3 + 600 s. Retried once, then FAILED, and the runner continues. |
+
+**Measured cost (2026-10-19).** RTX 5060 Ti, training pinned to CPUs 0–3 with `OMP_NUM_THREADS=4`, full-size validation (all validation instances × 15 preferences every 50 updates):
+- 0.84 s per update at 10x5;
+- 4.49 s per update at 20x10.
+
+| Size | Per run, earliest stop (~2,000 updates) | Per run, cap (8,000) | 3 seeds |
+|---|---|---|---|
+| 10x5 | 0.47 h | 1.9 h | 1.4–5.6 h |
+| 20x10 | 2.5 h | 10.0 h | 7.5–30 h |
+| **Total** | | | **about 9–36 h** |
+
+- **On top of training:** about 5 min for the 10x5 validation points before training. The 20x10 points (≤ 1 h) run in parallel with 10x5 training. Evaluation is under 5 min per run.
+- **Cap kept at 8,000.** That is 1.6× the specialists' cap, because one network must cover the whole simplex. The worst case is about 1.5 days, all 10x5 runs finish within about 6 h, and results are committed after every run.
+
+### A4. Logging only
+
+`--log_ppo_stats True` records, per PPO update, in `train_log/SD2/reward_<run>.json` and copied to `results/mo_daniel_v3/runs/<run>/reward.json`:
+- policy entropy;
+- approximate KL (the k3 estimator, (r − 1) − log r): the mean over all minibatches and its last-epoch mean;
+- clip fraction (|r − 1| > 0.2);
+- policy loss and value loss;
+- critic explained variance (1 − Var(target − V_old)/Var(target));
+- gradient L2 norm before the optimiser step (computed, never clipped): mean and maximum;
+- value-target mean and std;
+- the training return;
+- the sampled preferences (mean, minimum and maximum per objective);
+- the batch's mean makespan, carbon and tardiness.
+
+The statistics are computed from detached tensors after each backward pass. `tests/test_mo_daniel_v3.py` verifies that an update with logging is bit-identical to one without.
+
+### A5. Final evaluation (evaluation split, once)
+
+After each run, its best-validation checkpoint is evaluated on the 100 evaluation instances per size (`daniel/evaluate_mo_v3.py`):
+- **Rollouts:** greedy, under all 66 preferences of the simplex grid with step 0.1.
+- **The equal-weight preference (1/3, 1/3, 1/3)** is not on that grid. It is rolled out as a 67th preference for reporting and is not part of the non-dominated set.
+- **Re-scoring:** every schedule is re-scored independently and must equal the environment.
+- **Per instance:**
+  - the non-dominated set of the 66 schedules;
+  - its hypervolume, normalised with the frozen section-6 points, reference 1.1;
+  - IGD+ against the normalised CP-SAT B2 front, on the B2 subset only (20 instances at 10x5, 10 at 20x10; the 20x10 front is best-known);
+  - makespan, carbon and tardiness at the three corner preferences and at equal weights.
+- **Aggregation:**
+  - mean ± std (ddof 1) across seeds of the per-seed instance means;
+  - bootstrap 95% CI over instances of the seed-averaged per-instance values (10,000 resamples, `numpy default_rng(20261013)`, percentile).
+
+### A6. Reporting (`results/mo_daniel_v3.md`)
+
+**Main table per size.** HV (all instances), HV CI, HV (B2 subset), IGD+ (B2 subset) and IGD+ CI, for these rows:
+- MO-DANIEL;
+- the three specialists as a combined non-dominated set {M_s, C_s, T_s} per seed (from their committed greedy evaluation schedules), mean ± std over seeds;
+- each specialist as a single point;
+- the rules MWKR+ECT, EDD+ECT and minimum energy (MWKR job rule with minimum-energy machine), each as a point and as a combined set;
+- the CP-SAT B1 extreme points (three per instance);
+- the CP-SAT B2 reference front on the subset.
+
+**Further tables and figures:**
+- **Objectives table:** MO-DANIEL at the corner and equal-weight preferences, next to the specialists and the rules.
+- **Convergence curves:** validation HV against PPO updates and against training wall-clock time, one line per seed.
+- **PPO-statistics plots.**
+- **Example 3-D fronts:** MO-DANIEL, CP-SAT and specialists, for the first three B2-subset instances per size.
+- **Per run:** status (CONVERGED, NOT CONVERGED or FAILED), the DEGRADED flag, best update and training time.
+- **Plain-English summary:** a placeholder, written after the runs complete.
+
+### A7. Smoke-test evidence (before launch)
+
+(Recorded below, after the smoke tests on the committed code.)
+
+### Deviations (Addendum A)
+
+(none)

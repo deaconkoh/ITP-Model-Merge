@@ -117,15 +117,30 @@ class DANIEL(nn.Module):
         self.pair_input_dim = config.fea_pair_input_dim
 
         self.embedding_output_dim = config.layer_fea_output_dim[-1]
+        # MO-DANIEL (docs/evaluation_protocol_v3.md, Addendum A): the preference w is appended to the actor's input
+        # (every candidate pair) and to the critic's input; the dual-attention feature extractor does not see it.
+        # 0 = the published DANIEL, unchanged.
+        self.preference_dim = getattr(config, "preference_dim", 0)
 
         self.feature_exact = DualAttentionNetwork(config).to(
             device)
-        self.actor = Actor(config.num_mlp_layers_actor, 4 * self.embedding_output_dim + self.pair_input_dim,
+        self.actor = Actor(config.num_mlp_layers_actor,
+                           4 * self.embedding_output_dim + self.pair_input_dim + self.preference_dim,
                            config.hidden_dim_actor, 1).to(device)
-        self.critic = Critic(config.num_mlp_layers_critic, 2 * self.embedding_output_dim, config.hidden_dim_critic,
-                             1).to(device)
+        self.critic = Critic(config.num_mlp_layers_critic, 2 * self.embedding_output_dim + self.preference_dim,
+                             config.hidden_dim_critic, 1).to(device)
 
-    def forward_logits(self, fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs):
+    def _check_pref(self, pref, sz_b):
+        if self.preference_dim == 0:
+            if pref is not None:
+                raise ValueError("this DANIEL is not preference-conditioned (preference_dim 0)")
+            return None
+        if pref is None or tuple(pref.shape) != (sz_b, self.preference_dim):
+            raise ValueError(f"a preference-conditioned DANIEL needs pref of shape [{sz_b}, {self.preference_dim}]")
+        return pref.to(torch.float32)
+
+    def forward_logits(self, fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs,
+                       pref=None):
         """
         :param candidate: the index of candidate operations with shape [sz_b, J]
         :param fea_j: input operation feature vectors with shape [sz_b, N, 8]
@@ -164,8 +179,11 @@ class DANIEL(nn.Module):
 
         fea_pairs = fea_pairs.reshape(sz_b, -1, self.pair_input_dim)
         # candidate_feature.shape = [sz_b, J*M, 4*output_dim + 8]
-        candidate_feature = torch.cat((Fea_j_JC_serialized, Fea_m_serialized, Fea_Gj_input,
-                                       Fea_Gm_input, fea_pairs), dim=-1)
+        parts = [Fea_j_JC_serialized, Fea_m_serialized, Fea_Gj_input, Fea_Gm_input, fea_pairs]
+        pref = self._check_pref(pref, sz_b)
+        if pref is not None:
+            parts.append(pref.unsqueeze(1).expand(sz_b, M * J, self.preference_dim))
+        candidate_feature = torch.cat(parts, dim=-1)
 
         candidate_scores = self.actor(candidate_feature)
         candidate_scores = candidate_scores.squeeze(-1)
@@ -174,7 +192,7 @@ class DANIEL(nn.Module):
         candidate_scores[dynamic_pair_mask.reshape(sz_b, -1)] = float('-inf')
         return candidate_scores, fea_j_global, fea_m_global
 
-    def forward(self, fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs):
+    def forward(self, fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs, pref=None):
         """
         :param candidate: the index of candidate operations with shape [sz_b, J]
         :param fea_j: input operation feature vectors with shape [sz_b, N, 8]
@@ -194,9 +212,11 @@ class DANIEL(nn.Module):
         """
 
         candidate_scores, fea_j_global, fea_m_global = self.forward_logits(
-            fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs)
+            fea_j, op_mask, candidate, fea_m, mch_mask, comp_idx, dynamic_pair_mask, fea_pairs, pref)
         pi = F.softmax(candidate_scores, dim=1)
 
         global_feature = torch.cat((fea_j_global, fea_m_global), dim=-1)
+        if self.preference_dim:
+            global_feature = torch.cat((global_feature, pref.to(torch.float32)), dim=-1)
         v = self.critic(global_feature)
         return pi, v
