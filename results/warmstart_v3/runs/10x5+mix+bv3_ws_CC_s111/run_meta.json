@@ -1,0 +1,26 @@
+{
+ "arm": "CC",
+ "label": "C-C",
+ "size": "10x5",
+ "seed": 111,
+ "slot_cpus": "0-2",
+ "omp_threads": 3,
+ "host": {
+  "gpu": "NVIDIA L4, 23034 MiB, 595.91.07",
+  "cpu": "AMD EPYC 7R13 Processor",
+  "logical_cpus": 8,
+  "jobs": 2,
+  "python": "3.14.4",
+  "torch": "2.9.1+cu128 12.8",
+  "ortools": "9.15.6755"
+ },
+ "process_seconds": 2029.519956111908,
+ "chunk_rc": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ]
+}
