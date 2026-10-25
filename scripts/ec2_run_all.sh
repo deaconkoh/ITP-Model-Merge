@@ -77,8 +77,10 @@ if [ "$WORKER" = 1 ]; then
   timeout 3600 "$PY" tools/analyze_warmstart_v3.py "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
   say "DONE: git push when ready"
   [ "$SHUTDOWN" = 1 ] && say "after this final commit: shutting down in 2 minutes"
-  git add -A -- results/warmstart_v3 results/warmstart_v3.md results/warmstart_v3_smoke results/warmstart_v3_smoke.md \
-    "$STATUS_FILE" logs/warmstart_v3_*.log 2>/dev/null
+  for p in results/warmstart_v3 results/warmstart_v3.md results/warmstart_v3_smoke results/warmstart_v3_smoke.md \
+           "$STATUS_FILE" logs/warmstart_v3_*.log; do
+    [ -e "$p" ] && git add -A -- "$p"
+  done
   git diff --cached --quiet || git commit -q -m "warm-start v3: analysis and final status" \
     -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   [ "$SHUTDOWN" = 1 ] && ${WS_SHUTDOWN_CMD:-sudo shutdown -h +2}

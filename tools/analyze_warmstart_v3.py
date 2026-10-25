@@ -94,13 +94,13 @@ def val_series(r):
 
 # ------------------------------------------------------------------ main
 def main():
+    global RES, FIG, TAG
     ap = argparse.ArgumentParser()
     ap.add_argument("--eval_split", default="evaluation")
     ap.add_argument("--norm", nargs="+", default=[str(BRES / "normalisation_points.json")])
     ap.add_argument("--results", default=str(RES), help="results directory (results/warmstart_v3_smoke for smoke runs)")
     ap.add_argument("--out", default=str(REPO / "results" / "warmstart_v3.md"))
     a = ap.parse_args()
-    global RES, FIG, TAG
     RES = Path(a.results); FIG = RES / "figures"
     TAG = "wss" if RES.name.endswith("_smoke") else "ws"
     FIG.mkdir(parents=True, exist_ok=True)
