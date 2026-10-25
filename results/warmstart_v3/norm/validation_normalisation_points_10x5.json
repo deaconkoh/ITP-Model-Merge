@@ -1,0 +1,248 @@
+{
+ "definition": "docs/evaluation_protocol_v3.md, Addendum A (A2): section-6 ideal/nadir on the validation split; nadir over CP-SAT B1 schedules, the nine specialists' greedy schedules and MWKR/ECT (no B2 front on this split)",
+ "split": "validation",
+ "size": "10x5",
+ "n": 18,
+ "cpsat_b1": {
+  "limit_s": 60.0,
+  "lex_limit_s": 20.0,
+  "workers": 2,
+  "seed": 20261013
+ },
+ "specialists": {
+  "10x5+mix+bv3_spec_m_s111": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3",
+  "10x5+mix+bv3_spec_m_s222": "ff3a894daba6e9e419e9c46ee372e146c725957ae9655c895d294f399b61bfd5",
+  "10x5+mix+bv3_spec_m_s333": "f31b90bedad81a3baf82d24915990d5757bfbcf83df2351ede445408fe3dcdc3",
+  "10x5+mix+bv3_spec_c_s111": "1db5f94e73c268cae49ce8d75bfafae39aa8d075bad2bf8a260373abf4bcf721",
+  "10x5+mix+bv3_spec_c_s222": "8b6ba47a57f11c87d128a88b3ef93ede11a8a10ef3a168a09c6bf828c6a23172",
+  "10x5+mix+bv3_spec_c_s333": "24f1f001c0942abd488aa39b7cacec27eee8dcc6be75693e40cda756d27ebc76",
+  "10x5+mix+bv3_spec_t_s111": "4f3fb611057ca84bb30ef99bfe3bc770f7dd5b42f77260136c771edf97fccecd",
+  "10x5+mix+bv3_spec_t_s222": "1c84a0ed1429c3c34f54dffa6a9e0f8156a7ac21a5c1bb51cef82224909c4598",
+  "10x5+mix+bv3_spec_t_s333": "50a21c82aba3b9622b15b49dd3c16e3cd3d5d3403484f32373ac3fa8b842c384"
+ },
+ "manifest_sha256": "dc34667fbc3c4e02788d3deb8f763d1657da474a62142b81722e75e20115cfec",
+ "created": "2026-10-25 17:59:50",
+ "host": {
+  "cpu": "AMD EPYC 7R13 Processor",
+  "logical_cpus": 8,
+  "specialist_dir": "/home/ec2-user/itp/checkpoints/specialists_v3"
+ },
+ "instances": {
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_001.fjs": {
+   "ideal": {
+    "makespan": 388.0,
+    "carbon": 139.3101268706796,
+    "tardiness": 192.29065852633585
+   },
+   "nadir": {
+    "makespan": 711.0,
+    "carbon": 179.76867485733683,
+    "tardiness": 2187.1880710843434
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_012.fjs": {
+   "ideal": {
+    "makespan": 465.0,
+    "carbon": 183.6701011964455,
+    "tardiness": 216.850712652595
+   },
+   "nadir": {
+    "makespan": 694.0,
+    "carbon": 228.16862987330686,
+    "tardiness": 1181.3858616684595
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_016.fjs": {
+   "ideal": {
+    "makespan": 336.0,
+    "carbon": 90.19223996732065,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 793.0,
+    "carbon": 133.193714976921,
+    "tardiness": 3110.177426078006
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_023.fjs": {
+   "ideal": {
+    "makespan": 368.0,
+    "carbon": 177.3117113099172,
+    "tardiness": 13.031784564659205
+   },
+   "nadir": {
+    "makespan": 533.0,
+    "carbon": 222.075455295882,
+    "tardiness": 998.8890856287995
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_041.fjs": {
+   "ideal": {
+    "makespan": 336.0,
+    "carbon": 143.04347571872273,
+    "tardiness": 77.46078469614659
+   },
+   "nadir": {
+    "makespan": 643.0,
+    "carbon": 196.16236597469464,
+    "tardiness": 2225.751615559034
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_045.fjs": {
+   "ideal": {
+    "makespan": 337.0,
+    "carbon": 105.20828016493772,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 664.0,
+    "carbon": 145.0911932349213,
+    "tardiness": 1947.280063889988
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_055.fjs": {
+   "ideal": {
+    "makespan": 236.0,
+    "carbon": 76.05098758424087,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 578.0,
+    "carbon": 131.7450867396569,
+    "tardiness": 1417.3413682540427
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_057.fjs": {
+   "ideal": {
+    "makespan": 415.0,
+    "carbon": 114.79365342581347,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 589.0,
+    "carbon": 149.17579284458552,
+    "tardiness": 1027.4163369306016
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_058.fjs": {
+   "ideal": {
+    "makespan": 246.0,
+    "carbon": 75.28051163073845,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 470.0,
+    "carbon": 118.39565088126305,
+    "tardiness": 650.7049042287385
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_069.fjs": {
+   "ideal": {
+    "makespan": 253.0,
+    "carbon": 96.55865717367485,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 437.0,
+    "carbon": 140.48346665613877,
+    "tardiness": 1086.477740272969
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_070.fjs": {
+   "ideal": {
+    "makespan": 358.0,
+    "carbon": 153.4864937178565,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 583.0,
+    "carbon": 196.4299978585256,
+    "tardiness": 1036.3721769278186
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_071.fjs": {
+   "ideal": {
+    "makespan": 354.0,
+    "carbon": 97.51213231762905,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 903.0,
+    "carbon": 144.1742906140167,
+    "tardiness": 3570.6960875668083
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_078.fjs": {
+   "ideal": {
+    "makespan": 295.0,
+    "carbon": 106.77635039108665,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 504.0,
+    "carbon": 153.1479164080145,
+    "tardiness": 758.4719820093932
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_081.fjs": {
+   "ideal": {
+    "makespan": 283.0,
+    "carbon": 101.77901126686761,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 464.0,
+    "carbon": 159.92043787735972,
+    "tardiness": 278.61820241531757
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_084.fjs": {
+   "ideal": {
+    "makespan": 316.0,
+    "carbon": 127.35730009302657,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 545.0,
+    "carbon": 180.26533933606015,
+    "tardiness": 1436.8721777964183
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_089.fjs": {
+   "ideal": {
+    "makespan": 342.0,
+    "carbon": 138.0924201849673,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 926.0,
+    "carbon": 182.93677090147472,
+    "tardiness": 4950.9394548614
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_095.fjs": {
+   "ideal": {
+    "makespan": 348.0,
+    "carbon": 102.32534584143121,
+    "tardiness": 49.48549601546463
+   },
+   "nadir": {
+    "makespan": 763.0,
+    "carbon": 157.09963724041108,
+    "tardiness": 3344.6958792930022
+   }
+  },
+  "benchmark_v3/validation/SD2/10x5+mix/10x5+mix_096.fjs": {
+   "ideal": {
+    "makespan": 333.0,
+    "carbon": 94.33549062458682,
+    "tardiness": 0.0
+   },
+   "nadir": {
+    "makespan": 705.0,
+    "carbon": 146.64734972711318,
+    "tardiness": 2089.3192194345343
+   }
+  }
+ }
+}
