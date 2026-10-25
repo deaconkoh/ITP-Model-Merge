@@ -1,0 +1,19 @@
+{
+ "size": "10x5",
+ "updates": 20,
+ "ec2_seconds_per_update": 0.6886193871498107,
+ "local_seconds_per_update": 0.8212242333748044,
+ "local_source": "results/baselines_v3/runs/*_spec_m_s*/status.json",
+ "factor": 0.8385278455799378,
+ "host": {
+  "gpu": "NVIDIA L4, 23034 MiB, 595.91.07",
+  "cpu": "AMD EPYC 7R13 Processor",
+  "logical_cpus": 8,
+  "jobs": 2,
+  "python": "3.14.4",
+  "torch": "2.9.1+cu128 12.8",
+  "ortools": "9.15.6755"
+ },
+ "slot_cpus": "0-2",
+ "note": "DANIEL-M, same flags as the specialists; factor converts local specialist training time to this machine (full-lifecycle cost view)"
+}
