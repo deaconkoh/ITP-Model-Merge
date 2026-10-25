@@ -1,0 +1,74 @@
+{
+ "model": "10x5+mix+bv3_ws_BBM_s111",
+ "checkpoint_sha256": "ee6a23833d3bdd646c57dba21d87a86a933e4bc49befcf8345a167aa0d671ccc",
+ "update": 750,
+ "split": "evaluation",
+ "size": "10x5",
+ "n": 100,
+ "grid_step": 0.1,
+ "grid_size": 66,
+ "hv_mean": 0.3263552517325874,
+ "nd_size_mean": 1.27,
+ "igd_plus_mean": 0.5016828793926748,
+ "igd_plus_n": 20,
+ "igd_plus_per_instance": {
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_001.fjs": 0.714076567863046,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_002.fjs": 0.46874511567975846,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_003.fjs": 0.5129542236792182,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_004.fjs": 0.6343652394279307,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_005.fjs": 0.5448023625045167,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_006.fjs": 0.6490862507622767,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_007.fjs": 0.4365609574748613,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_008.fjs": 0.6064687449668704,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_009.fjs": 0.6267763647276203,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_010.fjs": 0.363768664430408,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_011.fjs": 0.4128162978209758,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_012.fjs": 0.4447376088194382,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_013.fjs": 0.8464143406763229,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_014.fjs": 0.28240711318302447,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_015.fjs": 0.33490186218947543,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_016.fjs": 0.6520236941347382,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_017.fjs": 0.4180899811025854,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_018.fjs": 0.3678736223252749,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_019.fjs": 0.3832854198984536,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_020.fjs": 0.33350315618670007
+ },
+ "objectives_at": {
+  "w=(1,0,0)": {
+   "makespan": 419.54,
+   "carbon": 152.12529894216541,
+   "tardiness": 294.57318906763356
+  },
+  "w=(0,1,0)": {
+   "makespan": 418.35,
+   "carbon": 153.03161787538815,
+   "tardiness": 297.11234563120036
+  },
+  "w=(0,0,1)": {
+   "makespan": 417.7,
+   "carbon": 153.11992486909875,
+   "tardiness": 295.31681598863895
+  },
+  "w=(1/3,1/3,1/3)": {
+   "makespan": 418.66,
+   "carbon": 152.96020161604224,
+   "tardiness": 299.5320911543559
+  }
+ },
+ "seconds": 15.181404113769531,
+ "norm": [
+  "/home/ec2-user/itp/results/baselines_v3/normalisation_points.json"
+ ],
+ "norm_sha256": [
+  "e646dad70d9a6d4d90891af698edee6bdfee73b6d85a99007b032b7f8738ae91"
+ ],
+ "independent_rescore": "all schedules feasible; objectives identical to the environment",
+ "sample": {
+  "k": 16,
+  "seed": 50,
+  "n": 100,
+  "hv_mean": 0.7117396744135257,
+  "igd_plus_mean": 0.24442639908649202,
+  "seconds": 234.88556122779846
+ }
+}
