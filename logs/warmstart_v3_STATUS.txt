@@ -1,8 +1,8 @@
-warm-start v3 STATUS   updated 2026-10-25 23:23:01   elapsed 5.6 h   jobs 2   sizes 10x5   seeds 111 222 333
+warm-start v3 STATUS   updated 2026-10-25 23:34:31   elapsed 5.8 h   jobs 2   sizes 10x5   seeds 111 222 333
 log: logs/warmstart_v3_20261025_174752.log
 
-units: DONE 26, PENDING 10, RUNNING 2
-training runs: 18/27 done, 0 failed
-  running 10x5+mix+bv3_ws_B_s333: update 4050/8000, latest val HV 0.3222, best 0.4113 @ 3700, RUNNING, train 0.79 h
-  running 10x5+mix+bv3_ws_CM_s333: update 3050/8000, latest val HV 0.2648, best 0.3872 @ 2050, CONVERGED, train 0.60 h
-est. remaining training (rough, jobs 2): 3.3 h (stops near 2000 updates) to 15.3 h (cap)
+units: DONE 27, PENDING 9, RUNNING 2
+training runs: 19/27 done, 0 failed
+  running 10x5+mix+bv3_ws_B_s333: update 4700/8000, latest val HV 0.3158, best 0.4113 @ 3700, CONVERGED, train 0.92 h
+  running 10x5+mix+bv3_ws_BBM_s333: update 950/8000, latest val HV 0.2562, best 0.2973 @ 650, RUNNING, train 0.18 h
+est. remaining training (rough, jobs 2): 3.1 h (stops near 2000 updates) to 13.8 h (cap)
