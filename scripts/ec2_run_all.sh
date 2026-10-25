@@ -10,7 +10,7 @@
 # evaluation -> E0 -> tools/analyze_warmstart_v3.py -> results/warmstart_v3.md -> local commits (never pushes)
 # -> "DONE: git push when ready".
 #
-#   --sizes "10x5 20x10"   default 10x5          --arms "B CM BBM D E CC CT BBC BBT" (default all)
+#   --sizes "10x5 20x10"   default 10x5          --arms "B CM BBM D E CC CT BBC BBT E0" (default all)
 #   --jobs N               N arms in parallel on one GPU (record: timing comparisons use one N for all arms)
 #   --smoke                tiny end-to-end check (~5-8 min): seed 111 unless --seeds, 40 updates, 3 validation
 #                          instances, development split

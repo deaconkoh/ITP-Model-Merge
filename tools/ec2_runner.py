@@ -45,6 +45,8 @@ class Runner:
         self.sizes = a.sizes.split()
         self.seeds = [int(x) for x in a.seeds.split()]
         arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.split()]
+        self.e0 = a.arms == "all" or "E0" in arms
+        arms = [x for x in arms if x != "E0"]
         if a.with_shared_base and "ES" not in arms:
             arms = arms + ["ES"]
         bad = set(arms) - set(ARM_ORDER) - {"ES"}
@@ -365,7 +367,7 @@ class Runner:
                         U.append((f"shared:{size}:{seed}", "shared", (size, seed), [f"norm:{size}"], True))
                         deps.append(f"shared:{size}:{seed}")
                     U.append((f"train:{arm}:{size}:{seed}", "train", (arm, size, seed), deps, True))
-            for seed in self.seeds:
+            for seed in self.seeds if self.e0 else []:
                 deps = [f"normdev:{size}"] if self.a.smoke else []
                 U.append((f"e0:{size}:{seed}", "e0", (size, seed), deps, True))
         return U
