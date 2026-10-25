@@ -1,0 +1,82 @@
+[
+  {
+    "update": 0,
+    "hv": 0.0,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "makespan": 649.9444444444445,
+    "carbon": 219.20113686169861,
+    "tardiness": 1581.5627579861648,
+    "score_pref_mean": 1.853109837622128,
+    "selection_metric": -0.0,
+    "train_seconds": 0.7636010646820068,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 10,
+    "hv": 0.013442440236966896,
+    "hv_per_instance": [
+      0.040327320710900685,
+      0.0,
+      0.0
+    ],
+    "makespan": 492.6111111111111,
+    "carbon": 190.81511181621934,
+    "tardiness": 1078.369070602433,
+    "score_pref_mean": 1.4162216929306504,
+    "selection_metric": -0.013442440236966896,
+    "train_seconds": 8.486182928085327,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 20,
+    "hv": 0.07286106101863636,
+    "hv_per_instance": [
+      0.1356360189054098,
+      0.002938802601108618,
+      0.08000836154939064
+    ],
+    "makespan": 550.6666666666666,
+    "carbon": 181.6353283545201,
+    "tardiness": 998.5035282788085,
+    "score_pref_mean": 1.3802125662329285,
+    "selection_metric": -0.07286106101863636,
+    "train_seconds": 15.732850551605225,
+    "rel_improvement_window": Infinity
+  },
+  {
+    "update": 30,
+    "hv": 0.1325881314101056,
+    "hv_per_instance": [
+      0.08535646704034354,
+      0.014265196658367087,
+      0.2981427305316061
+    ],
+    "makespan": 608.8333333333334,
+    "carbon": 177.2314827233001,
+    "tardiness": 804.0337808454244,
+    "score_pref_mean": 1.2899921112484238,
+    "selection_metric": -0.1325881314101056,
+    "train_seconds": 23.075767278671265,
+    "rel_improvement_window": 8.863397498728423
+  },
+  {
+    "update": 40,
+    "hv": 0.004681193848493371,
+    "hv_per_instance": [
+      0.014043581545480114,
+      0.0,
+      0.0
+    ],
+    "makespan": 677.2222222222222,
+    "carbon": 183.16270470943363,
+    "tardiness": 806.3542194419298,
+    "score_pref_mean": 1.3843231763743886,
+    "selection_metric": -0.004681193848493371,
+    "train_seconds": 30.36205792427063,
+    "rel_improvement_window": 0.8197392345987422
+  }
+]
