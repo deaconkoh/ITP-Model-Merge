@@ -180,6 +180,7 @@ The run machine's CPU sets the speed (the environment is CPU-bound), so the cali
 ## 9. Smoke-test evidence and measured throughput (before launch)
 
 **From fresh clones of the committed repository** (2026-10-26), so nothing needed is git-ignored, using `bash scripts/ec2_run_all.sh` itself:
+- **Smoke isolation.** Smoke runs use their own run names (`bv3_wss_*`) and outputs (`results/warmstart_v3_smoke/`, `results/warmstart_v3_smoke.md`). Running `--smoke` before the full run therefore never pre-fills or skips any full-run unit, and never reuses its tiny normalisation points.
 - **Default smoke** (`--smoke`: seed 111, all 9 arms and E0, `--jobs 1`):
   - setup: uv venv with Python 3.14.4 and `requirements-ec2.txt`;
   - pre-flight: GPU, disk, clean tree, 345 input hashes, the v3 manifest, the v3/baselines/MO/warm-start test suites; the v1 reproduction test passed;

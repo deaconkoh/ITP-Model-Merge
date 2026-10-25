@@ -13,7 +13,8 @@ import argparse, json, os, re, signal, subprocess, sys, threading, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-RES = REPO / "results" / "warmstart_v3"
+RES = REPO / "results" / "warmstart_v3"           # results/warmstart_v3_smoke under --smoke (set in main)
+TAG = "ws"                                         # run-name tag; "wss" under --smoke, so smoke never collides
 TN = REPO / "daniel" / "trained_network" / "SD2"
 TL = REPO / "daniel" / "train_log" / "SD2"
 SPEC = REPO / "checkpoints" / "specialists_v3"
@@ -135,7 +136,7 @@ class Runner:
 
     @staticmethod
     def name(arm, size, seed):
-        return f"{size}+mix+bv3_ws_{arm}_s{seed}"
+        return f"{size}+mix+bv3_{TAG}_{arm}_s{seed}"
 
     def spec(self, size, o, seed):
         return SPEC / f"{size}+mix+bv3_spec_{o}_s{seed}.pth"
@@ -150,13 +151,13 @@ class Runner:
         f = RES / f"calibration_{size}.json"
         if f.exists():
             return True
-        name = f"{size}+mix+bv3_calib_m_s111"
+        name = f"{size}+mix+bv3_{TAG}calib_m_s111"
         nj, nm = size.split("x")
         for p in (TN / f"{name}.pth", TN / f"{name}.resume.pth", TL / f"{name}.status.json"):
             p.unlink(missing_ok=True)
         n = self.s["calib_updates"]
         rc = self.run([PY, "train.py", "--config", "../configs/benchmark_v3/m.json", "--n_j", nj, "--n_m", nm,
-                       "--model_suffix", "bv3_calib_m_s111", "--seed_train", "111", "--v3_train_source", "generator",
+                       "--model_suffix", f"bv3_{TAG}calib_m_s111", "--seed_train", "111", "--v3_train_source", "generator",
                        "--validate_timestep", "50" if not self.a.smoke else "10", "--converge_window", "1000",
                        "--min_updates", "1000", "--max_updates", str(n), "--device", "cuda"],
                       timeout=n * SPU_LOCAL[size] * 20 + 900, cpus=self.slots[slot], threads=self.slot_threads,
@@ -198,7 +199,7 @@ class Runner:
         return ok
 
     def u_distill(self, size, seed, slot):
-        out = TN / f"{size}+mix+bv3_wsD_student_s{seed}.pth"
+        out = TN / f"{size}+mix+bv3_{TAG}D_student_s{seed}.pth"
         rec = RES / "distill" / f"{out.stem}.distill.json"
         if out.exists() and rec.exists():
             return True
@@ -214,10 +215,10 @@ class Runner:
         return True
 
     def u_merge(self, size, seed, slot, shared=False):
-        out = TN / f"{size}+mix+bv3_ws{'ES' if shared else 'E'}_merged_s{seed}.pth"
+        out = TN / f"{size}+mix+bv3_{TAG}{'ES' if shared else 'E'}_merged_s{seed}.pth"
         if out.exists():
             return True
-        src = ([str(TN / f"{size}+mix+bv3_wsft_{o}_s{seed}.pth") for o in "mct"] if shared else
+        src = ([str(TN / f"{size}+mix+bv3_{TAG}ft_{o}_s{seed}.pth") for o in "mct"] if shared else
                [str(self.spec(size, o, seed)) for o in "mct"])
         rc = self.run([PY, "tools/merge_specialists_v3.py", "--sources", *src, "--out", str(out)]
                       + (["--shared_base"] if shared else []), timeout=600, cpus=self.slots[slot],
@@ -256,15 +257,15 @@ class Runner:
         s = self.s
         a = ["--config", "../configs/benchmark_v3/mct.json", "--n_j", nj, "--n_m", nm, "--preference_dim", "3",
              "--log_ppo_stats", "True", "--mo_val_norm", str(self.norm_file(size)), "--mo_val_grid_step", str(s["val_grid"]),
-             "--mo_val_first", str(s["val_first"]), "--model_suffix", f"bv3_ws_{arm}_s{seed}", "--seed_train", str(seed),
+             "--mo_val_first", str(s["val_first"]), "--model_suffix", f"bv3_{TAG}_{arm}_s{seed}", "--seed_train", str(seed),
              "--v3_train_source", "generator", "--validate_timestep", str(s["validate"]),
              "--converge_window", str(s["window"]), "--converge_tol", str(s["tol"]), "--min_updates", str(s["min_updates"])]
         init = {"CM": ("full", self.spec(size, "m", seed)), "CC": ("full", self.spec(size, "c", seed)),
                 "CT": ("full", self.spec(size, "t", seed)), "BBM": ("backbone", self.spec(size, "m", seed)),
                 "BBC": ("backbone", self.spec(size, "c", seed)), "BBT": ("backbone", self.spec(size, "t", seed)),
-                "D": ("no_critic", TN / f"{size}+mix+bv3_wsD_student_s{seed}.pth"),
-                "E": ("full", TN / f"{size}+mix+bv3_wsE_merged_s{seed}.pth"),
-                "ES": ("full", TN / f"{size}+mix+bv3_wsES_merged_s{seed}.pth")}.get(arm)
+                "D": ("no_critic", TN / f"{size}+mix+bv3_{TAG}D_student_s{seed}.pth"),
+                "E": ("full", TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth"),
+                "ES": ("full", TN / f"{size}+mix+bv3_{TAG}ES_merged_s{seed}.pth")}.get(arm)
         if init:
             a += ["--init_from", str(init[1]), "--init_mode", init[0]]
         return a
@@ -273,9 +274,9 @@ class Runner:
         """E-shared preparation: equal-weight unconditioned base, then M/C/T fine-tunes from it (fixed budgets)."""
         nj, nm = size.split("x")
         rdir = RES / "shared_base" / f"{size}_s{seed}"; rdir.mkdir(parents=True, exist_ok=True)
-        steps = [("base", "mct", f"bv3_wsbase_s{seed}", self.s["base_updates"], [])]
-        steps += [(f"ft_{o}", o, f"bv3_wsft_{o}_s{seed}", self.s["ft_updates"],
-                   ["--init_from", str(TN / f"{size}+mix+bv3_wsbase_s{seed}.pth")]) for o in "mct"]
+        steps = [("base", "mct", f"bv3_{TAG}base_s{seed}", self.s["base_updates"], [])]
+        steps += [(f"ft_{o}", o, f"bv3_{TAG}ft_{o}_s{seed}", self.s["ft_updates"],
+                   ["--init_from", str(TN / f"{size}+mix+bv3_{TAG}base_s{seed}.pth")]) for o in "mct"]
         for tag, goal, suffix, n, extra in steps:
             name = f"{size}+mix+{suffix}"
             if (rdir / f"{tag}.status.json").exists():
@@ -338,7 +339,7 @@ class Runner:
             return True
         rc = self.run([PY, "tools/e0_merge_front_v3.py", "--size", size, "--seed", str(seed), "--split",
                        self.s["eval_split"], "--first", str(self.s["eval_first"]), "--grid_step", str(self.s["eval_grid"]),
-                       "--spec_dir", str(SPEC), "--norm", *self.eval_norm(size), "--out", str(RES / "eval"),
+                       "--spec_dir", str(SPEC), "--norm", *self.eval_norm(size), "--out", str(RES / "eval"), "--tag", TAG,
                        "--device", "cuda"], timeout=7200, cpus=self.slots[slot], threads=self.slot_threads,
                       out=self.log_path)
         if rc == 0:
@@ -520,6 +521,9 @@ def main():
     ap.add_argument("--with_shared_base", action="store_true")
     ap.add_argument("--log", default=str(REPO / "logs" / "warmstart_v3_runner.log"))
     a = ap.parse_args()
+    global RES, TAG
+    if a.smoke:
+        RES, TAG = REPO / "results" / "warmstart_v3_smoke", "wss"
     r = Runner(a)
     signal.signal(signal.SIGTERM, r.shutdown); signal.signal(signal.SIGINT, r.shutdown)
     sys.exit(r.main())

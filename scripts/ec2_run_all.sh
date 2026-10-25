@@ -13,7 +13,8 @@
 #   --sizes "10x5 20x10"   default 10x5          --arms "B CM BBM D E CC CT BBC BBT E0" (default all)
 #   --jobs N               N arms in parallel on one GPU (record: timing comparisons use one N for all arms)
 #   --smoke                tiny end-to-end check (~5-8 min): seed 111 unless --seeds, 40 updates, 3 validation
-#                          instances, development split
+#                          instances, development split; separate names (bv3_wss_*) and outputs
+#                          (results/warmstart_v3_smoke[.md]), so it never affects the full run
 #   --with-shared-base     add the optional E-shared arm
 #   --shutdown             sudo shutdown -h +2 after the final commit
 # Resume (also after a spot interruption on the same volume): run the same command again.
@@ -43,7 +44,7 @@ done
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO" || exit 2
 GITDIR="$(git rev-parse --absolute-git-dir)"
-STATE="$GITDIR/warmstart_v3"; mkdir -p "$STATE" logs results/warmstart_v3
+STATE="$GITDIR/warmstart_v3"; mkdir -p "$STATE" logs
 STATUS_FILE="logs/warmstart_v3_STATUS.txt"
 PY="$REPO/.venv/bin/python"
 export WANDB_MODE=offline HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1
@@ -69,13 +70,15 @@ if [ "$WORKER" = 1 ]; then
   "$PY" tools/ec2_runner.py "${R_ARGS[@]}" & RUNNER_PID=$!
   wait "$RUNNER_PID"; rc=$?; RUNNER_PID=""
   say "runner finished (rc $rc); analysis: tools/analyze_warmstart_v3.py"
-  A_ARGS=(); if [ "$SMOKE" = 1 ]; then
-    A_ARGS=(--eval_split development --norm results/warmstart_v3/norm/validation_normalisation_points_development_*.json)
+  A_ARGS=(); if [ "$SMOKE" = 1 ]; then               # smoke outputs are separate: results/warmstart_v3_smoke(.md)
+    A_ARGS=(--eval_split development --results results/warmstart_v3_smoke --out results/warmstart_v3_smoke.md
+            --norm results/warmstart_v3_smoke/norm/validation_normalisation_points_development_*.json)
   fi
   timeout 3600 "$PY" tools/analyze_warmstart_v3.py "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
   say "DONE: git push when ready"
   [ "$SHUTDOWN" = 1 ] && say "after this final commit: shutting down in 2 minutes"
-  git add -A -- results/warmstart_v3 results/warmstart_v3.md "$STATUS_FILE" logs/warmstart_v3_*.log 2>/dev/null
+  git add -A -- results/warmstart_v3 results/warmstart_v3.md results/warmstart_v3_smoke results/warmstart_v3_smoke.md \
+    "$STATUS_FILE" logs/warmstart_v3_*.log 2>/dev/null
   git diff --cached --quiet || git commit -q -m "warm-start v3: analysis and final status" \
     -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   [ "$SHUTDOWN" = 1 ] && ${WS_SHUTDOWN_CMD:-sudo shutdown -h +2}
@@ -117,6 +120,7 @@ NEED_GB=$([ "$SMOKE" = 1 ] && echo 2 || echo 30)
 AVAIL=$(df -BG --output=avail "$REPO" | tail -1 | tr -dc 0-9)
 [ "$AVAIL" -ge "$NEED_GB" ] || die "only ${AVAIL} GB free (need $NEED_GB)"
 DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart_v3' ':!results/warmstart_v3.md' \
+        ':!results/warmstart_v3_smoke' ':!results/warmstart_v3_smoke.md' \
         ':!logs/baselines_v3_console.out')
 [ -z "$DIRTY" ] || die "git tree not clean: $(echo "$DIRTY" | head -5 | tr '\n' ' ')"
 "$PY" tools/ec2_inputs.py verify >>"$LOG" 2>&1 || die "input hash verification failed (see $LOG)"

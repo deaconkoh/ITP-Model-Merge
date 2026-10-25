@@ -1,5 +1,6 @@
 """Analysis of the warm-start study (docs/warmstart_protocol_v3.md) over whatever has completed; writes
-results/warmstart_v3.md and figures in results/warmstart_v3/figures/.
+results/warmstart_v3.md and figures in results/warmstart_v3/figures/ (smoke runs: --results
+results/warmstart_v3_smoke --out results/warmstart_v3_smoke.md).
 
     python tools/analyze_warmstart_v3.py [--eval_split evaluation] [--norm <points.json> ...]
 """
@@ -15,6 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 RES = REPO / "results" / "warmstart_v3"
 BRES = REPO / "results" / "baselines_v3"
 FIG = RES / "figures"
+TAG = "ws"
 sys.argv, _ARGV = sys.argv[:1], sys.argv
 sys.path.insert(0, str(REPO / "daniel")); sys.path.insert(0, str(REPO / "tools"))
 import benchmark_v3 as B                                    # noqa: E402
@@ -32,7 +34,7 @@ LABEL = {"B": "B (scratch, WI-DAN)", "CM": "C-M", "CC": "C-C", "CT": "C-T", "BBM
 SHORT = {**{k: k for k in ARMS}, "CM": "C-M", "CC": "C-C", "CT": "C-T", "BBM": "BB-M", "BBC": "BB-C", "BBT": "BB-T",
          "E0": "E0"}
 USES = {"B": "", "CM": "m", "CC": "c", "CT": "t", "BBM": "m", "BBC": "c", "BBT": "t", "D": "mct", "E": "mct", "ES": ""}
-NAME_RE = re.compile(r"^(\d+x\d+)\+mix\+bv3_ws_([A-Z0-9]+)_s(\d+)$")
+NAME_RE = re.compile(r"^(\d+x\d+)\+mix\+bv3_wss?_([A-Z0-9]+)_s(\d+)$")
 OBJ = MM.OBJECTIVES
 BUDGETS = (500, 1000, 2000)
 CORNER = 0.6                                                    # corner region of x: lambda_x >= 0.6 (15 of 66)
@@ -95,7 +97,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--eval_split", default="evaluation")
     ap.add_argument("--norm", nargs="+", default=[str(BRES / "normalisation_points.json")])
+    ap.add_argument("--results", default=str(RES), help="results directory (results/warmstart_v3_smoke for smoke runs)")
+    ap.add_argument("--out", default=str(REPO / "results" / "warmstart_v3.md"))
     a = ap.parse_args()
+    global RES, FIG, TAG
+    RES = Path(a.results); FIG = RES / "figures"
+    TAG = "wss" if RES.name.endswith("_smoke") else "ws"
     FIG.mkdir(parents=True, exist_ok=True)
     norm = {}
     for f in a.norm:
@@ -249,7 +256,7 @@ def main():
                 m = r["status"]["train_seconds"] / 3600
                 e = 0.0
                 if x == "D":
-                    f = RES / "distill" / f"{size}+mix+bv3_wsD_student_s{r['seed']}.distill.json"
+                    f = RES / "distill" / f"{size}+mix+bv3_{TAG}D_student_s{r['seed']}.distill.json"
                     e = json.loads(f.read_text())["total_seconds"] / 3600 if f.exists() else float("nan")
                 if x == "ES":
                     d = RES / "shared_base" / f"{size}_s{r['seed']}"
@@ -276,18 +283,18 @@ def main():
                 L.append(f"| {LABEL[x]} | {r['all']:.4f} | {r['m']:.4f} | {r['c']:.4f} | {r['t']:.4f} |")
             L.append("")
             plot_regret(R, grid, size)
-            L += [f"![regret {size}](warmstart_v3/figures/regret_{size}.png)", ""]
+            L += [f"![regret {size}]({RES.name}/figures/regret_{size}.png)", ""]
         else:
             bias_inst = {}
 
         # ---------------- figures
         plot_curves(sruns, size)
         plot_ppo(sruns, size)
-        L += [f"![learning curves {size}](warmstart_v3/figures/curves_{size}.png)", "",
-              f"![PPO statistics {size}](warmstart_v3/figures/ppo_{size}.png)", ""]
+        L += [f"![learning curves {size}]({RES.name}/figures/curves_{size}.png)", "",
+              f"![PPO statistics {size}]({RES.name}/figures/ppo_{size}.png)", ""]
         if keys:
             plot_e0(sev, keys, size, b2, a.eval_split)
-            L += [f"![E0 front {size}](warmstart_v3/figures/e0_{size}.png)", ""]
+            L += [f"![E0 front {size}]({RES.name}/figures/e0_{size}.png)", ""]
 
         # ---------------- verdicts
         verdict_lines += [f"### {size}", ""] + verdicts(hv_inst, effic, bias_inst, sev, keys, norm, a.eval_split, size)
@@ -297,8 +304,8 @@ def main():
     L += ["## Known limitation", "", "DANIEL's action mask only admits non-delay schedules (results/diagnose_v3.md, "
           "Test 2), kept as published; part of every gap to CP-SAT is a gap of the action space.", "",
           "## Pre-registration (unchanged copy of docs/warmstart_protocol_v3.md)", "", proto]
-    (REPO / "results" / "warmstart_v3.md").write_text("\n".join(L) + "\n")
-    print("wrote results/warmstart_v3.md")
+    Path(a.out).write_text("\n".join(L) + "\n")
+    print(f"wrote {a.out}")
 
 
 def _grid_step(grid_size):

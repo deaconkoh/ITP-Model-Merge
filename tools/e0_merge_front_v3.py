@@ -21,6 +21,7 @@ ap.add_argument("--spec_dir", default=str(REPO / "checkpoints" / "specialists_v3
 ap.add_argument("--norm", nargs="+", default=[str(REPO / "results" / "baselines_v3" / "normalisation_points.json")])
 ap.add_argument("--b2_root", default=str(REPO / "results" / "baselines_v3" / "cpsat" / "b2"))
 ap.add_argument("--out", default=str(REPO / "results" / "warmstart_v3" / "eval"))
+ap.add_argument("--tag", default="ws", help="run-name tag (ws; wss for smoke runs)")
 ap.add_argument("--device", default="cuda")
 args = ap.parse_args()
 sys.argv = [sys.argv[0], "--device", args.device, "--obs_version", "v3", "--reward_version", "v3", "--goal", "mct"]
@@ -94,7 +95,7 @@ def main():
         if f.exists():
             front = np.array([[p[k] for k in MM.OBJECTIVES] for p in json.loads(f.read_text())["front"]])
             igd[key] = MM.instance_igd_plus(pts, front, ideal, nadir)
-    name = f"{args.size}+mix+bv3_ws_E0_s{args.seed}"
+    name = f"{args.size}+mix+bv3_{args.tag}_E0_s{args.seed}"
     out = Path(args.out) / f"{args.split}_{args.size}"; out.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(out / f"{name}.npz", keys=np.asarray(data.keys[:n]), prefs=prefs, objectives=obj,
                         hv=np.asarray(hv), nd_size=np.asarray(nd))
