@@ -1,0 +1,82 @@
+[
+  {
+    "update": 0,
+    "hv": 0.0,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "makespan": 799.6111111111111,
+    "carbon": 223.3902261812548,
+    "tardiness": 1755.6959774086636,
+    "score_pref_mean": 2.0998095890064654,
+    "selection_metric": -0.0,
+    "train_seconds": 0.792766809463501,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 10,
+    "hv": 0.06554136752820207,
+    "hv_per_instance": [
+      0.027129930234027464,
+      0.0,
+      0.16949417235057876
+    ],
+    "makespan": 509.3333333333333,
+    "carbon": 183.26413614248682,
+    "tardiness": 1073.623413050409,
+    "score_pref_mean": 1.4046007873806186,
+    "selection_metric": -0.06554136752820207,
+    "train_seconds": 8.40805459022522,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 20,
+    "hv": 0.03549080840703466,
+    "hv_per_instance": [
+      0.09437431678183757,
+      0.0,
+      0.012098108439266413
+    ],
+    "makespan": 507.22222222222223,
+    "carbon": 183.17243360834573,
+    "tardiness": 1030.6332131184915,
+    "score_pref_mean": 1.3705132892653344,
+    "selection_metric": -0.03549080840703466,
+    "train_seconds": 15.172230243682861,
+    "rel_improvement_window": Infinity
+  },
+  {
+    "update": 30,
+    "hv": 0.18596476926425023,
+    "hv_per_instance": [
+      0.5072639331376905,
+      0.0,
+      0.05063037465506024
+    ],
+    "makespan": 555.6666666666666,
+    "carbon": 175.9186302933399,
+    "tardiness": 917.0907989744786,
+    "score_pref_mean": 1.322619581957032,
+    "selection_metric": -0.18596476926425023,
+    "train_seconds": 21.89751625061035,
+    "rel_improvement_window": 1.8373648014626895
+  },
+  {
+    "update": 40,
+    "hv": 0.0,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "makespan": 609.8888888888889,
+    "carbon": 192.37830218448778,
+    "tardiness": 1156.461246027431,
+    "score_pref_mean": 1.5230417971936254,
+    "selection_metric": -0.0,
+    "train_seconds": 28.02218770980835,
+    "rel_improvement_window": 1.8373648014626895
+  }
+]
