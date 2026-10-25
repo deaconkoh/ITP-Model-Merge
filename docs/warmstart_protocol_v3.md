@@ -51,7 +51,7 @@ The model is the MO-DANIEL of `docs/evaluation_protocol_v3.md`, **Addendum A**: 
 | States | Each specialist x samples its own rollouts on fresh generator instances (forbidden hashes excluded; global numpy stream seeded seed + 7001; torch sampling generator seeded seed + 7001). 400 instances per specialist at 10x5 and 100 at 20x10, about 20k states each, 60k in total. |
 | Loss | KL(π_x(·\|s) ‖ π_student(·\|s, e_x)) over the allowed actions, with e_x the corner preference |
 | Training | Adam, lr 3e-4, batch 256, **15 epochs** |
-| Budget | A hard wall-clock cap of **20 GPU-minutes**, collection included. Measured in the smoke test: well under the cap (Section 9). |
+| Budget | A hard wall-clock cap of **20 GPU-minutes**, collection included. Measured at full budget (2026-10-26, RTX 5060 Ti): 2.1 min at 10x5 and 2.4 min at 20x10, far under the cap; the budget is kept. |
 | Cost | Collection plus training time is reported separately and counted in D's marginal cost |
 | Held-out check | KL and greedy-action agreement on the teachers' greedy validation trajectories |
 
@@ -102,6 +102,9 @@ Any missing data gives UNCLEAR.
 - **Each objective** at the three corner preferences and at equal weights.
 - **Preference regret** R(λ) = λ·f̂(λ) − min over every arm's and reference's points of λ·f, in the frozen normalised space. "Every point" means every arm's points (all seeds and preferences), the specialists, the rules and CP-SAT B1/B2. Mean over instances and seeds, per λ, shown across the simplex.
 - **Secondary:** best-of-16 sampled rollouts per preference (by the preference-weighted score; torch generator seed 50), with the same metrics.
+  - At 10x5 on all 100 instances (measured about 3 min per run).
+  - At 20x10 on the **first 20** evaluation instances, which contain the 10-instance B2 subset. On all 100 it would cost about 50 min per run.
+  - Greedy remains the primary result.
 
 **Efficiency** (validation):
 - AUC of validation HV over [0, 2,000] updates (step function, last value carried forward), divided by 2,000.
@@ -149,16 +152,54 @@ Any missing data gives UNCLEAR.
 
 ## 8. Expected runtime (from local measurements; to be confirmed by the calibration run)
 
-MO training speed was measured locally at 0.84 s/update (10x5) and 4.49 s/update (20x10) with one job. Each run stops between about 2,000 updates (earliest realistic convergence) and the 8,000 cap.
+**Measured locally** (2026-10-26; RTX 5060 Ti, Ryzen 5 7500F with 12 logical CPUs; MO training with full-size validation): aggregate PPO updates per second with N concurrent arms, CPUs split as the runner does.
 
-| Size, 9 arms × 3 seeds = 27 runs | `--jobs 1` | Measured `--jobs` throughput (Section 9) |
+| `--jobs` N | 10x5 aggregate (per-run s/update) | 20x10 aggregate (per-run s/update) |
 |---|---|---|
-| 10x5 | 13–51 h | see Section 9 |
-| 20x10 | about 5× 10x5 | see Section 9 |
+| 1 | 1.13 (0.87) | 0.216 (4.59) |
+| 2 | 1.68 (1.10) | 0.308 (6.40) |
+| 3 | 2.31 (1.21) | 0.383 (7.76) |
+| 4 | 2.52 (1.53) | 0.418 (9.42) |
+
+**Estimates.** Each of the 27 runs per size stops between about 2,000 updates (earliest realistic convergence) and 8,000 (the cap), so 54k–216k updates in total per size:
+
+| Size | `--jobs 1` | `--jobs 3` | `--jobs 4` |
+|---|---|---|---|
+| 10x5 | 13–52 h | 6.5–26 h | 6.0–24 h |
+| 20x10 | 69–275 h | 39–157 h | 36–144 h |
+
+**Added overheads:**
+- calibration: about 3 min at 10x5 and 15 min at 20x10;
+- validation points: about 5 min at 10x5; up to about 1 h at 20x10, overlapping training;
+- distillation: about 2.5 min per seed;
+- evaluation: greedy about 15 s (10x5) and 3 min (20x10) per run; sampling about 3 min (10x5) and 10 min (20x10) per run;
+- E0: a few minutes per seed.
+
+The run machine's CPU sets the speed (the environment is CPU-bound), so the calibration factor in `results/warmstart_v3/calibration_<size>.json` scales these numbers.
 
 ## 9. Smoke-test evidence and measured throughput (before launch)
 
-(Filled in after the smoke tests, before the hand-over commit.)
+**From fresh clones of the committed repository** (2026-10-26), so nothing needed is git-ignored, using `bash scripts/ec2_run_all.sh` itself:
+- **Default smoke** (`--smoke`: seed 111, all 9 arms and E0, `--jobs 1`):
+  - setup: uv venv with Python 3.14.4 and `requirements-ec2.txt`;
+  - pre-flight: GPU, disk, clean tree, 345 input hashes, the v3 manifest, the v3/baselines/MO/warm-start test suites; the v1 reproduction test passed;
+  - self-detach, calibration, development and validation points, distillation, merge, 9 training runs (40 updates, 20-update chunks), evaluation (greedy and best-of-2), E0, analysis and local commits;
+  - 8.6 min end to end, no failures, clean tree at the end.
+- **Kill and resume** (`--smoke --jobs 2 --with-shared-base --shutdown`, three seeds, shutdown replaced by a stub):
+  - SIGTERM to the detached worker during two parallel training chunks stopped every child, wrote no FAILED marker and did not shut down;
+  - re-running the same command resumed B at update 20 from its resume state and finished all 45 units, E-shared included;
+  - the analysis and final commit followed, and the shutdown stub was called only after the final commit.
+- **Hang guard:** with a 5 s chunk timeout the chunk timed out twice, the run was marked FAILED and committed, and the runner continued and finished. A plain re-run retried and completed it.
+- **Fixed during the smoke tests:**
+  - distillation logs next to checkpoints made the tree dirty (now git-ignored);
+  - the final commit now includes every run log;
+  - the smoke check defaults to one seed;
+  - E0 is selectable with `--arms`.
+- **Equivalence and determinism:**
+  - C-x at update 0 matches specialist x within 1e-6, with identical greedy actions on validation rollouts (`tests/test_warmstart_v3.py`);
+  - default v1 and v3-specialist training are bit-identical to before (20 updates each);
+  - chunked MO training resumes bit-exactly (Addendum A7).
+- **Tests:** all 48 tests (v1, v3, baselines, MO, warm-start) pass locally in one process, with the v1 test hard.
 
 ## Deviations
 

@@ -31,6 +31,7 @@ ap.add_argument("--sample", type=int, default=0,
                 help="secondary: per preference the best of K sampled rollouts (preference-weighted score; torch "
                      "generator seed --sample_seed), then the non-dominated set over the grid (docs/warmstart_protocol_v3.md)")
 ap.add_argument("--sample_seed", type=int, default=50)
+ap.add_argument("--sample_first", type=int, default=0, help="secondary sampling on the first N instances only (0 = all)")
 ap.add_argument("--device", default="cuda")
 args = ap.parse_args()
 sys.argv = [sys.argv[0], "--device", args.device, "--obs_version", "v3", "--reward_version", "v3", "--goal", "mct",
@@ -80,6 +81,7 @@ def rollout(net, data, idx, prefs, gen=None):
 def sampled(net, data, n, prefs, grid, norm, b2_dir, out_dir, name):
     """Best of K samples per (instance, preference) by the preference-weighted v3 score; HV/IGD+ as for greedy."""
     K, G = args.sample, len(prefs)
+    n = n if args.sample_first <= 0 else min(n, args.sample_first)
     gen = torch.Generator(device=configs.device); gen.manual_seed(args.sample_seed)
     obj = np.zeros((n, G, 3))
     per = max(1, args.batch // (G * K))
@@ -104,7 +106,7 @@ def sampled(net, data, n, prefs, grid, norm, b2_dir, out_dir, name):
             igd.append(MM.instance_igd_plus(obj[i, :len(grid)], front, ideal, nadir))
     np.savez_compressed(out_dir / f"{name}_sample{K}.npz", keys=np.asarray(data.keys[:n]), prefs=prefs,
                         objectives=obj, hv=np.asarray(hv))
-    return {"k": K, "seed": args.sample_seed, "hv_mean": float(np.mean(hv)),
+    return {"k": K, "seed": args.sample_seed, "n": n, "hv_mean": float(np.mean(hv)),
             "igd_plus_mean": float(np.mean(igd)) if igd else None, "seconds": time.time() - t0}
 
 

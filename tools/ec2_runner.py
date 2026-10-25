@@ -29,6 +29,7 @@ SPU_LOCAL = {"10x5": 0.85, "20x10": 4.5}           # measured MO-DANIEL s/update
 def settings(smoke):
     s = dict(validate=50, window=1000, tol=0.005, min_updates=1000, cap=8000, chunk={"10x5": 500, "20x10": 200},
              val_grid=0.25, val_first=0, eval_split="evaluation", eval_first=0, eval_grid=0.1, sample=16,
+             sample_first={"10x5": 0, "20x10": 20},          # 20x10: best-of-16 on 100 instances costs ~50 min per run
              norm_first=0, norm_limit=60, norm_lex=20, distill=[], base_updates=500, ft_updates=1000, calib_updates=200)
     if smoke:
         s.update(validate=10, window=20, min_updates=20, cap=40, chunk={"10x5": 20, "20x10": 20}, val_grid=0.5,
@@ -317,6 +318,7 @@ class Runner:
             rc = self.run([PY, "evaluate_mo_v3.py", "--model", name, "--split", self.s["eval_split"], "--size", size,
                            "--first", str(self.s["eval_first"]), "--grid_step", str(self.s["eval_grid"]),
                            "--norm", *self.eval_norm(size), "--out", str(RES / "eval"), "--sample", str(self.s["sample"]),
+                           "--sample_first", str(self.s["sample_first"][size]),
                            "--device", "cuda"], timeout=7200, cpus=self.slots[slot], threads=self.slot_threads,
                           cwd=REPO / "daniel", out=TL / f"{name}.stdout.log")
             if rc == 0:

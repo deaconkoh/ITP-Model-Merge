@@ -179,11 +179,12 @@ def main():
                          f"0 (by definition) | - | - | - | - |")
             L.append("")
             # secondary: sampling
-            L += [f"### Secondary: best-of-K sampling per preference, {size}", "", "| Arm | K | HV | IGD+ |", "|---|---|---|---|"]
+            L += [f"### Secondary: best-of-K sampling per preference, {size}", "",
+                  "| Arm | K | Instances | HV | IGD+ |", "|---|---|---|---|---|"]
             for x in arms_here:
                 sm = [v["json"].get("sample") for v in ev_of(x) if v["json"].get("sample")]
                 if sm:
-                    L.append(f"| {LABEL[x]} | {sm[0]['k']} | {ms([s['hv_mean'] for s in sm])} | "
+                    L.append(f"| {LABEL[x]} | {sm[0]['k']} | {sm[0].get('n', '-')} | {ms([s['hv_mean'] for s in sm])} | "
                              f"{ms([s['igd_plus_mean'] for s in sm]) if sub else '-'} |")
             L.append("")
             # objectives at corners and equal weights
