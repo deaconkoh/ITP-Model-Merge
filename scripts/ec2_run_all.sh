@@ -12,7 +12,8 @@
 #
 #   --sizes "10x5 20x10"   default 10x5          --arms "B CM BBM D E CC CT BBC BBT" (default all)
 #   --jobs N               N arms in parallel on one GPU (record: timing comparisons use one N for all arms)
-#   --smoke                tiny end-to-end check (~5-10 min): 40 updates, 3 validation instances, development split
+#   --smoke                tiny end-to-end check (~5-8 min): seed 111 unless --seeds, 40 updates, 3 validation
+#                          instances, development split
 #   --with-shared-base     add the optional E-shared arm
 #   --shutdown             sudo shutdown -h +2 after the final commit
 # Resume (also after a spot interruption on the same volume): run the same command again.
@@ -20,12 +21,13 @@
 set -u -o pipefail
 
 SIZES="10x5"; ARMS="all"; SEEDS="111 222 333"; JOBS=1; SMOKE=0; SHARED=0; SHUTDOWN=0; WORKER=0; LOG=""
+SEEDS_GIVEN=0
 ARGS=("$@")
 while [ $# -gt 0 ]; do
   case "$1" in
     --sizes) SIZES="$2"; shift 2 ;;
     --arms) ARMS="$2"; shift 2 ;;
-    --seeds) SEEDS="$2"; shift 2 ;;
+    --seeds) SEEDS="$2"; SEEDS_GIVEN=1; shift 2 ;;
     --jobs) JOBS="$2"; shift 2 ;;
     --smoke) SMOKE=1; shift ;;
     --with-shared-base) SHARED=1; shift ;;
@@ -37,6 +39,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+[ "$SMOKE" = 1 ] && [ "$SEEDS_GIVEN" = 0 ] && SEEDS="111"      # the ~5-minute smoke check uses one seed
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO" || exit 2
 GITDIR="$(git rev-parse --absolute-git-dir)"
@@ -70,14 +73,12 @@ if [ "$WORKER" = 1 ]; then
     A_ARGS=(--eval_split development --norm results/warmstart_v3/norm/validation_normalisation_points_development_*.json)
   fi
   timeout 3600 "$PY" tools/analyze_warmstart_v3.py "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
-  git add -A -- results/warmstart_v3 results/warmstart_v3.md "$STATUS_FILE" "$LOG" 2>/dev/null
+  say "DONE: git push when ready"
+  [ "$SHUTDOWN" = 1 ] && say "after this final commit: shutting down in 2 minutes"
+  git add -A -- results/warmstart_v3 results/warmstart_v3.md "$STATUS_FILE" logs/warmstart_v3_*.log 2>/dev/null
   git diff --cached --quiet || git commit -q -m "warm-start v3: analysis and final status" \
     -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
-  say "DONE: git push when ready"
-  if [ "$SHUTDOWN" = 1 ]; then
-    say "shutting down in 2 minutes"
-    ${WS_SHUTDOWN_CMD:-sudo shutdown -h +2}
-  fi
+  [ "$SHUTDOWN" = 1 ] && ${WS_SHUTDOWN_CMD:-sudo shutdown -h +2}
   exit 0
 fi
 
