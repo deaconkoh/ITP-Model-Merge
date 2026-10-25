@@ -401,7 +401,8 @@ class Runner:
             live = TL / f"{self.name(arm, size, seed)}.status.json"
             u = json.loads(live.read_text())["update"] if live.exists() else 0
             spu = self.spu(size)
-            lo += max(0, 2000 - u) * spu / self.a.jobs; hi += max(0, self.s["cap"] - u) * spu / self.a.jobs
+            lo += max(0, min(2000, self.s["cap"]) - u) * spu / self.a.jobs
+            hi += max(0, self.s["cap"] - u) * spu / self.a.jobs
             if self.state.get(key) == "RUNNING" and live.exists():
                 ls = json.loads(live.read_text())
                 lat = ls.get("latest_value")
@@ -411,7 +412,8 @@ class Runner:
         for key, *_ in units:
             if self.state.get(key) == "RUNNING" and not key.startswith("train"):
                 L.append(f"  running {key}")
-        L.append(f"est. remaining training (rough, jobs {self.a.jobs}): {lo / 3600:.1f} h (stops near 2,000 updates) "
+        L.append(f"est. remaining training (rough, jobs {self.a.jobs}): {lo / 3600:.1f} h (stops near "
+                 f"{min(2000, self.s['cap'])} updates) "
                  f"to {hi / 3600:.1f} h (cap)")
         failed = [k for k, v in self.state.items() if v == "FAILED"]
         if failed:
