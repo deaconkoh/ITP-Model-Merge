@@ -1,0 +1,72 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "states": 900,
+ "instances_per_teacher": 6,
+ "epochs_run": 2,
+ "epochs_planned": 2,
+ "wall_cap_s": 1200.0,
+ "wall_cap_hit": false,
+ "collection_seconds": 1.7876379489898682,
+ "training_seconds": 0.28996992111206055,
+ "total_seconds": 3.706163167953491,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 18,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_kl": 0.8854856337441338,
+   "heldout_kl": {
+    "m": 0.8735170960426331,
+    "c": 0.9219415783882141,
+    "t": 0.7391408681869507
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.4866666793823242,
+    "c": 0.47999998927116394,
+    "t": 0.6666666865348816
+   },
+   "seconds": 3.5940728187561035
+  },
+  {
+   "epoch": 2,
+   "train_kl": 0.8709318280220032,
+   "heldout_kl": {
+    "m": 0.8625494837760925,
+    "c": 0.9076554775238037,
+    "t": 0.7228105664253235
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5400000214576721,
+    "c": 0.5733333230018616,
+    "t": 0.7866666913032532
+   },
+   "seconds": 3.7060983180999756
+  }
+ ],
+ "teachers": [
+  {
+   "path": "/home/ec2-user/itp/checkpoints/specialists_v3/10x5+mix+bv3_spec_m_s111.pth",
+   "sha256": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3",
+   "role": "teacher m"
+  },
+  {
+   "path": "/home/ec2-user/itp/checkpoints/specialists_v3/10x5+mix+bv3_spec_c_s111.pth",
+   "sha256": "1db5f94e73c268cae49ce8d75bfafae39aa8d075bad2bf8a260373abf4bcf721",
+   "role": "teacher c"
+  },
+  {
+   "path": "/home/ec2-user/itp/checkpoints/specialists_v3/10x5+mix+bv3_spec_t_s111.pth",
+   "sha256": "4f3fb611057ca84bb30ef99bfe3bc770f7dd5b42f77260136c771edf97fccecd",
+   "role": "teacher t"
+  }
+ ],
+ "gpu": "NVIDIA L4"
+}
