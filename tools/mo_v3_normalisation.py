@@ -28,7 +28,7 @@ ap.add_argument("--workers", type=int, default=8)
 ap.add_argument("--seeds", default="111 222 333", help="specialist seeds whose greedy schedules enter the nadir")
 ap.add_argument("--out_dir", default=str(REPO / "results" / "mo_daniel_v3"))
 ap.add_argument("--specialist_dir", default=os.environ.get("MO_SPECIALIST_DIR",
-                                                           str(REPO / "daniel" / "trained_network" / "SD2")))
+                                                           str(REPO / "checkpoints" / "specialists_v3")))
 ap.add_argument("--device", default="cuda")
 args = ap.parse_args()
 
@@ -65,6 +65,13 @@ def greedy(path, data, idx):
     comp = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
     tard = np.maximum(0.0, comp - env.true_due_dates).sum(1)
     return np.stack([env.current_makespan, env.total_carbon, tard], 1)
+
+
+def _cpu_model():
+    try:
+        return next(l.split(":", 1)[1].strip() for l in open("/proc/cpuinfo") if l.startswith("model name"))
+    except Exception:
+        return "unknown"
 
 
 def main():
@@ -111,6 +118,7 @@ def main():
                         "seed": CP.SEED},
            "specialists": {k: v["sha256"] for k, v in spec.items()},
            "manifest_sha256": B.file_sha256(B.MANIFEST), "created": time.strftime("%Y-%m-%d %H:%M:%S"),
+           "host": {"cpu": _cpu_model(), "logical_cpus": os.cpu_count(), "specialist_dir": args.specialist_dir},
            "instances": {}}
     for r_i, i in enumerate(idx):
         key = data.keys[i]

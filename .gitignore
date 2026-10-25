@@ -42,3 +42,8 @@ daniel/trained_network/**/*.pt
 !daniel/test_results/SD2/
 !daniel/test_results/SD2/20x5+carbon+priority/
 !daniel/test_results/SD2/20x5+carbon+priority/Result_DANIELG+merged_priority_carbon_speed_v1_20x5+carbon+priority.npy
+
+# Committed run inputs (docs/warmstart_protocol_v3.md, section 6): selected specialist checkpoints and the
+# Step 4 checkpoints of the v1 reproduction test.
+!checkpoints/
+!checkpoints/**

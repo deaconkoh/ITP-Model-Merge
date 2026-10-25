@@ -8,6 +8,8 @@ due dates, `--config configs/benchmark_v3/<goal>.json`, evaluation with `daniel/
 bounds): [pre-registered protocol](docs/evaluation_protocol_v3.md), runner `scripts/run_baselines_v3.sh`.
 MO-DANIEL (preference-conditioned DANIEL on all three v3 objectives): Addendum A of the same protocol, runner
 `scripts/run_mo_daniel_v3.sh`.
+Warm-start study (MO baseline B = WI-DAN, plus C/BB/D/E/E0 arms), packaged for one command on an EC2 GPU instance:
+[pre-registered protocol](docs/warmstart_protocol_v3.md), `bash scripts/ec2_run_all.sh` (progress: `bash scripts/ec2_status.sh`).
 Inherited checkpoints and results are governed by [the legacy artifact policy](docs/legacy_artifacts.md).
 
 The project extends DANIEL-style scheduling experiments with carbon and priority objectives, then compares specialist models, Model Soup merges, Task Arithmetic merges, and a combined-objective baseline.

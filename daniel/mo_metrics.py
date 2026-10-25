@@ -110,3 +110,37 @@ def ideal_nadir(rec):
     """(ideal [3], nadir [3]) from a normalisation-points record {'ideal': {...}, 'nadir': {...}}."""
     return (np.array([rec["ideal"][k] for k in OBJECTIVES], dtype=float),
             np.array([rec["nadir"][k] for k in OBJECTIVES], dtype=float))
+
+
+# --------------------------------------------------------------------- warm-start analysis (docs/warmstart_protocol_v3.md)
+
+def preference_regret(f_hat, candidates, lam) -> float:
+    """R(lambda) = lambda . f_hat - min over candidate points z of lambda . z, all in normalised space (kept objectives).
+    f_hat [d]: the method's point for preference lambda; candidates [n, d]: every arm's and reference's points."""
+    lam = np.asarray(lam, dtype=float)
+    return float(lam @ np.asarray(f_hat, dtype=float) - (np.asarray(candidates, dtype=float) @ lam).min())
+
+
+def curve_at(updates, values, u) -> float:
+    """Validation value at update u: the last validation at or before u (last value carried forward)."""
+    updates = np.asarray(updates); values = np.asarray(values, dtype=float)
+    k = np.searchsorted(updates, u, side="right") - 1
+    return float(values[max(k, 0)]) if len(values) else float("nan")
+
+
+def auc(updates, values, horizon=2000) -> float:
+    """Area under the validation-HV curve on [0, horizon] (step function, last value carried forward) / horizon."""
+    updates = np.asarray(updates); values = np.asarray(values, dtype=float)
+    edges = [u for u in updates if u < horizon] + [horizon]
+    total = 0.0
+    for a, b in zip(edges[:-1], edges[1:]):
+        total += curve_at(updates, values, a) * (b - a)
+    return total / horizon
+
+
+def time_to(updates, values, seconds, target):
+    """(update, training seconds) of the first validation whose value reaches `target`; (None, None) if never."""
+    for u, v, s in zip(updates, values, seconds):
+        if v >= target:
+            return int(u), float(s)
+    return None, None

@@ -512,6 +512,7 @@ class Trainer:
                 "reset_env_timestep": c.reset_env_timestep, "validate_timestep": c.validate_timestep,
                 "converge_window": c.converge_window, "converge_tol": c.converge_tol, "min_updates": c.min_updates,
                 "max_updates": c.max_updates,
+                **({"init_from": c.init_from, "init_mode": c.init_mode} if c.init_from else {}),
                 **({"preference_dim": c.preference_dim, "pref_dirichlet": c.pref_dirichlet,
                     "mo_val_grid_step": c.mo_val_grid_step, "mo_val_first": c.mo_val_first,
                     "mo_val_norm": c.mo_val_norm, "log_ppo_stats": c.log_ppo_stats}
@@ -755,13 +756,27 @@ class Trainer:
             raise FileNotFoundError(f'Initial checkpoint not found: {init_path}')
         checkpoint = torch.load(init_path, map_location=device)
         state_dict, metadata = unwrap_checkpoint(checkpoint)
-        validate_checkpoint_schema(metadata, self.config.feature_schema, state_dict)
-        self.ppo.policy.load_state_dict(state_dict)
-        self.ppo.policy_old.load_state_dict(state_dict)
+        mode = getattr(self.config, "init_mode", "exact")
+        report = None
+        if mode == "exact":
+            validate_checkpoint_schema(metadata, self.config.feature_schema, state_dict)
+            self.ppo.policy.load_state_dict(state_dict)
+        else:
+            # warm-start arms (docs/warmstart_protocol_v3.md): transfer into the freshly initialised network, so every
+            # part that is not copied keeps exactly the scratch arm's initialisation for this seed
+            from warmstart import transfer
+            from feature_schemas import SCHEMA_V3, SCHEMA_V3_MO
+            if not getattr(self.config, "preference_dim", 0):
+                raise ValueError("--init_mode full/backbone/no_critic targets a preference-conditioned DANIEL")
+            validate_checkpoint_schema(metadata, SCHEMA_V3_MO if mode == "no_critic" else SCHEMA_V3, state_dict)
+            report = transfer(state_dict, self.ppo.policy, mode)
+            report = {k: len(v) for k, v in report.items()}
+        self.ppo.policy_old.load_state_dict(self.ppo.policy.state_dict())
         self.parent_checkpoints = [{
             "path": str(Path(init_path).resolve()),
             "sha256": file_sha256(init_path),
             "schema_version": metadata.get("schema_version", 1),
+            "init_mode": mode, "transfer": report,
         }]
         print(f"loaded initial checkpoint :{init_path}")
 

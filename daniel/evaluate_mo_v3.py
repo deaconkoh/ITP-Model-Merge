@@ -23,10 +23,14 @@ ap.add_argument("--split", default="evaluation", choices=["validation", "develop
 ap.add_argument("--size", default="10x5", choices=["10x5", "20x10"])
 ap.add_argument("--first", type=int, default=0)
 ap.add_argument("--grid_step", type=float, default=0.1)
-ap.add_argument("--norm", default=str(REPO / "results" / "baselines_v3" / "normalisation_points.json"))
+ap.add_argument("--norm", nargs="+", default=[str(REPO / "results" / "baselines_v3" / "normalisation_points.json")])
 ap.add_argument("--b2_root", default=str(REPO / "results" / "baselines_v3" / "cpsat" / "b2"))
 ap.add_argument("--out", default=str(REPO / "results" / "mo_daniel_v3" / "eval"))
 ap.add_argument("--batch", type=int, default=1400, help="environments per rollout batch")
+ap.add_argument("--sample", type=int, default=0,
+                help="secondary: per preference the best of K sampled rollouts (preference-weighted score; torch "
+                     "generator seed --sample_seed), then the non-dominated set over the grid (docs/warmstart_protocol_v3.md)")
+ap.add_argument("--sample_seed", type=int, default=50)
 ap.add_argument("--device", default="cuda")
 args = ap.parse_args()
 sys.argv = [sys.argv[0], "--device", args.device, "--obs_version", "v3", "--reward_version", "v3", "--goal", "mct",
@@ -48,8 +52,9 @@ CORNERS = {"w=(1,0,0)": (1.0, 0.0, 0.0), "w=(0,1,0)": (0.0, 1.0, 0.0), "w=(0,0,1
 
 
 @torch.no_grad()
-def rollout(net, data, idx, prefs):
-    """Greedy schedules of instances idx [n] under prefs [n, 3]; returns objectives [n, 3], machine, start."""
+def rollout(net, data, idx, prefs, gen=None):
+    """Greedy (gen None) or sampled schedules of instances idx [n] under prefs [n, 3]; returns objectives [n, 3],
+    machine, start."""
     env = FJSPEnvForSameOpNums(*B.SIZES[data.size])
     state = env.set_initial_data(**data.env_kwargs(idx, "mct"))
     state = env.set_preference(prefs)
@@ -59,7 +64,7 @@ def rollout(net, data, idx, prefs):
                     fea_m=state.fea_m_tensor, mch_mask=state.mch_mask_tensor, comp_idx=state.comp_idx_tensor,
                     dynamic_pair_mask=state.dynamic_pair_mask_tensor, fea_pairs=state.fea_pairs_tensor,
                     pref=state.pref_tensor)
-        a = greedy_select_action(pi).cpu().numpy()
+        a = (greedy_select_action(pi) if gen is None else torch.multinomial(pi, 1, generator=gen).squeeze(1)).cpu().numpy()
         op = env.candidate[env.env_idxs, a // env.number_of_machines]
         machine[env.env_idxs, op] = a % env.number_of_machines
         state, _, done = env.step(a)
@@ -70,6 +75,37 @@ def rollout(net, data, idx, prefs):
     comp = env.true_op_ct[env.env_job_idx, env.job_last_op_id]
     tard = np.maximum(0.0, comp - env.true_due_dates).sum(1)
     return np.stack([env.current_makespan, env.total_carbon, tard], 1), machine, start
+
+
+def sampled(net, data, n, prefs, grid, norm, b2_dir, out_dir, name):
+    """Best of K samples per (instance, preference) by the preference-weighted v3 score; HV/IGD+ as for greedy."""
+    K, G = args.sample, len(prefs)
+    gen = torch.Generator(device=configs.device); gen.manual_seed(args.sample_seed)
+    obj = np.zeros((n, G, 3))
+    per = max(1, args.batch // (G * K))
+    t0 = time.time()
+    for c0 in range(0, n, per):
+        inst = list(range(c0, min(n, c0 + per)))
+        idx = [i for i in inst for _ in range(G) for _ in range(K)]
+        w = np.tile(np.repeat(prefs, K, axis=0), (len(inst), 1))
+        o, _, _ = rollout(net, data, idx, w, gen)
+        mk = np.asarray(data.mk_ref)[idx]; cb = np.asarray(data.cb_ref)[idx]
+        sc = (w[:, 0] * o[:, 0] / mk + w[:, 1] * o[:, 1] / cb + w[:, 2] * o[:, 2] / data.t_ref).reshape(len(inst), G, K)
+        pick = sc.argmin(2)
+        o = o.reshape(len(inst), G, K, 3)
+        obj[inst] = np.take_along_axis(o, pick[:, :, None, None], 2)[:, :, 0]
+    hv, igd = [], []
+    for i in range(n):
+        ideal, nadir = MM.ideal_nadir(norm[data.keys[i]])
+        hv.append(MM.instance_hv(obj[i, :len(grid)], ideal, nadir))
+        f = b2_dir / f"{Path(data.keys[i]).stem}.json"
+        if f.exists():
+            front = np.array([[p[k] for k in MM.OBJECTIVES] for p in json.loads(f.read_text())["front"]])
+            igd.append(MM.instance_igd_plus(obj[i, :len(grid)], front, ideal, nadir))
+    np.savez_compressed(out_dir / f"{name}_sample{K}.npz", keys=np.asarray(data.keys[:n]), prefs=prefs,
+                        objectives=obj, hv=np.asarray(hv))
+    return {"k": K, "seed": args.sample_seed, "hv_mean": float(np.mean(hv)),
+            "igd_plus_mean": float(np.mean(igd)) if igd else None, "seconds": time.time() - t0}
 
 
 def main():
@@ -84,7 +120,9 @@ def main():
     net = DANIEL(configs).to(configs.device)
     net.load_state_dict(load_checkpoint_state_dict(path, map_location=configs.device, expected_schema=SCHEMA_V3_MO))
     net.eval()
-    norm = json.loads(Path(args.norm).read_text())["instances"]
+    norm = {}
+    for f in args.norm:
+        norm.update(json.loads(Path(f).read_text())["instances"])
     obj = np.zeros((n, G, 3))
     t0 = time.time()
     per = max(1, args.batch // G)
@@ -123,8 +161,10 @@ def main():
            "hv_mean": float(np.mean(hv)), "nd_size_mean": float(np.mean(nd_size)),
            "igd_plus_mean": float(np.mean(igd)) if igd else None, "igd_plus_n": len(igd),
            "igd_plus_per_instance": dict(zip(igd_keys, igd)), "objectives_at": at, "seconds": seconds,
-           "norm": str(args.norm), "norm_sha256": B.file_sha256(args.norm),
+           "norm": args.norm, "norm_sha256": [B.file_sha256(f) for f in args.norm],
            "independent_rescore": "all schedules feasible; objectives identical to the environment"}
+    if args.sample > 0:
+        rec["sample"] = sampled(net, data, n, prefs, grid, norm, b2_dir, out_dir, name)
     (out_dir / f"{name}.json").write_text(json.dumps(rec, indent=1))
     print(json.dumps({k: v for k, v in rec.items() if k != "igd_plus_per_instance"}), flush=True)
 

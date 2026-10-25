@@ -178,6 +178,10 @@ parser.add_argument('--mo_val_grid_step', type=float, default=0.25,
 parser.add_argument('--mo_val_norm', type=str, default='',
                     help='MO validation: frozen per-instance ideal/nadir points of the validation split (JSON)')
 parser.add_argument('--mo_val_first', type=int, default=0, help='MO validation: only the first N instances (smoke tests)')
+parser.add_argument('--init_mode', type=str, default='exact', choices=['exact', 'full', 'backbone', 'no_critic'],
+                    help='How --init_from is loaded: exact = same schema (default, unchanged); full / backbone = weight '
+                         'transfer from a v3 specialist (or merge) into a preference-conditioned DANIEL; no_critic = '
+                         'everything but the critic from a preference-conditioned student (docs/warmstart_protocol_v3.md)')
 parser.add_argument('--log_ppo_stats', type=str2bool, default=False,
                     help='Log per-update PPO statistics (entropy, approx. KL, clip fraction, losses, explained variance, '
                          'gradient norm); observation only, the update is unchanged')
