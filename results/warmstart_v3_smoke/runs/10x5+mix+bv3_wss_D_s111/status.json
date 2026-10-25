@@ -1,0 +1,22 @@
+{
+ "model_name": "10x5+mix+bv3_wss_D_s111",
+ "goal": "mct",
+ "update": 40,
+ "max_updates": 40,
+ "status": "NOT_CONVERGED",
+ "best_value": -0.11531559552082422,
+ "best_update": 30,
+ "latest_value": -0.0018726507816887547,
+ "rel_improvement_window": 0.9983363338848216,
+ "train_seconds": 31.357457876205444,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 40,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "written": "2026-10-25 17:43:10"
+}

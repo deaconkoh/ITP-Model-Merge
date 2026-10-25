@@ -1,0 +1,82 @@
+[
+  {
+    "update": 0,
+    "hv": 0.0,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "makespan": 704.3333333333334,
+    "carbon": 197.83378407679072,
+    "tardiness": 807.8567469363289,
+    "score_pref_mean": 1.4210013674458268,
+    "selection_metric": -0.0,
+    "train_seconds": 0.7690625190734863,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 10,
+    "hv": 0.057705799351927656,
+    "hv_per_instance": [
+      0.07757623210781273,
+      0.0,
+      0.09554116594797024
+    ],
+    "makespan": 668.3333333333334,
+    "carbon": 176.2869915457368,
+    "tardiness": 652.8688093431546,
+    "score_pref_mean": 1.2516277159896587,
+    "selection_metric": -0.057705799351927656,
+    "train_seconds": 8.523738145828247,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 20,
+    "hv": 0.05160780191710663,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.1548234057513199
+    ],
+    "makespan": 621.3333333333334,
+    "carbon": 182.78005168990933,
+    "tardiness": 770.1959265952428,
+    "score_pref_mean": 1.2922507419274674,
+    "selection_metric": -0.05160780191710663,
+    "train_seconds": 16.14127779006958,
+    "rel_improvement_window": Infinity
+  },
+  {
+    "update": 30,
+    "hv": 0.11531559552082422,
+    "hv_per_instance": [
+      0.0,
+      0.0030673973977232514,
+      0.3428793891647494
+    ],
+    "makespan": 664.2222222222222,
+    "carbon": 180.97177660710665,
+    "tardiness": 739.159317299735,
+    "score_pref_mean": 1.312954396706643,
+    "selection_metric": -0.11531559552082422,
+    "train_seconds": 24.07783579826355,
+    "rel_improvement_window": 0.9983363338848216
+  },
+  {
+    "update": 40,
+    "hv": 0.0018726507816887547,
+    "hv_per_instance": [
+      0.0025505549473430135,
+      0.0030673973977232514,
+      0.0
+    ],
+    "makespan": 683.0,
+    "carbon": 185.9519837763492,
+    "tardiness": 750.2498847745948,
+    "score_pref_mean": 1.3444540383557713,
+    "selection_metric": -0.0018726507816887547,
+    "train_seconds": 31.356832027435303,
+    "rel_improvement_window": 0.9983363338848216
+  }
+]
