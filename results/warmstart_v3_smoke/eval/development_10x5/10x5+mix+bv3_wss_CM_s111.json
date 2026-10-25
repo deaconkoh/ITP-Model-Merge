@@ -1,0 +1,53 @@
+{
+ "model": "10x5+mix+bv3_wss_CM_s111",
+ "checkpoint_sha256": "14944de504c360d723927986b49e7465863a45c8436a44cda79be67bd8e1ed26",
+ "update": 30,
+ "split": "development",
+ "size": "10x5",
+ "n": 3,
+ "grid_step": 0.25,
+ "grid_size": 15,
+ "hv_mean": 0.1840012574859016,
+ "nd_size_mean": 1.0,
+ "igd_plus_mean": null,
+ "igd_plus_n": 0,
+ "igd_plus_per_instance": {},
+ "objectives_at": {
+  "w=(1,0,0)": {
+   "makespan": 406.0,
+   "carbon": 136.7904468500047,
+   "tardiness": 350.9860368690843
+  },
+  "w=(0,1,0)": {
+   "makespan": 406.0,
+   "carbon": 136.7904468500047,
+   "tardiness": 350.9860368690843
+  },
+  "w=(0,0,1)": {
+   "makespan": 406.0,
+   "carbon": 136.7904468500047,
+   "tardiness": 350.9860368690843
+  },
+  "w=(1/3,1/3,1/3)": {
+   "makespan": 406.0,
+   "carbon": 136.7904468500047,
+   "tardiness": 350.9860368690843
+  }
+ },
+ "seconds": 0.7397792339324951,
+ "norm": [
+  "/home/ec2-user/itp/results/warmstart_v3_smoke/norm/validation_normalisation_points_development_10x5.json"
+ ],
+ "norm_sha256": [
+  "9d06837255f60f9e4089f04a927c60b7e30c05fd622ffe967a199ace0c933e13"
+ ],
+ "independent_rescore": "all schedules feasible; objectives identical to the environment",
+ "sample": {
+  "k": 2,
+  "seed": 50,
+  "n": 3,
+  "hv_mean": 0.43550259909377637,
+  "igd_plus_mean": null,
+  "seconds": 0.6069445610046387
+ }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "update": 0,
+    "hv": 0.0,
+    "hv_per_instance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "makespan": 698.1111111111111,
+    "carbon": 214.3539293863614,
+    "tardiness": 1487.5759363387988,
+    "score_pref_mean": 1.849111031038333,
+    "selection_metric": -0.0,
+    "train_seconds": 0.7716877460479736,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 10,
+    "hv": 0.13964016338426902,
+    "hv_per_instance": [
+      0.14476083696111855,
+      0.06285438643480487,
+      0.2113052667568837
+    ],
+    "makespan": 503.77777777777777,
+    "carbon": 174.97324649597365,
+    "tardiness": 725.921269668414,
+    "score_pref_mean": 1.1711913425563576,
+    "selection_metric": -0.13964016338426902,
+    "train_seconds": 8.534838676452637,
+    "rel_improvement_window": null
+  },
+  {
+    "update": 20,
+    "hv": 0.11815025410186648,
+    "hv_per_instance": [
+      0.09957500170653154,
+      0.02981765967832885,
+      0.22505810092073905
+    ],
+    "makespan": 569.5,
+    "carbon": 175.6654872143796,
+    "tardiness": 668.5784949062477,
+    "score_pref_mean": 1.171726010388402,
+    "selection_metric": -0.11815025410186648,
+    "train_seconds": 15.920747756958008,
+    "rel_improvement_window": Infinity
+  },
+  {
+    "update": 30,
+    "hv": 0.25478164222690486,
+    "hv_per_instance": [
+      0.2722335379195891,
+      0.0691461761224685,
+      0.42296521263865694
+    ],
+    "makespan": 528.2777777777778,
+    "carbon": 168.73229442803662,
+    "tardiness": 716.4083445855332,
+    "score_pref_mean": 1.1638075509602148,
+    "selection_metric": -0.25478164222690486,
+    "train_seconds": 23.721227645874023,
+    "rel_improvement_window": 0.8245584655023896
+  },
+  {
+    "update": 40,
+    "hv": 0.16152763385782123,
+    "hv_per_instance": [
+      0.22765434126847978,
+      0.02172973011477523,
+      0.23519883019020874
+    ],
+    "makespan": 569.3333333333334,
+    "carbon": 175.52322179016028,
+    "tardiness": 735.6744224657068,
+    "score_pref_mean": 1.2153247788004888,
+    "selection_metric": -0.16152763385782123,
+    "train_seconds": 31.042030811309814,
+    "rel_improvement_window": 0.8245584655023896
+  }
+]
