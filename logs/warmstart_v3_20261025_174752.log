@@ -1,0 +1,312 @@
+[2026-10-25 17:47:52] pre-flight
+inputs verified: 345 files, specialist checkpoints match their reported evaluations
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+.............................inputs verified: 345 files, specialist checkpoints match their reported evaluations
+.......
+----------------------------------------------------------------------
+Ran 47 tests in 20.709s
+
+OK
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.
+----------------------------------------------------------------------
+Ran 1 test in 6.707s
+
+OK
+[2026-10-25 17:48:25] v1 reproduction test passed
+host: NVIDIA L4, 23034 MiB, 595.91.07; 8 logical CPUs; AMD EPYC 7R13 Processor
+versions: 3.14.4 torch 2.9.1+cu128 cuda 12.8 numpy 2.5.3 ortools 9.15.6755
+free disk: 125 GB; jobs 2; sizes '10x5'; arms 'all'; seeds '111 222 333'; smoke 0; shared-base 0
+[2026-10-25 17:48:27] pre-flight OK
+[2026-10-25 17:48:27] worker started: --sizes 10x5 --arms all --seeds 111 222 333 --jobs 2 --log logs/warmstart_v3_20261025_174752.log
+[2026-10-25 17:48:28] plan: 38 units, jobs 2, training slots ['0-2', '3-5'] (3 threads each), CPU lane 6-7
+[2026-10-25 17:50:29] commit: warm-start v3: calibration 10x5
+[2026-10-25 17:50:29] calibration 10x5: 0.583 s/update here vs 0.821 locally (factor 0.71)
+[2026-10-25 17:50:29] unit calib:10x5: DONE
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/ec2-user/itp/daniel/trained_network/SD2/10x5+mix+bv3_wsE_merged_s111.pth", "label": "naive merge of independently trained specialists (no shared base); expected to be weak", "sources": ["10x5+mix+bv3_spec_m_s111.pth", "10x5+mix+bv3_spec_c_s111.pth", "10x5+mix+bv3_spec_t_s111.pth"]}
+[2026-10-25 17:50:31] unit merge:10x5:111: DONE
+[2026-10-25 17:52:17] commit: warm-start v3: distillation 10x5 s111
+[2026-10-25 17:52:17] unit distill:10x5:111: DONE
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/ec2-user/itp/daniel/trained_network/SD2/10x5+mix+bv3_wsE_merged_s222.pth", "label": "naive merge of independently trained specialists (no shared base); expected to be weak", "sources": ["10x5+mix+bv3_spec_m_s222.pth", "10x5+mix+bv3_spec_c_s222.pth", "10x5+mix+bv3_spec_t_s222.pth"]}
+[2026-10-25 17:52:20] unit merge:10x5:222: DONE
+[2026-10-25 17:52:24] commit: warm-start v3: distillation 10x5 s222
+[2026-10-25 17:52:24] unit distill:10x5:222: DONE
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/ec2-user/itp/daniel/trained_network/SD2/10x5+mix+bv3_wsE_merged_s333.pth", "label": "naive merge of independently trained specialists (no shared base); expected to be weak", "sources": ["10x5+mix+bv3_spec_m_s333.pth", "10x5+mix+bv3_spec_c_s333.pth", "10x5+mix+bv3_spec_t_s333.pth"]}
+[2026-10-25 17:52:28] unit merge:10x5:333: DONE
+B1 validation 10x5 10x5+mix_001 132s
+B1 validation 10x5 10x5+mix_012 4s
+B1 validation 10x5 10x5+mix_016 22s
+B1 validation 10x5 10x5+mix_023 1s
+[2026-10-25 17:53:46] commit: warm-start v3: distillation 10x5 s333
+[2026-10-25 17:53:46] unit distill:10x5:333: DONE
+B1 validation 10x5 10x5+mix_041 96s
+B1 validation 10x5 10x5+mix_045 9s
+B1 validation 10x5 10x5+mix_055 3s
+B1 validation 10x5 10x5+mix_057 1s
+B1 validation 10x5 10x5+mix_058 2s
+B1 validation 10x5 10x5+mix_069 9s
+B1 validation 10x5 10x5+mix_070 1s
+B1 validation 10x5 10x5+mix_071 99s
+B1 validation 10x5 10x5+mix_078 16s
+B1 validation 10x5 10x5+mix_081 15s
+B1 validation 10x5 10x5+mix_084 10s
+B1 validation 10x5 10x5+mix_089 30s
+B1 validation 10x5 10x5+mix_095 14s
+B1 validation 10x5 10x5+mix_096 92s
+wrote /home/ec2-user/itp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json (18 instances)
+[2026-10-25 17:59:51] commit: warm-start v3: frozen validation normalisation points 10x5
+[2026-10-25 17:59:51] unit norm:10x5: DONE
+[2026-10-25 17:59:54] train 10x5+mix+bv3_ws_CM_s111: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 17:59:54] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 18:05:52] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:05:55] train 10x5+mix+bv3_ws_CM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:11:47] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:11:55] train 10x5+mix+bv3_ws_CM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:17:44] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:17:53] train 10x5+mix+bv3_ws_CM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:21:29] 10x5+mix+bv3_ws_CM_s111: CONVERGED at update 1800, best val HV 0.3975 @ 800, train 0.36 h
+[2026-10-25 18:23:31] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:25:32] commit: warm-start v3: 10x5+mix+bv3_ws_CM_s111 (CONVERGED)
+[2026-10-25 18:25:32] unit train:CM:10x5:111: DONE
+[2026-10-25 18:25:34] train 10x5+mix+bv3_ws_BBM_s111: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 18:29:18] train 10x5+mix+bv3_ws_B_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:30:33] 10x5+mix+bv3_ws_B_s111: CONVERGED at update 2600, best val HV 0.2990 @ 1600, train 0.51 h
+[2026-10-25 18:31:29] train 10x5+mix+bv3_ws_BBM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:34:36] commit: warm-start v3: 10x5+mix+bv3_ws_B_s111 (CONVERGED)
+[2026-10-25 18:34:36] unit train:B:10x5:111: DONE
+[2026-10-25 18:34:38] train 10x5+mix+bv3_ws_D_s111: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 18:37:18] train 10x5+mix+bv3_ws_BBM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:40:32] train 10x5+mix+bv3_ws_D_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 18:43:16] train 10x5+mix+bv3_ws_BBM_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:46:18] 10x5+mix+bv3_ws_BBM_s111: CONVERGED at update 1750, best val HV 0.3579 @ 750, train 0.34 h
+[2026-10-25 18:46:28] 10x5+mix+bv3_ws_D_s111: CONVERGED at update 1000, best val HV 0.4944 @ 0, train 0.20 h
+[2026-10-25 18:50:30] commit: warm-start v3: 10x5+mix+bv3_ws_BBM_s111 (CONVERGED)
+[2026-10-25 18:50:30] unit train:BBM:10x5:111: DONE
+[2026-10-25 18:50:32] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 18:50:40] commit: warm-start v3: 10x5+mix+bv3_ws_D_s111 (CONVERGED)
+[2026-10-25 18:50:40] unit train:D:10x5:111: DONE
+[2026-10-25 18:50:42] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 18:56:29] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 18:56:37] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:02:26] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:02:34] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:08:22] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:08:29] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:14:20] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:14:23] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:20:19] train 10x5+mix+bv3_ws_CC_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:20:19] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:24:32] 10x5+mix+bv3_ws_CC_s111: CONVERGED at update 2850, best val HV 0.4032 @ 2350, train 0.56 h
+[2026-10-25 19:26:12] train 10x5+mix+bv3_ws_E_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:28:37] commit: warm-start v3: 10x5+mix+bv3_ws_CC_s111 (CONVERGED)
+[2026-10-25 19:28:37] unit train:CC:10x5:111: DONE
+[2026-10-25 19:28:38] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 19:30:14] 10x5+mix+bv3_ws_E_s111: CONVERGED at update 3350, best val HV 0.4065 @ 2350, train 0.66 h
+[2026-10-25 19:34:21] commit: warm-start v3: 10x5+mix+bv3_ws_E_s111 (CONVERGED)
+[2026-10-25 19:34:21] unit train:E:10x5:111: DONE
+[2026-10-25 19:34:22] train 10x5+mix+bv3_ws_BBC_s111: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 19:34:24] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:40:15] train 10x5+mix+bv3_ws_BBC_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:40:20] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:46:13] train 10x5+mix+bv3_ws_BBC_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:46:15] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:52:13] train 10x5+mix+bv3_ws_BBC_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:52:16] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 19:58:11] train 10x5+mix+bv3_ws_BBC_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 19:58:14] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:00:02] 10x5+mix+bv3_ws_BBC_s111: CONVERGED at update 2150, best val HV 0.3431 @ 1150, train 0.42 h
+[2026-10-25 20:03:56] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:04:06] commit: warm-start v3: 10x5+mix+bv3_ws_BBC_s111 (CONVERGED)
+[2026-10-25 20:04:06] unit train:BBC:10x5:111: DONE
+[2026-10-25 20:04:09] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 20:09:45] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:10:05] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:15:41] train 10x5+mix+bv3_ws_CT_s111: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:15:59] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:18:43] 10x5+mix+bv3_ws_CT_s111: CONVERGED at update 4250, best val HV 0.4252 @ 3250, train 0.83 h
+[2026-10-25 20:21:48] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:22:47] commit: warm-start v3: 10x5+mix+bv3_ws_CT_s111 (CONVERGED)
+[2026-10-25 20:22:47] unit train:CT:10x5:111: DONE
+[2026-10-25 20:22:51] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 20:27:45] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:28:54] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:33:46] train 10x5+mix+bv3_ws_BBT_s111: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:34:52] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:37:22] 10x5+mix+bv3_ws_BBT_s111: CONVERGED at update 2800, best val HV 0.3204 @ 1800, train 0.55 h
+[2026-10-25 20:40:36] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:41:28] commit: warm-start v3: 10x5+mix+bv3_ws_BBT_s111 (CONVERGED)
+[2026-10-25 20:41:28] unit train:BBT:10x5:111: DONE
+[2026-10-25 20:41:31] train 10x5+mix+bv3_ws_CM_s222: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 20:46:28] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:47:32] train 10x5+mix+bv3_ws_CM_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:52:27] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:53:33] train 10x5+mix+bv3_ws_CM_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 20:58:21] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 20:59:30] train 10x5+mix+bv3_ws_CM_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:02:30] 10x5+mix+bv3_ws_CM_s222: CONVERGED at update 1750, best val HV 0.3527 @ 750, train 0.35 h
+[2026-10-25 21:04:16] train 10x5+mix+bv3_ws_B_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:06:01] 10x5+mix+bv3_ws_B_s222: CONVERGED at update 3650, best val HV 0.3704 @ 2650, train 0.71 h
+[2026-10-25 21:06:35] commit: warm-start v3: 10x5+mix+bv3_ws_CM_s222 (CONVERGED)
+[2026-10-25 21:06:35] unit train:CM:10x5:222: DONE
+[2026-10-25 21:06:37] train 10x5+mix+bv3_ws_BBM_s222: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 21:10:05] commit: warm-start v3: 10x5+mix+bv3_ws_B_s222 (CONVERGED)
+[2026-10-25 21:10:05] unit train:B:10x5:222: DONE
+[2026-10-25 21:10:07] train 10x5+mix+bv3_ws_D_s222: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 21:12:22] train 10x5+mix+bv3_ws_BBM_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:16:00] train 10x5+mix+bv3_ws_D_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:18:21] train 10x5+mix+bv3_ws_BBM_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:21:59] 10x5+mix+bv3_ws_D_s222: CONVERGED at update 1000, best val HV 0.5403 @ 0, train 0.20 h
+[2026-10-25 21:24:14] 10x5+mix+bv3_ws_BBM_s222: CONVERGED at update 1500, best val HV 0.3445 @ 500, train 0.29 h
+[2026-10-25 21:26:07] commit: warm-start v3: 10x5+mix+bv3_ws_D_s222 (CONVERGED)
+[2026-10-25 21:26:07] unit train:D:10x5:222: DONE
+[2026-10-25 21:26:10] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 21:28:15] commit: warm-start v3: 10x5+mix+bv3_ws_BBM_s222 (CONVERGED)
+[2026-10-25 21:28:15] unit train:BBM:10x5:222: DONE
+[2026-10-25 21:28:17] train 10x5+mix+bv3_ws_CC_s222: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 21:31:57] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:34:15] train 10x5+mix+bv3_ws_CC_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:37:55] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:40:10] train 10x5+mix+bv3_ws_CC_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:40:50] 10x5+mix+bv3_ws_CC_s222: CONVERGED at update 1050, best val HV 0.2825 @ 50, train 0.21 h
+[2026-10-25 21:43:40] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:44:49] commit: warm-start v3: 10x5+mix+bv3_ws_CC_s222 (CONVERGED)
+[2026-10-25 21:44:49] unit train:CC:10x5:222: DONE
+[2026-10-25 21:44:52] train 10x5+mix+bv3_ws_CT_s222: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 21:49:30] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:50:51] train 10x5+mix+bv3_ws_CT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 21:55:29] train 10x5+mix+bv3_ws_E_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 21:56:53] train 10x5+mix+bv3_ws_CT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:01:28] 10x5+mix+bv3_ws_E_s222: CONVERGED at update 3000, best val HV 0.3663 @ 2000, train 0.58 h
+[2026-10-25 22:02:16] 10x5+mix+bv3_ws_CT_s222: CONVERGED at update 1450, best val HV 0.2629 @ 450, train 0.29 h
+[2026-10-25 22:05:32] commit: warm-start v3: 10x5+mix+bv3_ws_E_s222 (CONVERGED)
+[2026-10-25 22:05:32] unit train:E:10x5:222: DONE
+[2026-10-25 22:05:34] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 22:06:22] commit: warm-start v3: 10x5+mix+bv3_ws_CT_s222 (CONVERGED)
+[2026-10-25 22:06:22] unit train:CT:10x5:222: DONE
+[2026-10-25 22:06:26] train 10x5+mix+bv3_ws_BBT_s222: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 22:11:25] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:12:24] train 10x5+mix+bv3_ws_BBT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:17:24] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:18:23] train 10x5+mix+bv3_ws_BBT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:23:23] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:24:20] train 10x5+mix+bv3_ws_BBT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:29:17] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:30:16] train 10x5+mix+bv3_ws_BBT_s222: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:30:55] 10x5+mix+bv3_ws_BBT_s222: CONVERGED at update 2050, best val HV 0.3112 @ 1050, train 0.40 h
+[2026-10-25 22:34:57] train 10x5+mix+bv3_ws_BBC_s222: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:34:59] commit: warm-start v3: 10x5+mix+bv3_ws_BBT_s222 (CONVERGED)
+[2026-10-25 22:34:59] unit train:BBT:10x5:222: DONE
+[2026-10-25 22:35:02] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 22:39:03] 10x5+mix+bv3_ws_BBC_s222: CONVERGED at update 2850, best val HV 0.4166 @ 1850, train 0.55 h
+[2026-10-25 22:40:50] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:42:58] commit: warm-start v3: 10x5+mix+bv3_ws_BBC_s222 (CONVERGED)
+[2026-10-25 22:42:58] unit train:BBC:10x5:222: DONE
+[2026-10-25 22:43:00] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 22:46:39] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:48:59] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:52:38] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 22:54:55] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 22:58:36] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:00:49] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:04:34] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:06:49] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:10:31] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:12:44] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:16:26] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:18:41] train 10x5+mix+bv3_ws_CM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:19:20] 10x5+mix+bv3_ws_CM_s333: CONVERGED at update 3050, best val HV 0.3872 @ 2050, train 0.60 h
+[2026-10-25 23:22:14] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:23:24] commit: warm-start v3: 10x5+mix+bv3_ws_CM_s333 (CONVERGED)
+[2026-10-25 23:23:24] unit train:CM:10x5:333: DONE
+[2026-10-25 23:23:27] train 10x5+mix+bv3_ws_BBM_s333: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 23:28:08] train 10x5+mix+bv3_ws_B_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:29:19] train 10x5+mix+bv3_ws_BBM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:30:34] 10x5+mix+bv3_ws_B_s333: CONVERGED at update 4700, best val HV 0.4113 @ 3700, train 0.92 h
+[2026-10-25 23:34:33] commit: warm-start v3: 10x5+mix+bv3_ws_B_s333 (CONVERGED)
+[2026-10-25 23:34:33] unit train:B:10x5:333: DONE
+[2026-10-25 23:34:36] train 10x5+mix+bv3_ws_D_s333: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 23:34:59] train 10x5+mix+bv3_ws_BBM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:40:32] train 10x5+mix+bv3_ws_D_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:40:52] train 10x5+mix+bv3_ws_BBM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:46:30] 10x5+mix+bv3_ws_D_s333: CONVERGED at update 1000, best val HV 0.4936 @ 0, train 0.20 h
+[2026-10-25 23:46:44] train 10x5+mix+bv3_ws_BBM_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-25 23:48:26] 10x5+mix+bv3_ws_BBM_s333: CONVERGED at update 2150, best val HV 0.3649 @ 1650, train 0.41 h
+[2026-10-25 23:50:30] commit: warm-start v3: 10x5+mix+bv3_ws_D_s333 (CONVERGED)
+[2026-10-25 23:50:30] unit train:D:10x5:333: DONE
+[2026-10-25 23:50:32] train 10x5+mix+bv3_ws_E_s333: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-25 23:52:32] commit: warm-start v3: 10x5+mix+bv3_ws_BBM_s333 (CONVERGED)
+[2026-10-25 23:52:32] unit train:BBM:10x5:333: DONE
+[2026-10-25 23:52:34] train 10x5+mix+bv3_ws_CC_s333: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-25 23:56:20] train 10x5+mix+bv3_ws_E_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-25 23:58:27] train 10x5+mix+bv3_ws_CC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:02:15] train 10x5+mix+bv3_ws_E_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:04:20] train 10x5+mix+bv3_ws_CC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:08:11] train 10x5+mix+bv3_ws_E_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:10:15] train 10x5+mix+bv3_ws_CC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:14:04] train 10x5+mix+bv3_ws_E_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:16:10] train 10x5+mix+bv3_ws_CC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:17:38] 10x5+mix+bv3_ws_E_s333: CONVERGED at update 2300, best val HV 0.3185 @ 2000, train 0.45 h
+[2026-10-26 00:18:31] 10x5+mix+bv3_ws_CC_s333: CONVERGED at update 2200, best val HV 0.3386 @ 1200, train 0.43 h
+[2026-10-26 00:21:44] commit: warm-start v3: 10x5+mix+bv3_ws_E_s333 (CONVERGED)
+[2026-10-26 00:21:44] unit train:E:10x5:333: DONE
+[2026-10-26 00:21:47] train 10x5+mix+bv3_ws_CT_s333: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-26 00:22:31] commit: warm-start v3: 10x5+mix+bv3_ws_CC_s333 (CONVERGED)
+[2026-10-26 00:22:31] unit train:CC:10x5:333: DONE
+[2026-10-26 00:22:35] train 10x5+mix+bv3_ws_BBC_s333: chunk of 500 (status NONE, slot 0, timeout 3150s)
+[2026-10-26 00:27:39] train 10x5+mix+bv3_ws_CT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:28:29] train 10x5+mix+bv3_ws_BBC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:33:36] train 10x5+mix+bv3_ws_CT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:34:20] train 10x5+mix+bv3_ws_BBC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:39:34] train 10x5+mix+bv3_ws_CT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:40:14] train 10x5+mix+bv3_ws_BBC_s333: chunk of 500 (status RUNNING, slot 0, timeout 3150s)
+[2026-10-26 00:40:47] 10x5+mix+bv3_ws_CT_s333: CONVERGED at update 1600, best val HV 0.2816 @ 600, train 0.31 h
+[2026-10-26 00:41:25] 10x5+mix+bv3_ws_BBC_s333: CONVERGED at update 1600, best val HV 0.3511 @ 1100, train 0.31 h
+[2026-10-26 00:44:50] commit: warm-start v3: 10x5+mix+bv3_ws_CT_s333 (CONVERGED)
+[2026-10-26 00:44:50] unit train:CT:10x5:333: DONE
+[2026-10-26 00:44:53] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status NONE, slot 1, timeout 3150s)
+[2026-10-26 00:45:33] commit: warm-start v3: 10x5+mix+bv3_ws_BBC_s333 (CONVERGED)
+[2026-10-26 00:45:33] unit train:BBC:10x5:333: DONE
+[2026-10-26 00:49:56] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:54:57] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 00:59:56] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 01:04:54] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 01:09:55] train 10x5+mix+bv3_ws_BBT_s333: chunk of 500 (status RUNNING, slot 1, timeout 3150s)
+[2026-10-26 01:10:28] 10x5+mix+bv3_ws_BBT_s333: CONVERGED at update 2550, best val HV 0.3574 @ 1550, train 0.42 h
+[2026-10-26 01:14:21] commit: warm-start v3: 10x5+mix+bv3_ws_BBT_s333 (CONVERGED)
+[2026-10-26 01:14:21] unit train:BBT:10x5:333: DONE
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"model": "10x5+mix+bv3_ws_E0_s111", "arm": "E0", "split": "evaluation", "size": "10x5", "n": 100, "grid_step": 0.1, "grid_size": 66, "hv_mean": 0.5705056105280595, "nd_size_mean": 6.2, "igd_plus_mean": 0.33876167285983716, "igd_plus_n": 20, "objectives_at": {"w=(1,0,0)": {"makespan": 403.58, "carbon": 154.49165383173607, "tardiness": 444.4013540702048}, "w=(0,1,0)": {"makespan": 449.4, "carbon": 155.51452751461156, "tardiness": 416.77200968404907}, "w=(0,0,1)": {"makespan": 476.31, "carbon": 160.95737418358752, "tardiness": 235.28852908341275}, "w=(1/3,1/3,1/3)": {"makespan": 426.12, "carbon": 154.01457567449722, "tardiness": 370.3517532065543}}, "specialists": {"10x5+mix+bv3_spec_m_s111.pth": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3", "10x5+mix+bv3_spec_c_s111.pth": "1db5f94e73c268cae49ce8d75bfafae39aa8d075bad2bf8a260373abf4bcf721", "10x5+mix+bv3_spec_t_s111.pth": "4f3fb611057ca84bb30ef99bfe3bc770f7dd5b42f77260136c771edf97fccecd"}, "seconds": 38.38915467262268, "independent_rescore": "all schedules feasible; objectives identical to the environment"}
+[2026-10-26 01:15:03] commit: warm-start v3: E0 10x5 s111
+[2026-10-26 01:15:03] unit e0:10x5:111: DONE
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"model": "10x5+mix+bv3_ws_E0_s222", "arm": "E0", "split": "evaluation", "size": "10x5", "n": 100, "grid_step": 0.1, "grid_size": 66, "hv_mean": 0.5800325141081744, "nd_size_mean": 6.13, "igd_plus_mean": 0.32154818621261494, "igd_plus_n": 20, "objectives_at": {"w=(1,0,0)": {"makespan": 406.58, "carbon": 152.78503893036148, "tardiness": 364.78082088880046}, "w=(0,1,0)": {"makespan": 457.12, "carbon": 152.75976460368193, "tardiness": 346.7503134655997}, "w=(0,0,1)": {"makespan": 460.38, "carbon": 161.2218320554983, "tardiness": 245.3075045735405}, "w=(1/3,1/3,1/3)": {"makespan": 448.66, "carbon": 153.93700932908726, "tardiness": 297.26759629271345}}, "specialists": {"10x5+mix+bv3_spec_m_s222.pth": "ff3a894daba6e9e419e9c46ee372e146c725957ae9655c895d294f399b61bfd5", "10x5+mix+bv3_spec_c_s222.pth": "8b6ba47a57f11c87d128a88b3ef93ede11a8a10ef3a168a09c6bf828c6a23172", "10x5+mix+bv3_spec_t_s222.pth": "1c84a0ed1429c3c34f54dffa6a9e0f8156a7ac21a5c1bb51cef82224909c4598"}, "seconds": 40.20950889587402, "independent_rescore": "all schedules feasible; objectives identical to the environment"}
+[2026-10-26 01:15:05] commit: warm-start v3: E0 10x5 s222
+[2026-10-26 01:15:05] unit e0:10x5:222: DONE
+{"model": "10x5+mix+bv3_ws_E0_s333", "arm": "E0", "split": "evaluation", "size": "10x5", "n": 100, "grid_step": 0.1, "grid_size": 66, "hv_mean": 0.5141494118242794, "nd_size_mean": 5.82, "igd_plus_mean": 0.3609237905695541, "igd_plus_n": 20, "objectives_at": {"w=(1,0,0)": {"makespan": 415.26, "carbon": 157.10493901962047, "tardiness": 434.36175505259075}, "w=(0,1,0)": {"makespan": 444.13, "carbon": 152.36593690540656, "tardiness": 315.7865515945173}, "w=(0,0,1)": {"makespan": 453.2, "carbon": 158.44673241301524, "tardiness": 254.17731075623357}, "w=(1/3,1/3,1/3)": {"makespan": 462.53, "carbon": 157.75443736445536, "tardiness": 370.19091160966775}}, "specialists": {"10x5+mix+bv3_spec_m_s333.pth": "f31b90bedad81a3baf82d24915990d5757bfbcf83df2351ede445408fe3dcdc3", "10x5+mix+bv3_spec_c_s333.pth": "24f1f001c0942abd488aa39b7cacec27eee8dcc6be75693e40cda756d27ebc76", "10x5+mix+bv3_spec_t_s333.pth": "50a21c82aba3b9622b15b49dd3c16e3cd3d5d3403484f32373ac3fa8b842c384"}, "seconds": 36.21913194656372, "independent_rescore": "all schedules feasible; objectives identical to the environment"}
+[2026-10-26 01:15:41] commit: warm-start v3: E0 10x5 s333
+[2026-10-26 01:15:41] unit e0:10x5:333: DONE
+[2026-10-26 01:15:41] all units finished; FAILED: none
+[2026-10-26 01:15:41] runner finished (rc 0); analysis: tools/analyze_warmstart_v3.py
+/home/ec2-user/itp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/ec2-user/itp/results/warmstart_v3.md
+[2026-10-26 01:15:48] DONE: git push when ready

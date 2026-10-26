@@ -1,0 +1,105 @@
+{
+ "units": [
+  "calib:10x5",
+  "norm:10x5",
+  "train:B:10x5:111",
+  "train:CM:10x5:111",
+  "train:BBM:10x5:111",
+  "distill:10x5:111",
+  "train:D:10x5:111",
+  "merge:10x5:111",
+  "train:E:10x5:111",
+  "train:CC:10x5:111",
+  "train:CT:10x5:111",
+  "train:BBC:10x5:111",
+  "train:BBT:10x5:111",
+  "train:B:10x5:222",
+  "train:CM:10x5:222",
+  "train:BBM:10x5:222",
+  "distill:10x5:222",
+  "train:D:10x5:222",
+  "merge:10x5:222",
+  "train:E:10x5:222",
+  "train:CC:10x5:222",
+  "train:CT:10x5:222",
+  "train:BBC:10x5:222",
+  "train:BBT:10x5:222",
+  "train:B:10x5:333",
+  "train:CM:10x5:333",
+  "train:BBM:10x5:333",
+  "distill:10x5:333",
+  "train:D:10x5:333",
+  "merge:10x5:333",
+  "train:E:10x5:333",
+  "train:CC:10x5:333",
+  "train:CT:10x5:333",
+  "train:BBC:10x5:333",
+  "train:BBT:10x5:333",
+  "e0:10x5:111",
+  "e0:10x5:222",
+  "e0:10x5:333"
+ ],
+ "jobs": 2,
+ "slots": [
+  "0-2",
+  "3-5"
+ ],
+ "lane": "6-7",
+ "host": {
+  "gpu": "NVIDIA L4, 23034 MiB, 595.91.07",
+  "cpu": "AMD EPYC 7R13 Processor",
+  "logical_cpus": 8,
+  "jobs": 2,
+  "python": "3.14.4",
+  "torch": "2.9.1+cu128 12.8",
+  "ortools": "9.15.6755"
+ },
+ "settings": {
+  "validate": 50,
+  "window": 1000,
+  "tol": 0.005,
+  "min_updates": 1000,
+  "cap": 8000,
+  "chunk": {
+   "10x5": 500,
+   "20x10": 200
+  },
+  "val_grid": 0.25,
+  "val_first": 0,
+  "eval_split": "evaluation",
+  "eval_first": 0,
+  "eval_grid": 0.1,
+  "sample": 16,
+  "sample_first": {
+   "10x5": 0,
+   "20x10": 20
+  },
+  "norm_first": 0,
+  "norm_limit": 60,
+  "norm_lex": 20,
+  "distill": [],
+  "base_updates": 500,
+  "ft_updates": 1000,
+  "calib_updates": 200
+ },
+ "arms": [
+  "B",
+  "CM",
+  "BBM",
+  "D",
+  "E",
+  "CC",
+  "CT",
+  "BBC",
+  "BBT"
+ ],
+ "sizes": [
+  "10x5"
+ ],
+ "seeds": [
+  111,
+  222,
+  333
+ ],
+ "smoke": false
+}
