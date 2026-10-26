@@ -1,0 +1,64 @@
+{
+ "model": "10x5+mix+bv3_ws_E0_s222",
+ "arm": "E0",
+ "split": "evaluation",
+ "size": "10x5",
+ "n": 100,
+ "grid_step": 0.1,
+ "grid_size": 66,
+ "hv_mean": 0.5800325141081744,
+ "nd_size_mean": 6.13,
+ "igd_plus_mean": 0.32154818621261494,
+ "igd_plus_n": 20,
+ "igd_plus_per_instance": {
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_001.fjs": 0.5844781271509984,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_002.fjs": 0.4344605823643381,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_003.fjs": 0.3552654279288811,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_004.fjs": 0.21299067434734736,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_005.fjs": 0.2864872051316754,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_006.fjs": 0.35551953375262724,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_007.fjs": 0.33149184307381147,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_008.fjs": 0.27039296547194486,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_009.fjs": 0.3362340838396603,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_010.fjs": 0.2693529884106206,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_011.fjs": 0.2869713905928059,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_012.fjs": 0.341250986541935,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_013.fjs": 0.39078578044014106,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_014.fjs": 0.22542863698301813,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_015.fjs": 0.20672411819675893,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_016.fjs": 0.4885858238409423,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_017.fjs": 0.20358626771392113,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_018.fjs": 0.27492017027127147,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_019.fjs": 0.3430306188809918,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_020.fjs": 0.23300649931860928
+ },
+ "objectives_at": {
+  "w=(1,0,0)": {
+   "makespan": 406.58,
+   "carbon": 152.78503893036148,
+   "tardiness": 364.78082088880046
+  },
+  "w=(0,1,0)": {
+   "makespan": 457.12,
+   "carbon": 152.75976460368193,
+   "tardiness": 346.7503134655997
+  },
+  "w=(0,0,1)": {
+   "makespan": 460.38,
+   "carbon": 161.2218320554983,
+   "tardiness": 245.3075045735405
+  },
+  "w=(1/3,1/3,1/3)": {
+   "makespan": 448.66,
+   "carbon": 153.93700932908726,
+   "tardiness": 297.26759629271345
+  }
+ },
+ "specialists": {
+  "10x5+mix+bv3_spec_m_s222.pth": "ff3a894daba6e9e419e9c46ee372e146c725957ae9655c895d294f399b61bfd5",
+  "10x5+mix+bv3_spec_c_s222.pth": "8b6ba47a57f11c87d128a88b3ef93ede11a8a10ef3a168a09c6bf828c6a23172",
+  "10x5+mix+bv3_spec_t_s222.pth": "1c84a0ed1429c3c34f54dffa6a9e0f8156a7ac21a5c1bb51cef82224909c4598"
+ },
+ "seconds": 40.20950889587402,
+ "independent_rescore": "all schedules feasible; objectives identical to the environment"
+}
