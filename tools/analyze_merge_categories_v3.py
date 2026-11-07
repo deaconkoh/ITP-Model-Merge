@@ -25,12 +25,13 @@ SEED = 111
 MC = ["SBAVG", "TA", "TIES"]
 CL = ["CLB", "CLD", "CLE"]
 ZERO = {"SBAVG": "ZSBAVG", "TA": "ZTA", "TIES": "ZTIES", "CLE": "ZE"}
-SHORT = {"SBAVG": "SB-AVG", "TA": "TA", "TIES": "TIES", "CLB": "CL-B", "CLD": "CL-D", "CLE": "CL-E",
-         "ZSBAVG": "SB-AVG merge (zero training)", "ZTA": "TA merge (zero training)",
-         "ZTIES": "TIES merge (zero training)", "ZE": "E merge (zero training)"}
-LABEL = {"SBAVG": "SB-AVG + contrastive", "TA": "TA + contrastive", "TIES": "TIES + contrastive",
-         "CLB": "CL-B (contrastive, scratch)", "CLD": "CL-D (contrastive from the distilled student)",
-         "CLE": "CL-E (contrastive from E's naive merge)", **{v: SHORT[v] for v in ZERO.values()}}
+# display names only (internal arm IDs, run names and files are unchanged); the fine-tuning method is stated in the
+# headings, captions and the "Fine-tuning" column, not in the labels
+SHORT = {"SBAVG": "Model Soup (shared base)", "TA": "Task Arithmetic", "TIES": "TIES", "CLB": "From scratch",
+         "CLD": "Distillation", "CLE": "Naive weight average (independent specialists)"}
+SHORT.update({z: SHORT[x] for x, z in ZERO.items()})
+LABEL = SHORT
+TUNED = {x: ("none (merge only)" if x in ZERO.values() else "contrastive") for x in SHORT}
 START = {"SBAVG": "shared-base average", "TA": "Task Arithmetic merge", "TIES": "TIES merge",
          "CLB": "random initialisation", "CLD": "distilled student", "CLE": "naive merge (independent specialists)"}
 AW.NAME_RE = re.compile(r"^(\d+x\d+)\+mix\+bv3_(?:cls?|mcs?)_([A-Z0-9]+)_s(\d+)$")
@@ -47,13 +48,13 @@ DESIGN = [
     "benchmark_v3/{m,c,t}.json, seed 111, generator stream) for a fixed 1,000 updates each (the E-shared budget); "
     "best-validation checkpoints. They are new specialists, not the committed checkpoints/specialists_v3 (which were "
     "trained independently from random initialisations and stopped by the convergence rule).",
-    "SB-AVG = (θ_M + θ_C + θ_T) / 3 (`merge_specialists_v3.py --shared_base`); it equals TA with λ = 1/3.",
-    "TA = θ_base + λ Σ_x τ_x with τ_x = θ_x − θ_base.",
+    "Model Soup (shared base), SB-AVG = (θ_M + θ_C + θ_T) / 3 (`merge_specialists_v3.py --shared_base`); it equals Task Arithmetic with λ = 1/3.",
+    "Task Arithmetic (TA) = θ_base + λ Σ_x τ_x with τ_x = θ_x − θ_base.",
     "TIES: each τ_x is trimmed to its top 20% entries by |value| over the whole flattened vector (all tensors "
     "together, as in the official implementation), the rest set to 0; per entry the elected sign is the sign of the "
     "sum of the trimmed values; the merged value is the mean over the tasks whose kept value is non-zero and has the "
     "elected sign (0 if none); result θ_base + λ τ_TIES.",
-    "λ ∈ {0.3, 0.5, 0.7, 1.0} for TA and TIES separately, chosen by update-0 validation HV (the CL arms' 15-preference "
+    "λ ∈ {0.3, 0.5, 0.7, 1.0} for Task Arithmetic and TIES separately, chosen by update-0 validation HV (the contrastive arms' 15-preference "
     "validation grid and frozen validation normalisation points); tie → smaller λ. Evaluation data never used.",
     "Preference input and critic as arm E: every tensor (extractor, actor, critic) is merged by the same rule into an "
     "unconditioned v3 bundle; `--init_mode full` copies it into the preference-conditioned network with the three "
@@ -64,7 +65,7 @@ DESIGN = [
     "111), no early stopping; validation at update 0 and every 50 updates; best-validation-HV checkpoint.",
     "Zero-training value: a 0-update contrastive run from the merge (validation at update 0, network saved) evaluated "
     "like the fine-tuned arms; for E the merge is regenerated from the committed seed-111 specialists (check: its "
-    "update-0 validation HV equals CL-E's).",
+    "update-0 validation HV equals that of Naive weight average (independent specialists)).",
     "Every constant was fixed in configs/merge_categories_v3.json before any run; no hyperparameter was tuned.",
 ]
 
@@ -125,7 +126,11 @@ def main():
          "**Single seed (111): numbers only, no significance claims.** Higher HV is better; lower IGD+ and regret are "
          f"better. Evaluation split: `{a.eval_split}`.", "",
          f"Hardware: {plan.get('host', {}).get('gpu', '?')}, {plan.get('host', {}).get('logical_cpus', '?')} logical CPUs, "
-         f"--jobs {plan.get('jobs', '?')} (the CL arms ran on the same machine with --jobs 3).", ""]
+         f"--jobs {plan.get('jobs', '?')} (the contrastive arms of results/contrastive_v3.md ran on the same machine with "
+         "--jobs 3).", "",
+         "Arm names: Model Soup (shared base) = SB-AVG, Task Arithmetic = TA, TIES = TIES, From scratch = CL-B, "
+         "Distillation = CL-D, Naive weight average (independent specialists) = CL-E (internal IDs, used in file and "
+         "run names).", ""]
 
     # ---------------- shared base
     L += ["## Shared base and specialists (PPO specialist training; not arms)", "",
@@ -141,7 +146,7 @@ def main():
         s = json.loads(f.read_text()); total_h += s["train_seconds"] / 3600
         L.append(f"| {tag} | {init} | {goal} | {s['update']} | {s['best_value']:.4f} | {s['best_update']} | "
                  f"{s['train_seconds'] / 3600:.2f} |")
-    L += ["", f"Shared-base preparation cost: {total_h:.2f} h of PPO training in total (shared by SB-AVG, TA and TIES).", ""]
+    L += ["", f"Shared-base preparation cost: {total_h:.2f} h of PPO training in total (shared by Model Soup (shared base), Task Arithmetic and TIES).", ""]
 
     # ---------------- lambda
     L += ["## λ selection (validation split only)", ""]
@@ -150,7 +155,7 @@ def main():
               "|---|" + "---|" * (len(sel["lambda_grid"]) + 1)]
         for arm in ("TA", "TIES"):
             c = {x["lambda"]: x["validation_hv_update0"] for x in sel["candidates"].get(arm, [])}
-            L.append(f"| {arm} | " + " | ".join(f3(c.get(l)) for l in sel["lambda_grid"]) +
+            L.append(f"| {SHORT[arm]} | " + " | ".join(f3(c.get(l)) for l in sel["lambda_grid"]) +
                      f" | λ = {sel['selected'][arm]['lambda']:g} |")
         L += ["", f"Update-0 validation HV (15 preferences); rule: {sel['rule']}. TIES keeps {sel['ties_keep']:.0%} of each "
               "task vector.", ""]
@@ -166,7 +171,7 @@ def main():
         verdict = ("never raised it (best checkpoint = update 0)" if s["best_u"] == 0 else
                    f"raised it to a best of {s['best']:.3f} at update {s['best_u']} ({s['best'] - s['u0']:+.3f})")
         d = s["final"] - s["u0"]
-        L.append(f"- **{SHORT[x]}** (start: {START[x]}): update 0 HV {s['u0']:.3f}; fine-tuning {verdict}; final HV at "
+        L.append(f"- **{SHORT[x]}**: update 0 HV {s['u0']:.3f}; fine-tuning {verdict}; final HV at "
                  f"update {s['final_u']} is {s['final']:.3f} ({d:+.3f}, {'raised' if d > 0 else 'lowered' if d < 0 else 'unchanged'}).")
     L.append("")
     chk = [f"{SHORT[x]} {summary(R[x])['u0']:.4f} vs probe {zero_val[ZERO[x]]:.4f}" for x in MC + ["CLE"]
@@ -176,7 +181,7 @@ def main():
               + "; ".join(chk) + ".", ""]
 
     # ---------------- training
-    L += ["## Training (validation split, 15 preferences; same machine for every arm)", "",
+    L += ["## Training with contrastive fine-tuning (validation split, 15 preferences; same machine for every arm)", "",
           "| Arm | Start | Updates | HV at update 0 | Best HV | Update of best | Env steps to best (M) | Wall-clock to best (h) | "
           "Final HV | Training (h) |", "|---|---|---|---|---|---|---|---|---|---|"]
     for x in MC + CL:
@@ -186,7 +191,8 @@ def main():
         L.append(f"| {SHORT[x]} | {START[x]} | {s['final_u']} | {f3(s['u0'])} | {s['best']:.3f} | {s['best_u']} | "
                  f"{'-' if s['best_steps'] is None else f'{s['best_steps'] / 1e6:.2f}'} | {s['best_h']:.2f} | "
                  f"{s['final']:.3f} | {s['train_h']:.2f} |")
-    L += ["", "Wall-clock excludes the shared-base preparation above (SB-AVG, TA, TIES) and the distillation (CL-D).", ""]
+    L += ["", "Wall-clock excludes the shared-base preparation above (Model Soup, Task Arithmetic, TIES) and the "
+          "distillation step (Distillation).", ""]
 
     # ---------------- evaluation
     rows = ["ZE", "CLE", "ZSBAVG", "SBAVG", "ZTA", "TA", "ZTIES", "TIES", "CLB", "CLD"]
@@ -202,22 +208,22 @@ def main():
         reg = AW.regret_table(sev, keys, norm, grid, a.eval_split, size, b1, b2) if sev else None
         L += [f"## Evaluation ({a.eval_split} split, greedy, {len(grid)} preferences, {len(keys)} instances; IGD+ on the "
               f"{len(sub)}-instance CP-SAT B2 subset)", "",
-              "| Arm | HV | HV on the B2 subset | IGD+ | Unique non-dominated | Mean regret | Best-of-16 sampling HV |",
-              "|---|---|---|---|---|---|---|"]
+              "| Arm | Fine-tuning | HV | HV on the B2 subset | IGD+ | Unique non-dominated | Mean regret | "
+              "Best-of-16 sampling HV |", "|---|---|---|---|---|---|---|---|"]
         for x in rows:
             v = E.get(x)
             if v is None or v["npz"] is None or [str(q) for q in v["npz"]["keys"]] != keys:
-                L.append(f"| {LABEL[x]} | - | - | - | - | - | - |"); continue
+                L.append(f"| {LABEL[x]} | {TUNED[x]} | - | - | - | - | - | - |"); continue
             hv = np.asarray(v["npz"]["hv"])
             hv_sub = np.mean([hv[keys.index(q)] for q in sub]) if sub else None
             smp = v["json"].get("sample") or {}
-            L.append(f"| {LABEL[x]} | {hv.mean():.3f} | {f3(hv_sub)} | {f3(v['json']['igd_plus_mean'])} | "
+            L.append(f"| {LABEL[x]} | {TUNED[x]} | {hv.mean():.3f} | {f3(hv_sub)} | {f3(v['json']['igd_plus_mean'])} | "
                      f"{v['json']['nd_size_mean']:.1f} | {f3(reg[0][x]['all']) if reg and x in reg[0] else '-'} | "
                      f"{f3(smp.get('hv_mean'))} |")
         if sub:
             hvb2 = [MM.instance_hv(np.array([[p[o] for o in OBJ] for p in b2[q]["front"]]), *MM.ideal_nadir(norm[q]))
                     for q in sub]
-            L.append(f"| CP-SAT B2 reference front (subset only) | - | {np.mean(hvb2):.3f} | 0 | - | - | - |")
+            L.append(f"| CP-SAT B2 reference front (subset only) | - | - | {np.mean(hvb2):.3f} | 0 | - | - | - |")
         L += ["", "A zero-training merge ignores the preference (its preference columns are zero), so its 66 greedy schedules "
               "per instance are identical and its unique non-dominated count is 1. Regret is computed against "
               "every point of the arms in this table, the specialists, the rules and CP-SAT B1/B2 (so values are not "
@@ -226,7 +232,7 @@ def main():
         L += ["## Evaluation", "", "_No evaluation results for this split yet._", ""]
 
     # ---------------- contrastive diagnostics
-    L += ["## Contrastive diagnostics (mean over the first and the last 100 updates)", "",
+    L += ["## Contrastive fine-tuning diagnostics (mean over the first and the last 100 updates)", "",
           "| Arm | Loss | Groups with ≥ 1 pair | Distinct schedules per group (of K) | Policy entropy | Grad norm (pre-clip) | "
           "Skipped updates | s / update |", "|---|---|---|---|---|---|---|---|"]
     for x in MC + ["CLE"]:
@@ -253,9 +259,11 @@ def main():
         ax[1].plot(np.asarray(sec) / 3600, hv, ls, color=col[x], lw=1.6 if x in MC else 1.1, label=SHORT[x])
     for axis, xl in zip(ax, ("updates", "training wall-clock (h, this machine)")):
         axis.set_xlabel(xl); axis.set_ylabel("validation HV"); axis.grid(alpha=.3)
-    ax[0].legend(fontsize=8, ncol=2)
+    h, lab = ax[0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=9, frameon=False,
+               title="Start (contrastive fine-tuning)", title_fontsize=9)
     fig.suptitle("Validation hypervolume, contrastive fine-tuning from each start, 10x5, seed 111"); fig.tight_layout()
-    fig.savefig(fig_dir / "curves_10x5.png", dpi=120); plt.close(fig)
+    fig.savefig(fig_dir / "curves_10x5.png", dpi=120, bbox_inches="tight"); plt.close(fig)
     L += [f"![curves]({res.name}/figures/curves_10x5.png)", ""]
 
     L += ["## Design choices (fixed before any run)", ""] + [f"{i}. {d}" for i, d in enumerate(DESIGN, 1)] + [""]

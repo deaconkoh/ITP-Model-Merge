@@ -21,10 +21,13 @@ MM, B, OBJ = AW.MM, AW.B, AW.OBJ
 WS_RES = REPO / "results" / "warmstart_v3"
 MANIFEST = REPO / "configs" / "contrastive_v3.json"
 PAIRS = [("CLB", "B"), ("CLD", "D"), ("CLE", "E")]
-LABEL = {"CLB": "CL-B (contrastive, scratch)", "CLD": "CL-D (contrastive from D's update-0 network)",
-         "CLE": "CL-E (contrastive from the naive merge)", "B": "B (PPO, scratch)", "D": "D (PPO from the distilled student)",
-         "E": "E (PPO from the naive merge)"}
-SHORT = {"CLB": "CL-B", "CLD": "CL-D", "CLE": "CL-E", "B": "B (PPO)", "D": "D (PPO)", "E": "E (PPO)"}
+# display names only (internal arm IDs, run names and files are unchanged); a CL arm and its PPO counterpart share
+# the start's name and the fine-tuning method is stated in the "Fine-tuning" column or in parentheses in the text
+SHORT = {"CLB": "From scratch", "CLD": "Distillation", "CLE": "Naive weight average (independent specialists)"}
+SHORT.update({ppo: SHORT[cl] for cl, ppo in PAIRS})
+LABEL = SHORT
+METHOD = {x: ("contrastive" if x.startswith("CL") else "PPO") for x in SHORT}
+FIG = {"CLB": "CL-B", "CLD": "CL-D", "CLE": "CL-E", "B": "B (PPO)", "D": "D (PPO)", "E": "E (PPO)"}   # figure legends
 AW.NAME_RE = re.compile(r"^(\d+x\d+)\+mix\+bv3_(?:wss?|cls?)_([A-Z0-9]+)_s(\d+)$")
 AW.ARMS = [a for p in PAIRS for a in p]
 AW.LABEL = {**AW.LABEL, **LABEL}
@@ -45,8 +48,9 @@ DESIGN = [
     "identical objective vectors never form a pair.",
     "Loss: mean over all pairs of the update (every pair weighted equally, not per group) of "
     "−log σ(β[(ℓ_i − ℓ_i^ref) − (ℓ_j − ℓ_j^ref)]), β = 0.1, ℓ = Σ_t log π(a_t|s_t) over the full schedule.",
-    "Reference: the starting network, frozen (CL-B: the seed-111 random initialisation; CL-D: the distilled student, "
-    "i.e. D's update-0 network; CL-E: the uniform merge with zero preference columns).",
+    "Reference: the starting network, frozen (From scratch: the seed-111 random initialisation; Distillation: the "
+    "distilled student, i.e. D's update-0 network; Naive weight average: the uniform merge with zero preference "
+    "columns).",
     "Optimisation: one gradient step per update (on-policy; no epochs, no importance ratios), PPO's Adam optimiser at "
     "lr 3e-4, gradient-norm clipping at 1.0. Exact gradient in two passes (trajectory log-probabilities, then per-state "
     "log-probabilities in minibatches of 1,024 weighted by dL/dℓ). An update without any pair takes no step (logged).",
@@ -125,6 +129,9 @@ def main():
          "DPO-style pairwise-ranking objective; model, environment, non-delay mask, preference sampling, training "
          "instances, training normalisation, validation, checkpoint selection and evaluation are those of the PPO arms "
          "(docs/contrastive_protocol_v3.md). PPO counterparts: results/warmstart_v3, seed 111.", "",
+         "Arm names (each start, fine-tuned with PPO or with the contrastive objective): From scratch = B / CL-B, "
+         "Distillation = D / CL-D, Naive weight average (independent specialists) = E / CL-E (internal IDs, used in "
+         "file and run names and in the figure legends).", "",
          "**Single seed (111): numbers only, no significance claims.** Higher HV is better; lower IGD+ and regret are "
          f"better. Evaluation split: `{a.eval_split}`.", "",
          f"Hardware: {plan.get('host', {}).get('gpu', '?')}, {plan.get('host', {}).get('logical_cpus', '?')} logical CPUs, "
@@ -139,18 +146,19 @@ def main():
         for x in (cl, ppo):
             s = summary_row(R[x]) if x in R else None
             if s is None or s["u0"] is None:
-                L.append(f"- **{SHORT[x]}**: no validation curve yet."); continue
+                L.append(f"- **{SHORT[x]}** ({METHOD[x]}): no validation curve yet."); continue
             d_best, d_final = s["best"] - s["u0"], s["final"] - s["u0"]
             verdict = ("never raised it (best checkpoint = update 0)" if s["best_u"] == 0 else
                        f"raised it to a best of {s['best']:.3f} at update {s['best_u']} ({d_best:+.3f})")
-            L.append(f"- **{SHORT[x]}**: update 0 HV {s['u0']:.3f}; fine-tuning {verdict}; final HV at update "
+            L.append(f"- **{SHORT[x]}** ({METHOD[x]}): update 0 HV {s['u0']:.3f}; fine-tuning {verdict}; final HV at update "
                      f"{s['final_u']} is {s['final']:.3f} ({d_final:+.3f} vs update 0, "
                      f"{'raised' if d_final > 0 else 'lowered' if d_final < 0 else 'unchanged'}).")
     L.append("")
     if "CLD" in R and "D" in R:
         a0, b0 = summary_row(R["CLD"]), summary_row(R["D"])
         if a0 and b0 and a0["u0"] is not None and b0["u0"] is not None:
-            L += [f"Reproduction check: CL-D's update-0 validation HV {a0['u0']:.4f} vs PPO D's {b0['u0']:.4f} (the D "
+            L += [f"Reproduction check: Distillation (contrastive) update-0 validation HV {a0['u0']:.4f} vs Distillation (PPO) "
+                  f"{b0['u0']:.4f} (the D "
                   "student was regenerated with the same seed on this machine).", ""]
 
     # ---------------- training summary
@@ -170,34 +178,35 @@ def main():
               "measured and converted to this machine with the calibration factors "
               f"({'-' if ws_factor is None else f'{ws_factor:.2f}'} there, {'-' if factor is None else f'{factor:.2f}'} here); "
               "the conversion is approximate (parallel load differs). Updates and environment steps are exact.", ""]
-    L += ["| Arm | Budget (updates) | HV at update 0 | Best HV | Update of best | Wall-clock to best (h) | Final HV | "
-          "Training (h) | s / update | Env steps (total) |", "|---|---|---|---|---|---|---|---|---|---|"]
+    L += ["| Arm | Fine-tuning | Budget (updates) | HV at update 0 | Best HV | Update of best | Wall-clock to best (h) | Final HV | "
+          "Training (h) | s / update | Env steps (total) |", "|---|---|---|---|---|---|---|---|---|---|---|"]
     for cl, ppo in PAIRS:
         for x in (ppo, cl):
             s = summary_row(R[x]) if x in R else None
             if s is None:
-                L.append(f"| {LABEL[x]} | - | - | - | - | - | - | - | - | - |"); continue
+                L.append(f"| {LABEL[x]} | {METHOD[x]} | - | - | - | - | - | - | - | - | - |"); continue
             mult = 1 if x.startswith("CL") else 1 / k
             steps = steps_at(per_update, s["final_u"])
-            L.append(f"| {LABEL[x]} | {man['arms'][cl]['updates']} | {f3(s['u0'])} | {s['best']:.3f} | {s['best_u']} | "
+            L.append(f"| {LABEL[x]} | {METHOD[x]} | {man['arms'][cl]['updates']} | {f3(s['u0'])} | {s['best']:.3f} | {s['best_u']} | "
                      f"{hrs(s['best_h'], x)} | {s['final']:.3f} | {hrs(s['train_h'], x)} | {s['spu']:.2f} | "
                      f"{'-' if steps is None else f'{steps * mult / 1e6:.2f} M'} |")
     L.append("")
 
     # ---------------- equal updates and equal environment steps
-    L += ["### Validation HV at equal updates", "", "| Arm | " + " | ".join(f"u = {u}" for u in UPD_BUDGETS) + " |",
-          "|---|" + "---|" * len(UPD_BUDGETS)]
+    L += ["### Validation HV at equal updates", "", "| Arm | Fine-tuning | " + " | ".join(f"u = {u}" for u in UPD_BUDGETS)
+          + " |", "|---|---|" + "---|" * len(UPD_BUDGETS)]
     for cl, ppo in PAIRS:
         for x in (ppo, cl):
             if x not in R or not R[x]["valiquality"]:
                 continue
             u, hv, _, _ = AW.val_series(R[x])
-            L.append(f"| {SHORT[x]} | " + " | ".join(f3(MM.curve_at(u, hv, b)) if b <= u[-1] else "-" for b in UPD_BUDGETS)
+            L.append(f"| {SHORT[x]} | {METHOD[x]} | " + " | ".join(f3(MM.curve_at(u, hv, b)) if b <= u[-1] else "-" for b in UPD_BUDGETS)
                      + " |")
     L += ["", "### Validation HV at equal environment steps", "",
           f"CL takes {k}× PPO's environment steps per update (same instances), so CL at update u is compared with PPO at "
           f"update {k}u. '-' = the run did not reach that many steps.", "",
-          "| Arm | " + " | ".join(f"{s / 1e6:g} M steps" for s in STEP_BUDGETS) + " |", "|---|" + "---|" * len(STEP_BUDGETS)]
+          "| Arm | Fine-tuning | " + " | ".join(f"{s / 1e6:g} M steps" for s in STEP_BUDGETS) + " |",
+          "|---|---|" + "---|" * len(STEP_BUDGETS)]
     curves_steps = {}
     if per_update is not None:
         cum = np.concatenate([[0.0], np.cumsum(per_update)])
@@ -214,7 +223,7 @@ def main():
                     ok = [i for i, s in enumerate(xs) if np.isfinite(s) and s <= sb]
                     reached = any(np.isfinite(s) and s >= sb for s in xs)
                     row.append(f3(hv[ok[-1]]) if ok and reached else "-")
-                L.append(f"| {SHORT[x]} | " + " | ".join(row) + " |")
+                L.append(f"| {SHORT[x]} | {METHOD[x]} | " + " | ".join(row) + " |")
     L.append("")
 
     # ---------------- evaluation
@@ -232,36 +241,36 @@ def main():
         reg = AW.regret_table(sev, keys, norm, grid, a.eval_split, size, b1, b2) if sev else None
         L += [f"## Evaluation ({a.eval_split} split, greedy, {len(grid)} preferences, {len(keys)} instances; IGD+ on the "
               f"{len(sub)}-instance CP-SAT B2 subset)", "",
-              "| Arm | HV | HV on the B2 subset | IGD+ | Unique non-dominated | Mean regret | Best-of-16 sampling HV |",
-              "|---|---|---|---|---|---|---|"]
+              "| Arm | Fine-tuning | HV | HV on the B2 subset | IGD+ | Unique non-dominated | Mean regret | "
+              "Best-of-16 sampling HV |", "|---|---|---|---|---|---|---|---|"]
         for cl, ppo in PAIRS:
             for x in (ppo, cl):
                 v = E.get(x)
                 if v is None or v["npz"] is None or [str(q) for q in v["npz"]["keys"]] != keys:
-                    L.append(f"| {LABEL[x]} | - | - | - | - | - | - |"); continue
+                    L.append(f"| {LABEL[x]} | {METHOD[x]} | - | - | - | - | - | - |"); continue
                 hv = np.asarray(v["npz"]["hv"])
                 hv_sub = np.mean([hv[keys.index(q)] for q in sub]) if sub else None
                 smp = v["json"].get("sample") or {}
-                L.append(f"| {LABEL[x]} | {hv.mean():.3f} | {f3(hv_sub)} | {f3(v['json']['igd_plus_mean'])} | "
+                L.append(f"| {LABEL[x]} | {METHOD[x]} | {hv.mean():.3f} | {f3(hv_sub)} | {f3(v['json']['igd_plus_mean'])} | "
                          f"{v['json']['nd_size_mean']:.1f} | {f3(reg[0][x]['all']) if reg and x in reg[0] else '-'} | "
                          f"{f3(smp.get('hv_mean'))} |")
         if sub:
             hvb2 = [MM.instance_hv(np.array([[p[o] for o in OBJ] for p in b2[q]["front"]]), *MM.ideal_nadir(norm[q]))
                     for q in sub]
-            L.append(f"| CP-SAT B2 reference front (subset only) | - | {np.mean(hvb2):.3f} | 0 | - | - | - |")
+            L.append(f"| CP-SAT B2 reference front (subset only) | - | - | {np.mean(hvb2):.3f} | 0 | - | - | - |")
         L += ["", "Regret is computed against every point of the arms in this table, the specialists, the rules and "
               "CP-SAT B1/B2 (the warm-start study's definition over a smaller set of arms, so values are not "
               "comparable with results/warmstart_v3.md).", ""]
         L += [f"### Objectives at the corner and equal-weight preferences", "",
-              "| Arm | MK at w=(1,0,0) | C at w=(0,1,0) | T at w=(0,0,1) | MK / C / T at w=(1/3,1/3,1/3) |",
-              "|---|---|---|---|---|"]
+              "| Arm | Fine-tuning | MK at w=(1,0,0) | C at w=(0,1,0) | T at w=(0,0,1) | MK / C / T at w=(1/3,1/3,1/3) |",
+              "|---|---|---|---|---|---|"]
         for cl, ppo in PAIRS:
             for x in (ppo, cl):
                 v = E.get(x)
                 if v is None:
                     continue
                 q = v["json"]["objectives_at"]
-                L.append(f"| {SHORT[x]} | {q['w=(1,0,0)']['makespan']:.1f} | {q['w=(0,1,0)']['carbon']:.1f} | "
+                L.append(f"| {SHORT[x]} | {METHOD[x]} | {q['w=(1,0,0)']['makespan']:.1f} | {q['w=(0,1,0)']['carbon']:.1f} | "
                          f"{q['w=(0,0,1)']['tardiness']:.1f} | "
                          + " / ".join(f"{q['w=(1/3,1/3,1/3)'][o]:.1f}" for o in OBJ) + " |")
         L.append("")
@@ -269,7 +278,7 @@ def main():
         L += ["## Evaluation", "", "_No evaluation results for this split yet._", ""]
 
     # ---------------- contrastive diagnostics
-    L += ["## Contrastive diagnostics (per update; mean over the first and the last 100 updates)", "",
+    L += ["## Contrastive fine-tuning diagnostics (per update; mean over the first and the last 100 updates)", "",
           "| Arm | Loss | Groups with ≥ 1 pair | Pairs per update (dominance / Tchebycheff) | Distinct schedules per group "
           "(of K) | Policy entropy | Grad norm (pre-clip) | Skipped updates | s / update (rollout + step) |",
           "|---|---|---|---|---|---|---|---|---|"]
@@ -302,10 +311,10 @@ def main():
             if x not in R or not R[x]["valiquality"]:
                 continue
             u, hv, sec, _ = AW.val_series(R[x])
-            ax[0].plot(u, hv, ls, color=cmap(c), label=SHORT[x])
+            ax[0].plot(u, hv, ls, color=cmap(c), label=FIG[x])
             if x in curves_steps:
-                ax[1].plot(np.asarray(curves_steps[x][0]) / 1e6, hv, ls, color=cmap(c), label=SHORT[x])
-            ax[2].plot(np.asarray(sec) / 3600, hv, ls, color=cmap(c), label=SHORT[x])
+                ax[1].plot(np.asarray(curves_steps[x][0]) / 1e6, hv, ls, color=cmap(c), label=FIG[x])
+            ax[2].plot(np.asarray(sec) / 3600, hv, ls, color=cmap(c), label=FIG[x])
     for axis, xl in zip(ax, ("updates", "environment steps (M)", "training wall-clock (h)")):
         axis.set_xlabel(xl); axis.set_ylabel("validation HV"); axis.grid(alpha=.3)
     ax[0].legend(fontsize=7, ncol=2)
@@ -321,7 +330,7 @@ def main():
         u = [e["update"] for e in lg]
         for axis, key in zip(ax, ("loss", "groups_with_pair", "distinct_schedules", "entropy")):
             axis.plot(u, [np.nan if e["cl"][key] is None else e["cl"][key] for e in lg], color=cmap(c), lw=.8,
-                      label=SHORT[cl])
+                      label=FIG[cl])
             axis.set_title(key.replace("_", " ")); axis.set_xlabel("updates"); axis.grid(alpha=.3)
     ax[0].legend(fontsize=7)
     fig.tight_layout(); fig.savefig(fig_dir / "cl_diagnostics_10x5.png", dpi=110); plt.close(fig)
