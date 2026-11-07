@@ -1,0 +1,82 @@
+[2026-11-08 02:22:38] pre-flight
+inputs verified: 345 files, specialist checkpoints match their reported evaluations
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+contrastive-converged manifest OK: From scratch continue, Distillation continue, Naive weight average (independent specialists) continue, Model Soup (shared base) rerun, Task Arithmetic continue, TIES rerun
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+.............................inputs verified: 345 files, specialist checkpoints match their reported evaluations
+.........................
+----------------------------------------------------------------------
+Ran 65 tests in 37.497s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.
+----------------------------------------------------------------------
+Ran 1 test in 8.393s
+
+OK
+[2026-11-08 02:23:30] v1 reproduction test passed
+host: NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 610.88; 12 logical CPUs; AMD Ryzen 5 7500F 6-Core Processor
+versions: 3.14.4 torch 2.9.1+cu128 cuda 12.8 numpy 2.5.3 ortools 9.15.6755
+free disk: 849 GB; jobs 3; sizes '10x5'; arms 'CC-B,CC-D,CC-E,CC-SBAVG,CC-TA,CC-TIES'; seeds '111'; smoke 0; shared-base 0
+[2026-11-08 02:23:31] pre-flight OK
+[2026-11-08 02:23:31] worker started: --sizes 10x5 --arms CC-B,CC-D,CC-E,CC-SBAVG,CC-TA,CC-TIES --seeds 111 --jobs 3 --log logs/contrastive_converged_v3_20261108_022238.log
+[2026-11-08 02:23:32] plan: 7 units, jobs 3, training slots ['0-2', '3-5', '6-8'] (3 threads each), CPU lane 9-11
+[2026-11-08 02:26:20] commit: contrastive converged v3: calibration 10x5
+[2026-11-08 02:26:20] calibration 10x5: 0.824 s/update here vs 0.821 locally (factor 1.00)
+[2026-11-08 02:26:20] unit calib:10x5: DONE
+[2026-11-08 02:26:25] CCD: extension check passed; continuing from update 1000
+[2026-11-08 02:26:25] CCB: extension check passed; continuing from update 2600
+[2026-11-08 02:26:26] train 10x5+mix+bv3_cc_CCB_s111: chunk of 500 (status NONE, slot 1, timeout 9630s)
+[2026-11-08 02:26:26] train 10x5+mix+bv3_cc_CCD_s111: chunk of 500 (status NONE, slot 0, timeout 9630s)
+[2026-11-08 02:26:34] CCE: extension check passed; continuing from update 3350
+[2026-11-08 02:26:36] train 10x5+mix+bv3_cc_CCE_s111: chunk of 500 (status NONE, slot 2, timeout 9630s)
+[2026-11-08 02:44:15] train 10x5+mix+bv3_cc_CCD_s111: chunk of 500 (status RUNNING, slot 0, timeout 9630s)
+[2026-11-08 02:44:35] train 10x5+mix+bv3_cc_CCE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 02:45:24] train 10x5+mix+bv3_cc_CCB_s111: chunk of 500 (status RUNNING, slot 1, timeout 9630s)
+[2026-11-08 02:58:20] 10x5+mix+bv3_cc_CCD_s111: CONVERGED at update 1900, best val HV 0.5405 @ 900, train 1.15 h
+[2026-11-08 03:02:27] train 10x5+mix+bv3_cc_CCE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 03:02:47] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCD_s111 (CONVERGED)
+[2026-11-08 03:02:47] unit train:CCD:10x5:111: DONE
+[2026-11-08 03:03:00] CCTA: extension check passed; continuing from update 3350
+[2026-11-08 03:03:01] train 10x5+mix+bv3_cc_CCTA_s111: chunk of 500 (status NONE, slot 0, timeout 9630s)
+[2026-11-08 03:04:08] train 10x5+mix+bv3_cc_CCB_s111: chunk of 500 (status RUNNING, slot 1, timeout 9630s)
+[2026-11-08 03:15:54] 10x5+mix+bv3_cc_CCTA_s111: CONVERGED at update 3700, best val HV 0.4108 @ 2700, train 2.31 h
+[2026-11-08 03:19:58] train 10x5+mix+bv3_cc_CCE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 03:20:25] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCTA_s111 (CONVERGED)
+[2026-11-08 03:20:25] unit train:CCTA:10x5:111: DONE
+[2026-11-08 03:20:26] train 10x5+mix+bv3_cc_CCTIES_s111: chunk of 500 (status NONE, slot 0, timeout 9630s)
+[2026-11-08 03:23:03] train 10x5+mix+bv3_cc_CCB_s111: chunk of 500 (status RUNNING, slot 1, timeout 9630s)
+[2026-11-08 03:27:17] 10x5+mix+bv3_cc_CCE_s111: CONVERGED at update 5050, best val HV 0.4294 @ 4200, train 2.77 h
+[2026-11-08 03:31:59] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCE_s111 (CONVERGED)
+[2026-11-08 03:31:59] unit train:CCE:10x5:111: DONE
+[2026-11-08 03:32:02] train 10x5+mix+bv3_cc_CCSBAVG_s111: chunk of 500 (status NONE, slot 2, timeout 9630s)
+[2026-11-08 03:37:54] train 10x5+mix+bv3_cc_CCTIES_s111: chunk of 500 (status RUNNING, slot 0, timeout 9630s)
+[2026-11-08 03:40:10] 10x5+mix+bv3_cc_CCB_s111: CONVERGED at update 4550, best val HV 0.5420 @ 4150, train 2.70 h
+[2026-11-08 03:45:11] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCB_s111 (CONVERGED)
+[2026-11-08 03:45:11] unit train:CCB:10x5:111: DONE
+[2026-11-08 03:49:33] train 10x5+mix+bv3_cc_CCSBAVG_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 03:55:00] train 10x5+mix+bv3_cc_CCTIES_s111: chunk of 500 (status RUNNING, slot 0, timeout 9630s)
+[2026-11-08 04:05:13] train 10x5+mix+bv3_cc_CCSBAVG_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 04:11:23] train 10x5+mix+bv3_cc_CCTIES_s111: chunk of 500 (status RUNNING, slot 0, timeout 9630s)
+[2026-11-08 04:20:30] train 10x5+mix+bv3_cc_CCSBAVG_s111: chunk of 500 (status RUNNING, slot 2, timeout 9630s)
+[2026-11-08 04:28:09] train 10x5+mix+bv3_cc_CCTIES_s111: chunk of 500 (status RUNNING, slot 0, timeout 9630s)
+[2026-11-08 04:29:53] 10x5+mix+bv3_cc_CCSBAVG_s111: CONVERGED at update 1800, best val HV 0.3507 @ 800, train 0.96 h
+[2026-11-08 04:34:32] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCSBAVG_s111 (CONVERGED)
+[2026-11-08 04:34:32] unit train:CCSBAVG:10x5:111: DONE
+[2026-11-08 04:41:17] 10x5+mix+bv3_cc_CCTIES_s111: CONVERGED at update 2500, best val HV 0.3595 @ 1500, train 1.34 h
+[2026-11-08 04:44:31] commit: contrastive converged v3: 10x5+mix+bv3_cc_CCTIES_s111 (CONVERGED)
+[2026-11-08 04:44:31] unit train:CCTIES:10x5:111: DONE
+[2026-11-08 04:44:31] all units finished; FAILED: none
+[2026-11-08 04:44:31] runner finished (rc 0)
+[2026-11-08 04:44:31] analysis: tools/analyze_contrastive_converged_v3.py
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/contrastive_converged_v3.md
+[2026-11-08 04:44:34] DONE: git push when ready
