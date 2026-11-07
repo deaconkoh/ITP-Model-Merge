@@ -1,0 +1,9 @@
+merge categories v3 STATUS   updated 2026-11-08 00:54:53   elapsed 3.0 h   jobs 3   sizes 10x5   seeds 111
+log: logs/merge_categories_v3_20261107_215717.log
+
+units: DONE 4, PENDING 4, RUNNING 3
+training runs: 0/3 done, 0 failed
+  running 10x5+mix+bv3_mc_SBAVG_s111: update 3350/3350, latest val HV 0.3265, best 0.3783 @ 3100, FINISHED, train 2.04 h
+  running 10x5+mix+bv3_mc_TA_s111: update 3350/3350, latest val HV 0.3967, best 0.4108 @ 2700, FINISHED, train 2.10 h
+  running 10x5+mix+bv3_mc_TIES_s111: update 3350/3350, latest val HV 0.3301, best 0.4035 @ 3150, FINISHED, train 2.04 h
+est. remaining training (rough, jobs 3): 0.0 h (stops near 2000 updates) to 0.0 h (cap)
