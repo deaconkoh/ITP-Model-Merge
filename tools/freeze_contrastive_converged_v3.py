@@ -51,7 +51,9 @@ def replay(val):
     return None
 
 
-def build():
+def build(prev=None):
+    """prev: the frozen manifest; its recorded absolute paths are used for files that live only in the original working
+    copy (git-ignored resume states and starting networks), so a fresh clone verifies against the same files."""
     arms = {}
     for arm, (plain, run, res, start) in ARMS.items():
         rdir = f"{res}/runs/{run}"
@@ -70,10 +72,13 @@ def build():
                                "mo_val_norm": cfg["mo_val_norm"], "mo_val_first": cfg["mo_val_first"],
                                "init_from_sha256": bsha(cfg["init_from"]) if cfg.get("init_from") else None}}
         resume = TN / f"{run}.resume.pth"
+        if not resume.exists() and prev and prev["arms"][arm].get("resume_from"):
+            resume = Path(prev["arms"][arm]["resume_from"])
         if mode == "continue":
             rec["resume_from"] = str(resume)
             rec["resume_from_sha256"] = bsha(resume)
-        rec["rerun_start"] = ({"path": start, "sha256": bsha(REPO / start), "init_mode": cfg.get("init_mode", "full")}
+        start_file = REPO / start if start and (REPO / start).exists() else Path(cfg.get("init_from") or "")
+        rec["rerun_start"] = ({"path": start, "sha256": bsha(start_file), "init_mode": cfg.get("init_mode", "full")}
                               if start else {"path": None, "note": "random initialisation, seed 111 (as the source run)"})
         arms[arm] = rec
     cl = "configs/contrastive_v3.json"
@@ -88,7 +93,7 @@ def build():
 def load(check=True):
     m = json.loads(MANIFEST.read_text())
     if check:
-        cur = build()
+        cur = build(m)
         for k in ("size", "seed", "rule", "arms", "contrastive", "validation_norm"):
             if m[k] != cur[k]:
                 raise SystemExit(f"configs/contrastive_converged_v3.json: '{k}' no longer matches its sources; "
