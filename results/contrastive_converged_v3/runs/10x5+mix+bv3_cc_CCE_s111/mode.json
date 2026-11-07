@@ -1,0 +1,5 @@
+{
+ "planned": "continue",
+ "reason": "the rule never stops the logged history (0-3350); continue from the saved final state",
+ "mode": "continue"
+}
