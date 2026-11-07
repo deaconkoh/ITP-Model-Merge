@@ -1,0 +1,22 @@
+{
+ "description": "SHA-256 of every committed checkpoint of the merge-category study (docs/merge_categories_protocol_v3.md)",
+ "files": {
+  "10x5+mix+bv3_mcES_merged_s111.pth": "848c0a64c96da7afc81df29d46ed7c9c74a69dbfab3c825dbc82a68cb6656214",
+  "10x5+mix+bv3_mcE_merged_s111.pth": "837088bc7ccadb99f43cb5f857310f03afae2c7c4c8551a90a7579c18625830d",
+  "10x5+mix+bv3_mcSBAVG_start_s111.pth": "848c0a64c96da7afc81df29d46ed7c9c74a69dbfab3c825dbc82a68cb6656214",
+  "10x5+mix+bv3_mcTA_start_s111.pth": "6dc82ee3dc866b3fe277f6712fcec586375eb06c4f7053ec699a0d42debf3289",
+  "10x5+mix+bv3_mcTAl030_merged_s111.pth": "a03785dd13964ce490d0280287f8f43a67a7696636291cc54be10f72359e4819",
+  "10x5+mix+bv3_mcTAl050_merged_s111.pth": "09e97086cab81d2ae2311f806cf915fa383475a07c43b8d44d0ec997348507ca",
+  "10x5+mix+bv3_mcTAl070_merged_s111.pth": "6dc82ee3dc866b3fe277f6712fcec586375eb06c4f7053ec699a0d42debf3289",
+  "10x5+mix+bv3_mcTAl100_merged_s111.pth": "057009a0f2b077fde0c1f09bb769a912944da056988db38a29ed60625bbc2118",
+  "10x5+mix+bv3_mcTIES_start_s111.pth": "07b562ce89c56b01a0de685224a7778775b2666f648e5962f1c9e67f30141aae",
+  "10x5+mix+bv3_mcTIESl030_merged_s111.pth": "07b562ce89c56b01a0de685224a7778775b2666f648e5962f1c9e67f30141aae",
+  "10x5+mix+bv3_mcTIESl050_merged_s111.pth": "0f515a7aad9767624b46ff711ac5ac3df9ff1c2530ee42f09f32623b2017361a",
+  "10x5+mix+bv3_mcTIESl070_merged_s111.pth": "8e613266a48a0f9f67218e207b5555f0d6a42f489ff616dd8c2c08d761fc9273",
+  "10x5+mix+bv3_mcTIESl100_merged_s111.pth": "d619e6b469326d53c03f776eca7971aa46da7c9b32a736a2824d81a948915d71",
+  "10x5+mix+bv3_mcbase_s111.pth": "6d69cd050827b3944481d8470105f903c4b6bab5466a6a002a8e6ded4b129fd8",
+  "10x5+mix+bv3_mcft_c_s111.pth": "91ff11ddd5f59c7a43c254f93e74a8ea21205c29b074cb2be6a817d6654cd718",
+  "10x5+mix+bv3_mcft_m_s111.pth": "56b1d3b5cb35ca92a60f9915792511be2ba169cb9022bc405f2173cecdc9b5ea",
+  "10x5+mix+bv3_mcft_t_s111.pth": "83032c2ec2731cef235cd4854f4501e18d1308ca12a5531f8a3cbfa5268135fc"
+ }
+}
