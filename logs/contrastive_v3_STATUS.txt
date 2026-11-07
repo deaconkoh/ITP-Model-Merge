@@ -1,9 +1,8 @@
-contrastive v3 STATUS   updated 2026-11-07 18:54:47   elapsed 0.8 h   jobs 3   sizes 10x5   seeds 111
+contrastive v3 STATUS   updated 2026-11-07 19:43:17   elapsed 1.6 h   jobs 3   sizes 10x5   seeds 111
 log: logs/contrastive_v3_20261107_180713.log
 
-units: DONE 3, RUNNING 3
-training runs: 0/3 done, 0 failed
-  running 10x5+mix+bv3_cl_CLB_s111: update 1200/2600, latest val HV 0.4435, best 0.4435 @ 1200, RUNNING, train 0.72 h
-  running 10x5+mix+bv3_cl_CLD_s111: update 1000/1000, latest val HV 0.5259, best 0.5405 @ 900, FINISHED, train 0.62 h
-  running 10x5+mix+bv3_cl_CLE_s111: update 1200/3350, latest val HV 0.3223, best 0.3385 @ 550, RUNNING, train 0.72 h
-est. remaining training (rough, jobs 3): 2.0 h (stops near 2000 updates) to 2.0 h (cap)
+units: DONE 4, RUNNING 2
+training runs: 1/3 done, 0 failed
+  running 10x5+mix+bv3_cl_CLB_s111: update 2600/2600, latest val HV 0.5044, best 0.5198 @ 2450, FINISHED, train 1.48 h
+  running 10x5+mix+bv3_cl_CLE_s111: update 2750/3350, latest val HV 0.3944, best 0.3944 @ 2750, RUNNING, train 1.53 h
+est. remaining training (rough, jobs 3): 0.3 h (stops near 2000 updates) to 0.3 h (cap)
