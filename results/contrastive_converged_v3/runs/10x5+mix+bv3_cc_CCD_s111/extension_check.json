@@ -1,0 +1,25 @@
+{
+ "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_cl_CLD_s111.resume.pth",
+ "resume_from_sha256": "a8c8b5b7bea03ddc9276326af59080b0bc7e83d782393007b909e92417083a69",
+ "source_model": "10x5+mix+bv3_cl_CLD_s111",
+ "next_update": 1000,
+ "changed": {
+  "converge_window": [
+   0,
+   1000
+  ],
+  "min_updates": [
+   0,
+   1000
+  ],
+  "model_name": [
+   "10x5+mix+bv3_cl_CLD_s111",
+   "10x5+mix+bv3_cc_CCDchk_s111"
+  ]
+ },
+ "logged_update": 1000,
+ "logged_hv": 0.5259410062275226,
+ "reproduced_hv": 0.5259410062275226,
+ "exact": true,
+ "source_status": "FINISHED"
+}

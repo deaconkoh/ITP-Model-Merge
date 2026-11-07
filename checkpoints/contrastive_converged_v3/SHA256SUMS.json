@@ -1,0 +1,9 @@
+{
+ "description": "SHA-256 of every committed checkpoint of the merge-category study (docs/merge_categories_protocol_v3.md)",
+ "files": {
+  "10x5+mix+bv3_cc_CCD_s111.pth": "a517b47076aae22a3499f3a58b4ca8287d5feebab604d7253367c0ee6a338a71",
+  "sources/10x5+mix+bv3_cl_CLB_s111.resume.pth": "a850462c4859b2dbf2c8c1f4ae5ba5602774d07c6c28cb6eb968d2850a6c2fe7",
+  "sources/10x5+mix+bv3_cl_CLD_s111.resume.pth": "a8c8b5b7bea03ddc9276326af59080b0bc7e83d782393007b909e92417083a69",
+  "sources/10x5+mix+bv3_cl_CLE_s111.resume.pth": "582941d4ab23cdeb1d60dee74d707b309897b15b95580f20fa2520fbb678b3dc"
+ }
+}
