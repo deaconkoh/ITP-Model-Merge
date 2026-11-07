@@ -17,6 +17,11 @@ M/C/T fine-tunes from it (u_shared_base, unchanged), builds the shared-base aver
 (lambda chosen on the validation grid), evaluates each zero-training merge and fine-tunes each merge with the contrastive
 objective (results/merge_categories_v3, run tag "mc", frozen inputs in configs/merge_categories_v3.json). Starting
 networks and best checkpoints are committed to checkpoints/merge_categories_v3/ with SHA-256 hashes.
+
+Converged contrastive arms (docs/contrastive_converged_protocol_v3.md): --arms CC-B,CC-D,CC-E,CC-SBAVG,CC-TA,CC-TIES
+--seeds 111 runs every contrastive arm under the PPO stopping rule with a cap of 8,000 updates: an arm whose logged history
+never met the rule continues from its saved final state (after an exactness check), the others rerun from their starting
+networks (results/contrastive_converged_v3, run tag "cc", frozen inputs in configs/contrastive_converged_v3.json).
 """
 from __future__ import annotations
 import argparse, hashlib, json, os, re, shutil, signal, subprocess, sys, threading, time
@@ -44,6 +49,11 @@ MC_ORDER = ["SBAVG", "TA", "TIES"]
 MC_LABEL = {"SBAVG": "SB-AVG (shared-base average, contrastive)", "TA": "TA (Task Arithmetic, contrastive)",
             "TIES": "TIES (TIES-Merging, contrastive)"}
 CKPT = REPO / "checkpoints" / "merge_categories_v3"     # checkpoints/merge_categories_v3_smoke under --smoke
+CC_ORDER = ["CCD", "CCB", "CCE", "CCTA", "CCTIES", "CCSBAVG"]   # longest expected first (three jobs share the GPU)
+CC_LABEL = {"CCB": "From scratch (contrastive, to convergence)", "CCD": "Distillation (contrastive, to convergence)",
+            "CCE": "Naive weight average (contrastive, to convergence)",
+            "CCSBAVG": "Model Soup (shared base) (contrastive, to convergence)",
+            "CCTA": "Task Arithmetic (contrastive, to convergence)", "CCTIES": "TIES (contrastive, to convergence)"}
 
 
 def settings(smoke):
@@ -66,8 +76,12 @@ class Runner:
         self.sizes = a.sizes.split()
         self.seeds = [int(x) for x in a.seeds.split()]
         arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.replace(",", " ").split()]
+        self.cc = any(x in CC_ORDER for x in arms)
         self.mc = any(x in MC_ORDER for x in arms)
-        self.cl = self.mc or any(x in CL_ORDER for x in arms)
+        self.cl = self.cc or self.mc or any(x in CL_ORDER for x in arms)
+        if self.cc:
+            self.init_converged(a, arms)
+            return
         if self.mc:
             self.init_merge_categories(a, arms)
             return
@@ -140,6 +154,26 @@ class Runner:
         self.ckpt_lock = threading.Lock()
         self.cl_common(a)
 
+    def init_converged(self, a, arms):
+        """Converged mode: the six contrastive arms under the PPO stopping rule; inputs from the verified manifest."""
+        bad = set(arms) - set(CC_ORDER)
+        if bad:
+            raise SystemExit(f"converged contrastive arms cannot be mixed with {sorted(bad)} in one call")
+        if a.with_shared_base:
+            raise SystemExit("--with-shared-base does not apply to the converged contrastive arms")
+        sys.path.insert(0, str(REPO / "tools"))
+        from freeze_contrastive_converged_v3 import load
+        m = load()                                          # fails loudly on a hash mismatch
+        if self.sizes != [m["size"]] or self.seeds != [m["seed"]]:
+            raise SystemExit(f"converged arms are frozen for size {m['size']} and seed {m['seed']} "
+                             "(configs/contrastive_converged_v3.json)")
+        self.ccm, self.cc_mode = m, {}
+        self.manifest = {"size": m["size"], "seed": m["seed"], "constants": m["contrastive"]["constants"],
+                         "validation_norm": m["validation_norm"], "arms": {x: {"updates": m["rule"]["cap"]} for x in CC_ORDER}}
+        self.arms, self.e0 = [x for x in CC_ORDER if x in arms], False
+        self.ckpt_lock = threading.Lock()
+        self.cl_common(a)
+
     def cl_common(self, a):
         self.s.update(cl_validate=self.manifest["constants"]["validate_timestep"])
         if a.smoke:
@@ -159,6 +193,9 @@ class Runner:
     def cap(self, arm):
         if not self.cl:
             return self.s["cap"]
+        if self.cc and self.a.smoke:                        # 5 updates beyond the start of the (continued) run
+            src = self.ccm["arms"][arm]
+            return (src["fixed_budget"] if self.cc_mode.get(arm, src["mode"]) == "continue" else 0) + 5
         return 5 if self.a.smoke else self.manifest["arms"][arm]["updates"]
 
     def chunk(self, size):
@@ -350,6 +387,8 @@ class Runner:
         return False
 
     def mo_args(self, arm, size, seed):
+        if self.cc:
+            return self.cc_args(arm, size, seed, self.cc_mode[arm])
         if self.cl:
             return self.cl_args(arm, size, seed)
         nj, nm = size.split("x")
@@ -417,8 +456,10 @@ class Runner:
         if (rdir / "status.json").exists() and (edir / f"{name}.json").exists():
             return True
         rdir.mkdir(parents=True, exist_ok=True); (rdir / "FAILED").unlink(missing_ok=True)
+        if self.cc and not self.cc_prepare(arm, size, seed, slot, rdir):
+            return False
         m = json.loads((rdir / "run_meta.json").read_text()) if (rdir / "run_meta.json").exists() else {}
-        m.update(arm=arm, label={**ARM_LABEL, **CL_LABEL, **MC_LABEL}[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
+        m.update(arm=arm, label={**ARM_LABEL, **CL_LABEL, **MC_LABEL, **CC_LABEL}[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
                  omp_threads=self.slot_threads, host=self.host())
         (rdir / "run_meta.json").write_text(json.dumps(m, indent=1))
         if not self.train_chunks(name, self.mo_args(arm, size, seed), size, slot, self.cap(arm), self.chunk(size), rdir):
@@ -429,6 +470,8 @@ class Runner:
         for f, dst in ((TL / f"valiquality_{name}.json", "valiquality.json"), (TL / f"reward_{name}.json", "reward.json"),
                        (TL / f"{name}.run.json", "run.json"), (TL / f"{name}.status.json", "status.json")):
             (rdir / dst).write_text(f.read_text())
+        if (TL / f"{name}.extension.json").exists():
+            (rdir / "extension.json").write_text((TL / f"{name}.extension.json").read_text())
         st = json.loads((rdir / "status.json").read_text())
         self.log(f"{name}: {st['status']} at update {st['update']}, best val HV {-st['best_value']:.4f} "
                  f"@ {st['best_update']}, train {st['train_seconds'] / 3600:.2f} h")
@@ -436,9 +479,79 @@ class Runner:
             (rdir / "FAILED").write_text(f"evaluation failed twice at {time.strftime('%F %T')}\n")
             self.commit(f"{PREFIX}: {name} evaluation FAILED", rdir)
             return False
-        if self.mc:
+        if self.mc or self.cc:
             self.save_ckpt(TN / f"{name}.pth")              # the best-validation checkpoint
-        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE, *([CKPT] if self.mc else []))
+        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE, *([CKPT] if self.mc or self.cc else []))
+        return True
+
+    # ------------------------------------------------------------------ converged contrastive arms
+    def cc_args(self, arm, size, seed, mode, suffix=None):
+        """The CL arms' flags plus the stopping rule; continue: the source run's identity strings and --resume_from;
+        rerun: the source's starting network."""
+        src, rule = self.ccm["arms"][arm], self.ccm["rule"]
+        a = self.cl_args("-", size, seed)
+        def put(flag, value):
+            a[a.index(flag) + 1] = str(value)
+        put("--model_suffix", suffix or f"bv3_{TAG}_{arm}_s{seed}")
+        put("--converge_window", rule["converge_window"])
+        a += ["--converge_tol", str(rule["converge_tol"]), "--min_updates", str(rule["min_updates"])]
+        si = src["source_init"]
+        if mode == "continue":                              # identity strings exactly as in the source run
+            put("--mo_val_norm", si["mo_val_norm"]); put("--mo_val_first", si["mo_val_first"])
+            put("--validate_timestep", self.manifest["constants"]["validate_timestep"])
+            if si["init_from"]:
+                a += ["--init_from", si["init_from"], "--init_mode", si["init_mode"]]
+            a += ["--resume_from", src["resume_from"]]
+        else:
+            start = self.rerun_start(arm)
+            if start:
+                a += ["--init_from", str(start), "--init_mode", src["rerun_start"]["init_mode"]]
+        return a
+
+    def rerun_start(self, arm):
+        rs = self.ccm["arms"][arm]["rerun_start"]
+        if not rs.get("path"):
+            return None                                     # random initialisation, seed 111
+        for cand in (REPO / rs["path"], Path(self.ccm["arms"][arm]["source_init"]["init_from"] or "/nonexistent")):
+            if cand.exists() and hashlib.sha256(cand.read_bytes()).hexdigest() == rs["sha256"]:
+                return cand
+        raise RuntimeError(f"starting network of {arm} not found with its frozen SHA-256")
+
+    def cc_prepare(self, arm, size, seed, slot, rdir):
+        """Decide continue/rerun once per arm (mode.json): a continued arm must first pass the exactness check in a
+        0-update probe (rebuilt instance batch, last validation HV reproduced); if it cannot (exit code 3), it reruns
+        from its starting network. The source files used are copied to the committed checkpoint folder."""
+        f = rdir / "mode.json"
+        if f.exists():
+            self.cc_mode[arm] = json.loads(f.read_text())["mode"]
+            return True
+        src = self.ccm["arms"][arm]
+        rec = {"planned": src["mode"], "reason": src["reason"], "mode": src["mode"]}
+        if src["mode"] == "continue":
+            probe = f"bv3_{TAG}_{arm}chk_s{seed}"; pname = f"{size}+mix+{probe}"
+            rc = self.run([PY, "train.py", *self.cc_args(arm, size, seed, "continue", suffix=probe), "--resume", "True",
+                           "--max_updates", str(src["fixed_budget"]), "--chunk_updates", "0", "--device", "cuda"],
+                          timeout=1800, cpus=self.slots[slot], threads=self.slot_threads, cwd=REPO / "daniel",
+                          out=TL / f"{pname}.stdout.log")
+            ext = TL / f"{pname}.extension.json"
+            if ext.exists():
+                (rdir / "extension_check.json").write_text(ext.read_text())
+            for p in list(TN.glob(f"{pname}*")) + list(TL.glob(f"*{pname}*")):
+                p.unlink(missing_ok=True)
+            if rc == 3:
+                rec.update(mode="rerun", fallback="the saved final state could not be resumed exactly (exit code 3); "
+                                                  "rerun from the starting network")
+                self.log(f"{arm}: not exactly resumable; rerunning from its starting network")
+            elif rc != 0:
+                self.log(f"{arm}: extension check FAILED (rc {rc})")
+                return False
+            else:
+                self.save_ckpt(Path(src["resume_from"]), sub="sources")
+                self.log(f"{arm}: extension check passed; continuing from update {src['fixed_budget']}")
+        if rec["mode"] == "rerun" and self.rerun_start(arm):
+            self.save_ckpt(self.rerun_start(arm), sub="sources")
+        f.write_text(json.dumps(rec, indent=1) + "\n")
+        self.cc_mode[arm] = rec["mode"]
         return True
 
     def evaluate(self, model, size, slot):
@@ -461,17 +574,17 @@ class Runner:
         """The unconditioned starting network of a merge-category arm (written by u_lambda)."""
         return TN / f"{size}+mix+bv3_{TAG}{arm}_start_s{seed}.pth"
 
-    def save_ckpt(self, src):
+    def save_ckpt(self, src, sub=""):
         """Copy a checkpoint to the committed folder and record its SHA-256 in SHA256SUMS.json."""
         with self.ckpt_lock:
-            CKPT.mkdir(parents=True, exist_ok=True)
-            dst = CKPT / Path(src).name
+            (CKPT / sub).mkdir(parents=True, exist_ok=True)
+            dst = CKPT / sub / Path(src).name
             shutil.copy2(src, dst)
             f = CKPT / "SHA256SUMS.json"
             rec = json.loads(f.read_text()) if f.exists() else {"description": "SHA-256 of every committed checkpoint of "
                                                                 "the merge-category study (docs/merge_categories_protocol_v3.md)",
                                                                 "files": {}}
-            rec["files"][dst.name] = hashlib.sha256(dst.read_bytes()).hexdigest()
+            rec["files"][str(dst.relative_to(CKPT))] = hashlib.sha256(dst.read_bytes()).hexdigest()
             rec["files"] = dict(sorted(rec["files"].items()))
             f.write_text(json.dumps(rec, indent=1) + "\n")
 
@@ -575,6 +688,13 @@ class Runner:
                 U.append((f"normdev:{size}", "normdev", (size,), [], False))
         if self.mc:
             return self.plan_mc(U)
+        if self.cc:
+            for size in self.sizes:
+                for seed in self.seeds:
+                    for arm in self.arms:
+                        U.append((f"train:{arm}:{size}:{seed}", "train", (arm, size, seed),
+                                  [f"normdev:{size}"] if self.a.smoke else [], True))
+            return U
             if not self.cl:                                     # CL: frozen validation points (manifest)
                 U.append((f"norm:{size}", "norm", (size,), [], False))
         for size in self.sizes:
@@ -760,7 +880,12 @@ def main():
     ap.add_argument("--log", default=str(REPO / "logs" / "warmstart_v3_runner.log"))
     a = ap.parse_args()
     global RES, TAG, STATUS_FILE, PREFIX, CKPT
-    if any(x.replace("-", "") in MC_ORDER for x in a.arms.replace(",", " ").split()):
+    if any(x.replace("-", "") in CC_ORDER for x in a.arms.replace(",", " ").split()):
+        study = "contrastive_converged_v3"
+        RES, TAG = REPO / "results" / (study + "_smoke" if a.smoke else study), "ccs" if a.smoke else "cc"
+        STATUS_FILE, PREFIX = REPO / "logs" / f"{study}_STATUS.txt", "contrastive converged v3"
+        CKPT = REPO / "checkpoints" / (study + "_smoke" if a.smoke else study)
+    elif any(x.replace("-", "") in MC_ORDER for x in a.arms.replace(",", " ").split()):
         RES, TAG = REPO / "results" / ("merge_categories_v3_smoke" if a.smoke else "merge_categories_v3"), "mcs" if a.smoke else "mc"
         STATUS_FILE, PREFIX = REPO / "logs" / "merge_categories_v3_STATUS.txt", "merge categories v3"
         CKPT = REPO / "checkpoints" / ("merge_categories_v3_smoke" if a.smoke else "merge_categories_v3")

@@ -25,6 +25,9 @@
 #   bash scripts/ec2_run_all.sh --arms SB-AVG,TA,TIES --seeds 111 --jobs 3       [--smoke: 20-update base/fine-tunes,
 #   2 lambdas, 5 CL updates] -> results/merge_categories_v3/, results/merge_categories_v3.md,
 #   checkpoints/merge_categories_v3/ (with SHA256SUMS.json), logs/merge_categories_v3_STATUS.txt
+# Converged contrastive arms (docs/contrastive_converged_protocol_v3.md), the PPO stopping rule, cap 8,000 updates:
+#   bash scripts/ec2_run_all.sh --arms CC-B,CC-D,CC-E,CC-SBAVG,CC-TA,CC-TIES --seeds 111 --jobs 3   [--smoke: 5 updates]
+#   -> results/contrastive_converged_v3/, results/contrastive_converged_v3.md, checkpoints/contrastive_converged_v3/
 # Resume (also after a spot interruption on the same volume): run the same command again.
 # Progress: bash scripts/ec2_status.sh
 set -u -o pipefail
@@ -57,6 +60,7 @@ STATUS_FILE="logs/warmstart_v3_STATUS.txt"
 STUDY="warmstart_v3"                                            # contrastive_v3 for the CL arms
 case "$ARMS" in *CL*) STUDY="contrastive_v3"; STATUS_FILE="logs/contrastive_v3_STATUS.txt" ;; esac
 case "$ARMS" in *SB-AVG*|*SBAVG*|*TA*|*TIES*) STUDY="merge_categories_v3"; STATUS_FILE="logs/merge_categories_v3_STATUS.txt" ;; esac
+case "$ARMS" in *CC-*|*CCB*|*CCD*|*CCE*) STUDY="contrastive_converged_v3"; STATUS_FILE="logs/contrastive_converged_v3_STATUS.txt" ;; esac
 PY="$REPO/.venv/bin/python"
 export WANDB_MODE=offline HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1
 
@@ -87,6 +91,7 @@ if [ "$WORKER" = 1 ]; then
   fi
   ANALYSIS="tools/analyze_warmstart_v3.py"; [ "$STUDY" = contrastive_v3 ] && ANALYSIS="tools/analyze_contrastive_v3.py"
   [ "$STUDY" = merge_categories_v3 ] && ANALYSIS="tools/analyze_merge_categories_v3.py"
+  [ "$STUDY" = contrastive_converged_v3 ] && ANALYSIS="tools/analyze_contrastive_converged_v3.py"
   say "analysis: $ANALYSIS"
   timeout 3600 "$PY" "$ANALYSIS" "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
   say "DONE: git push when ready"
@@ -142,6 +147,9 @@ DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart
         ':!logs/merge_categories_v3_*' ':!results/merge_categories_v3' ':!results/merge_categories_v3.md' \
         ':!results/merge_categories_v3_smoke' ':!results/merge_categories_v3_smoke.md' \
         ':!checkpoints/merge_categories_v3' ':!checkpoints/merge_categories_v3_smoke' \
+        ':!logs/contrastive_converged_v3_*' ':!results/contrastive_converged_v3' ':!results/contrastive_converged_v3.md' \
+        ':!results/contrastive_converged_v3_smoke' ':!results/contrastive_converged_v3_smoke.md' \
+        ':!checkpoints/contrastive_converged_v3' ':!checkpoints/contrastive_converged_v3_smoke' \
         ':!logs/baselines_v3_console.out')
 [ -z "$DIRTY" ] || die "git tree not clean: $(echo "$DIRTY" | head -5 | tr '\n' ' ')"
 "$PY" tools/ec2_inputs.py verify >>"$LOG" 2>&1 || die "input hash verification failed (see $LOG)"
@@ -149,11 +157,14 @@ DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart
 if [ "$STUDY" = contrastive_v3 ]; then
   "$PY" tools/freeze_contrastive_v3.py verify >>"$LOG" 2>&1 || die "configs/contrastive_v3.json verification failed"
 fi
+if [ "$STUDY" = contrastive_converged_v3 ]; then
+  "$PY" tools/freeze_contrastive_converged_v3.py verify >>"$LOG" 2>&1 || die "configs/contrastive_converged_v3.json verification failed"
+fi
 if [ "$STUDY" = merge_categories_v3 ]; then
   "$PY" tools/freeze_merge_categories_v3.py verify >>"$LOG" 2>&1 || die "configs/merge_categories_v3.json verification failed"
 fi
 OUT=$("$PY" -m unittest tests.test_benchmark_v3 tests.test_baselines_v3 tests.test_mo_daniel_v3 tests.test_warmstart_v3 \
-      tests.test_contrastive_v3 tests.test_merge_categories_v3 2>&1)
+      tests.test_contrastive_v3 tests.test_merge_categories_v3 tests.test_contrastive_converged_v3 2>&1)
 RC=$?; echo "$OUT" | tail -15 >>"$LOG"
 [ $RC -eq 0 ] || die "v3 / MO / warm-start / contrastive / merge-category test suites failed (see $LOG)"
 echo "$OUT" | grep -q "skipped" && die "a test was skipped"

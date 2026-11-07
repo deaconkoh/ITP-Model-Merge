@@ -167,6 +167,11 @@ parser.add_argument('--chunk_updates', type=int, default=0,
                          '(0 disables; must be a multiple of --reset_env_timestep and --validate_timestep)')
 parser.add_argument('--resume', type=str2bool, default=False,
                     help='Continue from <model>.resume.pth (optimiser and RNG states included) if it exists')
+parser.add_argument('--resume_from', type=str, default='',
+                    help='Extend a finished run (docs/contrastive_converged_protocol_v3.md): when <model>.resume.pth does '
+                         'not exist yet, continue from this resume state of another run. Its identity may differ only in '
+                         'the model name and the stopping rule (converge_window, converge_tol, min_updates, max_updates); '
+                         'the resumed policy must reproduce the last logged validation HV exactly (exit code 3 if not)')
 # v3 MO-DANIEL (docs/evaluation_protocol_v3.md, Addendum A); every default leaves earlier behaviour unchanged
 parser.add_argument('--preference_dim', type=int, default=0, choices=[0, 3],
                     help='3 = preference-conditioned DANIEL: w = (w_m, w_c, w_t) appended to the actor and critic inputs, '
@@ -267,3 +272,5 @@ if configs.finetune_objective == 'contrastive':
         raise ValueError('--finetune_objective contrastive needs --preference_dim 3 and --v3_train_source generator')
     if configs.cl_k < 2:
         raise ValueError('--cl_k must be at least 2 (pairs are formed inside a group)')
+if configs.resume_from and not configs.resume:
+    raise ValueError('--resume_from needs --resume True')

@@ -613,16 +613,34 @@ class Trainer:
                  "best_bundle": torch.load(best, map_location="cpu", weights_only=False) if best.exists() else None,
                  "generator": (gen.generated, gen.collisions) if gen else None,
                  "pref_rng": self.pref_rng.bit_generator.state if getattr(self, "mo", False) else None}
+        if getattr(self, "cl", False):
+            state["cl_batch"] = getattr(self, "cl_batch", None)      # the current instance batch (resampled every
+                                                                     # reset_env_timestep updates), for mid-cycle resumes
         path = self.resume_path(); tmp = path.with_suffix(".tmp")
         torch.save(state, tmp)
         os.replace(tmp, path)
 
+    EXTENDABLE = {"model_name", "converge_window", "converge_tol", "min_updates", "max_updates"}
+    NOT_EXACT = 3                                       # exit code: an extension cannot be resumed exactly
+
     def load_resume_state(self):
         path = self.resume_path()
-        if not path.exists():
+        src = getattr(self.config, "resume_from", "")
+        extend = not path.exists() and bool(src)
+        if not path.exists() and not extend:
             return 0
+        if extend:
+            path = Path(src)
         state = torch.load(path, map_location=device, weights_only=False)
-        if state["identity"] != self.run_identity():
+        ident = self.run_identity()
+        if extend:
+            diff = sorted(k for k in set(state["identity"]) | set(ident) if state["identity"].get(k) != ident.get(k))
+            if not set(diff) <= self.EXTENDABLE:
+                raise ValueError(f"resume state {path} differs in {[k for k in diff if k not in self.EXTENDABLE]}; "
+                                 "an extension may change only the model name and the stopping rule")
+            if getattr(self, "cl", False):
+                self.restore_cl_batch(state)
+        elif state["identity"] != ident:
             raise ValueError(f"resume state {path} belongs to a different run configuration")
         self.ppo.policy.load_state_dict(state["policy"])
         self.ppo.policy_old.load_state_dict(state["policy_old"])
@@ -641,8 +659,58 @@ class Trainer:
         random.setstate(rng["python"]); np.random.set_state(rng["numpy"]); torch.set_rng_state(rng["torch"].cpu())
         if rng["cuda"] is not None and torch.cuda.is_available():
             torch.cuda.set_rng_state_all([r.cpu() for r in rng["cuda"]])
+        if (getattr(self, "cl", False) and state.get("cl_batch") is not None
+                and state["next_update"] % self.reset_env_timestep):   # mid-cycle: the next updates reuse this batch
+            self.set_cl_batch(state["cl_batch"])
+        if extend:
+            self.verify_extension(path, state, diff)
         print(f"resumed {self.model_name} at update {state['next_update']} ({self.run_status})")
         return state["next_update"]
+
+    def set_cl_batch(self, batch):
+        self.cl_batch = batch
+        idx = [i for i in range(self.num_envs) for _ in range(self.config.cl_k)]
+        self.env.set_initial_data(**batch.env_kwargs(idx, self.config.goal))
+
+    def restore_cl_batch(self, state):
+        """Extension of a contrastive run whose resume state predates the saved instance batch: when it stops between two
+        resamplings, rebuild the current batch by replaying the instance generator from the seed (it alone draws from
+        the global numpy stream). Exact only if the replay ends in the saved numpy state and generator counters."""
+        u = state["next_update"]
+        if u % self.reset_env_timestep == 0 or state.get("cl_batch") is not None:
+            return                                      # the next update samples a fresh batch, or the batch is saved
+        for _ in range(u // self.reset_env_timestep + 1):
+            batch = self.v3_generator.sample(self.num_envs)
+        saved, now = state["rng"]["numpy"], np.random.get_state()
+        exact = (saved[0] == now[0] and np.array_equal(saved[1], now[1]) and tuple(saved[2:]) == tuple(now[2:])
+                 and (self.v3_generator.generated, self.v3_generator.collisions) == tuple(state["generator"]))
+        if not exact:
+            print(f"cannot rebuild the instance batch of update {u} exactly; not resumable", flush=True)
+            sys.exit(self.NOT_EXACT)
+        state["cl_batch"] = batch
+        print(f"rebuilt the instance batch of update {u} by replaying the generator (numpy state and counters match)")
+
+    def verify_extension(self, path, state, diff):
+        """The resumed policy must reproduce the last logged validation HV exactly (RNG states untouched); the run then
+        continues under the new stopping rule. Writes <model>.extension.json."""
+        rng = (random.getstate(), np.random.get_state(), torch.get_rng_state(),
+               torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None)
+        hv = self.validate_mo()["hv"]
+        random.setstate(rng[0]); np.random.set_state(rng[1]); torch.set_rng_state(rng[2])
+        if rng[3] is not None:
+            torch.cuda.set_rng_state_all(rng[3])
+        logged = self.validation_log[-1]
+        rec = {"resume_from": str(path), "resume_from_sha256": hashlib.sha256(Path(path).read_bytes()).hexdigest(),
+               "source_model": state["identity"]["model_name"], "next_update": state["next_update"],
+               "changed": {k: [state["identity"].get(k), self.run_identity().get(k)] for k in diff},
+               "logged_update": logged["update"], "logged_hv": logged["hv"], "reproduced_hv": hv,
+               "exact": abs(hv - logged["hv"]) <= 1e-9, "source_status": state["run_status"]}
+        Path(f'./train_log/{self.data_source}/{self.model_name}.extension.json').write_text(json.dumps(rec, indent=1))
+        if not rec["exact"]:
+            print(f"resumed policy gives validation HV {hv} vs logged {logged['hv']}; not resumable", flush=True)
+            sys.exit(self.NOT_EXACT)
+        print(f"extension check: validation HV {hv:.10f} at update {logged['update']} reproduced exactly")
+        self.run_status = "RUNNING"                     # the source run had FINISHED; the new rule decides now
 
     def save_training_log(self):
         """

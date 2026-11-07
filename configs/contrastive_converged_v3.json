@@ -1,0 +1,183 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "rule": {
+  "converge_window": 1000,
+  "converge_tol": 0.005,
+  "min_updates": 1000,
+  "cap": 8000,
+  "statement": "stop once the best validation HV has improved by less than 0.5% over the last 1,000 updates, after at least 1,000 updates (the PPO warm-start rule, daniel/convergence.py); hard cap 8,000 updates, reported as 'capped'"
+ },
+ "arms": {
+  "CCB": {
+   "name": "From scratch",
+   "source_run": "10x5+mix+bv3_cl_CLB_s111",
+   "source_dir": "results/contrastive_v3/runs/10x5+mix+bv3_cl_CLB_s111",
+   "source_valiquality_sha256": "a434bc159b2143604301928185a7e2acc8dbf231301777f95b3d5a88b1a0db8d",
+   "fixed_budget": 2600,
+   "replay_stop_update": null,
+   "mode": "continue",
+   "reason": "the rule never stops the logged history (0-2600); continue from the saved final state",
+   "source_init": {
+    "init_from": "",
+    "init_mode": "exact",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": null
+   },
+   "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_cl_CLB_s111.resume.pth",
+   "resume_from_sha256": "a850462c4859b2dbf2c8c1f4ae5ba5602774d07c6c28cb6eb968d2850a6c2fe7",
+   "rerun_start": {
+    "path": null,
+    "note": "random initialisation, seed 111 (as the source run)"
+   }
+  },
+  "CCD": {
+   "name": "Distillation",
+   "source_run": "10x5+mix+bv3_cl_CLD_s111",
+   "source_dir": "results/contrastive_v3/runs/10x5+mix+bv3_cl_CLD_s111",
+   "source_valiquality_sha256": "0c2c80f8b809752865a26eb7ff9ba13f8f79eec6d586a4c43a654069accb5865",
+   "fixed_budget": 1000,
+   "replay_stop_update": null,
+   "mode": "continue",
+   "reason": "the rule never stops the logged history (0-1000); continue from the saved final state",
+   "source_init": {
+    "init_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_clD_student_s111.pth",
+    "init_mode": "no_critic",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": "0c8ec5285588520bc641f3bd96492d9c2321f5a9937c67c361d0b39d223d2875"
+   },
+   "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_cl_CLD_s111.resume.pth",
+   "resume_from_sha256": "a8c8b5b7bea03ddc9276326af59080b0bc7e83d782393007b909e92417083a69",
+   "rerun_start": {
+    "path": "daniel/trained_network/SD2/10x5+mix+bv3_clD_student_s111.pth",
+    "sha256": "0c8ec5285588520bc641f3bd96492d9c2321f5a9937c67c361d0b39d223d2875",
+    "init_mode": "no_critic"
+   }
+  },
+  "CCE": {
+   "name": "Naive weight average (independent specialists)",
+   "source_run": "10x5+mix+bv3_cl_CLE_s111",
+   "source_dir": "results/contrastive_v3/runs/10x5+mix+bv3_cl_CLE_s111",
+   "source_valiquality_sha256": "5818092f007fc800418c37ab679c2bc452642f6750ca057bc834d9003d7d350f",
+   "fixed_budget": 3350,
+   "replay_stop_update": null,
+   "mode": "continue",
+   "reason": "the rule never stops the logged history (0-3350); continue from the saved final state",
+   "source_init": {
+    "init_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_clE_merged_s111.pth",
+    "init_mode": "full",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": "3c2bbd7b35e83b6e9c5e2e30ab05952fc580e6a64a6ec30e0cee1b86ece6635f"
+   },
+   "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_cl_CLE_s111.resume.pth",
+   "resume_from_sha256": "582941d4ab23cdeb1d60dee74d707b309897b15b95580f20fa2520fbb678b3dc",
+   "rerun_start": {
+    "path": "daniel/trained_network/SD2/10x5+mix+bv3_clE_merged_s111.pth",
+    "sha256": "3c2bbd7b35e83b6e9c5e2e30ab05952fc580e6a64a6ec30e0cee1b86ece6635f",
+    "init_mode": "full"
+   }
+  },
+  "CCSBAVG": {
+   "name": "Model Soup (shared base)",
+   "source_run": "10x5+mix+bv3_mc_SBAVG_s111",
+   "source_dir": "results/merge_categories_v3/runs/10x5+mix+bv3_mc_SBAVG_s111",
+   "source_valiquality_sha256": "e7586a872d73e5754702cd57f64a6fab04fc992dbff3cf594b8b47488beb725f",
+   "fixed_budget": 3350,
+   "replay_stop_update": 1800,
+   "mode": "rerun",
+   "reason": "the rule would have stopped at update 1800, before the fixed budget 3350; rerun from the saved starting network",
+   "source_init": {
+    "init_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcSBAVG_start_s111.pth",
+    "init_mode": "full",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": "848c0a64c96da7afc81df29d46ed7c9c74a69dbfab3c825dbc82a68cb6656214"
+   },
+   "rerun_start": {
+    "path": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcSBAVG_start_s111.pth",
+    "sha256": "848c0a64c96da7afc81df29d46ed7c9c74a69dbfab3c825dbc82a68cb6656214",
+    "init_mode": "full"
+   }
+  },
+  "CCTA": {
+   "name": "Task Arithmetic",
+   "source_run": "10x5+mix+bv3_mc_TA_s111",
+   "source_dir": "results/merge_categories_v3/runs/10x5+mix+bv3_mc_TA_s111",
+   "source_valiquality_sha256": "255c3549310a6c7e54620f1c6892d3bf651f7a8e0043cb334e18b7f9002d6c4a",
+   "fixed_budget": 3350,
+   "replay_stop_update": null,
+   "mode": "continue",
+   "reason": "the rule never stops the logged history (0-3350); continue from the saved final state",
+   "source_init": {
+    "init_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTA_start_s111.pth",
+    "init_mode": "full",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": "6dc82ee3dc866b3fe277f6712fcec586375eb06c4f7053ec699a0d42debf3289"
+   },
+   "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mc_TA_s111.resume.pth",
+   "resume_from_sha256": "98704ab85ed3c41d45f8a9ab4959983cdc6c649be57604d582126d317da211ea",
+   "rerun_start": {
+    "path": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcTA_start_s111.pth",
+    "sha256": "6dc82ee3dc866b3fe277f6712fcec586375eb06c4f7053ec699a0d42debf3289",
+    "init_mode": "full"
+   }
+  },
+  "CCTIES": {
+   "name": "TIES",
+   "source_run": "10x5+mix+bv3_mc_TIES_s111",
+   "source_dir": "results/merge_categories_v3/runs/10x5+mix+bv3_mc_TIES_s111",
+   "source_valiquality_sha256": "8e6b7b8a7d785c05d604d20de9b4fe922f76a304a2f332b7b03906a144283265",
+   "fixed_budget": 3350,
+   "replay_stop_update": 2500,
+   "mode": "rerun",
+   "reason": "the rule would have stopped at update 2500, before the fixed budget 3350; rerun from the saved starting network",
+   "source_init": {
+    "init_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTIES_start_s111.pth",
+    "init_mode": "full",
+    "mo_val_norm": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+    "mo_val_first": 0,
+    "init_from_sha256": "07b562ce89c56b01a0de685224a7778775b2666f648e5962f1c9e67f30141aae"
+   },
+   "rerun_start": {
+    "path": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcTIES_start_s111.pth",
+    "sha256": "07b562ce89c56b01a0de685224a7778775b2666f648e5962f1c9e67f30141aae",
+    "init_mode": "full"
+   }
+  }
+ },
+ "contrastive": {
+  "source": "configs/contrastive_v3.json",
+  "source_sha256": "df851486354f209ee3b147518460c1ada4986706a41bdfa0be4432ca4282720b",
+  "constants": {
+   "cl_k": 8,
+   "cl_beta": 0.1,
+   "cl_margin": 0.01,
+   "cl_grad_clip": 1.0,
+   "lr": 0.0003,
+   "minibatch_size": 1024,
+   "validate_timestep": 50,
+   "converge_window": 0,
+   "mo_val_grid_step": 0.25,
+   "pref_dirichlet": 1.0,
+   "num_envs": 20,
+   "reset_env_timestep": 20
+  }
+ },
+ "validation_norm": {
+  "path": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+  "sha256": "76b55f740e23c839d7d1209e5e29cc6d8b90e6647f75aacc2579ad0240975521"
+ },
+ "setup_costs": {
+  "distillation": {
+   "source": "results/contrastive_v3/distill/10x5+mix+bv3_clD_student_s111.distill.json"
+  },
+  "shared_base": {
+   "source": "results/merge_categories_v3/shared_base/10x5_s111"
+  }
+ },
+ "frozen": "2026-11-08"
+}
