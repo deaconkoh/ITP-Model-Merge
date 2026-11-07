@@ -1,0 +1,129 @@
+[2026-11-07 21:57:17] pre-flight
+inputs verified: 345 files, specialist checkpoints match their reported evaluations
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+merge-categories manifest OK: 3350 updates, lambda grid [0.3, 0.5, 0.7, 1.0], TIES keep 0.2
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+.............................inputs verified: 345 files, specialist checkpoints match their reported evaluations
+......................
+----------------------------------------------------------------------
+Ran 62 tests in 21.622s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.
+----------------------------------------------------------------------
+Ran 1 test in 7.330s
+
+OK
+[2026-11-07 21:57:50] v1 reproduction test passed
+host: NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 610.88; 12 logical CPUs; AMD Ryzen 5 7500F 6-Core Processor
+versions: 3.14.4 torch 2.9.1+cu128 cuda 12.8 numpy 2.5.3 ortools 9.15.6755
+free disk: 849 GB; jobs 3; sizes '10x5'; arms 'SB-AVG,TA,TIES'; seeds '111'; smoke 0; shared-base 0
+[2026-11-07 21:57:51] pre-flight OK
+[2026-11-07 21:57:51] worker started: --sizes 10x5 --arms SB-AVG,TA,TIES --seeds 111 --jobs 3 --log logs/merge_categories_v3_20261107_215717.log
+[2026-11-07 21:57:52] plan: 11 units, jobs 3, training slots ['0-2', '3-5', '6-8'] (3 threads each), CPU lane 9-11
+[2026-11-07 22:00:42] commit: merge categories v3: calibration 10x5
+[2026-11-07 22:00:42] calibration 10x5: 0.832 s/update here vs 0.821 locally (factor 1.01)
+[2026-11-07 22:00:42] unit calib:10x5: DONE
+[2026-11-07 22:00:42] train 10x5+mix+bv3_mcbase_s111: chunk of 500 (status NONE, slot 0, timeout 9723s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcE_merged_s111.pth", "label": "naive merge of independently trained specialists (no shared base); expected to be weak", "sources": ["10x5+mix+bv3_spec_m_s111.pth", "10x5+mix+bv3_spec_c_s111.pth", "10x5+mix+bv3_spec_t_s111.pth"]}
+[2026-11-07 22:00:44] unit merge:10x5:111: DONE
+[2026-11-07 22:07:31] train 10x5+mix+bv3_mcft_m_s111: chunk of 1000 (status NONE, slot 0, timeout 18846s)
+[2026-11-07 22:20:44] train 10x5+mix+bv3_mcft_c_s111: chunk of 1000 (status NONE, slot 0, timeout 18846s)
+[2026-11-07 22:34:05] train 10x5+mix+bv3_mcft_t_s111: chunk of 1000 (status NONE, slot 0, timeout 18846s)
+[2026-11-07 22:47:12] commit: merge categories v3: shared base and fine-tunes 10x5 s111
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcES_merged_s111.pth", "label": "uniform merge of specialists fine-tuned from one shared base (E-shared)", "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:13] unit shared:10x5:111: DONE
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTAl030_merged_s111.pth", "method": "ta", "lambda": 0.3, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:20] lambda TA 0.3: update-0 validation HV 0.2447
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTAl050_merged_s111.pth", "method": "ta", "lambda": 0.5, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:24] lambda TA 0.5: update-0 validation HV 0.2448
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTAl070_merged_s111.pth", "method": "ta", "lambda": 0.7, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:29] lambda TA 0.7: update-0 validation HV 0.2465
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTAl100_merged_s111.pth", "method": "ta", "lambda": 1.0, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:33] lambda TA 1.0: update-0 validation HV 0.2302
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTIESl030_merged_s111.pth", "method": "ties", "lambda": 0.3, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:38] lambda TIES 0.3: update-0 validation HV 0.2508
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTIESl050_merged_s111.pth", "method": "ties", "lambda": 0.5, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:42] lambda TIES 0.5: update-0 validation HV 0.2088
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTIESl070_merged_s111.pth", "method": "ties", "lambda": 0.7, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:46] lambda TIES 0.7: update-0 validation HV 0.2379
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_mcTIESl100_merged_s111.pth", "method": "ties", "lambda": 1.0, "sources": ["10x5+mix+bv3_mcft_m_s111.pth", "10x5+mix+bv3_mcft_c_s111.pth", "10x5+mix+bv3_mcft_t_s111.pth"]}
+[2026-11-07 22:47:51] lambda TIES 1.0: update-0 validation HV 0.1947
+[2026-11-07 22:47:51] commit: merge categories v3: lambda selection and starting networks 10x5 s111
+[2026-11-07 22:47:51] unit lambda:10x5:111: DONE
+[2026-11-07 22:47:52] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status NONE, slot 1, timeout 9723s)
+[2026-11-07 22:47:52] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status NONE, slot 0, timeout 9723s)
+[2026-11-07 22:47:52] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status NONE, slot 2, timeout 9723s)
+[2026-11-07 23:06:29] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-07 23:07:01] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-07 23:07:23] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-07 23:25:10] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-07 23:25:18] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-07 23:27:02] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-07 23:43:28] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-07 23:43:35] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-07 23:45:50] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-08 00:01:25] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-08 00:01:55] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-08 00:04:45] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-08 00:19:39] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-08 00:19:56] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-08 00:23:31] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-08 00:37:51] train 10x5+mix+bv3_mc_TIES_s111: chunk of 500 (status RUNNING, slot 2, timeout 9723s)
+[2026-11-08 00:37:54] train 10x5+mix+bv3_mc_SBAVG_s111: chunk of 500 (status RUNNING, slot 0, timeout 9723s)
+[2026-11-08 00:42:02] train 10x5+mix+bv3_mc_TA_s111: chunk of 500 (status RUNNING, slot 1, timeout 9723s)
+[2026-11-08 00:50:40] 10x5+mix+bv3_mc_SBAVG_s111: FINISHED at update 3350, best val HV 0.3783 @ 3100, train 2.04 h
+[2026-11-08 00:50:41] 10x5+mix+bv3_mc_TIES_s111: FINISHED at update 3350, best val HV 0.4035 @ 3150, train 2.04 h
+[2026-11-08 00:54:23] 10x5+mix+bv3_mc_TA_s111: FINISHED at update 3350, best val HV 0.4108 @ 2700, train 2.10 h
+[2026-11-08 00:55:07] commit: merge categories v3: 10x5+mix+bv3_mc_TIES_s111 (FINISHED)
+[2026-11-08 00:55:07] unit train:TIES:10x5:111: DONE
+[2026-11-08 00:55:19] commit: merge categories v3: 10x5+mix+bv3_mc_SBAVG_s111 (FINISHED)
+[2026-11-08 00:55:19] unit train:SBAVG:10x5:111: DONE
+[2026-11-08 00:58:45] commit: merge categories v3: 10x5+mix+bv3_mc_TA_s111 (FINISHED)
+[2026-11-08 00:58:45] unit train:TA:10x5:111: DONE
+[2026-11-08 00:59:32] zero-training SBAVG: update-0 validation HV 0.2283
+[2026-11-08 00:59:32] commit: merge categories v3: zero-training SBAVG 10x5 s111
+[2026-11-08 00:59:32] unit zeval:SBAVG:10x5:111: DONE
+[2026-11-08 00:59:48] zero-training TA: update-0 validation HV 0.2465
+[2026-11-08 00:59:48] commit: merge categories v3: zero-training TA 10x5 s111
+[2026-11-08 00:59:48] unit zeval:TA:10x5:111: DONE
+[2026-11-08 01:02:59] zero-training TIES: update-0 validation HV 0.2508
+[2026-11-08 01:02:59] commit: merge categories v3: zero-training TIES 10x5 s111
+[2026-11-08 01:02:59] unit zeval:TIES:10x5:111: DONE
+[2026-11-08 01:03:26] zero-training E: update-0 validation HV 0.2871
+[2026-11-08 01:03:26] commit: merge categories v3: zero-training E 10x5 s111
+[2026-11-08 01:03:26] unit zeval:E:10x5:111: DONE
+[2026-11-08 01:03:28] all units finished; FAILED: none
+[2026-11-08 01:03:28] runner finished (rc 0)
+[2026-11-08 01:03:28] analysis: tools/analyze_merge_categories_v3.py
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/merge_categories_v3.md
+[2026-11-08 01:03:30] DONE: git push when ready
