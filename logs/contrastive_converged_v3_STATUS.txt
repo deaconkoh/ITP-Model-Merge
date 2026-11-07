@@ -1,9 +1,9 @@
-contrastive converged v3 STATUS   updated 2026-11-08 03:02:33   elapsed 0.7 h   jobs 3   sizes 10x5   seeds 111
+contrastive converged v3 STATUS   updated 2026-11-08 03:20:03   elapsed 0.9 h   jobs 3   sizes 10x5   seeds 111
 log: logs/contrastive_converged_v3_20261108_022238.log
 
-units: DONE 1, PENDING 3, RUNNING 3
-training runs: 0/6 done, 0 failed
-  running 10x5+mix+bv3_cc_CCD_s111: update 1900/8000, latest val HV 0.5248, best 0.5405 @ 900, CONVERGED, train 1.15 h
-  running 10x5+mix+bv3_cc_CCB_s111: update 3550/8000, latest val HV 0.5401, best 0.5401 @ 3550, RUNNING, train 2.07 h
-  running 10x5+mix+bv3_cc_CCE_s111: update 4350/8000, latest val HV 0.4061, best 0.4294 @ 4200, RUNNING, train 2.36 h
-est. remaining training (rough, jobs 3): 21.3 h (stops near 2000 updates) to 21.3 h (cap)
+units: DONE 2, PENDING 2, RUNNING 3
+training runs: 1/6 done, 0 failed
+  running 10x5+mix+bv3_cc_CCB_s111: update 4000/8000, latest val HV 0.5355, best 0.5401 @ 3550, RUNNING, train 2.35 h
+  running 10x5+mix+bv3_cc_CCE_s111: update 4850/8000, latest val HV 0.3505, best 0.4294 @ 4200, RUNNING, train 2.65 h
+  running 10x5+mix+bv3_cc_CCTA_s111: update 3700/8000, latest val HV 0.3710, best 0.4108 @ 2700, CONVERGED, train 2.31 h
+est. remaining training (rough, jobs 3): 15.3 h (stops near 2000 updates) to 15.3 h (cap)
