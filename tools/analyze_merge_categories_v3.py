@@ -98,36 +98,39 @@ def rolling(y, w=5):
 
 
 def plot_summary(R, path):
-    """One panel: Distillation and From scratch as lines, the four merge starts as one band (min-max of their smoothed
-    curves at each update) with their mean."""
+    """One panel, every start as its own smoothed line (raw values faint behind Distillation and From scratch),
+    each labelled at its right end."""
     plt.rcParams.update({"font.size": 11})
-    fig, ax = plt.subplots(figsize=(10, 5.6), facecolor="white")
+    fig, ax = plt.subplots(figsize=(10.5, 5.8), facecolor="white")
     ax.set_facecolor("white"); ax.grid(alpha=.3, lw=.6)
     ends = []
-    for x, col, name in (("CLD", "#1f77b4", "Distillation"), ("CLB", "#ff7f0e", "From scratch")):
+    for x, col, raw in (("CLD", "#1f77b4", True), ("CLB", "#ff7f0e", True), ("SBAVG", "#2ca02c", False),
+                        ("TA", "#d62728", False), ("TIES", "#9467bd", False), ("CLE", "#7f7f7f", False)):
         u, hv, _, _ = AW.val_series(R[x])
-        ax.plot(u, hv, color=col, lw=.7, alpha=.3)
+        if raw:
+            ax.plot(u, hv, color=col, lw=.7, alpha=.3)
         sm = rolling(hv); ax.plot(u, sm, color=col, lw=2)
-        ends.append((u[-1], sm[-1], name, col))
-    merges = [AW.val_series(R[x]) for x in ("SBAVG", "TA", "TIES", "CLE")]
-    u = merges[0][0]
-    if any(m[0] != u for m in merges):
-        raise ValueError("merge runs were validated at different updates")
-    sm = np.array([rolling(m[1]) for m in merges])
-    ax.fill_between(u, sm.min(0), sm.max(0), color="#9a9a9a", alpha=.3, lw=0)
-    ax.plot(u, sm.mean(0), color="#6e6e6e", lw=2)
-    ends.append((u[-1], sm.mean(0)[-1], "Merges (4 methods)", "#555555"))
-    for xe, ye, name, col in ends:
-        ax.annotate(name, (xe, ye), xytext=(6, 0), textcoords="offset points", va="center", color=col, fontsize=11)
+        ends.append([u[-1], sm[-1], sm[-1], SHORT[x], col])
+    gap = 0.024                                                  # minimum vertical spacing of end labels (HV units)
+    for xe in sorted({e[0] for e in ends}):                      # labels ending at the same update: spread them apart
+        grp = sorted([e for e in ends if e[0] == xe], key=lambda e: e[1])
+        for lo, hi in zip(grp, grp[1:]):
+            hi[2] = max(hi[2], lo[2] + gap)
+        shift = (sum(e[1] for e in grp) - sum(e[2] for e in grp)) / len(grp)
+        for e in grp:
+            e[2] += shift
+    for xe, ye, yl, name, col in ends:
+        ax.annotate(name, (xe, ye), xytext=(xe + 60, yl), textcoords="data", va="center", color=col, fontsize=11,
+                    arrowprops=dict(arrowstyle="-", color=col, lw=.6, shrinkA=0, shrinkB=2) if abs(yl - ye) > 1e-3 else None)
     xmax = max(e[0] for e in ends)
-    ax.set_xlim(0, xmax * 1.22)                                  # room for the end labels
+    ax.set_xlim(0, xmax * 1.42)                                  # room for the end labels
     ax.set_xticks(np.arange(0, xmax + 1, 500))
     ax.set_ylim(bottom=0)
     ax.set_xlabel("updates"); ax.set_ylabel("validation hypervolume")
     ax.set_title("Validation hypervolume during contrastive fine-tuning (10x5, seed 111)")
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
-    fig.text(0.5, 0.01, "Grey band: range of the four merge starts. Smoothed over 5 points.", ha="center", fontsize=11)
+    fig.text(0.5, 0.01, "Smoothed over 5 points; faint lines: raw values.", ha="center", fontsize=11)
     fig.tight_layout(rect=(0, 0.04, 1, 1))
     fig.savefig(path, dpi=130, facecolor="white"); plt.close(fig)
 
