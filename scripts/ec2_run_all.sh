@@ -17,6 +17,10 @@
 #                          (results/warmstart_v3_smoke[.md]), so it never affects the full run
 #   --with-shared-base     add the optional E-shared arm
 #   --shutdown             sudo shutdown -h +2 after the final commit
+#
+# Contrastive fine-tuning arms (docs/contrastive_protocol_v3.md), their own mode and outputs:
+#   bash scripts/ec2_run_all.sh --arms CL-B,CL-D,CL-E --seeds 111 --jobs 3      [--smoke: 5 updates per arm]
+#   -> results/contrastive_v3/, results/contrastive_v3.md, logs/contrastive_v3_STATUS.txt
 # Resume (also after a spot interruption on the same volume): run the same command again.
 # Progress: bash scripts/ec2_status.sh
 set -u -o pipefail
@@ -46,6 +50,8 @@ cd "$REPO" || exit 2
 GITDIR="$(git rev-parse --absolute-git-dir)"
 STATE="$GITDIR/warmstart_v3"; mkdir -p "$STATE" logs
 STATUS_FILE="logs/warmstart_v3_STATUS.txt"
+STUDY="warmstart_v3"                                            # contrastive_v3 for the CL arms
+case "$ARMS" in *CL*) STUDY="contrastive_v3"; STATUS_FILE="logs/contrastive_v3_STATUS.txt" ;; esac
 PY="$REPO/.venv/bin/python"
 export WANDB_MODE=offline HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1
 
@@ -69,19 +75,21 @@ if [ "$WORKER" = 1 ]; then
   say "worker started: ${R_ARGS[*]}"
   "$PY" tools/ec2_runner.py "${R_ARGS[@]}" & RUNNER_PID=$!
   wait "$RUNNER_PID"; rc=$?; RUNNER_PID=""
-  say "runner finished (rc $rc); analysis: tools/analyze_warmstart_v3.py"
-  A_ARGS=(); if [ "$SMOKE" = 1 ]; then               # smoke outputs are separate: results/warmstart_v3_smoke(.md)
-    A_ARGS=(--eval_split development --results results/warmstart_v3_smoke --out results/warmstart_v3_smoke.md
-            --norm results/warmstart_v3_smoke/norm/validation_normalisation_points_development_*.json)
+  say "runner finished (rc $rc)"
+  A_ARGS=(); if [ "$SMOKE" = 1 ]; then               # smoke outputs are separate: results/<study>_smoke(.md)
+    A_ARGS=(--eval_split development --results "results/${STUDY}_smoke" --out "results/${STUDY}_smoke.md"
+            --norm results/${STUDY}_smoke/norm/validation_normalisation_points_development_*.json)
   fi
-  timeout 3600 "$PY" tools/analyze_warmstart_v3.py "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
+  ANALYSIS="tools/analyze_warmstart_v3.py"; [ "$STUDY" = contrastive_v3 ] && ANALYSIS="tools/analyze_contrastive_v3.py"
+  say "analysis: $ANALYSIS"
+  timeout 3600 "$PY" "$ANALYSIS" "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
   say "DONE: git push when ready"
   [ "$SHUTDOWN" = 1 ] && say "after this final commit: shutting down in 2 minutes"
-  for p in results/warmstart_v3 results/warmstart_v3.md results/warmstart_v3_smoke results/warmstart_v3_smoke.md \
-           "$STATUS_FILE" logs/warmstart_v3_*.log; do
+  for p in "results/$STUDY" "results/$STUDY.md" "results/${STUDY}_smoke" "results/${STUDY}_smoke.md" \
+           "$STATUS_FILE" logs/${STUDY}_*.log; do
     [ -e "$p" ] && git add -A -- "$p"
   done
-  git diff --cached --quiet || git commit -q -m "warm-start v3: analysis and final status" \
+  git diff --cached --quiet || git commit -q -m "${STUDY//_/ }: analysis and final status" \
     -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   [ "$SHUTDOWN" = 1 ] && ${WS_SHUTDOWN_CMD:-sudo shutdown -h +2}
   exit 0
@@ -93,7 +101,7 @@ if ! flock -n 9; then
   say "a run is already in progress. Progress: bash scripts/ec2_status.sh"; exit 0
 fi
 exec 9>&-                                                       # release; the worker takes the lock
-LOG="logs/warmstart_v3_$(date +%Y%m%d_%H%M%S).log"
+LOG="logs/${STUDY}_$(date +%Y%m%d_%H%M%S).log"
 die() { say "PRE-FLIGHT FAILED: $*  (nothing started)" | tee -a "$LOG"; exit 2; }
 
 if ! command -v uv >/dev/null 2>&1 && [ ! -x "$HOME/.local/bin/uv" ]; then
@@ -123,13 +131,19 @@ AVAIL=$(df -BG --output=avail "$REPO" | tail -1 | tr -dc 0-9)
 [ "$AVAIL" -ge "$NEED_GB" ] || die "only ${AVAIL} GB free (need $NEED_GB)"
 DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart_v3' ':!results/warmstart_v3.md' \
         ':!results/warmstart_v3_smoke' ':!results/warmstart_v3_smoke.md' \
+        ':!logs/contrastive_v3_*' ':!results/contrastive_v3' ':!results/contrastive_v3.md' \
+        ':!results/contrastive_v3_smoke' ':!results/contrastive_v3_smoke.md' \
         ':!logs/baselines_v3_console.out')
 [ -z "$DIRTY" ] || die "git tree not clean: $(echo "$DIRTY" | head -5 | tr '\n' ' ')"
 "$PY" tools/ec2_inputs.py verify >>"$LOG" 2>&1 || die "input hash verification failed (see $LOG)"
 "$PY" tools/baselines_v3_status.py verify >>"$LOG" 2>&1 || die "v3 manifest verification failed"
-OUT=$("$PY" -m unittest tests.test_benchmark_v3 tests.test_baselines_v3 tests.test_mo_daniel_v3 tests.test_warmstart_v3 2>&1)
+if [ "$STUDY" = contrastive_v3 ]; then
+  "$PY" tools/freeze_contrastive_v3.py verify >>"$LOG" 2>&1 || die "configs/contrastive_v3.json verification failed"
+fi
+OUT=$("$PY" -m unittest tests.test_benchmark_v3 tests.test_baselines_v3 tests.test_mo_daniel_v3 tests.test_warmstart_v3 \
+      tests.test_contrastive_v3 2>&1)
 RC=$?; echo "$OUT" | tail -15 >>"$LOG"
-[ $RC -eq 0 ] || die "v3 / MO / warm-start test suites failed (see $LOG)"
+[ $RC -eq 0 ] || die "v3 / MO / warm-start / contrastive test suites failed (see $LOG)"
 echo "$OUT" | grep -q "skipped" && die "a test was skipped"
 V1=$("$PY" -m unittest tests.test_v1_reproduction 2>&1); V1RC=$?; echo "$V1" | tail -8 >>"$LOG"
 if [ $V1RC -ne 0 ] || echo "$V1" | grep -q skipped; then

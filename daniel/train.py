@@ -10,6 +10,7 @@ import random
 import time
 import sys
 import json
+import hashlib
 from pathlib import Path
 from model.PPO import PPO_initialize
 from model.PPO import Memory
@@ -164,6 +165,17 @@ class Trainer:
         self.ppo = PPO_initialize()
         self.parent_checkpoints = []
         self.load_initial_checkpoint()
+        self.cl = config.finetune_objective == "contrastive"
+        if self.cl:
+            # frozen reference = the starting network (after --init_from), rebuilt identically on every resume
+            from copy import deepcopy
+            self.cl_ref = deepcopy(self.ppo.policy).eval()
+            for p in self.cl_ref.parameters():
+                p.requires_grad_(False)
+            h = hashlib.sha256()
+            for k, v in sorted(self.cl_ref.state_dict().items()):
+                h.update(k.encode()); h.update(v.detach().cpu().numpy().tobytes())
+            self.cl_ref_sha = h.hexdigest()
         self.save_run_manifest()
         self.memory = Memory(gamma=config.gamma, gae_lambda=config.gae_lambda)
 
@@ -258,6 +270,54 @@ class Trainer:
         a = self.config.pref_dirichlet
         return self.pref_rng.dirichlet([a, a, a], size=self.num_envs)
 
+    def contrastive_update(self, i_update):
+        """One contrastive update (docs/contrastive_protocol_v3.md): the PPO arms' instances and preferences, each
+        instance and preference repeated K times; K sampled schedules per group; pairs by dominance and Tchebycheff
+        score on the training-normalised objectives; one DPO-style gradient step against the frozen start network."""
+        import contrastive as CL
+        t0 = time.time()
+        k, n = self.config.cl_k, self.num_envs
+        if i_update % self.reset_env_timestep == 0:                 # the same instance stream as the PPO arms
+            self.cl_batch = self.v3_generator.sample(n)
+            idx = [i for i in range(n) for _ in range(k)]
+            self.env.set_initial_data(**self.cl_batch.env_kwargs(idx, self.config.goal))
+        else:
+            self.env.reset()
+        prefs = self.sample_preferences()                            # the same preference stream as the PPO arms
+        state = self.env.set_preference(np.repeat(prefs, k, axis=0))
+        steps = CL.rollout(self.ppo.policy, self.cl_ref, self.env, state)
+        env = self.env
+        tard = np.maximum(0.0, env.true_op_ct[env.env_job_idx, env.job_last_op_id] - env.true_due_dates).sum(1)
+        obj = np.stack([env.current_makespan, env.total_carbon, tard], 1)
+        f_hat = obj / np.stack([env.v2_mk_ref, env.v2_cb_ref, np.full(len(obj), env.reward_v2.tbar)], 1)
+        pairs, n_dom, n_tch, with_pair = [], 0, 0, 0
+        for g in range(n):
+            p, d, t = CL.group_pairs(obj[g * k:(g + 1) * k], f_hat[g * k:(g + 1) * k], prefs[g], self.config.cl_margin)
+            pairs += [(g * k + i, g * k + j) for i, j in p]
+            n_dom += d; n_tch += t; with_pair += bool(p)
+        loss, norm = CL.dpo_update(self.ppo.policy, self.ppo.optimizer, steps, pairs, self.config.cl_beta,
+                                   self.config.cl_grad_clip, self.config.minibatch_size)
+        self.ppo.policy_old.load_state_dict(self.ppo.policy.state_dict())
+        _, _, _, acts = CL.stack(steps)
+        distinct, distinct_obj = CL.group_stats(acts, obj, k)
+        score = (np.repeat(prefs, k, axis=0) * f_hat).sum(1)
+        env_steps = len(obj) * len(steps)
+        prev = self.log[-1]["cl"]["env_steps_total"] if self.log else 0
+        entry = {"update": i_update, "mean_return": float(-score.mean()),
+                 "cl": {"loss": loss, "pairs": len(pairs), "pairs_dominance": n_dom, "pairs_tchebycheff": n_tch,
+                        "groups_with_pair": with_pair / n, "distinct_schedules": distinct,
+                        "distinct_objective_vectors": distinct_obj,
+                        "entropy": float(torch.cat([s["ent"] for s in steps]).mean()),
+                        "grad_norm": norm, "skipped": loss is None, "env_steps": env_steps,
+                        "env_steps_total": prev + env_steps, "seconds": time.time() - t0},
+                 "pref": {"mean": prefs.mean(0).tolist(), "min": prefs.min(0).tolist(), "max": prefs.max(0).tolist()},
+                 "objectives": {"makespan": float(obj[:, 0].mean()), "carbon": float(obj[:, 1].mean()),
+                                "tardiness": float(obj[:, 2].mean())}}
+        self.log.append(entry)
+        tqdm.write(f"Update {i_update + 1}\t CL loss: {loss if loss is not None else float('nan'):.5f}\t pairs: "
+                   f"{len(pairs)}\t groups with a pair: {with_pair}/{n}\t distinct: {distinct:.2f}\t "
+                   f"time: {time.time() - t0:.2f}")
+
     def save_run_manifest(self):
         manifest = {
             "schema_version": 2,
@@ -317,7 +377,7 @@ class Trainer:
         if 0 in self.budget_checkpoints:
             self.save_budget_checkpoint(0)
 
-        if self.config.converge_window > 0 and start_update == 0:
+        if (self.config.converge_window > 0 or self.cl) and start_update == 0:
             t0 = time.time()
             self.validate_and_select(0, t0)
             self.train_seconds += time.time() - t0
@@ -328,6 +388,14 @@ class Trainer:
             if self.run_status == "CONVERGED":
                 break
             ep_st = time.time()
+
+            if self.cl:                                   # contrastive fine-tuning in place of the PPO update
+                self.contrastive_update(i_update)
+                if (i_update + 1) % self.validate_timestep == 0:
+                    self.validate_and_select(i_update + 1, ep_st)
+                self.train_seconds += time.time() - ep_st
+                next_update = i_update + 1
+                continue
 
             # resampling the training data
             if i_update % self.reset_env_timestep == 0 and self.v3 and self.v3_generator is not None:
@@ -516,7 +584,10 @@ class Trainer:
                 **({"preference_dim": c.preference_dim, "pref_dirichlet": c.pref_dirichlet,
                     "mo_val_grid_step": c.mo_val_grid_step, "mo_val_first": c.mo_val_first,
                     "mo_val_norm": c.mo_val_norm, "log_ppo_stats": c.log_ppo_stats}
-                   if getattr(c, "preference_dim", 0) else {})}
+                   if getattr(c, "preference_dim", 0) else {}),
+                **({"finetune_objective": c.finetune_objective, "cl_k": c.cl_k, "cl_beta": c.cl_beta,
+                    "cl_margin": c.cl_margin, "cl_grad_clip": c.cl_grad_clip, "minibatch_size": c.minibatch_size,
+                    "cl_reference_sha256": self.cl_ref_sha} if getattr(self, "cl", False) else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}

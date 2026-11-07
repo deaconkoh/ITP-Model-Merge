@@ -7,6 +7,10 @@ size and seed. Resume: finished units are skipped; training continues from its r
 fails twice is marked FAILED (its dependents too) and the run continues; a re-run retries it.
 
     python tools/ec2_runner.py --sizes 10x5 --arms all --seeds "111 222 333" --jobs 1 [--smoke] [--with-shared-base]
+
+Contrastive arms (docs/contrastive_protocol_v3.md): --arms CL-B,CL-D,CL-E --seeds 111 runs them in their own mode
+(results/contrastive_v3, run tag "cl", frozen budgets and validation normalisation from configs/contrastive_v3.json);
+they cannot be mixed with the warm-start arms in one call.
 """
 from __future__ import annotations
 import argparse, json, os, re, signal, subprocess, sys, threading, time
@@ -20,11 +24,16 @@ TL = REPO / "daniel" / "train_log" / "SD2"
 SPEC = REPO / "checkpoints" / "specialists_v3"
 PY = sys.executable
 STATUS_FILE = REPO / "logs" / "warmstart_v3_STATUS.txt"
+PREFIX = "warm-start v3"                           # commit-message prefix; "contrastive v3" for the CL arms
 
 ARM_ORDER = ["B", "CM", "BBM", "D", "E", "CC", "CT", "BBC", "BBT"]
 ARM_LABEL = {"B": "B (scratch)", "CM": "C-M", "CC": "C-C", "CT": "C-T", "BBM": "BB-M", "BBC": "BB-C", "BBT": "BB-T",
              "D": "D (distillation)", "E": "E (naive merge)", "ES": "E-shared", "E0": "E0 (zero-training merge)"}
 SPU_LOCAL = {"10x5": 0.85, "20x10": 4.5}           # measured MO-DANIEL s/update (pinned, local); scaled by calibration
+CL_ORDER = ["CLB", "CLD", "CLE"]
+CL_LABEL = {"CLB": "CL-B (contrastive, scratch)", "CLD": "CL-D (contrastive from D's update-0 network)",
+            "CLE": "CL-E (contrastive from the naive merge)"}
+SPU_LOCAL_CL = {"10x5": 4.0}                       # contrastive s/update (K = 8 rollouts), measured in the smoke test
 
 
 def settings(smoke):
@@ -46,7 +55,11 @@ class Runner:
         self.s = settings(a.smoke)
         self.sizes = a.sizes.split()
         self.seeds = [int(x) for x in a.seeds.split()]
-        arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.split()]
+        arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.replace(",", " ").split()]
+        self.cl = any(x in CL_ORDER for x in arms)
+        if self.cl:
+            self.init_contrastive(a, arms)
+            return
         self.e0 = a.arms == "all" or "E0" in arms
         arms = [x for x in arms if x != "E0"]
         if a.with_shared_base and "ES" not in arms:
@@ -71,6 +84,45 @@ class Runner:
         self.lane = f"{ncpu - self.lane_cpus}-{ncpu - 1}"
         self.free_slots = list(range(a.jobs))
         RES.mkdir(parents=True, exist_ok=True); TN.mkdir(parents=True, exist_ok=True); TL.mkdir(parents=True, exist_ok=True)
+
+    def init_contrastive(self, a, arms):
+        """CL mode: only CL arms; budgets, seed and validation normalisation from the verified frozen manifest."""
+        bad = set(arms) - set(CL_ORDER)
+        if bad:
+            raise SystemExit(f"contrastive arms cannot be mixed with {sorted(bad)} in one call")
+        if a.with_shared_base:
+            raise SystemExit("--with-shared-base does not apply to the contrastive arms")
+        sys.path.insert(0, str(REPO / "tools"))
+        from freeze_contrastive_v3 import load
+        self.manifest = load()                              # fails loudly on a hash mismatch
+        if self.sizes != [self.manifest["size"]] or (not a.smoke and self.seeds != [self.manifest["seed"]]):
+            raise SystemExit(f"contrastive arms are frozen for size {self.manifest['size']} and seed "
+                             f"{self.manifest['seed']} (configs/contrastive_v3.json)")
+        self.arms, self.e0 = [x for x in CL_ORDER if x in arms], False
+        self.s.update(cl_validate=self.manifest["constants"]["validate_timestep"])
+        if a.smoke:
+            self.s.update(cl_validate=5)
+        self.lock, self.git_lock = threading.Lock(), threading.Lock()
+        self.children, self.stop, self.state, self.started = set(), False, {}, time.time()
+        self.log_path = Path(a.log)
+        ncpu = os.cpu_count() or 4
+        self.lane_cpus = max(2, ncpu // (a.jobs + 1)) if ncpu >= 4 else 1
+        per = max(1, (ncpu - self.lane_cpus) // a.jobs)
+        self.slots = [f"{i * per}-{i * per + per - 1}" for i in range(a.jobs)]
+        self.slot_threads = per
+        self.lane = f"{ncpu - self.lane_cpus}-{ncpu - 1}"
+        self.free_slots = list(range(a.jobs))
+        RES.mkdir(parents=True, exist_ok=True); TN.mkdir(parents=True, exist_ok=True); TL.mkdir(parents=True, exist_ok=True)
+
+    def cap(self, arm):
+        if not self.cl:
+            return self.s["cap"]
+        return 5 if self.a.smoke else self.manifest["arms"][arm]["updates"]
+
+    def chunk(self, size):
+        if self.cl and self.a.smoke:
+            return 0                                        # one process for the 5-update smoke runs
+        return self.s["chunk"][size]
 
     # ------------------------------------------------------------------ helpers
     def log(self, msg):
@@ -111,11 +163,12 @@ class Runner:
                 fh.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] commit: {msg}\n")
 
     def spu(self, size):
+        base = SPU_LOCAL_CL[size] if self.cl else SPU_LOCAL[size]
         f = RES / f"calibration_{size}.json"
         if f.exists():
             c = json.loads(f.read_text())
-            return SPU_LOCAL[size] * max(1.0, c["factor"]) * max(1, self.a.jobs)
-        return SPU_LOCAL[size] * 2 * max(1, self.a.jobs)
+            return base * max(1.0, c["factor"]) * max(1, self.a.jobs)
+        return base * 2 * max(1, self.a.jobs)
 
     def host(self):
         def q(cmd):
@@ -131,6 +184,8 @@ class Runner:
 
     # ------------------------------------------------------------------ names and paths
     def norm_file(self, size, split="validation"):
+        if self.cl and split == "validation":
+            return REPO / self.manifest["validation_norm"]["path"]    # frozen: the PPO arms' validation points
         tag = "" if split == "validation" else f"_{split}"
         return RES / "norm" / f"validation_normalisation_points{tag}_{size}.json"
 
@@ -178,7 +233,7 @@ class Runner:
                "note": "DANIEL-M, same flags as the specialists; factor converts local specialist training time to "
                        "this machine (full-lifecycle cost view)"}
         f.write_text(json.dumps(rec, indent=1))
-        self.commit(f"warm-start v3: calibration {size}", f)
+        self.commit(f"{PREFIX}: calibration {size}", f)
         self.log(f"calibration {size}: {ec2:.3f} s/update here vs {loc:.3f} locally (factor {ec2 / loc:.2f})")
         return True
 
@@ -195,7 +250,7 @@ class Runner:
                        "--out_dir", str(f.parent), "--specialist_dir", str(SPEC)],
                       timeout=tmo, cpus=self.lane, threads=self.lane_cpus, out=self.log_path)
         ok = rc == 0 and f.exists()
-        self.commit(f"warm-start v3: frozen {split} normalisation points {size}", RES / "norm")
+        self.commit(f"{PREFIX}: frozen {split} normalisation points {size}", RES / "norm")
         return ok
 
     def u_distill(self, size, seed, slot):
@@ -211,7 +266,7 @@ class Runner:
             return False
         rec.parent.mkdir(parents=True, exist_ok=True)
         rec.write_text(out.with_suffix(".distill.json").read_text())
-        self.commit(f"warm-start v3: distillation {size} s{seed}", rec)
+        self.commit(f"{PREFIX}: distillation {size} s{seed}", rec)
         return True
 
     def u_merge(self, size, seed, slot, shared=False):
@@ -253,6 +308,8 @@ class Runner:
         return False
 
     def mo_args(self, arm, size, seed):
+        if self.cl:
+            return self.cl_args(arm, size, seed)
         nj, nm = size.split("x")
         s = self.s
         a = ["--config", "../configs/benchmark_v3/mct.json", "--n_j", nj, "--n_m", nm, "--preference_dim", "3",
@@ -266,6 +323,23 @@ class Runner:
                 "D": ("no_critic", TN / f"{size}+mix+bv3_{TAG}D_student_s{seed}.pth"),
                 "E": ("full", TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth"),
                 "ES": ("full", TN / f"{size}+mix+bv3_{TAG}ES_merged_s{seed}.pth")}.get(arm)
+        if init:
+            a += ["--init_from", str(init[1]), "--init_mode", init[0]]
+        return a
+
+    def cl_args(self, arm, size, seed):
+        nj, nm = size.split("x")
+        s, c = self.s, self.manifest["constants"]
+        a = ["--config", "../configs/benchmark_v3/mct.json", "--n_j", nj, "--n_m", nm, "--preference_dim", "3",
+             "--mo_val_norm", str(self.norm_file(size)), "--mo_val_grid_step", str(c["mo_val_grid_step"]),
+             "--mo_val_first", str(s["val_first"]), "--model_suffix", f"bv3_{TAG}_{arm}_s{seed}", "--seed_train", str(seed),
+             "--v3_train_source", "generator", "--validate_timestep", str(s["cl_validate"]), "--converge_window", "0",
+             "--finetune_objective", "contrastive", "--cl_k", str(c["cl_k"]), "--cl_beta", str(c["cl_beta"]),
+             "--cl_margin", str(c["cl_margin"]), "--cl_grad_clip", str(c["cl_grad_clip"]), "--lr", str(c["lr"]),
+             "--minibatch_size", str(c["minibatch_size"]), "--num_envs", str(c["num_envs"]),
+             "--reset_env_timestep", str(c["reset_env_timestep"]), "--pref_dirichlet", str(c["pref_dirichlet"])]
+        init = {"CLD": ("no_critic", TN / f"{size}+mix+bv3_{TAG}D_student_s{seed}.pth"),
+                "CLE": ("full", TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth")}.get(arm)
         if init:
             a += ["--init_from", str(init[1]), "--init_mode", init[0]]
         return a
@@ -290,7 +364,7 @@ class Runner:
             for f, dst in ((TL / f"{name}.status.json", f"{tag}.status.json"),
                            (TL / f"valiquality_{name}.json", f"{tag}.valiquality.json")):
                 (rdir / dst).write_text(f.read_text())
-        self.commit(f"warm-start v3: shared base and fine-tunes {size} s{seed}", rdir)
+        self.commit(f"{PREFIX}: shared base and fine-tunes {size} s{seed}", rdir)
         return self.u_merge(size, seed, slot, shared=True)
 
     def u_train(self, arm, size, seed, slot):
@@ -301,13 +375,13 @@ class Runner:
             return True
         rdir.mkdir(parents=True, exist_ok=True); (rdir / "FAILED").unlink(missing_ok=True)
         m = json.loads((rdir / "run_meta.json").read_text()) if (rdir / "run_meta.json").exists() else {}
-        m.update(arm=arm, label=ARM_LABEL[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
+        m.update(arm=arm, label=(CL_LABEL if self.cl else ARM_LABEL)[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
                  omp_threads=self.slot_threads, host=self.host())
         (rdir / "run_meta.json").write_text(json.dumps(m, indent=1))
-        if not self.train_chunks(name, self.mo_args(arm, size, seed), size, slot, self.s["cap"], self.s["chunk"][size], rdir):
+        if not self.train_chunks(name, self.mo_args(arm, size, seed), size, slot, self.cap(arm), self.chunk(size), rdir):
             if not self.stop:
                 (rdir / "FAILED").write_text(f"training failed twice at {time.strftime('%F %T')}\n")
-                self.commit(f"warm-start v3: {name} FAILED", rdir)
+                self.commit(f"{PREFIX}: {name} FAILED", rdir)
             return False
         for f, dst in ((TL / f"valiquality_{name}.json", "valiquality.json"), (TL / f"reward_{name}.json", "reward.json"),
                        (TL / f"{name}.run.json", "run.json"), (TL / f"{name}.status.json", "status.json")):
@@ -327,9 +401,9 @@ class Runner:
             self.log(f"eval {name} FAILED (attempt {attempt})")
         if rc != 0:
             (rdir / "FAILED").write_text(f"evaluation failed twice at {time.strftime('%F %T')}\n")
-            self.commit(f"warm-start v3: {name} evaluation FAILED", rdir)
+            self.commit(f"{PREFIX}: {name} evaluation FAILED", rdir)
             return False
-        self.commit(f"warm-start v3: {name} ({st['status']})", rdir, edir, STATUS_FILE)
+        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE)
         return True
 
     def u_e0(self, size, seed, slot):
@@ -343,7 +417,7 @@ class Runner:
                        "--device", "cuda"], timeout=7200, cpus=self.slots[slot], threads=self.slot_threads,
                       out=self.log_path)
         if rc == 0:
-            self.commit(f"warm-start v3: E0 {size} s{seed}", edir)
+            self.commit(f"{PREFIX}: E0 {size} s{seed}", edir)
         return rc == 0
 
     # ------------------------------------------------------------------ plan and scheduling
@@ -355,15 +429,16 @@ class Runner:
         for size in self.sizes:
             if self.a.smoke:
                 U.append((f"normdev:{size}", "normdev", (size,), [], False))
-            U.append((f"norm:{size}", "norm", (size,), [], False))
+            if not self.cl:                                     # CL: frozen validation points (manifest)
+                U.append((f"norm:{size}", "norm", (size,), [], False))
         for size in self.sizes:
             for seed in self.seeds:
                 for arm in self.arms:
-                    deps = [f"norm:{size}"] + ([f"normdev:{size}"] if self.a.smoke else [])
-                    if arm == "D":
+                    deps = ([] if self.cl else [f"norm:{size}"]) + ([f"normdev:{size}"] if self.a.smoke else [])
+                    if arm in ("D", "CLD"):
                         U.append((f"distill:{size}:{seed}", "distill", (size, seed), [], True))
                         deps.append(f"distill:{size}:{seed}")
-                    if arm == "E":
+                    if arm in ("E", "CLE"):
                         U.append((f"merge:{size}:{seed}", "merge", (size, seed), [], True))
                         deps.append(f"merge:{size}:{seed}")
                     if arm == "ES":
@@ -388,7 +463,7 @@ class Runner:
             return False
 
     def status(self, units):
-        L = [f"warm-start v3 STATUS   updated {time.strftime('%Y-%m-%d %H:%M:%S')}   elapsed "
+        L = [f"{PREFIX} STATUS   updated {time.strftime('%Y-%m-%d %H:%M:%S')}   elapsed "
              f"{(time.time() - self.started) / 3600:.1f} h   jobs {self.a.jobs}   sizes {' '.join(self.sizes)}   "
              f"seeds {' '.join(map(str, self.seeds))}{'   [SMOKE]' if self.a.smoke else ''}", f"log: {self.log_path}", ""]
         counts = {}
@@ -406,12 +481,12 @@ class Runner:
             live = TL / f"{self.name(arm, size, seed)}.status.json"
             u = json.loads(live.read_text())["update"] if live.exists() else 0
             spu = self.spu(size)
-            lo += max(0, min(2000, self.s["cap"]) - u) * spu / self.a.jobs
-            hi += max(0, self.s["cap"] - u) * spu / self.a.jobs
+            lo += max(0, min(2000 if not self.cl else self.cap(arm), self.cap(arm)) - u) * spu / self.a.jobs
+            hi += max(0, self.cap(arm) - u) * spu / self.a.jobs
             if self.state.get(key) == "RUNNING" and live.exists():
                 ls = json.loads(live.read_text())
                 lat = ls.get("latest_value")
-                L.append(f"  running {self.name(arm, size, seed)}: update {u}/{self.s['cap']}, latest val HV "
+                L.append(f"  running {self.name(arm, size, seed)}: update {u}/{self.cap(arm)}, latest val HV "
                          f"{-lat if lat is not None else float('nan'):.4f}, best {-ls['best_value']:.4f} @ "
                          f"{ls['best_update']}, {ls['status']}, train {ls['train_seconds'] / 3600:.2f} h")
         for key, *_ in units:
@@ -521,8 +596,11 @@ def main():
     ap.add_argument("--with_shared_base", action="store_true")
     ap.add_argument("--log", default=str(REPO / "logs" / "warmstart_v3_runner.log"))
     a = ap.parse_args()
-    global RES, TAG
-    if a.smoke:
+    global RES, TAG, STATUS_FILE, PREFIX
+    if any(x.replace("-", "") in CL_ORDER for x in a.arms.replace(",", " ").split()):
+        RES, TAG = REPO / "results" / ("contrastive_v3_smoke" if a.smoke else "contrastive_v3"), "cls" if a.smoke else "cl"
+        STATUS_FILE, PREFIX = REPO / "logs" / "contrastive_v3_STATUS.txt", "contrastive v3"
+    elif a.smoke:
         RES, TAG = REPO / "results" / "warmstart_v3_smoke", "wss"
     r = Runner(a)
     signal.signal(signal.SIGTERM, r.shutdown); signal.signal(signal.SIGINT, r.shutdown)

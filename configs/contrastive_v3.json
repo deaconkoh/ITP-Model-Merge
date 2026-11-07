@@ -1,0 +1,50 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "arms": {
+  "CLB": {
+   "counterpart": "B",
+   "counterpart_run": "10x5+mix+bv3_ws_B_s111",
+   "updates": 2600,
+   "counterpart_status": "CONVERGED",
+   "source": "results/warmstart_v3/runs/10x5+mix+bv3_ws_B_s111/status.json",
+   "source_sha256": "27a35c79d4ad48d351f1ad5d57d60e56a309767644cebe65e119fc5f86287fdc"
+  },
+  "CLD": {
+   "counterpart": "D",
+   "counterpart_run": "10x5+mix+bv3_ws_D_s111",
+   "updates": 1000,
+   "counterpart_status": "CONVERGED",
+   "source": "results/warmstart_v3/runs/10x5+mix+bv3_ws_D_s111/status.json",
+   "source_sha256": "3114b750421a1974d86ec52a6b960a9031f6b6858a0fed62af4f0c34438c8b00"
+  },
+  "CLE": {
+   "counterpart": "E",
+   "counterpart_run": "10x5+mix+bv3_ws_E_s111",
+   "updates": 3350,
+   "counterpart_status": "CONVERGED",
+   "source": "results/warmstart_v3/runs/10x5+mix+bv3_ws_E_s111/status.json",
+   "source_sha256": "14238d9e64d2860cb4d8d98ceb4319c3da716e09df6a0df98eda15b0c8faf68b"
+  }
+ },
+ "budget_rule": "updates = final update of the PPO counterpart run (seed 111); no early stopping",
+ "validation_norm": {
+  "path": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+  "sha256": "76b55f740e23c839d7d1209e5e29cc6d8b90e6647f75aacc2579ad0240975521"
+ },
+ "constants": {
+  "cl_k": 8,
+  "cl_beta": 0.1,
+  "cl_margin": 0.01,
+  "cl_grad_clip": 1.0,
+  "lr": 0.0003,
+  "minibatch_size": 1024,
+  "validate_timestep": 50,
+  "converge_window": 0,
+  "mo_val_grid_step": 0.25,
+  "pref_dirichlet": 1.0,
+  "num_envs": 20,
+  "reset_env_timestep": 20
+ },
+ "frozen": "2026-11-07"
+}

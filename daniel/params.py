@@ -182,6 +182,15 @@ parser.add_argument('--init_mode', type=str, default='exact', choices=['exact', 
                     help='How --init_from is loaded: exact = same schema (default, unchanged); full / backbone = weight '
                          'transfer from a v3 specialist (or merge) into a preference-conditioned DANIEL; no_critic = '
                          'everything but the critic from a preference-conditioned student (docs/warmstart_protocol_v3.md)')
+# contrastive fine-tuning (docs/contrastive_protocol_v3.md); the default 'ppo' leaves training unchanged
+parser.add_argument('--finetune_objective', type=str, default='ppo', choices=['ppo', 'contrastive'],
+                    help='contrastive = DPO-style pairwise ranking on K sampled schedules per instance, in place of the '
+                         'PPO update (preference-conditioned v3 DANIEL with generator instances only)')
+parser.add_argument('--cl_k', type=int, default=8, help='Contrastive: schedules sampled per instance and preference')
+parser.add_argument('--cl_beta', type=float, default=0.1, help='Contrastive: DPO temperature beta')
+parser.add_argument('--cl_margin', type=float, default=0.01,
+                    help='Contrastive: minimum Tchebycheff-score difference for a preference pair')
+parser.add_argument('--cl_grad_clip', type=float, default=1.0, help='Contrastive: gradient-norm clip')
 parser.add_argument('--log_ppo_stats', type=str2bool, default=False,
                     help='Log per-update PPO statistics (entropy, approx. KL, clip fraction, losses, explained variance, '
                          'gradient norm); observation only, the update is unchanged')
@@ -253,3 +262,8 @@ if configs.preference_dim:
     if configs.goal != 'mct':
         raise ValueError('a preference-conditioned model is trained with --goal mct (the preference sets the weights)')
     configs.feature_schema = 'benchmark_v3_f12_m9_p10_w3'
+if configs.finetune_objective == 'contrastive':
+    if not configs.preference_dim or configs.v3_train_source != 'generator':
+        raise ValueError('--finetune_objective contrastive needs --preference_dim 3 and --v3_train_source generator')
+    if configs.cl_k < 2:
+        raise ValueError('--cl_k must be at least 2 (pairs are formed inside a group)')
