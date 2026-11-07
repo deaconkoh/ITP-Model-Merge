@@ -29,8 +29,8 @@ PPO counterparts ran on NVIDIA L4, 23034 MiB, 595.91.07 (--jobs 2); the CL arms 
 | CL-B (contrastive, scratch) | 2600 | 0.000 | 0.520 | 2450 | 1.39 | 0.504 | 1.48 | 2.04 | 20.80 M |
 | D (PPO from the distilled student) | 1000 | 0.494 | 0.494 | 0 | 0.00 there ≈ 0.00 here | 0.393 | 0.20 there ≈ 0.26 here | 0.70 | 1.00 M |
 | CL-D (contrastive from D's update-0 network) | 1000 | 0.494 | 0.540 | 900 | 0.56 | 0.526 | 0.62 | 2.25 | 8.00 M |
-| E (PPO from the naive merge) | 3350 | 0.287 | 0.407 | 2350 | 0.46 there ≈ 0.61 here | 0.306 | 0.66 there ≈ 0.87 here | 0.70 | - |
-| CL-E (contrastive from the naive merge) | 3350 | 0.287 | 0.399 | 3150 | 1.69 | 0.328 | 1.77 | 1.90 | - |
+| E (PPO from the naive merge) | 3350 | 0.287 | 0.407 | 2350 | 0.46 there ≈ 0.61 here | 0.306 | 0.66 there ≈ 0.87 here | 0.70 | 3.35 M |
+| CL-E (contrastive from the naive merge) | 3350 | 0.287 | 0.399 | 3150 | 1.69 | 0.328 | 1.77 | 1.90 | 26.80 M |
 
 ### Validation HV at equal updates
 

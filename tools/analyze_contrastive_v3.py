@@ -74,11 +74,8 @@ def cl_log(r):
 def steps_per_update(cl_runs):
     """Environment steps per update of CL (from its log) and of PPO (CL / K): same instances at the same update."""
     k = json.loads(MANIFEST.read_text())["constants"]["cl_k"]
-    for r in cl_runs.values():
-        lg = cl_log(r)
-        if lg:
-            return np.array([e["cl"]["env_steps"] for e in lg], float), k
-    return None, k
+    lg = max((cl_log(r) for r in cl_runs.values()), key=len, default=[])   # the longest log covers every budget
+    return (np.array([e["cl"]["env_steps"] for e in lg], float) if lg else None), k
 
 
 def steps_at(per_update, u):
