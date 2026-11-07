@@ -1,0 +1,74 @@
+{
+ "model": "10x5+mix+bv3_mc_ZE_s111",
+ "checkpoint_sha256": "d2fa0da3ba50d352f3fe4e96623da9f7d304b1246a0d1e914e253f4384e22e3f",
+ "update": 0,
+ "split": "evaluation",
+ "size": "10x5",
+ "n": 100,
+ "grid_step": 0.1,
+ "grid_size": 66,
+ "hv_mean": 0.24009293238857576,
+ "nd_size_mean": 1.0,
+ "igd_plus_mean": 0.6542230545068386,
+ "igd_plus_n": 20,
+ "igd_plus_per_instance": {
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_001.fjs": 0.5392412432847261,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_002.fjs": 0.9331153791775666,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_003.fjs": 0.7498935937516454,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_004.fjs": 0.43001394328559095,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_005.fjs": 0.5144691949001947,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_006.fjs": 0.5407056674405127,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_007.fjs": 0.757091493703049,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_008.fjs": 0.645564050842631,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_009.fjs": 0.5502363895102839,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_010.fjs": 0.4088372258075368,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_011.fjs": 0.5849715488843767,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_012.fjs": 0.7201325570392768,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_013.fjs": 1.038147030198729,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_014.fjs": 0.6258456691562024,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_015.fjs": 0.6873292421098691,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_016.fjs": 0.6283827297658139,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_017.fjs": 0.8204530883204733,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_018.fjs": 0.9047334529210069,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_019.fjs": 0.5154421006742327,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_020.fjs": 0.489855489363053
+ },
+ "objectives_at": {
+  "w=(1,0,0)": {
+   "makespan": 426.12,
+   "carbon": 154.01457567449722,
+   "tardiness": 370.3517532065543
+  },
+  "w=(0,1,0)": {
+   "makespan": 426.12,
+   "carbon": 154.01457567449722,
+   "tardiness": 370.3517532065543
+  },
+  "w=(0,0,1)": {
+   "makespan": 426.12,
+   "carbon": 154.01457567449722,
+   "tardiness": 370.3517532065543
+  },
+  "w=(1/3,1/3,1/3)": {
+   "makespan": 426.12,
+   "carbon": 154.01457567449722,
+   "tardiness": 370.3517532065543
+  }
+ },
+ "seconds": 14.462030172348022,
+ "norm": [
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/baselines_v3/normalisation_points.json"
+ ],
+ "norm_sha256": [
+  "e646dad70d9a6d4d90891af698edee6bdfee73b6d85a99007b032b7f8738ae91"
+ ],
+ "independent_rescore": "all schedules feasible; objectives identical to the environment",
+ "sample": {
+  "k": 16,
+  "seed": 50,
+  "n": 100,
+  "hv_mean": 0.6351781381922776,
+  "igd_plus_mean": 0.27847343534083624,
+  "seconds": 209.80216073989868
+ }
+}
