@@ -4,6 +4,7 @@
   "10x5+mix+bv3_cc_CCB_s111.pth": "8d86f41ae564fde4f45729d81e98bae2c140b5e4e9aa6aabb496df5a11cdb809",
   "10x5+mix+bv3_cc_CCD_s111.pth": "a517b47076aae22a3499f3a58b4ca8287d5feebab604d7253367c0ee6a338a71",
   "10x5+mix+bv3_cc_CCE_s111.pth": "c4bfc24df44e5a35bcf300381be6eee82a526bcd4fe5c73f7b07449a3c1cf856",
+  "10x5+mix+bv3_cc_CCSBAVG_s111.pth": "8d386d577f65b54c680928bf156aed6fe44681439deae415a8fec81017ef9144",
   "10x5+mix+bv3_cc_CCTA_s111.pth": "a830492e7aa70807514ec5c14bb093d0491956a7b61bd1a5a213798f1ca07e2f",
   "sources/10x5+mix+bv3_cl_CLB_s111.resume.pth": "a850462c4859b2dbf2c8c1f4ae5ba5602774d07c6c28cb6eb968d2850a6c2fe7",
   "sources/10x5+mix+bv3_cl_CLD_s111.resume.pth": "a8c8b5b7bea03ddc9276326af59080b0bc7e83d782393007b909e92417083a69",
