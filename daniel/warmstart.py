@@ -13,6 +13,10 @@ shape in both.
                                   same schema as dst; the critic keeps dst's fresh values)
   uniform_merge(sds)              element-wise mean of several state dicts with identical shapes
   interpolate(sds, lam)           sum_x lam_x * theta_x (E0)
+  task_arithmetic(base, sds, lam) base + lam * sum_x (theta_x - base)  (Ilharco et al., ICLR 2023)
+  ties_merge(base, sds, lam, k)   base + lam * TIES(task vectors): trim to the top-k fraction by magnitude per task
+                                  vector, elect a sign per entry, disjoint mean (Yadav et al., NeurIPS 2023)
+                                  (docs/merge_categories_protocol_v3.md)
 """
 from __future__ import annotations
 import torch
@@ -68,3 +72,44 @@ def interpolate(sds: list, lam) -> dict:
 
 def uniform_merge(sds: list) -> dict:
     return interpolate(sds, [1.0 / len(sds)] * len(sds))
+
+
+def _check_same(sds: list):
+    keys = set(sds[0])
+    if any(set(s) != keys or any(s[k].shape != sds[0][k].shape for k in keys) for s in sds):
+        raise ValueError("state dicts to merge must have identical keys and shapes")
+
+
+def task_vectors(base: dict, sds: list) -> list:
+    """tau_x = theta_x - base per state dict, in float64."""
+    _check_same([base] + list(sds))
+    return [{k: s[k].to(torch.float64) - base[k].to(torch.float64) for k in base} for s in sds]
+
+
+def task_arithmetic(base: dict, sds: list, lam: float) -> dict:
+    tvs = task_vectors(base, sds)
+    return {k: (base[k].to(torch.float64) + float(lam) * sum(t[k] for t in tvs)).to(base[k].dtype) for k in base}
+
+
+def ties_merge(base: dict, sds: list, lam: float, keep: float = 0.2) -> dict:
+    """TIES-Merging. Trim: each task vector keeps its top `keep` fraction of entries by |value|, over the whole
+    flattened vector (all tensors together, as the official implementation), the rest set to 0. Elect: per entry the
+    sign of the sum of the trimmed values. Disjoint mean: per entry the mean over the tasks whose kept value is non-zero
+    and has the elected sign (0 if none). Returns base + lam * merged vector."""
+    tvs = task_vectors(base, sds)
+    keys = list(base)
+    flat = torch.stack([torch.cat([t[k].reshape(-1) for k in keys]) for t in tvs])          # [tasks, params]
+    n_keep = int(round(keep * flat.shape[1]))
+    trimmed = torch.zeros_like(flat)
+    if n_keep > 0:
+        idx = flat.abs().topk(n_keep, dim=1).indices
+        trimmed.scatter_(1, idx, flat.gather(1, idx))
+    sign = torch.sign(trimmed.sum(0))
+    agree = (torch.sign(trimmed) == sign) & (trimmed != 0)
+    merged = (trimmed * agree).sum(0) / agree.sum(0).clamp(min=1)
+    out, i = {}, 0
+    for k in keys:
+        n = base[k].numel()
+        out[k] = (base[k].to(torch.float64) + float(lam) * merged[i:i + n].reshape(base[k].shape)).to(base[k].dtype)
+        i += n
+    return out

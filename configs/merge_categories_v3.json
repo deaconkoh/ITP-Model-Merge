@@ -1,0 +1,49 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "budget": {
+  "updates": 3350,
+  "rule": "arm E's final update (seed 111); no early stopping",
+  "source": "results/warmstart_v3/runs/10x5+mix+bv3_ws_E_s111/status.json",
+  "source_sha256": "14238d9e64d2860cb4d8d98ceb4319c3da716e09df6a0df98eda15b0c8faf68b"
+ },
+ "contrastive": {
+  "source": "configs/contrastive_v3.json",
+  "source_sha256": "df851486354f209ee3b147518460c1ada4986706a41bdfa0be4432ca4282720b",
+  "constants": {
+   "cl_k": 8,
+   "cl_beta": 0.1,
+   "cl_margin": 0.01,
+   "cl_grad_clip": 1.0,
+   "lr": 0.0003,
+   "minibatch_size": 1024,
+   "validate_timestep": 50,
+   "converge_window": 0,
+   "mo_val_grid_step": 0.25,
+   "pref_dirichlet": 1.0,
+   "num_envs": 20,
+   "reset_env_timestep": 20
+  }
+ },
+ "validation_norm": {
+  "path": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+  "sha256": "76b55f740e23c839d7d1209e5e29cc6d8b90e6647f75aacc2579ad0240975521"
+ },
+ "method": {
+  "lambda_grid": [
+   0.3,
+   0.5,
+   0.7,
+   1.0
+  ],
+  "ties_keep": 0.2,
+  "lambda_rule": "highest update-0 validation HV (15-preference grid, frozen validation points); tie -> smaller lambda; evaluation data never used",
+  "shared_base": {
+   "base_goal": "mct",
+   "base_updates": 500,
+   "ft_updates": 1000,
+   "source": "tools/ec2_runner.py u_shared_base (pre-registered E-shared path)"
+  }
+ },
+ "frozen": "2026-11-07"
+}

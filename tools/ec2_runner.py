@@ -11,9 +11,15 @@ fails twice is marked FAILED (its dependents too) and the run continues; a re-ru
 Contrastive arms (docs/contrastive_protocol_v3.md): --arms CL-B,CL-D,CL-E --seeds 111 runs them in their own mode
 (results/contrastive_v3, run tag "cl", frozen budgets and validation normalisation from configs/contrastive_v3.json);
 they cannot be mixed with the warm-start arms in one call.
+
+Merge-category arms (docs/merge_categories_protocol_v3.md): --arms SB-AVG,TA,TIES --seeds 111 trains a shared base and
+M/C/T fine-tunes from it (u_shared_base, unchanged), builds the shared-base average, Task Arithmetic and TIES merges
+(lambda chosen on the validation grid), evaluates each zero-training merge and fine-tunes each merge with the contrastive
+objective (results/merge_categories_v3, run tag "mc", frozen inputs in configs/merge_categories_v3.json). Starting
+networks and best checkpoints are committed to checkpoints/merge_categories_v3/ with SHA-256 hashes.
 """
 from __future__ import annotations
-import argparse, json, os, re, signal, subprocess, sys, threading, time
+import argparse, hashlib, json, os, re, shutil, signal, subprocess, sys, threading, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -34,6 +40,10 @@ CL_ORDER = ["CLB", "CLD", "CLE"]
 CL_LABEL = {"CLB": "CL-B (contrastive, scratch)", "CLD": "CL-D (contrastive from D's update-0 network)",
             "CLE": "CL-E (contrastive from the naive merge)"}
 SPU_LOCAL_CL = {"10x5": 2.0}                       # contrastive s/update (K = 8): 1.7-1.8 s measured, 3 parallel smoke jobs
+MC_ORDER = ["SBAVG", "TA", "TIES"]
+MC_LABEL = {"SBAVG": "SB-AVG (shared-base average, contrastive)", "TA": "TA (Task Arithmetic, contrastive)",
+            "TIES": "TIES (TIES-Merging, contrastive)"}
+CKPT = REPO / "checkpoints" / "merge_categories_v3"     # checkpoints/merge_categories_v3_smoke under --smoke
 
 
 def settings(smoke):
@@ -56,7 +66,11 @@ class Runner:
         self.sizes = a.sizes.split()
         self.seeds = [int(x) for x in a.seeds.split()]
         arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.replace(",", " ").split()]
-        self.cl = any(x in CL_ORDER for x in arms)
+        self.mc = any(x in MC_ORDER for x in arms)
+        self.cl = self.mc or any(x in CL_ORDER for x in arms)
+        if self.mc:
+            self.init_merge_categories(a, arms)
+            return
         if self.cl:
             self.init_contrastive(a, arms)
             return
@@ -99,6 +113,34 @@ class Runner:
             raise SystemExit(f"contrastive arms are frozen for size {self.manifest['size']} and seed "
                              f"{self.manifest['seed']} (configs/contrastive_v3.json)")
         self.arms, self.e0 = [x for x in CL_ORDER if x in arms], False
+        self.cl_common(a)
+
+    def init_merge_categories(self, a, arms):
+        """Merge-category mode: SB-AVG, TA and TIES, contrastive fine-tuning; inputs from the verified frozen manifest."""
+        bad = set(arms) - set(MC_ORDER)
+        if bad:
+            raise SystemExit(f"merge-category arms cannot be mixed with {sorted(bad)} in one call")
+        if a.with_shared_base:
+            raise SystemExit("--with-shared-base does not apply to the merge-category arms (they build their own)")
+        sys.path.insert(0, str(REPO / "tools"))
+        from freeze_merge_categories_v3 import load
+        m = load()                                          # fails loudly on a hash mismatch
+        if self.sizes != [m["size"]] or (not a.smoke and self.seeds != [m["seed"]]):
+            raise SystemExit(f"merge-category arms are frozen for size {m['size']} and seed {m['seed']} "
+                             "(configs/merge_categories_v3.json)")
+        sb = m["method"]["shared_base"]
+        if not a.smoke and (self.s["base_updates"], self.s["ft_updates"]) != (sb["base_updates"], sb["ft_updates"]):
+            raise SystemExit("shared-base budgets differ from configs/merge_categories_v3.json")
+        self.mcm = m
+        self.manifest = {"size": m["size"], "seed": m["seed"], "constants": m["contrastive"]["constants"],
+                         "validation_norm": m["validation_norm"],
+                         "arms": {x: {"updates": m["budget"]["updates"]} for x in MC_ORDER}}
+        self.lams = [0.5, 1.0] if a.smoke else m["method"]["lambda_grid"]
+        self.arms, self.e0 = [x for x in MC_ORDER if x in arms], False
+        self.ckpt_lock = threading.Lock()
+        self.cl_common(a)
+
+    def cl_common(self, a):
         self.s.update(cl_validate=self.manifest["constants"]["validate_timestep"])
         if a.smoke:
             self.s.update(cl_validate=5)
@@ -339,7 +381,8 @@ class Runner:
              "--minibatch_size", str(c["minibatch_size"]), "--num_envs", str(c["num_envs"]),
              "--reset_env_timestep", str(c["reset_env_timestep"]), "--pref_dirichlet", str(c["pref_dirichlet"])]
         init = {"CLD": ("no_critic", TN / f"{size}+mix+bv3_{TAG}D_student_s{seed}.pth"),
-                "CLE": ("full", TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth")}.get(arm)
+                "CLE": ("full", TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth"),
+                **{x: ("full", self.start(x, size, seed)) for x in MC_ORDER}}.get(arm)
         if init:
             a += ["--init_from", str(init[1]), "--init_mode", init[0]]
         return a
@@ -375,7 +418,7 @@ class Runner:
             return True
         rdir.mkdir(parents=True, exist_ok=True); (rdir / "FAILED").unlink(missing_ok=True)
         m = json.loads((rdir / "run_meta.json").read_text()) if (rdir / "run_meta.json").exists() else {}
-        m.update(arm=arm, label=(CL_LABEL if self.cl else ARM_LABEL)[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
+        m.update(arm=arm, label={**ARM_LABEL, **CL_LABEL, **MC_LABEL}[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
                  omp_threads=self.slot_threads, host=self.host())
         (rdir / "run_meta.json").write_text(json.dumps(m, indent=1))
         if not self.train_chunks(name, self.mo_args(arm, size, seed), size, slot, self.cap(arm), self.chunk(size), rdir):
@@ -389,21 +432,122 @@ class Runner:
         st = json.loads((rdir / "status.json").read_text())
         self.log(f"{name}: {st['status']} at update {st['update']}, best val HV {-st['best_value']:.4f} "
                  f"@ {st['best_update']}, train {st['train_seconds'] / 3600:.2f} h")
+        if not self.evaluate(name, size, slot):
+            (rdir / "FAILED").write_text(f"evaluation failed twice at {time.strftime('%F %T')}\n")
+            self.commit(f"{PREFIX}: {name} evaluation FAILED", rdir)
+            return False
+        if self.mc:
+            self.save_ckpt(TN / f"{name}.pth")              # the best-validation checkpoint
+        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE, *([CKPT] if self.mc else []))
+        return True
+
+    def evaluate(self, model, size, slot):
+        """daniel/evaluate_mo_v3.py on the evaluation split (model: a run name or a .pth path), retried once."""
+        name = Path(model).stem
         for attempt in (1, 2):
-            rc = self.run([PY, "evaluate_mo_v3.py", "--model", name, "--split", self.s["eval_split"], "--size", size,
+            rc = self.run([PY, "evaluate_mo_v3.py", "--model", str(model), "--split", self.s["eval_split"], "--size", size,
                            "--first", str(self.s["eval_first"]), "--grid_step", str(self.s["eval_grid"]),
                            "--norm", *self.eval_norm(size), "--out", str(RES / "eval"), "--sample", str(self.s["sample"]),
                            "--sample_first", str(self.s["sample_first"][size]),
                            "--device", "cuda"], timeout=7200, cpus=self.slots[slot], threads=self.slot_threads,
                           cwd=REPO / "daniel", out=TL / f"{name}.stdout.log")
             if rc == 0:
-                break
+                return True
             self.log(f"eval {name} FAILED (attempt {attempt})")
-        if rc != 0:
-            (rdir / "FAILED").write_text(f"evaluation failed twice at {time.strftime('%F %T')}\n")
-            self.commit(f"{PREFIX}: {name} evaluation FAILED", rdir)
+        return False
+
+    # ------------------------------------------------------------------ merge categories
+    def start(self, arm, size, seed):
+        """The unconditioned starting network of a merge-category arm (written by u_lambda)."""
+        return TN / f"{size}+mix+bv3_{TAG}{arm}_start_s{seed}.pth"
+
+    def save_ckpt(self, src):
+        """Copy a checkpoint to the committed folder and record its SHA-256 in SHA256SUMS.json."""
+        with self.ckpt_lock:
+            CKPT.mkdir(parents=True, exist_ok=True)
+            dst = CKPT / Path(src).name
+            shutil.copy2(src, dst)
+            f = CKPT / "SHA256SUMS.json"
+            rec = json.loads(f.read_text()) if f.exists() else {"description": "SHA-256 of every committed checkpoint of "
+                                                                "the merge-category study (docs/merge_categories_protocol_v3.md)",
+                                                                "files": {}}
+            rec["files"][dst.name] = hashlib.sha256(dst.read_bytes()).hexdigest()
+            rec["files"] = dict(sorted(rec["files"].items()))
+            f.write_text(json.dumps(rec, indent=1) + "\n")
+
+    def probe(self, label, init, size, seed, slot):
+        """A 0-update contrastive run from `init` (--init_mode full): validation at update 0 only (the CL arms' validation
+        grid and frozen points) and the update-0 network saved as <name>.pth. Returns the validation HV or None."""
+        name = self.name(label, size, seed)
+        for p in (TN / f"{name}.pth", TL / f"{name}.status.json", TL / f"valiquality_{name}.json"):
+            p.unlink(missing_ok=True)
+        rc = self.run([PY, "train.py", *self.cl_args(label, size, seed), "--init_from", str(init), "--init_mode", "full",
+                       "--max_updates", "0", "--device", "cuda"], timeout=1800, cpus=self.slots[slot],
+                      threads=self.slot_threads, cwd=REPO / "daniel", out=TL / f"{name}.stdout.log")
+        v = TL / f"valiquality_{name}.json"
+        if rc != 0 or not v.exists() or not (TN / f"{name}.pth").exists():
+            self.log(f"probe {name} FAILED (rc {rc})")
+            return None
+        rec = json.loads(v.read_text())
+        zdir = RES / "zero" / name; zdir.mkdir(parents=True, exist_ok=True)
+        (zdir / "valiquality.json").write_text(v.read_text())
+        (zdir / "run.json").write_text((TL / f"{name}.run.json").read_text())
+        return float(rec[0]["hv"])
+
+    def u_lambda(self, size, seed, slot):
+        """TA and TIES candidates for every lambda of the frozen grid, scored by update-0 validation HV only; the best
+        (tie -> smaller lambda) becomes the arm's start. SB-AVG's start is the shared-base average; E's merge is probed
+        for its zero-training value. Writes lambda_selection.json and commits every starting network."""
+        out = RES / "lambda_selection.json"
+        if out.exists() and all(self.start(x, size, seed).exists() for x in MC_ORDER):
+            return True
+        pre = f"{size}+mix+bv3_{TAG}"
+        base = TN / f"{pre}base_s{seed}.pth"
+        fts = [TN / f"{pre}ft_{o}_s{seed}.pth" for o in "mct"]
+        rec = {"size": size, "seed": seed, "lambda_grid": self.lams, "ties_keep": self.mcm["method"]["ties_keep"],
+               "rule": self.mcm["method"]["lambda_rule"], "base": base.name, "specialists": [f.name for f in fts],
+               "validation_norm": self.manifest["validation_norm"], "candidates": {}, "selected": {}}
+        for arm, method in (("TA", "ta"), ("TIES", "ties")):
+            cands = []
+            for lam in self.lams:
+                tag = f"{arm}l{int(round(lam * 100)):03d}"
+                pth = TN / f"{pre}{tag}_merged_s{seed}.pth"
+                rc = self.run([PY, "tools/merge_task_vectors_v3.py", "--method", method, "--base", str(base), "--sources",
+                               *map(str, fts), "--lam", str(lam), "--keep", str(rec["ties_keep"]), "--out", str(pth)],
+                              timeout=600, cpus=self.slots[slot], threads=self.slot_threads, out=self.log_path)
+                hv = self.probe(f"p{tag}", pth, size, seed, slot) if rc == 0 and pth.exists() else None
+                if hv is None:
+                    return False
+                cands.append({"lambda": lam, "merged": pth.name, "validation_hv_update0": hv})
+                self.save_ckpt(pth)
+                self.log(f"lambda {arm} {lam}: update-0 validation HV {hv:.4f}")
+            best = sorted(cands, key=lambda c: (-c["validation_hv_update0"], c["lambda"]))[0]
+            rec["candidates"][arm] = cands
+            rec["selected"][arm] = best
+            shutil.copy2(TN / best["merged"], self.start(arm, size, seed))
+        shutil.copy2(TN / f"{pre}ES_merged_s{seed}.pth", self.start("SBAVG", size, seed))
+        rec["selected"]["SBAVG"] = {"lambda": None, "merged": f"{pre}ES_merged_s{seed}.pth"}
+        for f in [base, *fts, TN / f"{pre}ES_merged_s{seed}.pth", TN / f"{pre}E_merged_s{seed}.pth",
+                  *(self.start(x, size, seed) for x in MC_ORDER)]:
+            self.save_ckpt(f)
+        rec["start_sha256"] = {x: hashlib.sha256(self.start(x, size, seed).read_bytes()).hexdigest() for x in MC_ORDER}
+        out.write_text(json.dumps(rec, indent=1) + "\n")
+        self.commit(f"{PREFIX}: lambda selection and starting networks {size} s{seed}", out, CKPT, RES / "zero")
+        return True
+
+    def u_zeval(self, arm, size, seed, slot):
+        """Zero-training value of a merge (SBAVG, TA, TIES: the arm's start; E: arm E's naive merge): a 0-update probe,
+        then the same evaluation as the fine-tuned arms."""
+        name = self.name(f"Z{arm}", size, seed)
+        edir = RES / "eval" / f"{self.s['eval_split']}_{size}"
+        if (edir / f"{name}.json").exists():
+            return True
+        init = TN / f"{size}+mix+bv3_{TAG}E_merged_s{seed}.pth" if arm == "E" else self.start(arm, size, seed)
+        hv = self.probe(f"Z{arm}", init, size, seed, slot)
+        if hv is None or not self.evaluate(TN / f"{name}.pth", size, slot):
             return False
-        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE)
+        self.log(f"zero-training {arm}: update-0 validation HV {hv:.4f}")
+        self.commit(f"{PREFIX}: zero-training {arm} {size} s{seed}", edir, RES / "zero")
         return True
 
     def u_e0(self, size, seed, slot):
@@ -429,6 +573,8 @@ class Runner:
         for size in self.sizes:
             if self.a.smoke:
                 U.append((f"normdev:{size}", "normdev", (size,), [], False))
+        if self.mc:
+            return self.plan_mc(U)
             if not self.cl:                                     # CL: frozen validation points (manifest)
                 U.append((f"norm:{size}", "norm", (size,), [], False))
         for size in self.sizes:
@@ -450,12 +596,29 @@ class Runner:
                 U.append((f"e0:{size}:{seed}", "e0", (size, seed), deps, True))
         return U
 
+    def plan_mc(self, U):
+        """Merge categories: shared base + fine-tunes + SB-AVG merge, E's merge, lambda selection, then the contrastive
+        arms; the zero-training evaluations fill free slots after the arms."""
+        for size in self.sizes:
+            dev = [f"normdev:{size}"] if self.a.smoke else []
+            for seed in self.seeds:
+                lam = f"lambda:{size}:{seed}"
+                U.append((f"shared:{size}:{seed}", "shared", (size, seed), [], True))
+                U.append((f"merge:{size}:{seed}", "merge", (size, seed), [], True))
+                U.append((lam, "lambda", (size, seed), [f"shared:{size}:{seed}", f"merge:{size}:{seed}"], True))
+                for arm in self.arms:
+                    U.append((f"train:{arm}:{size}:{seed}", "train", (arm, size, seed), [lam] + dev, True))
+                for arm in self.arms + ["E"]:
+                    U.append((f"zeval:{arm}:{size}:{seed}", "zeval", (arm, size, seed), [lam] + dev, True))
+        return U
+
     def execute(self, kind, args, slot):
         fn = {"calib": lambda: self.u_calibration(args[0], slot), "norm": lambda: self.u_norm(args[0]),
               "normdev": lambda: self.u_norm(args[0], "development"),
               "distill": lambda: self.u_distill(*args, slot), "merge": lambda: self.u_merge(*args, slot),
               "shared": lambda: self.u_shared_base(*args, slot), "train": lambda: self.u_train(*args, slot),
-              "e0": lambda: self.u_e0(*args, slot)}[kind]
+              "e0": lambda: self.u_e0(*args, slot), "lambda": lambda: self.u_lambda(*args, slot),
+              "zeval": lambda: self.u_zeval(*args, slot)}[kind]
         try:
             return fn()
         except Exception as e:                                      # a broken unit must not stop the run
@@ -596,8 +759,12 @@ def main():
     ap.add_argument("--with_shared_base", action="store_true")
     ap.add_argument("--log", default=str(REPO / "logs" / "warmstart_v3_runner.log"))
     a = ap.parse_args()
-    global RES, TAG, STATUS_FILE, PREFIX
-    if any(x.replace("-", "") in CL_ORDER for x in a.arms.replace(",", " ").split()):
+    global RES, TAG, STATUS_FILE, PREFIX, CKPT
+    if any(x.replace("-", "") in MC_ORDER for x in a.arms.replace(",", " ").split()):
+        RES, TAG = REPO / "results" / ("merge_categories_v3_smoke" if a.smoke else "merge_categories_v3"), "mcs" if a.smoke else "mc"
+        STATUS_FILE, PREFIX = REPO / "logs" / "merge_categories_v3_STATUS.txt", "merge categories v3"
+        CKPT = REPO / "checkpoints" / ("merge_categories_v3_smoke" if a.smoke else "merge_categories_v3")
+    elif any(x.replace("-", "") in CL_ORDER for x in a.arms.replace(",", " ").split()):
         RES, TAG = REPO / "results" / ("contrastive_v3_smoke" if a.smoke else "contrastive_v3"), "cls" if a.smoke else "cl"
         STATUS_FILE, PREFIX = REPO / "logs" / "contrastive_v3_STATUS.txt", "contrastive v3"
     elif a.smoke:

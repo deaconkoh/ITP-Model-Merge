@@ -21,6 +21,10 @@
 # Contrastive fine-tuning arms (docs/contrastive_protocol_v3.md), their own mode and outputs:
 #   bash scripts/ec2_run_all.sh --arms CL-B,CL-D,CL-E --seeds 111 --jobs 3      [--smoke: 5 updates per arm]
 #   -> results/contrastive_v3/, results/contrastive_v3.md, logs/contrastive_v3_STATUS.txt
+# Merge-category arms (docs/merge_categories_protocol_v3.md), contrastive fine-tuning, their own mode and outputs:
+#   bash scripts/ec2_run_all.sh --arms SB-AVG,TA,TIES --seeds 111 --jobs 3       [--smoke: 20-update base/fine-tunes,
+#   2 lambdas, 5 CL updates] -> results/merge_categories_v3/, results/merge_categories_v3.md,
+#   checkpoints/merge_categories_v3/ (with SHA256SUMS.json), logs/merge_categories_v3_STATUS.txt
 # Resume (also after a spot interruption on the same volume): run the same command again.
 # Progress: bash scripts/ec2_status.sh
 set -u -o pipefail
@@ -52,6 +56,7 @@ STATE="$GITDIR/warmstart_v3"; mkdir -p "$STATE" logs
 STATUS_FILE="logs/warmstart_v3_STATUS.txt"
 STUDY="warmstart_v3"                                            # contrastive_v3 for the CL arms
 case "$ARMS" in *CL*) STUDY="contrastive_v3"; STATUS_FILE="logs/contrastive_v3_STATUS.txt" ;; esac
+case "$ARMS" in *SB-AVG*|*SBAVG*|*TA*|*TIES*) STUDY="merge_categories_v3"; STATUS_FILE="logs/merge_categories_v3_STATUS.txt" ;; esac
 PY="$REPO/.venv/bin/python"
 export WANDB_MODE=offline HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1
 
@@ -81,12 +86,13 @@ if [ "$WORKER" = 1 ]; then
             --norm results/${STUDY}_smoke/norm/validation_normalisation_points_development_*.json)
   fi
   ANALYSIS="tools/analyze_warmstart_v3.py"; [ "$STUDY" = contrastive_v3 ] && ANALYSIS="tools/analyze_contrastive_v3.py"
+  [ "$STUDY" = merge_categories_v3 ] && ANALYSIS="tools/analyze_merge_categories_v3.py"
   say "analysis: $ANALYSIS"
   timeout 3600 "$PY" "$ANALYSIS" "${A_ARGS[@]}" || say "analysis FAILED (see above); results are committed"
   say "DONE: git push when ready"
   [ "$SHUTDOWN" = 1 ] && say "after this final commit: shutting down in 2 minutes"
   for p in "results/$STUDY" "results/$STUDY.md" "results/${STUDY}_smoke" "results/${STUDY}_smoke.md" \
-           "$STATUS_FILE" logs/${STUDY}_*.log; do
+           "checkpoints/$STUDY" "checkpoints/${STUDY}_smoke" "$STATUS_FILE" logs/${STUDY}_*.log; do
     [ -e "$p" ] && git add -A -- "$p"
   done
   git diff --cached --quiet || git commit -q -m "${STUDY//_/ }: analysis and final status" \
@@ -133,6 +139,9 @@ DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart
         ':!results/warmstart_v3_smoke' ':!results/warmstart_v3_smoke.md' \
         ':!logs/contrastive_v3_*' ':!results/contrastive_v3' ':!results/contrastive_v3.md' \
         ':!results/contrastive_v3_smoke' ':!results/contrastive_v3_smoke.md' \
+        ':!logs/merge_categories_v3_*' ':!results/merge_categories_v3' ':!results/merge_categories_v3.md' \
+        ':!results/merge_categories_v3_smoke' ':!results/merge_categories_v3_smoke.md' \
+        ':!checkpoints/merge_categories_v3' ':!checkpoints/merge_categories_v3_smoke' \
         ':!logs/baselines_v3_console.out')
 [ -z "$DIRTY" ] || die "git tree not clean: $(echo "$DIRTY" | head -5 | tr '\n' ' ')"
 "$PY" tools/ec2_inputs.py verify >>"$LOG" 2>&1 || die "input hash verification failed (see $LOG)"
@@ -140,10 +149,13 @@ DIRTY=$(git status --porcelain -- . ':!logs/warmstart_v3_*' ':!results/warmstart
 if [ "$STUDY" = contrastive_v3 ]; then
   "$PY" tools/freeze_contrastive_v3.py verify >>"$LOG" 2>&1 || die "configs/contrastive_v3.json verification failed"
 fi
+if [ "$STUDY" = merge_categories_v3 ]; then
+  "$PY" tools/freeze_merge_categories_v3.py verify >>"$LOG" 2>&1 || die "configs/merge_categories_v3.json verification failed"
+fi
 OUT=$("$PY" -m unittest tests.test_benchmark_v3 tests.test_baselines_v3 tests.test_mo_daniel_v3 tests.test_warmstart_v3 \
-      tests.test_contrastive_v3 2>&1)
+      tests.test_contrastive_v3 tests.test_merge_categories_v3 2>&1)
 RC=$?; echo "$OUT" | tail -15 >>"$LOG"
-[ $RC -eq 0 ] || die "v3 / MO / warm-start / contrastive test suites failed (see $LOG)"
+[ $RC -eq 0 ] || die "v3 / MO / warm-start / contrastive / merge-category test suites failed (see $LOG)"
 echo "$OUT" | grep -q "skipped" && die "a test was skipped"
 V1=$("$PY" -m unittest tests.test_v1_reproduction 2>&1); V1RC=$?; echo "$V1" | tail -8 >>"$LOG"
 if [ $V1RC -ne 0 ] || echo "$V1" | grep -q skipped; then
