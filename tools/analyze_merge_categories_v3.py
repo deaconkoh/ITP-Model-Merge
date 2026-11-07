@@ -91,6 +91,47 @@ def summary(r):
             "final": hv[-1], "final_u": u[-1], "train_h": st.get("train_seconds", sec[-1]) / 3600}
 
 
+def rolling(y, w=5):
+    """Centred rolling mean over w validation points (the window shrinks at the ends)."""
+    y = np.asarray(y, float); h = w // 2
+    return np.array([y[max(0, i - h):i + h + 1].mean() for i in range(len(y))])
+
+
+def plot_summary(R, path):
+    """One panel: Distillation and From scratch as lines, the four merge starts as one band (min-max of their smoothed
+    curves at each update) with their mean."""
+    plt.rcParams.update({"font.size": 11})
+    fig, ax = plt.subplots(figsize=(10, 5.6), facecolor="white")
+    ax.set_facecolor("white"); ax.grid(alpha=.3, lw=.6)
+    ends = []
+    for x, col, name in (("CLD", "#1f77b4", "Distillation"), ("CLB", "#ff7f0e", "From scratch")):
+        u, hv, _, _ = AW.val_series(R[x])
+        ax.plot(u, hv, color=col, lw=.7, alpha=.3)
+        sm = rolling(hv); ax.plot(u, sm, color=col, lw=2)
+        ends.append((u[-1], sm[-1], name, col))
+    merges = [AW.val_series(R[x]) for x in ("SBAVG", "TA", "TIES", "CLE")]
+    u = merges[0][0]
+    if any(m[0] != u for m in merges):
+        raise ValueError("merge runs were validated at different updates")
+    sm = np.array([rolling(m[1]) for m in merges])
+    ax.fill_between(u, sm.min(0), sm.max(0), color="#9a9a9a", alpha=.3, lw=0)
+    ax.plot(u, sm.mean(0), color="#6e6e6e", lw=2)
+    ends.append((u[-1], sm.mean(0)[-1], "Merges (4 methods)", "#555555"))
+    for xe, ye, name, col in ends:
+        ax.annotate(name, (xe, ye), xytext=(6, 0), textcoords="offset points", va="center", color=col, fontsize=11)
+    xmax = max(e[0] for e in ends)
+    ax.set_xlim(0, xmax * 1.22)                                  # room for the end labels
+    ax.set_xticks(np.arange(0, xmax + 1, 500))
+    ax.set_ylim(bottom=0)
+    ax.set_xlabel("updates"); ax.set_ylabel("validation hypervolume")
+    ax.set_title("Validation hypervolume during contrastive fine-tuning (10x5, seed 111)")
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    fig.text(0.5, 0.01, "Grey band: range of the four merge starts. Smoothed over 5 points.", ha="center", fontsize=11)
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.savefig(path, dpi=130, facecolor="white"); plt.close(fig)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--eval_split", default="evaluation")
@@ -263,8 +304,12 @@ def main():
     fig.legend(h, lab, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=9, frameon=False,
                title="Start (contrastive fine-tuning)", title_fontsize=9)
     fig.suptitle("Validation hypervolume, contrastive fine-tuning from each start, 10x5, seed 111"); fig.tight_layout()
-    fig.savefig(fig_dir / "curves_10x5.png", dpi=120, bbox_inches="tight"); plt.close(fig)
-    L += [f"![curves]({res.name}/figures/curves_10x5.png)", ""]
+    fig.savefig(fig_dir / "curves_10x5_detailed.png", dpi=120, bbox_inches="tight"); plt.close(fig)
+    if all(x in R and R[x]["valiquality"] for x in MC + CL):
+        plot_summary(R, fig_dir / "curves_10x5.png")
+    L += [f"![curves]({res.name}/figures/curves_10x5.png)", "",
+          f"Each start as a separate line, against updates and wall-clock: "
+          f"[curves_10x5_detailed.png]({res.name}/figures/curves_10x5_detailed.png).", ""]
 
     L += ["## Design choices (fixed before any run)", ""] + [f"{i}. {d}" for i, d in enumerate(DESIGN, 1)] + [""]
     L += ["## Known limitation", "", "DANIEL's action mask only admits non-delay schedules (results/diagnose_v3.md, "

@@ -79,6 +79,8 @@ A zero-training merge ignores the preference (its preference columns are zero), 
 
 ![curves](merge_categories_v3/figures/curves_10x5.png)
 
+Each start as a separate line, against updates and wall-clock: [curves_10x5_detailed.png](merge_categories_v3/figures/curves_10x5_detailed.png).
+
 ## Design choices (fixed before any run)
 
 1. Shared base: the pre-registered E-shared path (`tools/ec2_runner.py: u_shared_base`, unchanged): an unconditioned DANIEL (the specialists' architecture and schema) trained with PPO on the equal-weight `mct` objective for 500 updates; its best-validation checkpoint is the base. Chosen because it has exactly the specialists' architecture and sits at the equal-weight middle of the three objectives, so each task vector points from the middle toward one corner; a random-initialisation base would make the task vectors whole networks.
