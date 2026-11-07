@@ -1,0 +1,71 @@
+Checked 48 packages in 22ms
+[2026-11-07 18:07:13] pre-flight
+inputs verified: 345 files, specialist checkpoints match their reported evaluations
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+contrastive manifest OK: CLB 2600 updates, CLD 1000 updates, CLE 3350 updates
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+.............................inputs verified: 345 files, specialist checkpoints match their reported evaluations
+..............
+----------------------------------------------------------------------
+Ran 54 tests in 19.435s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.
+----------------------------------------------------------------------
+Ran 1 test in 8.242s
+
+OK
+[2026-11-07 18:07:45] v1 reproduction test passed
+host: NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 610.88; 12 logical CPUs; AMD Ryzen 5 7500F 6-Core Processor
+versions: 3.14.4 torch 2.9.1+cu128 cuda 12.8 numpy 2.5.3 ortools 9.15.6755
+free disk: 849 GB; jobs 3; sizes '10x5'; arms 'CL-B,CL-D,CL-E'; seeds '111'; smoke 0; shared-base 0
+[2026-11-07 18:07:46] pre-flight OK
+[2026-11-07 18:07:46] worker started: --sizes 10x5 --arms CL-B,CL-D,CL-E --seeds 111 --jobs 3 --log logs/contrastive_v3_20261107_180713.log
+[2026-11-07 18:07:47] plan: 6 units, jobs 3, training slots ['0-2', '3-5', '6-8'] (3 threads each), CPU lane 9-11
+[2026-11-07 18:10:25] commit: contrastive v3: calibration 10x5
+[2026-11-07 18:10:25] calibration 10x5: 0.772 s/update here vs 0.821 locally (factor 0.94)
+[2026-11-07 18:10:25] unit calib:10x5: DONE
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"out": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_clE_merged_s111.pth", "label": "naive merge of independently trained specialists (no shared base); expected to be weak", "sources": ["10x5+mix+bv3_spec_m_s111.pth", "10x5+mix+bv3_spec_c_s111.pth", "10x5+mix+bv3_spec_t_s111.pth"]}
+[2026-11-07 18:10:26] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status NONE, slot 0, timeout 9600s)
+[2026-11-07 18:10:26] unit merge:10x5:111: DONE
+[2026-11-07 18:10:28] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status NONE, slot 2, timeout 9600s)
+[2026-11-07 18:12:35] commit: contrastive v3: distillation 10x5 s111
+[2026-11-07 18:12:35] unit distill:10x5:111: DONE
+[2026-11-07 18:12:39] train 10x5+mix+bv3_cl_CLD_s111: chunk of 500 (status NONE, slot 1, timeout 9600s)
+[2026-11-07 18:28:24] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 18:28:44] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status RUNNING, slot 0, timeout 9600s)
+[2026-11-07 18:31:28] train 10x5+mix+bv3_cl_CLD_s111: chunk of 500 (status RUNNING, slot 1, timeout 9600s)
+[2026-11-07 18:46:27] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 18:46:57] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status RUNNING, slot 0, timeout 9600s)
+[2026-11-07 18:50:12] 10x5+mix+bv3_cl_CLD_s111: FINISHED at update 1000, best val HV 0.5405 @ 900, train 0.62 h
+[2026-11-07 18:54:51] commit: contrastive v3: 10x5+mix+bv3_cl_CLD_s111 (FINISHED)
+[2026-11-07 18:54:51] unit train:CLD:10x5:111: DONE
+[2026-11-07 19:03:11] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 19:03:41] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status RUNNING, slot 0, timeout 9600s)
+[2026-11-07 19:19:19] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 19:19:30] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status RUNNING, slot 0, timeout 9600s)
+[2026-11-07 19:34:45] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 19:35:59] train 10x5+mix+bv3_cl_CLB_s111: chunk of 500 (status RUNNING, slot 0, timeout 9600s)
+[2026-11-07 19:39:17] 10x5+mix+bv3_cl_CLB_s111: FINISHED at update 2600, best val HV 0.5198 @ 2450, train 1.48 h
+[2026-11-07 19:43:24] commit: contrastive v3: 10x5+mix+bv3_cl_CLB_s111 (FINISHED)
+[2026-11-07 19:43:24] unit train:CLB:10x5:111: DONE
+[2026-11-07 19:48:25] train 10x5+mix+bv3_cl_CLE_s111: chunk of 500 (status RUNNING, slot 2, timeout 9600s)
+[2026-11-07 19:57:06] 10x5+mix+bv3_cl_CLE_s111: FINISHED at update 3350, best val HV 0.3989 @ 3150, train 1.77 h
+[2026-11-07 20:00:21] commit: contrastive v3: 10x5+mix+bv3_cl_CLE_s111 (FINISHED)
+[2026-11-07 20:00:21] unit train:CLE:10x5:111: DONE
+[2026-11-07 20:00:22] all units finished; FAILED: none
+[2026-11-07 20:00:22] runner finished (rc 0)
+[2026-11-07 20:00:22] analysis: tools/analyze_contrastive_v3.py
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/contrastive_v3.md
+[2026-11-07 20:00:25] DONE: git push when ready
