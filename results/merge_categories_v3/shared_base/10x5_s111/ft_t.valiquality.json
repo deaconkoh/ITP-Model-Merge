@@ -1,0 +1,222 @@
+[
+  {
+    "update": 50,
+    "makespan": 487.94444444444446,
+    "carbon": 160.85789228447356,
+    "priority": 197.12777777777777,
+    "time_scale": 99.0,
+    "tardiness": 289.6878447709739,
+    "score_v3": 0.5196958706119544,
+    "selection_metric": 0.5196958706119544,
+    "train_seconds": 39.982566118240356
+  },
+  {
+    "update": 100,
+    "makespan": 482.8333333333333,
+    "carbon": 159.91036954866252,
+    "priority": 199.46444444444444,
+    "time_scale": 99.0,
+    "tardiness": 252.72154616472693,
+    "score_v3": 0.4533788570256118,
+    "selection_metric": 0.4533788570256118,
+    "train_seconds": 79.93330526351929
+  },
+  {
+    "update": 150,
+    "makespan": 507.0,
+    "carbon": 164.13466738608793,
+    "priority": 207.32111111111112,
+    "time_scale": 99.0,
+    "tardiness": 283.1861691696083,
+    "score_v3": 0.5080319571165176,
+    "selection_metric": 0.5080319571165176,
+    "train_seconds": 120.00233459472656
+  },
+  {
+    "update": 200,
+    "makespan": 503.22222222222223,
+    "carbon": 164.39219487198977,
+    "priority": 204.65666666666667,
+    "time_scale": 99.0,
+    "tardiness": 267.43043682017225,
+    "score_v3": 0.4797663975210064,
+    "selection_metric": 0.4797663975210064,
+    "train_seconds": 156.16530060768127
+  },
+  {
+    "update": 250,
+    "makespan": 473.3333333333333,
+    "carbon": 158.55370631228425,
+    "priority": 191.88666666666666,
+    "time_scale": 99.0,
+    "tardiness": 276.9850368955237,
+    "score_v3": 0.49690721407281774,
+    "selection_metric": 0.49690721407281774,
+    "train_seconds": 200.433527469635
+  },
+  {
+    "update": 300,
+    "makespan": 503.1111111111111,
+    "carbon": 159.10170361615627,
+    "priority": 200.8111111111111,
+    "time_scale": 99.0,
+    "tardiness": 264.9652998799952,
+    "score_v3": 0.4753439769347516,
+    "selection_metric": 0.4753439769347516,
+    "train_seconds": 237.5733287334442
+  },
+  {
+    "update": 350,
+    "makespan": 491.8333333333333,
+    "carbon": 163.78301585682016,
+    "priority": 205.43999999999997,
+    "time_scale": 99.0,
+    "tardiness": 261.44184987752107,
+    "score_v3": 0.46902295777690184,
+    "selection_metric": 0.46902295777690184,
+    "train_seconds": 276.5841624736786
+  },
+  {
+    "update": 400,
+    "makespan": 475.1111111111111,
+    "carbon": 162.13526788582843,
+    "priority": 198.36888888888888,
+    "time_scale": 99.0,
+    "tardiness": 279.29092386186204,
+    "score_v3": 0.5010439424724901,
+    "selection_metric": 0.5010439424724901,
+    "train_seconds": 314.1272232532501
+  },
+  {
+    "update": 450,
+    "makespan": 487.0,
+    "carbon": 160.89516989721562,
+    "priority": 197.42666666666668,
+    "time_scale": 99.0,
+    "tardiness": 257.41848823367474,
+    "score_v3": 0.46180510424929344,
+    "selection_metric": 0.46180510424929344,
+    "train_seconds": 351.90642261505127
+  },
+  {
+    "update": 500,
+    "makespan": 453.27777777777777,
+    "carbon": 155.7455179048241,
+    "priority": 191.28333333333336,
+    "time_scale": 99.0,
+    "tardiness": 236.41413245642173,
+    "score_v3": 0.4241235889239514,
+    "selection_metric": 0.4241235889239514,
+    "train_seconds": 391.1044850349426
+  },
+  {
+    "update": 550,
+    "makespan": 485.1111111111111,
+    "carbon": 164.78338253587356,
+    "priority": 204.73666666666665,
+    "time_scale": 99.0,
+    "tardiness": 314.0334045330327,
+    "score_v3": 0.5633714583332181,
+    "selection_metric": 0.5633714583332181,
+    "train_seconds": 429.1773102283478
+  },
+  {
+    "update": 600,
+    "makespan": 496.3888888888889,
+    "carbon": 167.89146288777232,
+    "priority": 206.92777777777778,
+    "time_scale": 99.0,
+    "tardiness": 296.36510757094175,
+    "score_v3": 0.5316747850426844,
+    "selection_metric": 0.5316747850426844,
+    "train_seconds": 468.52611541748047
+  },
+  {
+    "update": 650,
+    "makespan": 475.5,
+    "carbon": 163.04556564703185,
+    "priority": 199.23555555555558,
+    "time_scale": 99.0,
+    "tardiness": 287.53490389438537,
+    "score_v3": 0.5158335253205276,
+    "selection_metric": 0.5158335253205276,
+    "train_seconds": 508.39024114608765
+  },
+  {
+    "update": 700,
+    "makespan": 475.27777777777777,
+    "carbon": 159.14971051086064,
+    "priority": 194.95999999999998,
+    "time_scale": 99.0,
+    "tardiness": 245.976289111084,
+    "score_v3": 0.4412779618714992,
+    "selection_metric": 0.4412779618714992,
+    "train_seconds": 547.9958393573761
+  },
+  {
+    "update": 750,
+    "makespan": 481.8888888888889,
+    "carbon": 163.31682210136145,
+    "priority": 201.61333333333334,
+    "time_scale": 99.0,
+    "tardiness": 248.4429401050168,
+    "score_v3": 0.4457030986486436,
+    "selection_metric": 0.4457030986486436,
+    "train_seconds": 585.937385559082
+  },
+  {
+    "update": 800,
+    "makespan": 487.05555555555554,
+    "carbon": 169.82071685339454,
+    "priority": 208.0522222222222,
+    "time_scale": 99.0,
+    "tardiness": 324.34654184830725,
+    "score_v3": 0.5818730798977669,
+    "selection_metric": 0.5818730798977669,
+    "train_seconds": 624.358954668045
+  },
+  {
+    "update": 850,
+    "makespan": 466.8333333333333,
+    "carbon": 154.15363935872918,
+    "priority": 192.84666666666666,
+    "time_scale": 99.0,
+    "tardiness": 231.23711315422204,
+    "score_v3": 0.4148360899763907,
+    "selection_metric": 0.4148360899763907,
+    "train_seconds": 663.7413461208344
+  },
+  {
+    "update": 900,
+    "makespan": 462.22222222222223,
+    "carbon": 157.63450233332944,
+    "priority": 195.03333333333336,
+    "time_scale": 99.0,
+    "tardiness": 278.67398950989065,
+    "score_v3": 0.4999371710254117,
+    "selection_metric": 0.4999371710254117,
+    "train_seconds": 703.1760082244873
+  },
+  {
+    "update": 950,
+    "makespan": 465.0,
+    "carbon": 154.153041395764,
+    "priority": 189.87777777777777,
+    "time_scale": 99.0,
+    "tardiness": 195.7736317326439,
+    "score_v3": 0.3512151090308879,
+    "selection_metric": 0.3512151090308879,
+    "train_seconds": 743.5033297538757
+  },
+  {
+    "update": 1000,
+    "makespan": 482.6111111111111,
+    "carbon": 164.88648227373304,
+    "priority": 204.99222222222224,
+    "time_scale": 99.0,
+    "tardiness": 292.337091946809,
+    "score_v3": 0.5244485823406788,
+    "selection_metric": 0.5244485823406788,
+    "train_seconds": 784.1089553833008
+  }
+]

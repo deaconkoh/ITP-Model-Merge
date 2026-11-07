@@ -1,0 +1,222 @@
+[
+  {
+    "update": 50,
+    "makespan": 437.1111111111111,
+    "carbon": 149.46809805575904,
+    "priority": 181.06555555555556,
+    "time_scale": 99.0,
+    "tardiness": 381.1175961553006,
+    "score_v3": 1.0240402175055248,
+    "selection_metric": 1.0240402175055248,
+    "train_seconds": 38.8560311794281
+  },
+  {
+    "update": 100,
+    "makespan": 445.1111111111111,
+    "carbon": 150.06921705201313,
+    "priority": 186.04222222222222,
+    "time_scale": 99.0,
+    "tardiness": 394.99372374968766,
+    "score_v3": 1.029809693994812,
+    "selection_metric": 1.029809693994812,
+    "train_seconds": 76.54444694519043
+  },
+  {
+    "update": 150,
+    "makespan": 446.55555555555554,
+    "carbon": 151.11436516934728,
+    "priority": 185.93555555555557,
+    "time_scale": 99.0,
+    "tardiness": 431.3139905284783,
+    "score_v3": 1.0412826987942945,
+    "selection_metric": 1.0412826987942945,
+    "train_seconds": 119.17103385925293
+  },
+  {
+    "update": 200,
+    "makespan": 442.77777777777777,
+    "carbon": 153.9955743057894,
+    "priority": 187.37,
+    "time_scale": 99.0,
+    "tardiness": 477.20658153764066,
+    "score_v3": 1.0597972735549963,
+    "selection_metric": 1.0597972735549963,
+    "train_seconds": 156.01711416244507
+  },
+  {
+    "update": 250,
+    "makespan": 444.3333333333333,
+    "carbon": 152.72496246301088,
+    "priority": 188.44666666666663,
+    "time_scale": 99.0,
+    "tardiness": 472.0790114064431,
+    "score_v3": 1.0496154410756648,
+    "selection_metric": 1.0496154410756648,
+    "train_seconds": 196.09071397781372
+  },
+  {
+    "update": 300,
+    "makespan": 447.1111111111111,
+    "carbon": 150.71172951123148,
+    "priority": 186.20999999999998,
+    "time_scale": 99.0,
+    "tardiness": 461.31583921258505,
+    "score_v3": 1.039093098712821,
+    "selection_metric": 1.039093098712821,
+    "train_seconds": 233.01121735572815
+  },
+  {
+    "update": 350,
+    "makespan": 457.1111111111111,
+    "carbon": 148.45944043486244,
+    "priority": 184.71777777777777,
+    "time_scale": 99.0,
+    "tardiness": 428.8428102976558,
+    "score_v3": 1.0153530570478215,
+    "selection_metric": 1.0153530570478215,
+    "train_seconds": 272.5591149330139
+  },
+  {
+    "update": 400,
+    "makespan": 451.6666666666667,
+    "carbon": 153.04641220738074,
+    "priority": 184.69,
+    "time_scale": 99.0,
+    "tardiness": 462.6054856987786,
+    "score_v3": 1.0506304529107429,
+    "selection_metric": 1.0506304529107429,
+    "train_seconds": 314.2702808380127
+  },
+  {
+    "update": 450,
+    "makespan": 462.0,
+    "carbon": 152.87940819458757,
+    "priority": 184.86888888888888,
+    "time_scale": 99.0,
+    "tardiness": 452.43108988476627,
+    "score_v3": 1.0482468445497708,
+    "selection_metric": 1.0482468445497708,
+    "train_seconds": 355.7324149608612
+  },
+  {
+    "update": 500,
+    "makespan": 466.27777777777777,
+    "carbon": 151.06617695160898,
+    "priority": 187.54111111111112,
+    "time_scale": 99.0,
+    "tardiness": 491.5444745974714,
+    "score_v3": 1.0380562553511852,
+    "selection_metric": 1.0380562553511852,
+    "train_seconds": 398.05212903022766
+  },
+  {
+    "update": 550,
+    "makespan": 448.0,
+    "carbon": 151.3005383971393,
+    "priority": 183.64111111111112,
+    "time_scale": 99.0,
+    "tardiness": 427.2458531645064,
+    "score_v3": 1.0422138373988015,
+    "selection_metric": 1.0422138373988015,
+    "train_seconds": 437.30365920066833
+  },
+  {
+    "update": 600,
+    "makespan": 473.5,
+    "carbon": 154.71238704668852,
+    "priority": 189.14444444444445,
+    "time_scale": 99.0,
+    "tardiness": 500.14239820828584,
+    "score_v3": 1.0635737508592351,
+    "selection_metric": 1.0635737508592351,
+    "train_seconds": 478.09860038757324
+  },
+  {
+    "update": 650,
+    "makespan": 456.22222222222223,
+    "carbon": 149.71394627319782,
+    "priority": 180.82888888888888,
+    "time_scale": 99.0,
+    "tardiness": 423.05346909985775,
+    "score_v3": 1.0263906460566032,
+    "selection_metric": 1.0263906460566032,
+    "train_seconds": 518.2983243465424
+  },
+  {
+    "update": 700,
+    "makespan": 442.3333333333333,
+    "carbon": 149.09169706197687,
+    "priority": 180.2888888888889,
+    "time_scale": 99.0,
+    "tardiness": 413.64569791352926,
+    "score_v3": 1.0205433259033767,
+    "selection_metric": 1.0205433259033767,
+    "train_seconds": 559.514955997467
+  },
+  {
+    "update": 750,
+    "makespan": 436.72222222222223,
+    "carbon": 149.5714756297046,
+    "priority": 181.16777777777781,
+    "time_scale": 99.0,
+    "tardiness": 369.98606778069137,
+    "score_v3": 1.023492202198896,
+    "selection_metric": 1.023492202198896,
+    "train_seconds": 597.7915589809418
+  },
+  {
+    "update": 800,
+    "makespan": 450.3888888888889,
+    "carbon": 153.1359715561927,
+    "priority": 181.72333333333333,
+    "time_scale": 99.0,
+    "tardiness": 389.8339267965218,
+    "score_v3": 1.0564368662918688,
+    "selection_metric": 1.0564368662918688,
+    "train_seconds": 639.5581040382385
+  },
+  {
+    "update": 850,
+    "makespan": 444.8333333333333,
+    "carbon": 151.46818882222772,
+    "priority": 182.29888888888888,
+    "time_scale": 99.0,
+    "tardiness": 393.8947279451233,
+    "score_v3": 1.0385718793004044,
+    "selection_metric": 1.0385718793004044,
+    "train_seconds": 680.2735435962677
+  },
+  {
+    "update": 900,
+    "makespan": 477.94444444444446,
+    "carbon": 152.76169053186624,
+    "priority": 187.59333333333336,
+    "time_scale": 99.0,
+    "tardiness": 398.65745808135085,
+    "score_v3": 1.0521895831688026,
+    "selection_metric": 1.0521895831688026,
+    "train_seconds": 718.7427930831909
+  },
+  {
+    "update": 950,
+    "makespan": 457.8333333333333,
+    "carbon": 149.2856789742608,
+    "priority": 182.16,
+    "time_scale": 99.0,
+    "tardiness": 331.8379477854561,
+    "score_v3": 1.0223394672495227,
+    "selection_metric": 1.0223394672495227,
+    "train_seconds": 759.0927386283875
+  },
+  {
+    "update": 1000,
+    "makespan": 437.77777777777777,
+    "carbon": 151.7063446495557,
+    "priority": 178.88333333333333,
+    "time_scale": 99.0,
+    "tardiness": 361.84382437071434,
+    "score_v3": 1.0393515313596575,
+    "selection_metric": 1.0393515313596575,
+    "train_seconds": 798.3776326179504
+  }
+]

@@ -1,0 +1,22 @@
+{
+ "model_name": "10x5+mix+bv3_mcft_t_s111",
+ "goal": "t",
+ "update": 1000,
+ "max_updates": 1000,
+ "status": "FINISHED",
+ "best_value": 0.3512151090308879,
+ "best_update": 950,
+ "latest_value": 0.5244485823406788,
+ "rel_improvement_window": null,
+ "train_seconds": 784.1096901893616,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 1000,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "written": "2026-11-07 22:47:11"
+}
