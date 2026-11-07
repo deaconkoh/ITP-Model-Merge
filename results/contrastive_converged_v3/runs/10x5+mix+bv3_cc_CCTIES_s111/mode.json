@@ -1,0 +1,5 @@
+{
+ "planned": "rerun",
+ "reason": "the rule would have stopped at update 2500, before the fixed budget 3350; rerun from the saved starting network",
+ "mode": "rerun"
+}
