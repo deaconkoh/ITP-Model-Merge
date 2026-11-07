@@ -157,8 +157,23 @@ def main():
                   "student was regenerated with the same seed on this machine).", ""]
 
     # ---------------- training summary
-    L += ["## Training (validation split, 15 preferences)", "",
-          "| Arm | Budget (updates) | HV at update 0 | Best HV | Update of best | Wall-clock to best (h) | Final HV | "
+    # PPO counterparts may have run on another machine: their wall-clock is converted with the two calibration
+    # factors (each machine's DANIEL-M s/update / the local specialist s/update); approximate, updates are exact
+    ws_calib = WS_RES / "calibration_10x5.json"
+    ws_factor = json.loads(ws_calib.read_text())["factor"] if ws_calib.exists() else None
+    ws_plan = json.loads((WS_RES / "plan.json").read_text()) if (WS_RES / "plan.json").exists() else {}
+    conv = factor / ws_factor if factor and ws_factor else None
+    same_host = ws_plan.get("host", {}).get("gpu") == plan.get("host", {}).get("gpu")
+    hrs = lambda h, x: (f"{h:.2f}" if x.startswith("CL") or same_host or conv is None else
+                        f"{h:.2f} there ≈ {h * conv:.2f} here")
+    L += ["## Training (validation split, 15 preferences)", ""]
+    if not same_host:
+        L += [f"PPO counterparts ran on {ws_plan.get('host', {}).get('gpu', '?')} (--jobs {ws_plan.get('jobs', '?')}); the "
+              f"CL arms on {plan.get('host', {}).get('gpu', '?')} (--jobs {plan.get('jobs', '?')}). PPO wall-clock is shown as "
+              "measured and converted to this machine with the calibration factors "
+              f"({'-' if ws_factor is None else f'{ws_factor:.2f}'} there, {'-' if factor is None else f'{factor:.2f}'} here); "
+              "the conversion is approximate (parallel load differs). Updates and environment steps are exact.", ""]
+    L += ["| Arm | Budget (updates) | HV at update 0 | Best HV | Update of best | Wall-clock to best (h) | Final HV | "
           "Training (h) | s / update | Env steps (total) |", "|---|---|---|---|---|---|---|---|---|---|"]
     for cl, ppo in PAIRS:
         for x in (ppo, cl):
@@ -168,7 +183,7 @@ def main():
             mult = 1 if x.startswith("CL") else 1 / k
             steps = steps_at(per_update, s["final_u"])
             L.append(f"| {LABEL[x]} | {man['arms'][cl]['updates']} | {f3(s['u0'])} | {s['best']:.3f} | {s['best_u']} | "
-                     f"{s['best_h']:.2f} | {s['final']:.3f} | {s['train_h']:.2f} | {s['spu']:.2f} | "
+                     f"{hrs(s['best_h'], x)} | {s['final']:.3f} | {hrs(s['train_h'], x)} | {s['spu']:.2f} | "
                      f"{'-' if steps is None else f'{steps * mult / 1e6:.2f} M'} |")
     L.append("")
 
@@ -297,6 +312,8 @@ def main():
     for axis, xl in zip(ax, ("updates", "environment steps (M)", "training wall-clock (h)")):
         axis.set_xlabel(xl); axis.set_ylabel("validation HV"); axis.grid(alpha=.3)
     ax[0].legend(fontsize=7, ncol=2)
+    if not same_host:
+        ax[2].set_xlabel("training wall-clock (h, as measured on each arm's own machine)")
     fig.suptitle("Validation hypervolume: contrastive (solid) vs PPO (dashed), seed 111"); fig.tight_layout()
     fig.savefig(fig_dir / "curves_10x5.png", dpi=110); plt.close(fig)
     fig, ax = plt.subplots(1, 4, figsize=(18, 3.8))

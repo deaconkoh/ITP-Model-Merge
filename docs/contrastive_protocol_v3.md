@@ -89,8 +89,10 @@ Validation HV is logged at the usual checkpoints, including update 0.
 ## Run
 
 ```
-bash scripts/ec2_run_all.sh --arms CL-B,CL-D,CL-E --seeds 111 --jobs 3
+WS_V1_STRICT=1 bash scripts/ec2_run_all.sh --arms CL-B,CL-D,CL-E --seeds 111 --jobs 3
 ```
+
+**Machine.** The run is local: an RTX 5060 Ti with 12 logical CPUs, `--jobs 3`, and `WS_V1_STRICT=1`, so the v1 reproduction test is a hard requirement. The PPO counterparts ran on EC2 (L4, `--jobs 2`). Updates and environment steps compare exactly across the two machines. Wall-clock time is converted with the two calibration factors and is approximate.
 
 The run uses its own outputs: `results/contrastive_v3/`, `results/contrastive_v3.md` and
 `logs/contrastive_v3_STATUS.txt`. It commits locally and never pushes. `--smoke` runs 5 updates per arm with the
