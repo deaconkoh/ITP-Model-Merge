@@ -33,7 +33,7 @@ SPU_LOCAL = {"10x5": 0.85, "20x10": 4.5}           # measured MO-DANIEL s/update
 CL_ORDER = ["CLB", "CLD", "CLE"]
 CL_LABEL = {"CLB": "CL-B (contrastive, scratch)", "CLD": "CL-D (contrastive from D's update-0 network)",
             "CLE": "CL-E (contrastive from the naive merge)"}
-SPU_LOCAL_CL = {"10x5": 4.0}                       # contrastive s/update (K = 8 rollouts), measured in the smoke test
+SPU_LOCAL_CL = {"10x5": 2.0}                       # contrastive s/update (K = 8): 1.7-1.8 s measured, 3 parallel smoke jobs
 
 
 def settings(smoke):
