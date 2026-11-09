@@ -69,8 +69,9 @@ log "pre-flight: $NAME$([ $SMOKE = 1 ] && echo ' [SMOKE]')"
 [ "$(sha256sum "$COMMITTED_T" | cut -d' ' -f1)" = "$COMMITTED_T_SHA" ] || die "committed DANIEL-T s111 checkpoint hash mismatch"
 dirty=$(git status --porcelain -- . ':!logs/tardiness_features_v3_*' ":!$RES" ":!$CKPT" ":!$REPORT" ':!logs/baselines_v3_console.out')
 [ -z "$dirty" ] || die "git tree not clean: $(echo "$dirty" | head -5 | tr '\n' ' ')"
-out=$(WS_V1_STRICT=1 "$PY" -m unittest tests.test_v1_reproduction tests.test_benchmark_v3 tests.test_tardiness_diagnosis_v3 \
-      tests.test_tardiness_features_v3 2>&1); rc=$?
+# the v1 reproduction test needs v1 settings, so it runs in its own process (the v3 test modules set v3 on import)
+out=$( { WS_V1_STRICT=1 "$PY" -m unittest -v tests.test_v1_reproduction &&
+         "$PY" -m unittest tests.test_benchmark_v3 tests.test_tardiness_diagnosis_v3 tests.test_tardiness_features_v3; } 2>&1); rc=$?
 echo "$out" | tail -20 >>"$LOG"
 [ $rc -eq 0 ] || die "unit tests failed (see $LOG)"
 echo "$out" | grep -q "skipped" && die "a test was skipped"
