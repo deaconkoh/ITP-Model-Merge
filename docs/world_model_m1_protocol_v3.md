@@ -43,6 +43,9 @@ At 6 random decision steps per episode, the environment's input tensors are stor
 **Size: 100,000 instances,** about 600,000 states and 7.2 million (state, action, c) samples.
 - An hour of generation, about 440,000 instances or 10 GB, would not fit in the PC's 11 GB of RAM for pretraining.
 - About 15 minutes of generation therefore gives the largest dataset that does.
+- **Measured peak memory,** from real runs at 10,000 and 20,000 instances: generation about 0.8 GB (one shard at a time); pretraining about 5.1 GB at 100,000 instances (2.6 GB of data, the normalised targets, and PyTorch/CUDA). The pre-flight requires 6 GB available.
+
+**Disjointness by factory.** Each training state records its instance's structural SHA-256. Pretraining stops if any factory appears in both the training and hold-out parts, or matches a validation instance. Probing stops unless the 18 validation instances are 18 distinct factories and the probe fitting, early-stopping and test instances are disjoint.
 
 **Check data:** all 18 v3 validation instances, under all five behaviours, at every decision step. Each continuation also includes the unseen least-slack + ECT rule. The evaluation split and the final-test sets are never used.
 

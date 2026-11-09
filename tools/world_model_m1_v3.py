@@ -261,7 +261,8 @@ def generate(split, smoke):
         g_inst = sh * cfg["shard_instances"] + rec["episode"]
         save_shard(out / f"shard_{sh:04d}.npz", states, rec,
                    {"instance": g_inst, "holdout": (g_inst % 10) == 9, "tj": tj.astype(np.float32),
-                    "tm": tm.astype(np.float32)})
+                    "tm": tm.astype(np.float32),
+                    "factory": np.asarray([data.keys[e] for e in rec["episode"]])})     # structural SHA-256
         elapsed += time.time() - t0
         state_file.write_bytes(pickle.dumps({"np": np.random.get_state(), "py": random.getstate(), "gen": gen,
                                              "rng": rng.bit_generator.state, "next_shard": sh + 1,
@@ -351,6 +352,15 @@ def pretrain(smoke):
     meta = json.loads((P["data"] / "train" / "meta.json").read_text())
     hold = D["holdout"].astype(bool)
     tr, ho = np.flatnonzero(~hold), np.flatnonzero(hold)
+    # disjointness by FACTORY (structural hash), not only by generated-instance number
+    f_tr, f_ho = set(D["factory"][tr]), set(D["factory"][ho])
+    f_val = {r["structural_sha256"] for r in B.load_manifest()["instances"].values()
+             if r["size"] == SIZE and r["split"] == "validation"}
+    if f_tr & f_ho or (f_tr | f_ho) & f_val:
+        raise AssertionError(f"factory overlap: train/hold-out {len(f_tr & f_ho)}, with validation {len((f_tr | f_ho) & f_val)}")
+    D.pop("factory")
+    disjoint = {"train_factories": len(f_tr), "holdout_factories": len(f_ho), "shared_train_holdout": 0,
+                "shared_with_validation": 0}
     tj, tm = normalise(cfg, D["tj"], D["tm"])
     # mean predictor (training part, per output and continuation), raw units
     valid = D["rec_cand"][tr] >= 0
@@ -403,7 +413,7 @@ def pretrain(smoke):
     (P["ckpt"] / "SHA256SUMS.json").write_text(json.dumps(sums, indent=1) + "\n")
     out = {"epochs_run": len(hist), "best_epoch": best_ep, "best_holdout_loss": best, "seconds": time.time() - t0,
            "device": torch.cuda.get_device_name(0) if dev == "cuda" else "cpu",
-           "train_states": int(len(tr)), "holdout_states": int(len(ho)), "history": hist}
+           "train_states": int(len(tr)), "holdout_states": int(len(ho)), "disjoint": disjoint, "history": hist}
     (P["res"] / "pretrain.json").write_text(json.dumps(out, indent=1))
     log(f"pretrain: best epoch {best_ep} of {len(hist)}, hold-out loss {best:.5f}, {out['seconds'] / 60:.1f} min")
 
@@ -550,6 +560,11 @@ def probe(smoke):
     es_ids = train_ids[-max(1, len(train_ids) // 5):]                               # early-stop instances
     fit_ids = np.setdiff1d(train_ids, es_ids)
     split = {"probe_train": train_ids.tolist(), "probe_test": test_ids.tolist(), "early_stop": es_ids.tolist()}
+    fac = {i: set(V["keys"][inst == i]) for i in ids}                         # one factory per validation instance
+    if any(len(v) != 1 for v in fac.values()) or len({next(iter(v)) for v in fac.values()}) != len(ids):
+        raise AssertionError("validation instances are not distinct factories")
+    if set(fit_ids) & set(es_ids) or set(train_ids) & set(test_ids):
+        raise AssertionError("probe fitting, early-stopping and test instances overlap")
 
     def rows(ids_):
         m = np.isin(inst, ids_)[:, None] & valid
