@@ -1,0 +1,55 @@
+[2026-11-10 01:15:47] train shard 1/200: 500 instances, 0.1 min
+[2026-11-10 01:16:27] train shard 11/200: 5500 instances, 0.7 min
+[2026-11-10 01:17:07] train shard 21/200: 10500 instances, 1.4 min
+[2026-11-10 01:17:47] train shard 31/200: 15500 instances, 2.1 min
+[2026-11-10 01:18:27] train shard 41/200: 20500 instances, 2.7 min
+[2026-11-10 01:19:08] train shard 51/200: 25500 instances, 3.4 min
+[2026-11-10 01:19:48] train shard 61/200: 30500 instances, 4.1 min
+[2026-11-10 01:20:28] train shard 71/200: 35500 instances, 4.8 min
+[2026-11-10 01:21:08] train shard 81/200: 40500 instances, 5.4 min
+[2026-11-10 01:21:49] train shard 91/200: 45500 instances, 6.1 min
+[2026-11-10 01:22:29] train shard 101/200: 50500 instances, 6.8 min
+[2026-11-10 01:23:09] train shard 111/200: 55500 instances, 7.4 min
+[2026-11-10 01:23:49] train shard 121/200: 60500 instances, 8.1 min
+[2026-11-10 01:24:29] train shard 131/200: 65500 instances, 8.8 min
+[2026-11-10 01:25:09] train shard 141/200: 70500 instances, 9.4 min
+[2026-11-10 01:25:49] train shard 151/200: 75500 instances, 10.1 min
+[2026-11-10 01:26:29] train shard 161/200: 80500 instances, 10.8 min
+[2026-11-10 01:27:09] train shard 171/200: 85500 instances, 11.4 min
+[2026-11-10 01:27:49] train shard 181/200: 90500 instances, 12.1 min
+[2026-11-10 01:28:29] train shard 191/200: 95500 instances, 12.8 min
+[2026-11-10 01:29:05] train shard 200/200: 100000 instances, 13.4 min
+[2026-11-10 01:29:06] train: 100000 instances, 600000 states, 2.61 GB, 13.4 min
+[2026-11-10 01:29:15] val: 18 instances, 4410 states, 8 s
+[2026-11-10 01:30:52] pretrain epoch 1: train 0.00262, hold-out 0.00194 (1.5 min)
+[2026-11-10 01:32:37] pretrain epoch 2: train 0.00190, hold-out 0.00185 (3.3 min)
+[2026-11-10 01:34:38] pretrain epoch 3: train 0.00184, hold-out 0.00180 (5.3 min)
+[2026-11-10 01:36:41] pretrain epoch 4: train 0.00181, hold-out 0.00179 (7.3 min)
+[2026-11-10 01:38:41] pretrain epoch 5: train 0.00179, hold-out 0.00176 (9.3 min)
+[2026-11-10 01:40:46] pretrain epoch 6: train 0.00178, hold-out 0.00180 (11.4 min)
+[2026-11-10 01:42:49] pretrain epoch 7: train 0.00177, hold-out 0.00177 (13.5 min)
+[2026-11-10 01:44:53] pretrain epoch 8: train 0.00176, hold-out 0.00174 (15.5 min)
+[2026-11-10 01:46:58] pretrain epoch 9: train 0.00175, hold-out 0.00173 (17.6 min)
+[2026-11-10 01:49:04] pretrain epoch 10: train 0.00175, hold-out 0.00175 (19.7 min)
+[2026-11-10 01:51:08] pretrain epoch 11: train 0.00174, hold-out 0.00172 (21.8 min)
+[2026-11-10 01:53:11] pretrain epoch 12: train 0.00174, hold-out 0.00172 (23.8 min)
+[2026-11-10 01:55:14] pretrain epoch 13: train 0.00173, hold-out 0.00171 (25.9 min)
+[2026-11-10 01:57:17] pretrain epoch 14: train 0.00173, hold-out 0.00172 (27.9 min)
+[2026-11-10 01:59:20] pretrain epoch 15: train 0.00173, hold-out 0.00172 (30.0 min)
+[2026-11-10 02:01:22] pretrain epoch 16: train 0.00172, hold-out 0.00171 (32.0 min)
+[2026-11-10 02:03:25] pretrain epoch 17: train 0.00172, hold-out 0.00171 (34.1 min)
+[2026-11-10 02:05:27] pretrain epoch 18: train 0.00172, hold-out 0.00171 (36.1 min)
+[2026-11-10 02:07:32] pretrain epoch 19: train 0.00172, hold-out 0.00172 (38.2 min)
+[2026-11-10 02:09:37] pretrain epoch 20: train 0.00171, hold-out 0.00170 (40.3 min)
+[2026-11-10 02:11:40] pretrain epoch 21: train 0.00171, hold-out 0.00171 (42.3 min)
+[2026-11-10 02:13:43] pretrain epoch 22: train 0.00171, hold-out 0.00172 (44.4 min)
+[2026-11-10 02:15:47] pretrain epoch 23: train 0.00171, hold-out 0.00171 (46.4 min)
+[2026-11-10 02:17:51] pretrain epoch 24: train 0.00170, hold-out 0.00170 (48.5 min)
+[2026-11-10 02:19:55] pretrain epoch 25: train 0.00170, hold-out 0.00169 (50.6 min)
+[2026-11-10 02:21:56] pretrain epoch 26: train 0.00170, hold-out 0.00169 (52.6 min)
+[2026-11-10 02:23:58] pretrain epoch 27: train 0.00170, hold-out 0.00171 (54.6 min)
+[2026-11-10 02:26:02] pretrain epoch 28: train 0.00170, hold-out 0.00169 (56.7 min)
+[2026-11-10 02:28:06] pretrain epoch 29: train 0.00170, hold-out 0.00169 (58.8 min)
+[2026-11-10 02:30:09] pretrain epoch 30: train 0.00170, hold-out 0.00169 (60.8 min)
+[2026-11-10 02:32:13] pretrain epoch 31: train 0.00169, hold-out 0.00171 (62.9 min)
+[2026-11-10 02:32:13] pretrain: best epoch 26 of 31, hold-out loss 0.00169, 62.9 min
