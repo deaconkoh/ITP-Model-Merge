@@ -1,0 +1,11 @@
+{
+ "description": "SHA-256 of every committed checkpoint of the merge failure test v3 study",
+ "files": {
+  "starts/10x5+mix+bv3_mf_ADIST_s111@u0.pth": "c1abf670f35bb4897a6fa37257f3d38c36b1c64232ec06a67e4217b2f2ce709a",
+  "starts/10x5+mix+bv3_mf_ARAND_s111@u0.pth": "fe9c83ea38ab6951a00f387d79060205d7863157d24e58dd7515305c7cafed15",
+  "starts/10x5+mix+bv3_mf_ASOUP_s111@u0.pth": "ce2a4c81053e68de1b91a307f637f2569479f48716ca7fa63caeb64100fb5853",
+  "starts/10x5+mix+bv3_mf_MFNA_s111_start.pth": "3d37a2307dac690f0a5abc9099231e71b9e7ca6c694c9ab6eb1084881e9c6cb3",
+  "starts/10x5+mix+bv3_mf_MFPR_s111_start.pth": "fa6ad283668ae01f563e84e0ee2edec65329ad28924101269d7f3fb61b5b920a",
+  "starts/10x5+mix+bv3_mf_MFSP_s111_start.pth": "2c2242025d441b80da09b4228629f48070c10461f442904f6542a513e3a647d3"
+ }
+}

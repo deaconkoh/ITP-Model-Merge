@@ -1,0 +1,141 @@
+{
+ "label": "Model Soup (shared base)",
+ "model_name": "10x5+mix+bv3_mf_ASOUP_s111",
+ "start_sha256": "2df4920cef70a3c91bbc6f514dfcd2a0fadd410cf1bd219cedf4da072110739a",
+ "parents": [
+  {
+   "path": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/merge_categories_v3/10x5+mix+bv3_mcSBAVG_start_s111.pth",
+   "sha256": "848c0a64c96da7afc81df29d46ed7c9c74a69dbfab3c825dbc82a68cb6656214",
+   "schema_version": 2,
+   "init_mode": "full",
+   "transfer": {
+    "copied": 50,
+    "padded": 2,
+    "kept": 0
+   }
+  }
+ ],
+ "validation": {
+  "instances": 18,
+  "preferences": 15,
+  "hv_update0": 0.2282576204626442
+ },
+ "sampled": {
+  "k": 8,
+  "entropy": 0.23126598442042315,
+  "distinct_schedules_of_k": 7.996296296296296,
+  "distinct_by_preference": [
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   7.944444444444445,
+   8.0,
+   8.0,
+   8.0,
+   8.0
+  ]
+ },
+ "activations": {
+  "feature_exact.op_attention_blocks.0": {
+   "activation": "elu",
+   "units": 128,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.42555104166666663
+  },
+  "feature_exact.op_attention_blocks.1": {
+   "activation": "elu",
+   "units": 8,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.42445555555555553
+  },
+  "feature_exact.mch_attention_blocks.0": {
+   "activation": "elu",
+   "units": 128,
+   "entries": 67500,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.05468229166666667
+  },
+  "feature_exact.mch_attention_blocks.1": {
+   "activation": "elu",
+   "units": 8,
+   "entries": 67500,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.03186111111111111
+  },
+  "actor.linears.0": {
+   "activation": "tanh",
+   "units": 64,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.0141375,
+   "saturated": 0.0
+  },
+  "actor.linears.1": {
+   "activation": "tanh",
+   "units": 64,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.004048611111111111,
+   "saturated": 0.0
+  }
+ },
+ "thresholds": {
+  "inactive_eps": 0.01,
+  "saturated_eps": 0.99,
+  "share_of_entries": 0.99
+ },
+ "weight_norms": {
+  "per_layer": {
+   "feature_exact.op_attention_blocks.0": 12.669031293567695,
+   "feature_exact.op_attention_blocks.1": 11.855588569077128,
+   "feature_exact.mch_attention_blocks.0": 16.37072293851319,
+   "feature_exact.mch_attention_blocks.1": 16.312207755208863,
+   "actor.linears.0": 5.590695870550031,
+   "actor.linears.1": 6.18406484716267,
+   "actor.linears.2": 1.9280976214606376,
+   "critic.linears.0": 4.9468454438428795,
+   "critic.linears.1": 4.941649075017886,
+   "critic.linears.2": 0.5903093606868682
+  },
+  "preference_columns": {
+   "actor.linears.0.weight": 0.0,
+   "critic.linears.0.weight": 0.0
+  },
+  "total": 30.94517353273814
+ },
+ "gradient": {
+  "per_layer": {
+   "feature_exact.op_attention_blocks.0": 0.12391548232276087,
+   "feature_exact.op_attention_blocks.1": 0.1948635459799249,
+   "feature_exact.mch_attention_blocks.0": 0.018081623209334437,
+   "feature_exact.mch_attention_blocks.1": 0.016625009836094797,
+   "actor.linears.0": 0.1895394661625424,
+   "actor.linears.1": 0.034649275692023335,
+   "actor.linears.2": 0.015837019200200093
+  },
+  "total": 0.30217011281296213,
+  "logged_grad_norm": 0.3021700978279114,
+  "loss": 0.6931471228599548,
+  "pairs": 478,
+  "groups_with_pair": 1.0,
+  "train_entropy": 0.22841022908687592,
+  "train_distinct_schedules": 8.0,
+  "anchor": "reference"
+ },
+ "preference_sensitivity": {
+  "states": 13500,
+  "share_greedy_action_changes": 0.0,
+  "mean_tv_between_preferences": 0.0,
+  "distinct_greedy_schedules_of_15": 1.0
+ },
+ "seconds": 25.460176706314087
+}

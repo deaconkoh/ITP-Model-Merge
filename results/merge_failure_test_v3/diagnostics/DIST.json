@@ -1,0 +1,141 @@
+{
+ "label": "Distillation",
+ "model_name": "10x5+mix+bv3_mf_ADIST_s111",
+ "start_sha256": "a718a8b70a739ac23d93f67f26a626a8013959c63870c0961dfc01248ce014a1",
+ "parents": [
+  {
+   "path": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_clD_student_s111.pth",
+   "sha256": "0c8ec5285588520bc641f3bd96492d9c2321f5a9937c67c361d0b39d223d2875",
+   "schema_version": 2,
+   "init_mode": "no_critic",
+   "transfer": {
+    "copied": 46,
+    "padded": 0,
+    "kept": 6
+   }
+  }
+ ],
+ "validation": {
+  "instances": 18,
+  "preferences": 15,
+  "hv_update0": 0.49366416444685396
+ },
+ "sampled": {
+  "k": 8,
+  "entropy": 0.24811250199211968,
+  "distinct_schedules_of_k": 7.992592592592593,
+  "distinct_by_preference": [
+   8.0,
+   8.0,
+   7.944444444444445,
+   8.0,
+   7.944444444444445,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0,
+   8.0
+  ]
+ },
+ "activations": {
+  "feature_exact.op_attention_blocks.0": {
+   "activation": "elu",
+   "units": 128,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.42647704861111113
+  },
+  "feature_exact.op_attention_blocks.1": {
+   "activation": "elu",
+   "units": 8,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.4252198148148148
+  },
+  "feature_exact.mch_attention_blocks.0": {
+   "activation": "elu",
+   "units": 128,
+   "entries": 67500,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.04416284722222222
+  },
+  "feature_exact.mch_attention_blocks.1": {
+   "activation": "elu",
+   "units": 8,
+   "entries": 67500,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.016012962962962965
+  },
+  "actor.linears.0": {
+   "activation": "tanh",
+   "units": 64,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.0057537731481481485,
+   "saturated": 0.0
+  },
+  "actor.linears.1": {
+   "activation": "tanh",
+   "units": 64,
+   "entries": 675000,
+   "near_inactive": 0.0,
+   "mean_share_small": 0.004934976851851851,
+   "saturated": 0.0
+  }
+ },
+ "thresholds": {
+  "inactive_eps": 0.01,
+  "saturated_eps": 0.99,
+  "share_of_entries": 0.99
+ },
+ "weight_norms": {
+  "per_layer": {
+   "feature_exact.op_attention_blocks.0": 12.84076920570229,
+   "feature_exact.op_attention_blocks.1": 11.793366298966312,
+   "feature_exact.mch_attention_blocks.0": 16.373719989985585,
+   "feature_exact.mch_attention_blocks.1": 16.401566294510836,
+   "actor.linears.0": 7.336022218785297,
+   "actor.linears.1": 9.063773951394575,
+   "actor.linears.2": 2.0048890592101545,
+   "critic.linears.0": 4.725195580763813,
+   "critic.linears.1": 4.697336972449755,
+   "critic.linears.2": 0.5977003716512805
+  },
+  "preference_columns": {
+   "actor.linears.0.weight": 4.744230708149308,
+   "critic.linears.0.weight": 1.812073321068515
+  },
+  "total": 32.02838459396774
+ },
+ "gradient": {
+  "per_layer": {
+   "feature_exact.op_attention_blocks.0": 0.14666698823361216,
+   "feature_exact.op_attention_blocks.1": 0.1756892187002696,
+   "feature_exact.mch_attention_blocks.0": 0.0303799373685815,
+   "feature_exact.mch_attention_blocks.1": 0.035036808387875,
+   "actor.linears.0": 0.30315016847730314,
+   "actor.linears.1": 0.04059895720723584,
+   "actor.linears.2": 0.01929835050387875
+  },
+  "total": 0.38529099632337643,
+  "logged_grad_norm": 0.3852909803390503,
+  "loss": 0.6931471228599548,
+  "pairs": 497,
+  "groups_with_pair": 1.0,
+  "train_entropy": 0.23692820966243744,
+  "train_distinct_schedules": 8.0,
+  "anchor": "reference"
+ },
+ "preference_sensitivity": {
+  "states": 13500,
+  "share_greedy_action_changes": 0.4782962962962963,
+  "mean_tv_between_preferences": 0.19178493377897474,
+  "distinct_greedy_schedules_of_15": 14.88888888888889
+ },
+ "seconds": 26.493987321853638
+}
