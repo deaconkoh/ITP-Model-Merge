@@ -1,0 +1,72 @@
+[2026-11-09 18:55:01] pre-flight
+inputs verified: 345 files, specialist checkpoints match their reported evaluations
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+v3 manifest verified (400 instances, sha256 dc34667fbc3c...)
+contrastive-converged manifest OK: From scratch continue, Distillation continue, Naive weight average (independent specialists) continue, Model Soup (shared base) rerun, Task Arithmetic continue, TIES rerun
+merge-failure manifest OK: Shrink and perturb, No anchor, Random preference input
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+.............................inputs verified: 345 files, specialist checkpoints match their reported evaluations
+................................
+----------------------------------------------------------------------
+Ran 72 tests in 60.776s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.
+----------------------------------------------------------------------
+Ran 1 test in 9.851s
+
+OK
+[2026-11-09 18:56:16] v1 reproduction test passed
+host: NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 610.88; 12 logical CPUs; AMD Ryzen 5 7500F 6-Core Processor
+versions: 3.14.4 torch 2.9.1+cu128 cuda 12.8 numpy 2.5.3 ortools 9.15.6755
+free disk: 810 GB; jobs 3; sizes '10x5'; arms 'MF-SP,MF-NA,MF-PR'; seeds '111'; smoke 0; shared-base 0
+[2026-11-09 18:56:17] pre-flight OK
+[2026-11-09 18:56:17] worker started: --sizes 10x5 --arms MF-SP,MF-NA,MF-PR --seeds 111 --jobs 3 --log logs/merge_failure_test_v3_20261109_185501.log
+[2026-11-09 18:56:18] plan: 5 units, jobs 3, training slots ['0-2', '3-5', '6-8'] (3 threads each), CPU lane 9-11
+[2026-11-09 18:59:25] commit: merge failure test v3: calibration 10x5
+[2026-11-09 18:59:25] calibration 10x5: 0.922 s/update here vs 0.821 locally (factor 1.12)
+[2026-11-09 18:59:25] unit calib:10x5: DONE
+[2026-11-09 18:59:27] train 10x5+mix+bv3_mf_MFNA_s111: chunk of 500 (status NONE, slot 2, timeout 10699s)
+[2026-11-09 18:59:27] train 10x5+mix+bv3_mf_MFSP_s111: chunk of 500 (status NONE, slot 1, timeout 10699s)
+[2026-11-09 18:59:53] diagnostics SOUP: update-0 validation HV 0.2283, entropy 0.231, distinct 8.00/8, grad norm 0.3022
+[2026-11-09 19:00:22] diagnostics DIST: update-0 validation HV 0.4937, entropy 0.248, distinct 7.99/8, grad norm 0.3853
+[2026-11-09 19:00:57] diagnostics RAND: update-0 validation HV 0.0000, entropy 0.989, distinct 8.00/8, grad norm 0.0861
+[2026-11-09 19:01:25] diagnostics MFSP: update-0 validation HV 0.1602, entropy 0.971, distinct 8.00/8, grad norm 0.1463
+[2026-11-09 19:01:55] diagnostics MFNA: update-0 validation HV 0.2283, entropy 0.231, distinct 8.00/8, grad norm 0.3083
+[2026-11-09 19:02:27] diagnostics MFPR: update-0 validation HV 0.2512, entropy 0.233, distinct 8.00/8, grad norm 0.3036
+[2026-11-09 19:02:27] commit: merge failure test v3: update-0 diagnostics 10x5 s111
+[2026-11-09 19:02:27] unit diag:10x5:111: DONE
+[2026-11-09 19:02:29] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status NONE, slot 0, timeout 10699s)
+[2026-11-09 19:12:48] train 10x5+mix+bv3_mf_MFNA_s111: chunk of 500 (status RUNNING, slot 2, timeout 10699s)
+[2026-11-09 19:16:17] train 10x5+mix+bv3_mf_MFSP_s111: chunk of 500 (status RUNNING, slot 1, timeout 10699s)
+[2026-11-09 19:21:43] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 19:26:18] train 10x5+mix+bv3_mf_MFNA_s111: chunk of 500 (status RUNNING, slot 2, timeout 10699s)
+[2026-11-09 19:32:46] train 10x5+mix+bv3_mf_MFSP_s111: chunk of 500 (status RUNNING, slot 1, timeout 10699s)
+[2026-11-09 19:34:49] 10x5+mix+bv3_mf_MFNA_s111: CONVERGED at update 1300, best val HV 0.3947 @ 300, train 0.59 h
+[2026-11-09 19:39:30] commit: merge failure test v3: 10x5+mix+bv3_mf_MFNA_s111 (CONVERGED)
+[2026-11-09 19:39:30] unit train:MFNA:10x5:111: DONE
+[2026-11-09 19:40:22] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 19:48:49] train 10x5+mix+bv3_mf_MFSP_s111: chunk of 500 (status RUNNING, slot 1, timeout 10699s)
+[2026-11-09 19:55:31] 10x5+mix+bv3_mf_MFSP_s111: CONVERGED at update 1700, best val HV 0.3639 @ 950, train 0.93 h
+[2026-11-09 19:56:30] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 19:59:23] commit: merge failure test v3: 10x5+mix+bv3_mf_MFSP_s111 (CONVERGED)
+[2026-11-09 19:59:23] unit train:MFSP:10x5:111: DONE
+[2026-11-09 20:10:01] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 20:23:09] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 20:36:41] train 10x5+mix+bv3_mf_MFPR_s111: chunk of 500 (status RUNNING, slot 0, timeout 10699s)
+[2026-11-09 20:44:26] 10x5+mix+bv3_mf_MFPR_s111: CONVERGED at update 3300, best val HV 0.3919 @ 2300, train 1.69 h
+[2026-11-09 20:47:47] commit: merge failure test v3: 10x5+mix+bv3_mf_MFPR_s111 (CONVERGED)
+[2026-11-09 20:47:47] unit train:MFPR:10x5:111: DONE
+[2026-11-09 20:47:49] all units finished; FAILED: none
+[2026-11-09 20:47:49] runner finished (rc 0)
+[2026-11-09 20:47:49] analysis: tools/analyze_merge_failure_test_v3.py
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/merge_failure_test_v3.md
+[2026-11-09 20:47:50] DONE: git push when ready

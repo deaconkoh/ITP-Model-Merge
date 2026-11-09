@@ -1,7 +1,6 @@
-merge failure test v3 STATUS   updated 2026-11-09 20:47:19   elapsed 1.9 h   jobs 3   sizes 10x5   seeds 111
+merge failure test v3 STATUS   updated 2026-11-09 20:47:49   elapsed 1.9 h   jobs 3   sizes 10x5   seeds 111
 log: logs/merge_failure_test_v3_20261109_185501.log
 
-units: DONE 4, RUNNING 1
-training runs: 2/3 done, 0 failed
-  running 10x5+mix+bv3_mf_MFPR_s111: update 3300/8000, latest val HV 0.3825, best 0.3919 @ 2300, CONVERGED, train 1.69 h
-est. remaining training (rough, jobs 3): 2.9 h (stops near 2000 updates) to 2.9 h (cap)
+units: DONE 5
+training runs: 3/3 done, 0 failed
+est. remaining training (rough, jobs 3): 0.0 h (stops near 2000 updates) to 0.0 h (cap)
