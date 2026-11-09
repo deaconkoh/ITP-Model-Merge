@@ -53,14 +53,19 @@ def policy_inputs(state):
 @torch.no_grad()
 def rollout(policy, ref, env, state):
     """Sample one schedule per environment from `policy`; per step the sampled action, its log-probability under the
-    policy and under the frozen reference, and the policy entropy. States are kept for the gradient pass."""
+    policy and under the frozen reference, and the policy entropy. States are kept for the gradient pass.
+    ref None (no anchor, docs/merge_failure_test_protocol_v3.md): reference log-probabilities are 0, so the loss becomes
+    -log sigmoid(beta * (l_better - l_worse))."""
     steps = []
     while True:
         x = policy_inputs(state)
         pi, _ = policy(**x)
-        pr, _ = ref(**x)
         a, lp = sample_action(pi)
-        lr = torch.log(pr.gather(1, a[:, None]).squeeze(1).clamp_min(1e-30))
+        if ref is None:
+            lr = torch.zeros_like(lp)
+        else:
+            pr, _ = ref(**x)
+            lr = torch.log(pr.gather(1, a[:, None]).squeeze(1).clamp_min(1e-30))
         ent = -(pi * torch.log(pi.clamp_min(1e-30))).sum(1)
         steps.append({"x": x, "a": a, "lp": lp, "lr": lr, "ent": ent})
         state, _, done = env.step(a.cpu().numpy())

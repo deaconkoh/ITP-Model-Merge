@@ -285,7 +285,8 @@ class Trainer:
             self.env.reset()
         prefs = self.sample_preferences()                            # the same preference stream as the PPO arms
         state = self.env.set_preference(np.repeat(prefs, k, axis=0))
-        steps = CL.rollout(self.ppo.policy, self.cl_ref, self.env, state)
+        steps = CL.rollout(self.ppo.policy, self.cl_ref if self.config.cl_anchor == "reference" else None, self.env,
+                           state)
         env = self.env
         tard = np.maximum(0.0, env.true_op_ct[env.env_job_idx, env.job_last_op_id] - env.true_due_dates).sum(1)
         obj = np.stack([env.current_makespan, env.total_carbon, tard], 1)
@@ -587,7 +588,13 @@ class Trainer:
                    if getattr(c, "preference_dim", 0) else {}),
                 **({"finetune_objective": c.finetune_objective, "cl_k": c.cl_k, "cl_beta": c.cl_beta,
                     "cl_margin": c.cl_margin, "cl_grad_clip": c.cl_grad_clip, "minibatch_size": c.minibatch_size,
-                    "cl_reference_sha256": self.cl_ref_sha} if getattr(self, "cl", False) else {})}
+                    "cl_reference_sha256": self.cl_ref_sha} if getattr(self, "cl", False) else {}),
+                # merge-failure options: recorded only when not at their defaults (earlier identities unchanged)
+                **({"cl_anchor": c.cl_anchor} if getattr(c, "cl_anchor", "reference") != "reference" else {}),
+                **({"init_shrink": c.init_shrink, "init_perturb": c.init_perturb}
+                   if (getattr(c, "init_shrink", 1.0), getattr(c, "init_perturb", 0.0)) != (1.0, 0.0) else {}),
+                **({"init_pref_columns": c.init_pref_columns}
+                   if getattr(c, "init_pref_columns", "zero") != "zero" else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}
@@ -908,8 +915,10 @@ class Trainer:
             if not getattr(self.config, "preference_dim", 0):
                 raise ValueError("--init_mode full/backbone/no_critic targets a preference-conditioned DANIEL")
             validate_checkpoint_schema(metadata, SCHEMA_V3_MO if mode == "no_critic" else SCHEMA_V3, state_dict)
+            fresh = {k: v.detach().clone() for k, v in self.ppo.policy.state_dict().items()}   # seed's fresh network
             report = transfer(state_dict, self.ppo.policy, mode)
             report = {k: len(v) for k, v in report.items()}
+            report.update(self.modify_start(fresh))
         self.ppo.policy_old.load_state_dict(self.ppo.policy.state_dict())
         self.parent_checkpoints = [{
             "path": str(Path(init_path).resolve()),
@@ -918,6 +927,27 @@ class Trainer:
             "init_mode": mode, "transfer": report,
         }]
         print(f"loaded initial checkpoint :{init_path}")
+
+    def modify_start(self, fresh):
+        """Merge-failure arms (docs/merge_failure_test_protocol_v3.md), applied to the transferred start network before
+        the contrastive reference is taken from it; the defaults change nothing. fresh: the freshly initialised network
+        of this seed (the From-scratch start). Uses no random numbers, so every RNG stream is unchanged."""
+        c, rec = self.config, {}
+        if c.init_pref_columns == "fresh":              # preference columns as in a fresh network, not zero
+            from warmstart import PREF_LAYERS
+            n = c.preference_dim
+            with torch.no_grad():
+                for k, p in self.ppo.policy.named_parameters():
+                    if k in PREF_LAYERS:
+                        p[:, -n:] = fresh[k][:, -n:]
+            rec["pref_columns"] = "fresh"
+        if c.init_shrink != 1.0 or c.init_perturb != 0.0:   # shrink and perturb (Ash & Adams, NeurIPS 2020)
+            with torch.no_grad():
+                for k, p in self.ppo.policy.named_parameters():
+                    p.mul_(c.init_shrink).add_(fresh[k], alpha=c.init_perturb)
+            rec["shrink_perturb"] = {"shrink": c.init_shrink, "perturb": c.init_perturb,
+                                     "noise": "init_perturb x the seed's freshly initialised network"}
+        return rec
 
     def load_model(self):
         """

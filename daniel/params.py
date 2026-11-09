@@ -196,6 +196,17 @@ parser.add_argument('--cl_beta', type=float, default=0.1, help='Contrastive: DPO
 parser.add_argument('--cl_margin', type=float, default=0.01,
                     help='Contrastive: minimum Tchebycheff-score difference for a preference pair')
 parser.add_argument('--cl_grad_clip', type=float, default=1.0, help='Contrastive: gradient-norm clip')
+# merge-failure test (docs/merge_failure_test_protocol_v3.md); every default leaves training unchanged
+parser.add_argument('--cl_anchor', type=str, default='reference', choices=['reference', 'none'],
+                    help='Contrastive: reference = the DPO loss against the frozen start network (default); none = the '
+                         'same pairwise loss with the reference log-probabilities removed')
+parser.add_argument('--init_shrink', type=float, default=1.0,
+                    help='Shrink and perturb (Ash & Adams, NeurIPS 2020) after loading --init_from: every weight becomes '
+                         'init_shrink * weight + init_perturb * (the same weight of the freshly initialised network)')
+parser.add_argument('--init_perturb', type=float, default=0.0, help='Shrink and perturb: noise scale (see --init_shrink)')
+parser.add_argument('--init_pref_columns', type=str, default='zero', choices=['zero', 'fresh'],
+                    help='--init_mode full: the preference-input columns of the first actor and critic layers are set '
+                         'to zero (default) or keep the freshly initialised network\'s values')
 parser.add_argument('--log_ppo_stats', type=str2bool, default=False,
                     help='Log per-update PPO statistics (entropy, approx. KL, clip fraction, losses, explained variance, '
                          'gradient norm); observation only, the update is unchanged')
@@ -272,5 +283,11 @@ if configs.finetune_objective == 'contrastive':
         raise ValueError('--finetune_objective contrastive needs --preference_dim 3 and --v3_train_source generator')
     if configs.cl_k < 2:
         raise ValueError('--cl_k must be at least 2 (pairs are formed inside a group)')
+if configs.cl_anchor != 'reference' and configs.finetune_objective != 'contrastive':
+    raise ValueError('--cl_anchor applies to --finetune_objective contrastive only')
+if (configs.init_shrink != 1.0 or configs.init_perturb != 0.0) and not configs.init_from:
+    raise ValueError('--init_shrink / --init_perturb need --init_from')
+if configs.init_pref_columns != 'zero' and configs.init_mode != 'full':
+    raise ValueError('--init_pref_columns fresh applies to --init_mode full only')
 if configs.resume_from and not configs.resume:
     raise ValueError('--resume_from needs --resume True')

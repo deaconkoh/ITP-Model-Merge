@@ -22,6 +22,11 @@ Converged contrastive arms (docs/contrastive_converged_protocol_v3.md): --arms C
 --seeds 111 runs every contrastive arm under the PPO stopping rule with a cap of 8,000 updates: an arm whose logged history
 never met the rule continues from its saved final state (after an exactness check), the others rerun from their starting
 networks (results/contrastive_converged_v3, run tag "cc", frozen inputs in configs/contrastive_converged_v3.json).
+
+Merge-failure test (docs/merge_failure_test_protocol_v3.md): --arms MF-SP,MF-NA,MF-PR --seeds 111 measures six starting
+networks at update 0 (no training; merge_diagnostics.py) and fine-tunes three one-change arms from the Model Soup start
+under the converged runs' stopping rule (results/merge_failure_test_v3, run tag "mf", frozen inputs in
+configs/merge_failure_test_v3.json); start and best checkpoints in checkpoints/merge_failure_test_v3/ with SHA-256.
 """
 from __future__ import annotations
 import argparse, hashlib, json, os, re, shutil, signal, subprocess, sys, threading, time
@@ -54,6 +59,10 @@ CC_LABEL = {"CCB": "From scratch (contrastive, to convergence)", "CCD": "Distill
             "CCE": "Naive weight average (contrastive, to convergence)",
             "CCSBAVG": "Model Soup (shared base) (contrastive, to convergence)",
             "CCTA": "Task Arithmetic (contrastive, to convergence)", "CCTIES": "TIES (contrastive, to convergence)"}
+MF_ORDER = ["MFSP", "MFNA", "MFPR"]
+MF_LABEL = {"MFSP": "Shrink and perturb (from Model Soup)", "MFNA": "No anchor (from Model Soup)",
+            "MFPR": "Random preference input (from Model Soup)"}
+MF_DIAG = ["SOUP", "DIST", "RAND", "MFSP", "MFNA", "MFPR"]
 
 
 def settings(smoke):
@@ -78,7 +87,11 @@ class Runner:
         arms = ARM_ORDER if a.arms == "all" else [x.replace("-", "") for x in a.arms.replace(",", " ").split()]
         self.cc = any(x in CC_ORDER for x in arms)
         self.mc = any(x in MC_ORDER for x in arms)
-        self.cl = self.cc or self.mc or any(x in CL_ORDER for x in arms)
+        self.mf = any(x in MF_ORDER for x in arms)
+        self.cl = self.cc or self.mc or self.mf or any(x in CL_ORDER for x in arms)
+        if self.mf:
+            self.init_failure(a, arms)
+            return
         if self.cc:
             self.init_converged(a, arms)
             return
@@ -171,6 +184,28 @@ class Runner:
         self.manifest = {"size": m["size"], "seed": m["seed"], "constants": m["contrastive"]["constants"],
                          "validation_norm": m["validation_norm"], "arms": {x: {"updates": m["rule"]["cap"]} for x in CC_ORDER}}
         self.arms, self.e0 = [x for x in CC_ORDER if x in arms], False
+        self.ckpt_lock = threading.Lock()
+        self.cl_common(a)
+
+    def init_failure(self, a, arms):
+        """Merge-failure mode: update-0 diagnostics and three one-change arms from the Model Soup start, under the
+        converged runs' stopping rule; inputs from the verified frozen manifests."""
+        bad = set(arms) - set(MF_ORDER)
+        if bad:
+            raise SystemExit(f"merge-failure arms cannot be mixed with {sorted(bad)} in one call")
+        if a.with_shared_base:
+            raise SystemExit("--with-shared-base does not apply to the merge-failure arms")
+        sys.path.insert(0, str(REPO / "tools"))
+        from freeze_merge_failure_test_v3 import load
+        from freeze_contrastive_converged_v3 import load as load_cc
+        self.mfm, self.ccm, self.cc_mode = load(), load_cc(), {}   # both fail loudly on a hash mismatch
+        m = self.mfm
+        if self.sizes != [m["size"]] or self.seeds != [m["seed"]]:
+            raise SystemExit(f"merge-failure arms are frozen for size {m['size']} and seed {m['seed']} "
+                             "(configs/merge_failure_test_v3.json)")
+        self.manifest = {"size": m["size"], "seed": m["seed"], "constants": m["contrastive"]["constants"],
+                         "validation_norm": m["validation_norm"], "arms": {x: {"updates": m["rule"]["cap"]} for x in MF_ORDER}}
+        self.arms, self.e0 = [x for x in MF_ORDER if x in arms], False
         self.ckpt_lock = threading.Lock()
         self.cl_common(a)
 
@@ -387,6 +422,8 @@ class Runner:
         return False
 
     def mo_args(self, arm, size, seed):
+        if self.mf:
+            return self.mf_args(arm, size, seed)
         if self.cc:
             return self.cc_args(arm, size, seed, self.cc_mode[arm])
         if self.cl:
@@ -459,7 +496,7 @@ class Runner:
         if self.cc and not self.cc_prepare(arm, size, seed, slot, rdir):
             return False
         m = json.loads((rdir / "run_meta.json").read_text()) if (rdir / "run_meta.json").exists() else {}
-        m.update(arm=arm, label={**ARM_LABEL, **CL_LABEL, **MC_LABEL, **CC_LABEL}[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
+        m.update(arm=arm, label={**ARM_LABEL, **CL_LABEL, **MC_LABEL, **CC_LABEL, **MF_LABEL}[arm], size=size, seed=seed, slot_cpus=self.slots[slot],
                  omp_threads=self.slot_threads, host=self.host())
         (rdir / "run_meta.json").write_text(json.dumps(m, indent=1))
         if not self.train_chunks(name, self.mo_args(arm, size, seed), size, slot, self.cap(arm), self.chunk(size), rdir):
@@ -479,9 +516,12 @@ class Runner:
             (rdir / "FAILED").write_text(f"evaluation failed twice at {time.strftime('%F %T')}\n")
             self.commit(f"{PREFIX}: {name} evaluation FAILED", rdir)
             return False
-        if self.mc or self.cc:
+        if self.mf:                                         # the run's contrastive reference (= its start network)
+            self.reference_record(name, rdir)
+        if self.mc or self.cc or self.mf:
             self.save_ckpt(TN / f"{name}.pth")              # the best-validation checkpoint
-        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE, *([CKPT] if self.mc or self.cc else []))
+        self.commit(f"{PREFIX}: {name} ({st['status']})", rdir, edir, STATUS_FILE,
+                    *([CKPT] if self.mc or self.cc or self.mf else []))
         return True
 
     # ------------------------------------------------------------------ converged contrastive arms
@@ -582,8 +622,7 @@ class Runner:
             shutil.copy2(src, dst)
             f = CKPT / "SHA256SUMS.json"
             rec = json.loads(f.read_text()) if f.exists() else {"description": "SHA-256 of every committed checkpoint of "
-                                                                "the merge-category study (docs/merge_categories_protocol_v3.md)",
-                                                                "files": {}}
+                                                                f"the {PREFIX} study", "files": {}}
             rec["files"][str(dst.relative_to(CKPT))] = hashlib.sha256(dst.read_bytes()).hexdigest()
             rec["files"] = dict(sorted(rec["files"].items()))
             f.write_text(json.dumps(rec, indent=1) + "\n")
@@ -677,6 +716,69 @@ class Runner:
             self.commit(f"{PREFIX}: E0 {size} s{seed}", edir)
         return rc == 0
 
+    # ------------------------------------------------------------------ merge-failure test
+    def mf_args(self, arm, size, seed, suffix=None):
+        """The converged Model Soup run's flags (a rerun from its start under the rule) plus the arm's one change."""
+        return self.cc_args("CCSBAVG", size, seed, "rerun", suffix=suffix or f"bv3_{TAG}_{arm}_s{seed}") + \
+            list(self.mfm["arms"][arm]["flags"])
+
+    def reference_record(self, name, rdir):
+        """rdir/reference.json: the identity's cl_reference_sha256 from the run's resume state (unpickled in daniel/)."""
+        f = TN / f"{name}.resume.pth"
+        r = subprocess.run([PY, "-c", "import sys, json; sys.argv = ['r', '--device', 'cpu']; import params, torch, "
+                            f"benchmark_v3; i = torch.load({str(f)!r}, map_location='cpu', weights_only=False)['identity']; "
+                            "print(json.dumps({k: i.get(k) for k in ('cl_reference_sha256', 'cl_anchor', 'init_shrink', "
+                            "'init_perturb', 'init_pref_columns')}))"], cwd=REPO / "daniel", capture_output=True,
+                           text=True, timeout=600)
+        if r.returncode == 0:
+            (rdir / "reference.json").write_text(json.dumps(json.loads(r.stdout.strip().splitlines()[-1]), indent=1) + "\n")
+        else:
+            self.log(f"{name}: could not read the reference hash ({r.stderr.strip()[-200:]})")
+
+    def diag_args(self, subj, size, seed, suffix):
+        if subj in MF_ORDER:
+            return self.mf_args(subj, size, seed, suffix)
+        if subj == "SOUP":
+            return self.cc_args("CCSBAVG", size, seed, "rerun", suffix=suffix)
+        a = self.cl_args("-", size, seed)
+        a[a.index("--model_suffix") + 1] = suffix
+        if subj == "DIST":
+            d = self.mfm["diagnostics"]["distillation_start"]
+            a += ["--init_from", d["path"], "--init_mode", d["init_mode"]]
+        return a                                            # RAND: the fresh seed-111 network
+
+    def u_diag(self, size, seed, slot):
+        """Part A: update-0 diagnostics of every subject (no training); each update-0 network is saved and committed
+        (starts/), the arms' under the arm's run name."""
+        ddir = RES / "diagnostics"; ddir.mkdir(parents=True, exist_ok=True)
+        for subj in MF_DIAG:
+            out = ddir / f"{subj}.json"
+            if out.exists():
+                continue
+            suffix = f"bv3_{TAG}_A{subj}_s{seed}"; name = f"{size}+mix+{suffix}"
+            for p in (TN / f"{name}@u0.pth", TL / f"{name}.run.json"):
+                p.unlink(missing_ok=True)
+            rc = self.run([PY, "merge_diagnostics.py", "--diag_out", str(out), "--diag_label",
+                           self.mfm["diagnostics"]["subjects"][subj]["name"], "--diag_seed", str(seed), "--diag_save_start",
+                           "1", "--", *self.diag_args(subj, size, seed, suffix), "--max_updates", "0", "--device", "cuda"],
+                          timeout=3600, cpus=self.slots[slot], threads=self.slot_threads, cwd=REPO / "daniel",
+                          out=TL / f"{name}.stdout.log")
+            if rc != 0 or not out.exists():
+                self.log(f"diagnostics {subj} FAILED (rc {rc})")
+                out.unlink(missing_ok=True)
+                return False
+            start = TN / f"{name}@u0.pth"
+            if subj in MF_ORDER:
+                dst = TN / f"{self.name(subj, size, seed)}_start.pth"
+                shutil.copy2(start, dst); start = dst
+            self.save_ckpt(start, sub="starts")
+            d = json.loads(out.read_text())
+            self.log(f"diagnostics {subj}: update-0 validation HV {d['validation']['hv_update0']:.4f}, entropy "
+                     f"{d['sampled']['entropy']:.3f}, distinct {d['sampled']['distinct_schedules_of_k']:.2f}/"
+                     f"{d['sampled']['k']}, grad norm {d['gradient']['total']:.4f}")
+        self.commit(f"{PREFIX}: update-0 diagnostics {size} s{seed}", ddir, CKPT)
+        return True
+
     # ------------------------------------------------------------------ plan and scheduling
     def plan(self):
         """Ordered units: (key, kind, args, deps, uses_slot)."""
@@ -688,6 +790,14 @@ class Runner:
                 U.append((f"normdev:{size}", "normdev", (size,), [], False))
         if self.mc:
             return self.plan_mc(U)
+        if self.mf:
+            for size in self.sizes:
+                dev = [f"normdev:{size}"] if self.a.smoke else []
+                for seed in self.seeds:
+                    U.append((f"diag:{size}:{seed}", "diag", (size, seed), dev, True))      # short; first
+                    for arm in self.arms:
+                        U.append((f"train:{arm}:{size}:{seed}", "train", (arm, size, seed), dev, True))
+            return U
         if self.cc:
             for size in self.sizes:
                 for seed in self.seeds:
@@ -738,7 +848,7 @@ class Runner:
               "distill": lambda: self.u_distill(*args, slot), "merge": lambda: self.u_merge(*args, slot),
               "shared": lambda: self.u_shared_base(*args, slot), "train": lambda: self.u_train(*args, slot),
               "e0": lambda: self.u_e0(*args, slot), "lambda": lambda: self.u_lambda(*args, slot),
-              "zeval": lambda: self.u_zeval(*args, slot)}[kind]
+              "zeval": lambda: self.u_zeval(*args, slot), "diag": lambda: self.u_diag(*args, slot)}[kind]
         try:
             return fn()
         except Exception as e:                                      # a broken unit must not stop the run
@@ -880,7 +990,12 @@ def main():
     ap.add_argument("--log", default=str(REPO / "logs" / "warmstart_v3_runner.log"))
     a = ap.parse_args()
     global RES, TAG, STATUS_FILE, PREFIX, CKPT
-    if any(x.replace("-", "") in CC_ORDER for x in a.arms.replace(",", " ").split()):
+    if any(x.replace("-", "") in MF_ORDER for x in a.arms.replace(",", " ").split()):
+        study = "merge_failure_test_v3"
+        RES, TAG = REPO / "results" / (study + "_smoke" if a.smoke else study), "mfs" if a.smoke else "mf"
+        STATUS_FILE, PREFIX = REPO / "logs" / f"{study}_STATUS.txt", "merge failure test v3"
+        CKPT = REPO / "checkpoints" / (study + "_smoke" if a.smoke else study)
+    elif any(x.replace("-", "") in CC_ORDER for x in a.arms.replace(",", " ").split()):
         study = "contrastive_converged_v3"
         RES, TAG = REPO / "results" / (study + "_smoke" if a.smoke else study), "ccs" if a.smoke else "cc"
         STATUS_FILE, PREFIX = REPO / "logs" / f"{study}_STATUS.txt", "contrastive converged v3"
