@@ -1,0 +1,21 @@
+{
+ "outcome": "INCONCLUSIVE",
+ "clause": "neither FAIL nor PASS: more than 5% worse than the shared base on tardiness",
+ "sanity_groups_lost": [],
+ "beats_random_on": [
+  "final makespan",
+  "carbon"
+ ],
+ "relative_to_shared_base": {
+  "final makespan": -0.4506790591394933,
+  "carbon": -0.13383032461944697,
+  "tardiness": 0.21648902769602535
+ },
+ "better_by_5pct": [
+  "final makespan",
+  "carbon"
+ ],
+ "worse_by_over_5pct": [
+  "tardiness"
+ ]
+}

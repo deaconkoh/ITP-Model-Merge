@@ -1,0 +1,51 @@
+{
+ "states": 4410,
+ "samples": 37440,
+ "groups": {
+  "job completion (min)": {
+   "world model": {
+    "mae": 45.5019123772882,
+    "mae_norm": 0.04596152765382647
+   },
+   "mean": {
+    "mae": 70.51823801806849,
+    "mae_norm": 0.07123054345259443
+   },
+   "shortcut": {
+    "mae": 181.08379807692307,
+    "mae_norm": 0.18291292735042736
+   },
+   "world_model_loses": false
+  },
+  "machine busy time (min)": {
+   "world model": {
+    "mae": 40.32727146963788,
+    "mae_norm": 0.04073461764609887
+   },
+   "mean": {
+    "mae": 46.15052021874322,
+    "mae_norm": 0.04661668708963961
+   },
+   "shortcut": {
+    "mae": 112.74084935897436,
+    "mae_norm": 0.11387964581714581
+   },
+   "world_model_loses": false
+  },
+  "machine energy (kg CO2e)": {
+   "world model": {
+    "mae": 6.602454694367847,
+    "mae_norm": 0.049401082636497166
+   },
+   "mean": {
+    "mae": 11.644131442323207,
+    "mae_norm": 0.08712406616029335
+   },
+   "shortcut": {
+    "mae": 10.774697095490557,
+    "mae_norm": 0.08061875866435134
+   },
+   "world_model_loses": false
+  }
+ }
+}

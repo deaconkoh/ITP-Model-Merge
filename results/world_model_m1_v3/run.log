@@ -53,3 +53,8 @@
 [2026-11-10 02:30:09] pretrain epoch 30: train 0.00170, hold-out 0.00169 (60.8 min)
 [2026-11-10 02:32:13] pretrain epoch 31: train 0.00169, hold-out 0.00171 (62.9 min)
 [2026-11-10 02:32:13] pretrain: best epoch 26 of 31, hold-out loss 0.00169, 62.9 min
+[2026-11-10 02:32:15] sanity: job completion (min): WM 45.50, mean 70.52, shortcut 181.08; machine busy time (min): WM 40.33, mean 46.15, shortcut 112.74; machine energy (kg CO2e): WM 6.60, mean 11.64, shortcut 10.77
+[2026-11-10 02:32:40] probe world-model trunk: MLP MAE [0.0534, 0.0582, 0.7813]
+[2026-11-10 02:32:57] probe random initialisation (seed 111): MLP MAE [0.0703, 0.0593, 0.6837]
+[2026-11-10 02:33:12] probe equal-weight shared base: MLP MAE [0.0971, 0.0672, 0.6423]
+[2026-11-10 02:33:29] probe makespan specialist (context only): MLP MAE [0.0688, 0.0493, 0.6215]
