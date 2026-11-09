@@ -1,0 +1,53 @@
+{
+ "size": "10x5",
+ "feature_set": "current",
+ "train_seed": 111,
+ "train_instances": 100000,
+ "shard_instances": 500,
+ "states_per_episode": 6,
+ "n_candidates": 4,
+ "val_seed": 2111,
+ "val_instances": 18,
+ "val_step_stride": 1,
+ "t_norm": 990.0,
+ "e_norm": 133.65,
+ "t_ref": 557.4180230253888,
+ "lr": 0.001,
+ "batch_states": 256,
+ "max_epochs": 100,
+ "patience": 5,
+ "head_hidden": 64,
+ "probe_seeds": 5,
+ "probe_hidden": 64,
+ "probe_lr": 0.001,
+ "probe_max_epochs": 2000,
+ "probe_patience": 50,
+ "rule": {
+  "probe": "mlp",
+  "pass_margin": 0.05,
+  "pass_min_objectives": 2,
+  "max_worse": 0.05,
+  "fail_sanity_groups": 2
+ },
+ "smoke": {
+  "train_instances": 40,
+  "shard_instances": 10,
+  "val_instances": 4,
+  "val_step_stride": 7,
+  "max_epochs": 2,
+  "probe_seeds": 1,
+  "probe_max_epochs": 20,
+  "probe_patience": 5
+ },
+ "trunks": {
+  "shared_base": {
+   "path": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcbase_s111.pth",
+   "sha256": "6d69cd050827b3944481d8470105f903c4b6bab5466a6a002a8e6ded4b129fd8"
+  },
+  "makespan_specialist": {
+   "path": "checkpoints/specialists_v3/10x5+mix+bv3_spec_m_s111.pth",
+   "sha256": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3"
+  }
+ },
+ "frozen": "2026-11-10"
+}
