@@ -140,5 +140,5 @@ commit "$PREFIX: $NAME evaluation" "$edir"
 # ------------------------------------------------------------------ report
 log "report: tools/analyze_tardiness_features_v3.py"
 "$PY" tools/analyze_tardiness_features_v3.py $([ $SMOKE = 1 ] && echo --smoke) >>"$LOG" 2>&1 || log "report FAILED (see log)"
-commit "$PREFIX: report" "$REPORT" "$RES" "$LOG"
 log "DONE ($(( ($(date +%s) - t_start) / 60 )) min). Committed locally; push when ready."
+commit "$PREFIX: report" "$REPORT" "$RES" "$LOG"
