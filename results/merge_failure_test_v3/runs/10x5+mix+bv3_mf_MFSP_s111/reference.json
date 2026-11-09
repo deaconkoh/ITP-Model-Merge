@@ -1,0 +1,7 @@
+{
+ "cl_reference_sha256": "4c09b179caa4d0a45d89578ad715d0f9bb6cd50e1a3ffbe0a023db4b5475aa8a",
+ "cl_anchor": null,
+ "init_shrink": 0.3,
+ "init_perturb": 0.0001,
+ "init_pref_columns": null
+}
