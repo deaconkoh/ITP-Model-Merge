@@ -129,6 +129,11 @@ class FJSPEnvForSameOpNums:
         if self.obs_version == "v3":
             # 10 base + 2 due-date operation features; 8 base + power machine features; 8 base + carbon + lateness
             self.op_fea_dim, self.mch_fea_dim, self.pair_fea_dim = 12, 9, 10
+        # tardiness features (docs/tardiness_features_protocol_v3.md): 5 fixed-scale columns appended AFTER the
+        # per-step z-score of the 12 columns above; op_fea_dim (the z-scored part) is unchanged
+        self.lateness_inputs = getattr(configs, "lateness_inputs", "off") == "on"
+        if self.lateness_inputs and self.obs_version != "v3":
+            raise ValueError("--lateness_inputs on needs benchmark v3 observations")
         self.priority_rng = np.random.default_rng(configs.priority_seed)
         self.priority_scope = configs.priority_scope
         self.objective = ObjectiveSpec(
@@ -725,6 +730,20 @@ class FJSPEnvForSameOpNums:
 
         if self.step_count != self.number_of_ops:
             self.norm_op_features()
+        if self.lateness_inputs:
+            self.fea_j = np.concatenate([self.fea_j, self.lateness_op_features()], axis=2)
+
+    def lateness_op_features(self):
+        """[E, N, 5] per-job lateness features, repeated on every operation of the job, in the environment's scaled
+        time (raw / 99, the benchmark's fixed time scale; NOT rescaled per step): current time t (the decision time,
+        next_schedule_time), d_j - t (signed: negative = overdue), absolute slack d_j - EST_j - W_j (the existing slack
+        before its z-score), already late (t > d_j and job unfinished) and will be late (EST_j + W_j > d_j: earliest
+        possible completion after the due date; for a finished job its completion time)."""
+        est, work, _, finished = self.v2_job_state()
+        t = np.broadcast_to(self.next_schedule_time[:, None], self.due_dates.shape)
+        cols = [t, self.due_dates - t, self.due_dates - est - work,
+                ((t > self.due_dates) & ~finished).astype(np.float64), (est + work > self.due_dates).astype(np.float64)]
+        return np.stack([np.take_along_axis(c, self.v2_op_job, axis=1) for c in cols], axis=2)
 
     def norm_op_features(self):
         """

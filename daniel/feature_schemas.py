@@ -21,6 +21,7 @@ class FeatureSchema:
 
 SCHEMA_V3 = "benchmark_v3_f12_m9_p10"
 SCHEMA_V3_MO = "benchmark_v3_f12_m9_p10_w3"
+SCHEMA_V3_LATE = "benchmark_v3_f17_m9_p10_late"
 
 
 SCHEMAS = {
@@ -33,6 +34,11 @@ SCHEMAS = {
     SCHEMA_V3_MO: FeatureSchema(
         SCHEMA_V3_MO, 12, 9, 10, operation_priority=False, pair_carbon=True, due_date_obs=True, obs_version="v3",
         preference_dim=3
+    ),
+    # tardiness features (docs/tardiness_features_protocol_v3.md): the v3 inputs plus 5 fixed-scale lateness operation
+    # features (current time, signed time to due, absolute slack, already late, will be late)
+    SCHEMA_V3_LATE: FeatureSchema(
+        SCHEMA_V3_LATE, 17, 9, 10, operation_priority=False, pair_carbon=True, due_date_obs=True, obs_version="v3"
     ),
     "canonical_f13_p10_obsv2": FeatureSchema(
         "canonical_f13_p10_obsv2", 13, 8, 10, operation_priority=True, pair_carbon=True, due_date_obs=True,

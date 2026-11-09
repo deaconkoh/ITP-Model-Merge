@@ -594,7 +594,9 @@ class Trainer:
                 **({"init_shrink": c.init_shrink, "init_perturb": c.init_perturb}
                    if (getattr(c, "init_shrink", 1.0), getattr(c, "init_perturb", 0.0)) != (1.0, 0.0) else {}),
                 **({"init_pref_columns": c.init_pref_columns}
-                   if getattr(c, "init_pref_columns", "zero") != "zero" else {})}
+                   if getattr(c, "init_pref_columns", "zero") != "zero" else {}),
+                # tardiness features: recorded only when on (earlier identities unchanged)
+                **({"lateness_inputs": c.lateness_inputs} if getattr(c, "lateness_inputs", "off") != "off" else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}

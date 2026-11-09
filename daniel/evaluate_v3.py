@@ -117,7 +117,8 @@ def main():
         _, meta = unwrap_checkpoint(torch.load(path, map_location=configs.device))
         goal = meta.get("config", {}).get("goal", "mct")
         net = DANIEL(configs).to(configs.device)
-        net.load_state_dict(load_checkpoint_state_dict(path, map_location=configs.device, expected_schema=SCHEMA_V3))
+        net.load_state_dict(load_checkpoint_state_dict(path, map_location=configs.device,
+                                                       expected_schema=configs.feature_schema))
         net.eval()
         model_rec = {"checkpoint_sha256": B.file_sha256(path), "goal": goal, "update": meta.get("update")}
         modes = [("greedy", lambda: rollout(net, data, idx), "")]

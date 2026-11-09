@@ -207,6 +207,11 @@ parser.add_argument('--init_perturb', type=float, default=0.0, help='Shrink and 
 parser.add_argument('--init_pref_columns', type=str, default='zero', choices=['zero', 'fresh'],
                     help='--init_mode full: the preference-input columns of the first actor and critic layers are set '
                          'to zero (default) or keep the freshly initialised network\'s values')
+# tardiness features (docs/tardiness_features_protocol_v3.md); the default leaves inputs and training unchanged
+parser.add_argument('--lateness_inputs', type=str, default='off', choices=['off', 'on'],
+                    help='Benchmark v3: append 5 per-job operation features with FIXED scaling (time / 99, the benchmark '
+                         'time scale; not z-scored): current time, due date - current time (signed), absolute slack, '
+                         'already-late flag, will-be-late flag. Operation input 12 -> 17')
 parser.add_argument('--log_ppo_stats', type=str2bool, default=False,
                     help='Log per-update PPO statistics (entropy, approx. KL, clip fraction, losses, explained variance, '
                          'gradient norm); observation only, the update is unchanged')
@@ -272,6 +277,11 @@ if configs.obs_version == 'v3' or configs.reward_version == 'v3':
     configs.fea_j_input_dim, configs.fea_m_input_dim, configs.fea_pair_input_dim = 12, 9, 10
     configs.feature_schema = 'benchmark_v3_f12_m9_p10'
     configs.enable_priority, configs.enable_carbon, configs.carbon_feature = False, True, True
+if configs.lateness_inputs == 'on':
+    if configs.obs_version != 'v3' or configs.preference_dim:
+        raise ValueError('--lateness_inputs on needs benchmark v3 single-objective training (no --preference_dim)')
+    configs.fea_j_input_dim = 17
+    configs.feature_schema = 'benchmark_v3_f17_m9_p10_late'
 if configs.preference_dim:
     if configs.obs_version != 'v3':
         raise ValueError('--preference_dim needs benchmark v3 (--obs_version v3 --reward_version v3)')
