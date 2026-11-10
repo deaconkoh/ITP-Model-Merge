@@ -61,6 +61,37 @@
     "seconds": 26.535290956497192,
     "independent_rescore": "all schedules feasible; objectives identical to the environment"
    }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_ctrl_t_s111.pth": {
+   "checkpoint_sha256": "ebb4d0d968ca1fe784e2dd475f7aa23cb04b065e1da4bb998e7b890dd45f168e",
+   "goal": "t",
+   "update": 1450,
+   "greedy": {
+    "makespan": 447.84,
+    "carbon": 154.18263003612364,
+    "tardiness": 202.83369294464018,
+    "tardy_share": 0.37200000000000005,
+    "mk_ratio": 1.097359751473026,
+    "carbon_ratio": 1.034430186757948,
+    "tardiness_ratio": 0.3638807583647177,
+    "score_goal": 0.3638807583647177,
+    "score_balanced": 0.8318902321985636,
+    "seconds": 1.4013457298278809,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample100": {
+    "makespan": 434.89,
+    "carbon": 150.82796743630598,
+    "tardiness": 99.03460308328972,
+    "tardy_share": 0.285,
+    "mk_ratio": 1.0670412823486342,
+    "carbon_ratio": 1.0123417469174127,
+    "tardiness_ratio": 0.17766666844710002,
+    "score_goal": 0.17766666844710005,
+    "score_balanced": 0.7523498992377157,
+    "seconds": 27.589622259140015,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
   }
  },
  "split": "evaluation",
