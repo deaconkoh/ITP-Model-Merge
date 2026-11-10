@@ -1,0 +1,22 @@
+{
+ "model": "10x5+mix+bv3_wm3A_wm_s111_g025",
+ "set": "wm",
+ "label": "World-model base mix",
+ "split": "validation",
+ "size": "10x5",
+ "n": 18,
+ "grid_size": 15,
+ "hv_mean": 0.5166222532771809,
+ "nd_size_mean": 5.222222222222222,
+ "igd_plus_mean": null,
+ "igd_plus_n": 0,
+ "igd_plus_per_instance": {},
+ "norm": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+ "specialists": {
+  "10x5+mix+bv3_wm2_wm_m_s111.pth": "66de613016a7f7591676d8719c841a3258842a62abd38a0fd3ac5e76123636e0",
+  "10x5+mix+bv3_wm2_wm_c_s111.pth": "c81c200eeb451e895a0157b1c2971b90c6f210c9cc4650ed5635ef8da30bd58a",
+  "10x5+mix+bv3_wm2_wm_t_s111.pth": "7a44eb37d5a32dab71815cca15473f975a0664b5f394cb6a9c6bd237117657f0"
+ },
+ "seconds": 33.45331001281738,
+ "independent_rescore": "all schedules feasible; objectives identical to the environment"
+}

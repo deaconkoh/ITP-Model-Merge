@@ -1,0 +1,22 @@
+{
+ "model": "10x5+mix+bv3_wm3A_orig_s111",
+ "set": "orig",
+ "label": "Original specialists mix",
+ "split": "validation",
+ "size": "10x5",
+ "n": 18,
+ "grid_size": 66,
+ "hv_mean": 0.5848446680337932,
+ "nd_size_mean": 6.888888888888889,
+ "igd_plus_mean": null,
+ "igd_plus_n": 0,
+ "igd_plus_per_instance": {},
+ "norm": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+ "specialists": {
+  "10x5+mix+bv3_spec_m_s111.pth": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3",
+  "10x5+mix+bv3_spec_c_s111.pth": "1db5f94e73c268cae49ce8d75bfafae39aa8d075bad2bf8a260373abf4bcf721",
+  "10x5+mix+bv3_spec_t_s111.pth": "4f3fb611057ca84bb30ef99bfe3bc770f7dd5b42f77260136c771edf97fccecd"
+ },
+ "seconds": 36.472087144851685,
+ "independent_rescore": "all schedules feasible; objectives identical to the environment"
+}

@@ -1,0 +1,43 @@
+{
+ "model": "10x5+mix+bv3_wm3A_wm_s111",
+ "set": "wm",
+ "label": "World-model base mix",
+ "split": "evaluation",
+ "size": "10x5",
+ "n": 100,
+ "grid_size": 66,
+ "hv_mean": 0.5887629872169422,
+ "nd_size_mean": 6.36,
+ "igd_plus_mean": 0.31609454340120074,
+ "igd_plus_n": 20,
+ "igd_plus_per_instance": {
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_001.fjs": 0.4735835545573796,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_002.fjs": 0.3113057067900955,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_003.fjs": 0.3721615129945592,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_004.fjs": 0.30220073322135677,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_005.fjs": 0.24622370277389483,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_006.fjs": 0.4623946956314727,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_007.fjs": 0.3625130307581574,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_008.fjs": 0.3531208800887514,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_009.fjs": 0.38444282952667425,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_010.fjs": 0.220047995804007,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_011.fjs": 0.27249635578364145,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_012.fjs": 0.3237467181623528,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_013.fjs": 0.45174190099604145,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_014.fjs": 0.3633322949150636,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_015.fjs": 0.21088770198828946,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_016.fjs": 0.32397009543706573,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_017.fjs": 0.2556440561428446,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_018.fjs": 0.19173829102331472,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_019.fjs": 0.2652170138511188,
+  "benchmark_v3/evaluation/SD2/10x5+mix/10x5+mix_020.fjs": 0.1751217975779344
+ },
+ "norm": "results/baselines_v3/normalisation_points.json",
+ "specialists": {
+  "10x5+mix+bv3_wm2_wm_m_s111.pth": "66de613016a7f7591676d8719c841a3258842a62abd38a0fd3ac5e76123636e0",
+  "10x5+mix+bv3_wm2_wm_c_s111.pth": "c81c200eeb451e895a0157b1c2971b90c6f210c9cc4650ed5635ef8da30bd58a",
+  "10x5+mix+bv3_wm2_wm_t_s111.pth": "7a44eb37d5a32dab71815cca15473f975a0664b5f394cb6a9c6bd237117657f0"
+ },
+ "seconds": 34.26289105415344,
+ "independent_rescore": "all schedules feasible; objectives identical to the environment"
+}
