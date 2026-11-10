@@ -244,7 +244,8 @@ def main():
         L += ["", "**Original specialists vs the earlier zero-training interpolation (E0):**",
               f"- **Reproduction:** the Original specialists mix gives evaluation HV **{partA['orig']['evaluation']['hv']:.4f}**. "
               f"Its objectives are {'bit-identical to' if same else 'NOT identical to'} the committed E0 seed-111 front "
-              f"(`{e0['111']['npz']}`), whose HV is {e0['111']['hv']:.4f}.",
+              f"(`{e0['111']['npz']}`). On the same {n_ev} instances, E0's HV is {float(z_e0['hv'][:n_ev].mean()):.4f}; "
+              f"on all 100 it is {e0['111']['hv']:.4f}.",
               f"- **Why it differs from 0.555:** 0.555 is the **mean over seeds 111, 222 and 333** "
               f"({e0['111']['hv']:.3f} / {e0['222']['hv']:.3f} / {e0['333']['hv']:.3f}, mean {e0_mean:.3f}). M3 uses seed "
               "111 only, so the right comparison is seed 111's 0.571. The method, grid, normalisation and code path "
@@ -254,7 +255,7 @@ def main():
               f"**In-between:** the other {int((~corner).sum())}.",
               "- **Mean regret:** λ·f − min over the pool of λ·z, in normalised space, averaged over instances and "
               "preferences.",
-              f"  - **Pool, per split and instance:** {pa['regret_pool']}.",
+              f"  - **Pool:** {pa['regret_pool']}.",
               f"- **Share non-dominated:** {pa['nondominated_share']}.", "",
               "| Merge | Split | Mean regret, corner | Mean regret, in-between | Mean regret, all | "
               "Share non-dominated, corner | Share non-dominated, in-between |", "|---|---|---|---|---|---|---|"]
