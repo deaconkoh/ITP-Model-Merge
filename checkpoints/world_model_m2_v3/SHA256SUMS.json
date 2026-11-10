@@ -1,6 +1,8 @@
 {
  "10x5+mix+bv3_wm2_ctrl_c_s111.pth": "b59b673aa0d122535664de041ad99b1705223b3324e15cbdab7b758ccf7ead1d",
  "10x5+mix+bv3_wm2_ctrl_c_s111_start.pth": "ed70a3f5a2bc94daf4af6833890641fc83c1778ba4cdc0f898dd850cda209460",
+ "10x5+mix+bv3_wm2_ctrl_m_s111.pth": "11ee83bada3bb3bfaf446737972746c0e4d0d52813d37d382d24c564c66f6b4d",
+ "10x5+mix+bv3_wm2_ctrl_m_s111_start.pth": "7f30090965c108e9ef1b3c90179f273a4f4fd495cef8f0620d5d25d7a5fa5e19",
  "10x5+mix+bv3_wm2_ctrl_t_s111.pth": "ebb4d0d968ca1fe784e2dd475f7aa23cb04b065e1da4bb998e7b890dd45f168e",
  "10x5+mix+bv3_wm2_ctrl_t_s111_start.pth": "a168b8d06cd46ca4dd9027f10ee0ed8fab4fffaf068cdf6221f1fcb7ee5fcbfd",
  "10x5+mix+bv3_wm2_wm_c_s111.pth": "c81c200eeb451e895a0157b1c2971b90c6f210c9cc4650ed5635ef8da30bd58a",
