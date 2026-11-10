@@ -1,6 +1,8 @@
 {
  "10x5+mix+bv3_wm2_ctrl_c_s111.pth": "b59b673aa0d122535664de041ad99b1705223b3324e15cbdab7b758ccf7ead1d",
  "10x5+mix+bv3_wm2_ctrl_c_s111_start.pth": "ed70a3f5a2bc94daf4af6833890641fc83c1778ba4cdc0f898dd850cda209460",
+ "10x5+mix+bv3_wm2_wm_t_s111.pth": "7a44eb37d5a32dab71815cca15473f975a0664b5f394cb6a9c6bd237117657f0",
+ "10x5+mix+bv3_wm2_wm_t_s111_start.pth": "620a7a32c868ba9f073253e533a0a208e99cd2f781c876c3fbd6abcf540351e8",
  "bases/shared_random_base_s111.pth": "51dd57d1a92134c9e4ca14693f9ec591e3c58e64d7b45b0229649432771d178f",
  "bases/world_model_base_s111.pth": "231a1806b548e3dab8843db95089b88fb4de10f44e0fe1b02b4968c8e23d5f44"
 }
