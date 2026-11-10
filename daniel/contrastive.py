@@ -38,6 +38,14 @@ def group_pairs(obj, f_hat, w, margin):
     return pairs, n_dom, n_tch
 
 
+def single_objective_pairs(f, margin):
+    """Single-objective contrastive (docs/world_model_m2_protocol_v3.md): pairs (better, worse) of one group, with f the
+    group's normalised objective of the specialist's goal [K]; (i, j) is a pair when f_j - f_i > margin. No preference,
+    no dominance rule."""
+    f = np.asarray(f, float)
+    return [(i, j) for i in range(len(f)) for j in range(len(f)) if i != j and f[j] - f[i] > margin]
+
+
 def dpo_loss(ell, ell_ref, pairs, beta):
     """Mean pairwise logistic loss over pairs [(better, worse)] (global trajectory indices)."""
     b = torch.as_tensor([p[0] for p in pairs], device=ell.device)
@@ -76,7 +84,8 @@ def rollout(policy, ref, env, state):
 def stack(steps):
     """Flatten [T steps][N envs] into trajectory-major [N * T] tensors; traj[k] = environment index of row k."""
     T, N = len(steps), len(steps[0]["a"])
-    flat = {k: torch.stack([s["x"][k] for s in steps], 1).flatten(0, 1) for k in KEYS}
+    flat = {k: torch.stack([s["x"][k] for s in steps], 1).flatten(0, 1) for k in KEYS
+            if steps[0]["x"][k] is not None}                       # no "pref" in single-objective contrastive
     acts = torch.stack([s["a"] for s in steps], 1)                                   # [N, T]
     traj = torch.arange(N, device=acts.device).repeat_interleave(T)
     return flat, acts.flatten(), traj, acts

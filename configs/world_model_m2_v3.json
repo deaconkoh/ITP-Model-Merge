@@ -1,0 +1,135 @@
+{
+ "size": "10x5",
+ "objectives": [
+  "m",
+  "c",
+  "t"
+ ],
+ "seeds_available": [
+  111,
+  222,
+  333
+ ],
+ "seeds_default": [
+  111
+ ],
+ "contrastive": {
+  "source": "configs/contrastive_v3.json",
+  "sha256": "df851486354f209ee3b147518460c1ada4986706a41bdfa0be4432ca4282720b",
+  "cl_k": 8,
+  "cl_beta": 0.1,
+  "cl_margin": 0.01,
+  "cl_grad_clip": 1.0,
+  "lr": 0.0003,
+  "minibatch_size": 1024,
+  "num_envs": 20,
+  "reset_env_timestep": 20,
+  "validate_timestep": 50,
+  "pairs": "single objective: (i, j) is a pair when f_j - f_i > margin, f = the goal's objective normalised per instance (MK / MKref_i, C / Cref_i, T / Tref); K schedules per instance; no preference input, no dominance rule"
+ },
+ "rule": {
+  "converge_window": 1000,
+  "converge_tol": 0.005,
+  "min_updates": 1000,
+  "cap": 8000,
+  "chunk": 500,
+  "statement": "stop once the best validation value has improved by less than 0.5% over the last 1,000 updates, after at least 1,000 updates; hard cap 8,000 updates, reported as 'capped'"
+ },
+ "world_model_trunk": {
+  "path": "checkpoints/world_model_m1_v3/world_model_trunk.pth",
+  "sha256": "8b5b85c289cec662c1c72329f5dc0ad2eef3f26ee09687257950ba07301339e8"
+ },
+ "world_model_cost": {
+  "pretrain": "results/world_model_m1_v3/pretrain.json",
+  "pretrain_sha256": "53de004a291adcb163696776bbedd3d9720c7d12de2f741d160001804a4242fd",
+  "data": "results/world_model_m1_v3/data_train_meta.json",
+  "data_sha256": "82c0def6540436bc1b9bf3963e020bc8da18e1f3bbc05a84f88b15a0aa9da214"
+ },
+ "evaluation": {
+  "split": "evaluation",
+  "instances": 100,
+  "sample": 100,
+  "sample_seed": 50,
+  "primary": "greedy, the specialist's own raw objective (mean over instances)"
+ },
+ "criteria": {
+  "faster": {
+   "ratio": 0.7,
+   "min_objectives": 2,
+   "statement": "the world-model specialist reaches the control's best validation value in <= 70% of the control's updates to its best, on at least 2 of 3 objectives"
+  },
+  "better": {
+   "margin": 0.05,
+   "min_objectives": 2,
+   "statement": "final evaluation value (greedy, primary objective) at least 5% better than the control's on at least 2 of 3 objectives"
+  }
+ },
+ "references": {
+  "ppo_specialists": {
+   "10x5+mix+bv3_spec_m_s111": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_m_s111.json",
+    "eval_sha256": "7bcb49f4bade345aa3238be355e2a8911111a0b6315babe31921185343f21c63",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_m_s111/status.json",
+    "status_sha256": "4ffb9a3669438df060b8ebb93339a24923cfa458587aedd952bda61f85965b61"
+   },
+   "10x5+mix+bv3_spec_m_s222": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_m_s222.json",
+    "eval_sha256": "acd206d568f68d7f497322f81e91df86f1b656be08d5f2ef58b20d79765726bd",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_m_s222/status.json",
+    "status_sha256": "be748d303b03996b4f6b357ae45fa2bcc0ce391bbc677c3f937a9856ab03e2a7"
+   },
+   "10x5+mix+bv3_spec_m_s333": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_m_s333.json",
+    "eval_sha256": "b64d0f5967574d45bfae2323fd98af9c694b7da7c297ffd85e3a9cd48d5e22c9",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_m_s333/status.json",
+    "status_sha256": "eaab92b4fd7a81ae88f5bd84c73dee02703c39048c371af9ff993f93e67ab5c8"
+   },
+   "10x5+mix+bv3_spec_c_s111": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_c_s111.json",
+    "eval_sha256": "d1e60add388bf10f6473a6279cac3c5fe3128c368675c11b844cacfe894be4b4",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_c_s111/status.json",
+    "status_sha256": "fe6eb0d8bdb3a51ab020781cf65991e2b558617682e9f1ec5571bff07e92c878"
+   },
+   "10x5+mix+bv3_spec_c_s222": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_c_s222.json",
+    "eval_sha256": "d147690e5f6f604e83c785729951d23aad1adae99a8fcd8a83de438cb03153a7",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_c_s222/status.json",
+    "status_sha256": "9f28e04003c8f5c46241cdc9fa6a78dc6241861ec77ffbe0c7a09431b75ddc75"
+   },
+   "10x5+mix+bv3_spec_c_s333": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_c_s333.json",
+    "eval_sha256": "435b7e179dae9951d4211ddae9506103d4b9f3c63a1eb1ca7c60b04fac870ccd",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_c_s333/status.json",
+    "status_sha256": "8a5f30d4dea38b9ef0751f56733d3bb4bfb2dc19b3e6500ad56b701ca2020d69"
+   },
+   "10x5+mix+bv3_spec_t_s111": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_t_s111.json",
+    "eval_sha256": "42665a8397d4d0b0fa91590917a216dd2900926d3636eb6ca1af783dcc7b6a97",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_t_s111/status.json",
+    "status_sha256": "17b1ae4aa931c4c350792d82ae05fadb957149395d0ca5292bfdcd8022c50da3"
+   },
+   "10x5+mix+bv3_spec_t_s222": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_t_s222.json",
+    "eval_sha256": "d0c788a7b37ddc180540d3cb57972790fd79b23809cb24d4ccaf833e963f6d0d",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_t_s222/status.json",
+    "status_sha256": "0ab39d073b6857287abed65fc342fc08a5c67b8c775f8050c055f14d829bb268"
+   },
+   "10x5+mix+bv3_spec_t_s333": {
+    "eval": "results/baselines_v3/eval/evaluation_10x5/10x5+mix+bv3_spec_t_s333.json",
+    "eval_sha256": "edff8649d50c357511abbd484894cf79e20007e7ab62980ffb8e720968dade7b",
+    "status": "results/baselines_v3/runs/10x5+mix+bv3_spec_t_s333/status.json",
+    "status_sha256": "1be194e550453f16f98097439af7573e225803a29d7676a27d89a80c8b633065"
+   }
+  },
+  "cpsat_b1": "results/baselines_v3/cpsat/b1/evaluation_10x5"
+ },
+ "smoke": {
+  "cap": 5,
+  "chunk": 0,
+  "validate_timestep": 5,
+  "eval_split": "development",
+  "eval_first": 3,
+  "sample": 4
+ },
+ "frozen": "2026-11-10"
+}

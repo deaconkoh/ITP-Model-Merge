@@ -289,8 +289,11 @@ if configs.preference_dim:
         raise ValueError('a preference-conditioned model is trained with --goal mct (the preference sets the weights)')
     configs.feature_schema = 'benchmark_v3_f12_m9_p10_w3'
 if configs.finetune_objective == 'contrastive':
-    if not configs.preference_dim or configs.v3_train_source != 'generator':
-        raise ValueError('--finetune_objective contrastive needs --preference_dim 3 and --v3_train_source generator')
+    # preference-conditioned (MO) contrastive, or single-objective contrastive (docs/world_model_m2_protocol_v3.md):
+    # --preference_dim 0 with a single-objective goal m, c or t
+    if (not configs.preference_dim and configs.goal not in ('m', 'c', 't')) or configs.v3_train_source != 'generator':
+        raise ValueError('--finetune_objective contrastive needs --preference_dim 3 and --v3_train_source generator '
+                         '(or --preference_dim 0 with a single-objective --goal m, c or t)')
     if configs.cl_k < 2:
         raise ValueError('--cl_k must be at least 2 (pairs are formed inside a group)')
 if configs.cl_anchor != 'reference' and configs.finetune_objective != 'contrastive':

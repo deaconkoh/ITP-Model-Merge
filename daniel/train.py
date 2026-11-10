@@ -166,6 +166,7 @@ class Trainer:
         self.parent_checkpoints = []
         self.load_initial_checkpoint()
         self.cl = config.finetune_objective == "contrastive"
+        self.cl_single = self.cl and not getattr(config, "preference_dim", 0)
         if self.cl:
             # frozen reference = the starting network (after --init_from), rebuilt identically on every resume
             from copy import deepcopy
@@ -283,6 +284,8 @@ class Trainer:
             self.env.set_initial_data(**self.cl_batch.env_kwargs(idx, self.config.goal))
         else:
             self.env.reset()
+        if self.cl_single:                                          # single-objective contrastive: no preference
+            return self.contrastive_update_single(i_update, t0, k, n, CL)
         prefs = self.sample_preferences()                            # the same preference stream as the PPO arms
         state = self.env.set_preference(np.repeat(prefs, k, axis=0))
         steps = CL.rollout(self.ppo.policy, self.cl_ref if self.config.cl_anchor == "reference" else None, self.env,
@@ -318,6 +321,54 @@ class Trainer:
         tqdm.write(f"Update {i_update + 1}\t CL loss: {loss if loss is not None else float('nan'):.5f}\t pairs: "
                    f"{len(pairs)}\t groups with a pair: {with_pair}/{n}\t distinct: {distinct:.2f}\t "
                    f"time: {time.time() - t0:.2f}")
+
+    def contrastive_update_single(self, i_update, t0, k, n, CL):
+        """Single-objective contrastive update (docs/world_model_m2_protocol_v3.md): the same instance stream, K
+        sampled schedules per instance, pairs = better on the goal's normalised objective by more than the margin, the
+        same DPO-style step against the frozen start network."""
+        state = self.env.state
+        steps = CL.rollout(self.ppo.policy, self.cl_ref if self.config.cl_anchor == "reference" else None, self.env,
+                           state)
+        env = self.env
+        tard = np.maximum(0.0, env.true_op_ct[env.env_job_idx, env.job_last_op_id] - env.true_due_dates).sum(1)
+        obj = np.stack([env.current_makespan, env.total_carbon, tard], 1)
+        f_hat = obj / np.stack([env.v2_mk_ref, env.v2_cb_ref, np.full(len(obj), env.reward_v2.tbar)], 1)
+        f = f_hat[:, "mct".index(self.config.goal)]
+        pairs, with_pair = [], 0
+        for g in range(n):
+            p = CL.single_objective_pairs(f[g * k:(g + 1) * k], self.config.cl_margin)
+            pairs += [(g * k + i, g * k + j) for i, j in p]
+            with_pair += bool(p)
+        loss, norm = CL.dpo_update(self.ppo.policy, self.ppo.optimizer, steps, pairs, self.config.cl_beta,
+                                   self.config.cl_grad_clip, self.config.minibatch_size)
+        self.ppo.policy_old.load_state_dict(self.ppo.policy.state_dict())
+        _, _, _, acts = CL.stack(steps)
+        distinct, distinct_obj = CL.group_stats(acts, obj, k)
+        env_steps = len(obj) * len(steps)
+        prev = self.log[-1]["cl"]["env_steps_total"] if self.log else 0
+        self.log.append({"update": i_update, "mean_return": float(-f.mean()),
+                         "cl": {"loss": loss, "pairs": len(pairs), "groups_with_pair": with_pair / n,
+                                "distinct_schedules": distinct, "distinct_objective_vectors": distinct_obj,
+                                "entropy": float(torch.cat([s["ent"] for s in steps]).mean()),
+                                "grad_norm": norm, "skipped": loss is None, "env_steps": env_steps,
+                                "env_steps_total": prev + env_steps, "seconds": time.time() - t0},
+                         "objectives": {"makespan": float(obj[:, 0].mean()), "carbon": float(obj[:, 1].mean()),
+                                        "tardiness": float(obj[:, 2].mean())}})
+        tqdm.write(f"Update {i_update + 1}\t CL loss: {loss if loss is not None else float('nan'):.5f}\t pairs: "
+                   f"{len(pairs)}\t groups with a pair: {with_pair}/{n}\t distinct: {distinct:.2f}\t "
+                   f"time: {time.time() - t0:.2f}")
+
+    def weight_drift(self):
+        """Relative distance of the trunk (feature_exact) and the actor from the frozen start network:
+        ||theta - theta_0|| / ||theta_0|| over all their parameters (single-objective contrastive only)."""
+        cur, ref = self.ppo.policy.state_dict(), self.cl_ref.state_dict()
+        out = {}
+        for name, prefix in (("trunk", "feature_exact."), ("actor", "actor.")):
+            d = sum(float(((cur[k] - ref[k]).double() ** 2).sum()) for k in ref if k.startswith(prefix))
+            n0 = sum(float((ref[k].double() ** 2).sum()) for k in ref if k.startswith(prefix))
+            out[f"{name}_drift"] = (d ** 0.5) / (n0 ** 0.5)
+            out[f"{name}_drift_abs"] = d ** 0.5
+        return out
 
     def save_run_manifest(self):
         manifest = {
@@ -550,6 +601,8 @@ class Trainer:
 
         entry = {"update": update, **validation_metrics, "selection_metric": selection_metric,
                  "train_seconds": self.train_seconds + (time.time() - ep_st)}
+        if getattr(self, "cl_single", False):                      # M2: how far trunk and actor moved from the start
+            entry.update(self.weight_drift())
         if self.config.converge_window > 0:
             from convergence import is_converged
             converged, rel = is_converged([(e["update"], e["selection_metric"]) for e in self.validation_log + [entry]],
@@ -596,7 +649,9 @@ class Trainer:
                 **({"init_pref_columns": c.init_pref_columns}
                    if getattr(c, "init_pref_columns", "zero") != "zero" else {}),
                 # tardiness features: recorded only when on (earlier identities unchanged)
-                **({"lateness_inputs": c.lateness_inputs} if getattr(c, "lateness_inputs", "off") != "off" else {})}
+                **({"lateness_inputs": c.lateness_inputs} if getattr(c, "lateness_inputs", "off") != "off" else {}),
+                # single-objective contrastive: recorded only in that mode (earlier identities unchanged)
+                **({"cl_pairs": "single_objective"} if getattr(self, "cl_single", False) else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}
