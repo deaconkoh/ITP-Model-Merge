@@ -149,7 +149,9 @@ class Runner:
         edir = self.res / "eval"
         for attempt in (1, 2):
             rc = self.run([PY, "evaluate_mo_v3.py", "--model", str(self.ckpt / f"{name}.pth"), "--split", self.eval_split,
-                           "--size", "10x5", "--first", str(self.eval_first), "--out", str(edir), "--device", "cuda"],
+                           "--size", "10x5", "--first", str(self.eval_first), "--out", str(edir), "--device", "cuda",
+                           "--norm", str(REPO / self.cfg["part_a"]["eval_norm" if self.eval_split == "evaluation"
+                                                               else "val_norm"])],
                           slot, 3600, out)
             if rc == 0:
                 break

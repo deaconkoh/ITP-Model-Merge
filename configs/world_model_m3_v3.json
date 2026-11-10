@@ -251,7 +251,7 @@
   "chunk": 0,
   "validate_timestep": 5,
   "mo_val_first": 3,
-  "eval_split": "development",
+  "eval_split": "validation",
   "eval_first": 3,
   "part_a_first": 3
  },

@@ -111,7 +111,7 @@ def build():
         "references": refs,
         "world_model_cost_h": {"data": 0.22, "pretrain": 1.05, "total": 1.27,
                                "source": "results/world_model_m1_v3/pretrain.json, data_train_meta.json"},
-        "smoke": {"cap": 5, "chunk": 0, "validate_timestep": 5, "mo_val_first": 3, "eval_split": "development",
+        "smoke": {"cap": 5, "chunk": 0, "validate_timestep": 5, "mo_val_first": 3, "eval_split": "validation",
                   "eval_first": 3, "part_a_first": 3},
     }
 
