@@ -165,6 +165,8 @@ class Trainer:
         self.ppo = PPO_initialize()
         self.parent_checkpoints = []
         self.load_initial_checkpoint()
+        if getattr(config, "merge_mix", ""):
+            self.init_merge_mix(config)
         self.cl = config.finetune_objective == "contrastive"
         self.cl_single = self.cl and not getattr(config, "preference_dim", 0)
         if self.cl:
@@ -179,6 +181,19 @@ class Trainer:
             self.cl_ref_sha = h.hexdigest()
         self.save_run_manifest()
         self.memory = Memory(gamma=config.gamma, gae_lambda=config.gae_lambda)
+
+    def init_merge_mix(self, config):
+        """Preference-weighted merging (docs/world_model_m3_protocol_v3.md): the policy is a MixturePolicy of the three
+        specialists (preference columns zero), so for preference w it is the weight mix sum_x w_x theta_x; one Adam over
+        all three networks. The contrastive reference (taken next) is the frozen starting mixture."""
+        from copy import deepcopy
+        from mixture import MixturePolicy, load_specialists
+        paths = [self.resolve_checkpoint_path(p.strip()) for p in config.merge_mix.split(",")]
+        nets, self.parent_checkpoints = load_specialists(paths, config, device)
+        self.ppo.policy = MixturePolicy(nets)
+        self.ppo.policy_old = deepcopy(self.ppo.policy)
+        self.ppo.optimizer = torch.optim.Adam(self.ppo.policy.parameters(), lr=config.lr)
+        self.merge_mix_sha = [p["sha256"] for p in self.parent_checkpoints]
 
     def init_benchmark_v3(self, config):
         """Benchmark v3 train/validation data with frozen carbon, due dates and score references (hash-checked)."""
@@ -651,7 +666,9 @@ class Trainer:
                 # tardiness features: recorded only when on (earlier identities unchanged)
                 **({"lateness_inputs": c.lateness_inputs} if getattr(c, "lateness_inputs", "off") != "off" else {}),
                 # single-objective contrastive: recorded only in that mode (earlier identities unchanged)
-                **({"cl_pairs": "single_objective"} if getattr(self, "cl_single", False) else {})}
+                **({"cl_pairs": "single_objective"} if getattr(self, "cl_single", False) else {}),
+                # preference-weighted merging: recorded only in that mode (earlier identities unchanged)
+                **({"merge_mix_sha256": self.merge_mix_sha} if getattr(c, "merge_mix", "") else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}

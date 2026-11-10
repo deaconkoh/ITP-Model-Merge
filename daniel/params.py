@@ -207,6 +207,11 @@ parser.add_argument('--init_perturb', type=float, default=0.0, help='Shrink and 
 parser.add_argument('--init_pref_columns', type=str, default='zero', choices=['zero', 'fresh'],
                     help='--init_mode full: the preference-input columns of the first actor and critic layers are set '
                          'to zero (default) or keep the freshly initialised network\'s values')
+# preference-weighted merging (docs/world_model_m3_protocol_v3.md); the default leaves training unchanged
+parser.add_argument('--merge_mix', type=str, default='',
+                    help='Comma-separated makespan, carbon and tardiness specialists (v3, unconditioned). The policy for '
+                         'preference w is the weight mix w_M theta_M + w_C theta_C + w_T theta_T, one mix per sample; '
+                         'all three networks are trained (MO contrastive only; reference = the starting mix)')
 # tardiness features (docs/tardiness_features_protocol_v3.md); the default leaves inputs and training unchanged
 parser.add_argument('--lateness_inputs', type=str, default='off', choices=['off', 'on'],
                     help='Benchmark v3: append 5 per-job operation features with FIXED scaling (time / 99, the benchmark '
@@ -302,5 +307,11 @@ if (configs.init_shrink != 1.0 or configs.init_perturb != 0.0) and not configs.i
     raise ValueError('--init_shrink / --init_perturb need --init_from')
 if configs.init_pref_columns != 'zero' and configs.init_mode != 'full':
     raise ValueError('--init_pref_columns fresh applies to --init_mode full only')
+if configs.merge_mix:
+    if (configs.finetune_objective != 'contrastive' or configs.preference_dim != 3 or configs.init_from
+            or configs.cl_anchor != 'reference' or configs.init_shrink != 1.0 or configs.init_perturb != 0.0
+            or len(configs.merge_mix.split(',')) != 3):
+        raise ValueError('--merge_mix needs three specialists (m,c,t), --finetune_objective contrastive, '
+                         '--preference_dim 3 and no --init_from or merge-failure options')
 if configs.resume_from and not configs.resume:
     raise ValueError('--resume_from needs --resume True')

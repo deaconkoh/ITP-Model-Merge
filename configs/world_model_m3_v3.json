@@ -1,0 +1,259 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "sets": {
+  "wm": {
+   "label": "World-model base mix",
+   "short": "World-model base",
+   "specialists": {
+    "m": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_wm_m_s111.pth",
+    "c": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_wm_c_s111.pth",
+    "t": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_wm_t_s111.pth"
+   },
+   "sha256": {
+    "m": "66de613016a7f7591676d8719c841a3258842a62abd38a0fd3ac5e76123636e0",
+    "c": "c81c200eeb451e895a0157b1c2971b90c6f210c9cc4650ed5635ef8da30bd58a",
+    "t": "7a44eb37d5a32dab71815cca15473f975a0664b5f394cb6a9c6bd237117657f0"
+   },
+   "part_b": true,
+   "cost_status": {
+    "m": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_wm_m_s111/status.json",
+    "c": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_wm_c_s111/status.json",
+    "t": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_wm_t_s111/status.json"
+   },
+   "cost_status_sha256": {
+    "m": "29de7129132e66164b2b5c32ed75e4b39d81e4184be4a9afa543c84bf81cc7be",
+    "c": "7c1e1956a80b8b4ac1fcfac84bb0803a229d1d410b9d254e0ae01904073c4da4",
+    "t": "563e58607079000b2f2fd885636a15589db10c783ce8df4f4741cc4ddd087578"
+   }
+  },
+  "ctrl": {
+   "label": "Random shared base mix",
+   "short": "Random shared base",
+   "specialists": {
+    "m": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_ctrl_m_s111.pth",
+    "c": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_ctrl_c_s111.pth",
+    "t": "checkpoints/world_model_m2_v3/10x5+mix+bv3_wm2_ctrl_t_s111.pth"
+   },
+   "sha256": {
+    "m": "11ee83bada3bb3bfaf446737972746c0e4d0d52813d37d382d24c564c66f6b4d",
+    "c": "b59b673aa0d122535664de041ad99b1705223b3324e15cbdab7b758ccf7ead1d",
+    "t": "ebb4d0d968ca1fe784e2dd475f7aa23cb04b065e1da4bb998e7b890dd45f168e"
+   },
+   "part_b": true,
+   "cost_status": {
+    "m": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_ctrl_m_s111/status.json",
+    "c": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_ctrl_c_s111/status.json",
+    "t": "results/world_model_m2_v3/runs/10x5+mix+bv3_wm2_ctrl_t_s111/status.json"
+   },
+   "cost_status_sha256": {
+    "m": "1bbbf27a6c203a69c1e1a571741f0fe7975081e4762dfbcda380227c2d8a677b",
+    "c": "913a5728e185faf3426f4cda52c4ca3b2e0825949ae796e1e222c9c0ea85c813",
+    "t": "7f0bcf239e07f2328e4d222c2ac044c263137859243ff7559409aa427571dc5b"
+   }
+  },
+  "orig": {
+   "label": "Original specialists mix",
+   "short": "Original specialists",
+   "specialists": {
+    "m": "checkpoints/specialists_v3/10x5+mix+bv3_spec_m_s111.pth",
+    "c": "checkpoints/specialists_v3/10x5+mix+bv3_spec_c_s111.pth",
+    "t": "checkpoints/specialists_v3/10x5+mix+bv3_spec_t_s111.pth"
+   },
+   "sha256": {
+    "m": "f439ab116db2e9b18766ad86ca5f6ba98e97cfc3b2eebd94a939b259aa2675f3",
+    "c": "1db5f94e73c268cae49ce8d75bfafae39aa8d075bad2bf8a260373abf4bcf721",
+    "t": "4f3fb611057ca84bb30ef99bfe3bc770f7dd5b42f77260136c771edf97fccecd"
+   },
+   "part_b": true,
+   "cost_status": {
+    "m": "results/baselines_v3/runs/10x5+mix+bv3_spec_m_s111/status.json",
+    "c": "results/baselines_v3/runs/10x5+mix+bv3_spec_c_s111/status.json",
+    "t": "results/baselines_v3/runs/10x5+mix+bv3_spec_t_s111/status.json"
+   },
+   "cost_status_sha256": {
+    "m": "4ffb9a3669438df060b8ebb93339a24923cfa458587aedd952bda61f85965b61",
+    "c": "fe6eb0d8bdb3a51ab020781cf65991e2b558617682e9f1ec5571bff07e92c878",
+    "t": "17b1ae4aa931c4c350792d82ae05fadb957149395d0ca5292bfdcd8022c50da3"
+   }
+  },
+  "old": {
+   "label": "Old shared-base specialists mix",
+   "short": "Old shared-base specialists",
+   "specialists": {
+    "m": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcft_m_s111.pth",
+    "c": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcft_c_s111.pth",
+    "t": "checkpoints/merge_categories_v3/10x5+mix+bv3_mcft_t_s111.pth"
+   },
+   "sha256": {
+    "m": "56b1d3b5cb35ca92a60f9915792511be2ba169cb9022bc405f2173cecdc9b5ea",
+    "c": "91ff11ddd5f59c7a43c254f93e74a8ea21205c29b074cb2be6a817d6654cd718",
+    "t": "83032c2ec2731cef235cd4854f4501e18d1308ca12a5531f8a3cbfa5268135fc"
+   },
+   "part_b": false,
+   "cost_status": {
+    "m": "results/merge_categories_v3/shared_base/10x5_s111/ft_m.status.json",
+    "c": "results/merge_categories_v3/shared_base/10x5_s111/ft_c.status.json",
+    "t": "results/merge_categories_v3/shared_base/10x5_s111/ft_t.status.json"
+   },
+   "cost_status_sha256": {
+    "m": "1b9668fac8ed44954f2d2e66f364344b5944cc6c2c493148025029633d5fdf68",
+    "c": "a16b061c19c109fb6b90e40bf90f596b32a97d3b6e68ca6037293e0b06d6eb24",
+    "t": "6d8d9a4bd92e157aa9c92ac62cbc08c268a2460cbdf670ce2cbb0bed0fe0b24e"
+   },
+   "shared_base_status": "results/merge_categories_v3/shared_base/10x5_s111/base.status.json",
+   "shared_base_status_sha256": "0abd17256a23c001690b0e436bddea4fc6c7bca746c5a9abee823d4cca735732"
+  }
+ },
+ "merge": {
+  "definition": "for preference w = (w_M, w_C, w_T): theta(w) = w_M theta_M + w_C theta_C + w_T theta_T, a separate mix for every preference (every sample in Part B)",
+  "actor_and_trunk": "mixed per preference; trainable in Part B (theta_x receives w_x * dL/dtheta(w))",
+  "critic": "mixed the same way and kept in the checkpoints; never read by the contrastive loss, so it receives no gradient",
+  "preference_columns": "every specialist is copied into a preference-conditioned DANIEL with its three w-input columns (first actor and critic layers) at zero, so the mixed columns start at zero and the update-0 network is the plain weight mix for every w; trainable in Part B; w is fed both as mixing weights and as the preference input"
+ },
+ "part_a": {
+  "grid_step": 0.1,
+  "val_grid_step": 0.25,
+  "corner": 0.8,
+  "equal_weights": [
+   0.3333333333333333,
+   0.3333333333333333,
+   0.3333333333333333
+  ],
+  "ridge_t": [
+   0.0,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   1.0
+  ],
+  "pairs": [
+   "mc",
+   "mt",
+   "ct"
+  ],
+  "ridge_split": "validation",
+  "ridge_score": "s(t) = t f_a + (1-t) f_b of theta_t = t theta_a + (1-t) theta_b, f = objective normalised per instance (validation ideal/nadir), mean over instances; barrier = max_t [s(t) - (t s(1) + (1-t) s(0))]",
+  "val_norm": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+  "val_norm_sha256": "76b55f740e23c839d7d1209e5e29cc6d8b90e6647f75aacc2579ad0240975521",
+  "eval_norm": "results/baselines_v3/normalisation_points.json",
+  "eval_norm_sha256": "e646dad70d9a6d4d90891af698edee6bdfee73b6d85a99007b032b7f8738ae91",
+  "b2_root": "results/baselines_v3/cpsat/b2",
+  "regret_pool": "per split and instance: the references of analyze_warmstart_v3.reference_points (specialists of all seeds, rules, CP-SAT B1), the CP-SAT B2 front where it exists, converged From scratch and Distillation (evaluation split only) and the 66-point fronts of all four sets; Part B arms are scored against this pool plus their own points",
+  "nondominated_share": "per preference, the share of instances whose schedule is not strictly dominated by another schedule of the same set's 66-point front"
+ },
+ "part_b": {
+  "contrastive": {
+   "source": "configs/contrastive_v3.json",
+   "sha256": "df851486354f209ee3b147518460c1ada4986706a41bdfa0be4432ca4282720b",
+   "cl_k": 8,
+   "cl_beta": 0.1,
+   "cl_margin": 0.01,
+   "cl_grad_clip": 1.0,
+   "lr": 0.0003,
+   "minibatch_size": 1024,
+   "num_envs": 20,
+   "reset_env_timestep": 20,
+   "validate_timestep": 50,
+   "mo_val_grid_step": 0.25,
+   "pref_dirichlet": 1.0
+  },
+  "rule": {
+   "converge_window": 1000,
+   "converge_tol": 0.005,
+   "min_updates": 1000,
+   "cap": 8000,
+   "chunk": 500,
+   "statement": "stop once the best validation HV has improved by less than 0.5% over the last 1,000 updates, after at least 1,000 updates; hard cap 8,000 updates, reported as 'capped'"
+  },
+  "evaluation": {
+   "split": "evaluation",
+   "instances": 100,
+   "grid_step": 0.1
+  }
+ },
+ "criteria": {
+  "mergeable": {
+   "regret_ratio": 0.9,
+   "regret_split": "evaluation",
+   "barrier_min_pairs": 2,
+   "statement": "before fine-tuning, the world-model set has (a) in-between-preference mean regret <= 0.90 x the random-shared-base set's (evaluation split) AND (b) a smaller barrier on at least 2 of 3 pairs (validation)"
+  },
+  "better": {
+   "margin": 0.05,
+   "statement": "the fine-tuned World-model base mix has evaluation HV >= 1.05 x the fine-tuned Random shared base mix's (best checkpoints)"
+  },
+  "faster": {
+   "target_hv": 0.542,
+   "ratio": 0.7,
+   "statement": "the World-model base mix first reaches validation HV 0.542 (From scratch's best) in <= 70% of the updates the Random shared base mix needs; 'no' if it never reaches it; 'yes (control not reached)' if only the control never does"
+  }
+ },
+ "references": {
+  "e0": {
+   "111": {
+    "json": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s111.json",
+    "sha256": "0ff1cd91fc18d64d2f499d8893f7e975dbfea1c7b8c6468b0f873c358fa954f7",
+    "npz": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s111.npz",
+    "npz_sha256": "5cd3c2875c26620591f2e1eace38f32da5975193f699331bdce55981875330cf",
+    "hv": 0.5705056105280595
+   },
+   "222": {
+    "json": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s222.json",
+    "sha256": "df4d7cc9412629d2f3e0a5805ca298be0136efeab448079256a27d8d7c8b3642",
+    "npz": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s222.npz",
+    "npz_sha256": "ae552c5ac43e0da59e7b56a45cbe5d97f50e156e87b6c530a392292c33a836de",
+    "hv": 0.5800325141081744
+   },
+   "333": {
+    "json": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s333.json",
+    "sha256": "30d5348107edda006fd21faaf7fac9bafb75214afe7303fc6c1e0ec817b67b3a",
+    "npz": "results/warmstart_v3/eval/evaluation_10x5/10x5+mix+bv3_ws_E0_s333.npz",
+    "npz_sha256": "e0c9f6676388e4259364c7f43846276c1b9431f29eb15f3db68b96a5e4d68ad7",
+    "hv": 0.5141494118242794
+   }
+  },
+  "From scratch": {
+   "eval_json": "results/contrastive_converged_v3/eval/evaluation_10x5/10x5+mix+bv3_cc_CCB_s111.json",
+   "eval_sha256": "415adefea14c5fbb48e9113baea050232da2707d31f2063f6fc4dee254847f2c",
+   "eval_npz": "results/contrastive_converged_v3/eval/evaluation_10x5/10x5+mix+bv3_cc_CCB_s111.npz",
+   "eval_npz_sha256": "d7f632fe78db4ff5bd009e3b6a782c66748242fd2d4af09923f918acaccb1c3a",
+   "status": "results/contrastive_converged_v3/runs/10x5+mix+bv3_cc_CCB_s111/status.json",
+   "status_sha256": "7440a69e50ceb6c3bbaec501566b5c67aa5ee995714ab9c914666e8fe3234122",
+   "valiquality": "results/contrastive_converged_v3/runs/10x5+mix+bv3_cc_CCB_s111/valiquality.json",
+   "valiquality_sha256": "f3d747523b2b2587a51528f203958ca0340b3e9e829565b021adb1dda04596ee"
+  },
+  "Distillation": {
+   "eval_json": "results/contrastive_converged_v3/eval/evaluation_10x5/10x5+mix+bv3_cc_CCD_s111.json",
+   "eval_sha256": "ca8f3a2a1dd09192dc0a9ab7ee35d9dd558173084cb1606ae377c1cca6491380",
+   "eval_npz": "results/contrastive_converged_v3/eval/evaluation_10x5/10x5+mix+bv3_cc_CCD_s111.npz",
+   "eval_npz_sha256": "9f589f6609dc8a1a1e3cb0f0019a102859969e22807a0ffe8f88b807839dffb6",
+   "status": "results/contrastive_converged_v3/runs/10x5+mix+bv3_cc_CCD_s111/status.json",
+   "status_sha256": "031d08eecb9699e6d269c7d2b2799f85e31000eff25b26ddf9dae4cc2655b565",
+   "valiquality": "results/contrastive_converged_v3/runs/10x5+mix+bv3_cc_CCD_s111/valiquality.json",
+   "valiquality_sha256": "5be17d69dec14b0322c6f221cde7b40edb69757808ec53d053faddc9288201c0"
+  }
+ },
+ "world_model_cost_h": {
+  "data": 0.22,
+  "pretrain": 1.05,
+  "total": 1.27,
+  "source": "results/world_model_m1_v3/pretrain.json, data_train_meta.json"
+ },
+ "smoke": {
+  "cap": 5,
+  "chunk": 0,
+  "validate_timestep": 5,
+  "mo_val_first": 3,
+  "eval_split": "development",
+  "eval_first": 3,
+  "part_a_first": 3
+ },
+ "frozen": "2026-11-10"
+}

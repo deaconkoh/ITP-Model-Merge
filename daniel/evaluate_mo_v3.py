@@ -119,7 +119,11 @@ def main():
     path = Path(args.model) if args.model.endswith(".pth") else HERE / "trained_network" / "SD2" / f"{args.model}.pth"
     name = path.stem
     _, meta = unwrap_checkpoint(torch.load(path, map_location=configs.device, weights_only=False))
-    net = DANIEL(configs).to(configs.device)
+    if meta.get("config", {}).get("merge_mix"):     # preference-weighted merge (docs/world_model_m3_protocol_v3.md)
+        from mixture import MixturePolicy
+        net = MixturePolicy([DANIEL(configs).to(configs.device) for _ in range(3)])
+    else:
+        net = DANIEL(configs).to(configs.device)
     net.load_state_dict(load_checkpoint_state_dict(path, map_location=configs.device, expected_schema=SCHEMA_V3_MO))
     net.eval()
     norm = {}

@@ -3,6 +3,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+def _per_sample(p):
+    """A parameter used against [sz_b, M, M, d] inputs: the module's own 2-D parameter unchanged; per-sample parameters
+    [sz_b, d, k] (preference-weighted merging, daniel/mixture.py) get a broadcast axis -> [sz_b, 1, d, k]."""
+    return p if p.dim() == 2 else p.unsqueeze(-3)
+
+
 class SingleOpAttnBlock(nn.Module):
     def __init__(self, input_dim, output_dim, dropout_prob):
         """
@@ -38,8 +44,10 @@ class SingleOpAttnBlock(nn.Module):
 
         Wh_concat = torch.stack([Wh.roll(1, dims=1), Wh, Wh.roll(-1, dims=1)], dim=-2)
 
-        Wh1 = torch.matmul(Wh, self.a[:self.out_features, :])
-        Wh2 = torch.matmul(Wh, self.a[self.out_features:, :])
+        # [..., :k, :] equals [:k, :] for the module's own 2-D parameter; it also accepts per-sample parameters
+        # [B, 2 * out, 1] (preference-weighted merging, daniel/mixture.py)
+        Wh1 = torch.matmul(Wh, self.a[..., :self.out_features, :])
+        Wh2 = torch.matmul(Wh, self.a[..., self.out_features:, :])
 
         Wh2_concat = torch.stack([Wh2.roll(1, dims=1), Wh2, Wh2.roll(-1, dims=1)], dim=-1)
 
@@ -145,7 +153,7 @@ class SingleMchAttnBlock(nn.Module):
         # W_edge.shape: [sz_b, M, M, out_features]
 
         Wh = torch.matmul(h, self.W)
-        W_edge = torch.matmul(comp_val, self.W_edge)
+        W_edge = torch.matmul(comp_val, _per_sample(self.W_edge))
 
         # compute attention matrix
 
@@ -168,9 +176,9 @@ class SingleMchAttnBlock(nn.Module):
         :return:
         """
 
-        Wh1 = torch.matmul(Wh, self.a[:self.out_features, :])  # [sz_b, M, 1]
-        Wh2 = torch.matmul(Wh, self.a[self.out_features:2 * self.out_features, :])  # [sz_b, M, 1]
-        edge_feas = torch.matmul(W_edge, self.a[2 * self.out_features:, :])  # [sz_b, M, M, 1]
+        Wh1 = torch.matmul(Wh, self.a[..., :self.out_features, :])  # [sz_b, M, 1]
+        Wh2 = torch.matmul(Wh, self.a[..., self.out_features:2 * self.out_features, :])  # [sz_b, M, 1]
+        edge_feas = torch.matmul(W_edge, _per_sample(self.a[..., 2 * self.out_features:, :]))  # [sz_b, M, M, 1]
 
         # broadcast add
         e = Wh1 + Wh2.transpose(-1, -2) + edge_feas.squeeze(-1)

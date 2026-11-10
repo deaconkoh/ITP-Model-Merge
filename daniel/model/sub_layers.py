@@ -2,6 +2,17 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
+def _linear(layer, x):
+    """layer(x) for the module's own 2-D weight (unchanged). Per-sample parameters (preference-weighted merging,
+    daniel/mixture.py): weight [B, out, in], bias [B, out], x [B, ..., in] -> [B, ..., out]."""
+    if layer.weight.dim() == 2:
+        return layer(x)
+    b = x.shape[0]
+    y = torch.baddbmm(layer.bias.unsqueeze(1), x.reshape(b, -1, x.shape[-1]), layer.weight.transpose(1, 2))
+    return y.reshape(*x.shape[:-1], y.shape[-1])
+
+
 class MLP(nn.Module):
     def __init__(self, num_layers, input_dim, hidden_dim, output_dim):
         """
@@ -80,13 +91,13 @@ class Actor(nn.Module):
     def forward(self, x):
         if self.linear_or_not:
             # If linear model
-            return self.linear(x)
+            return _linear(self.linear, x)
         else:
             # If MLP
             h = x
             for layer in range(self.num_layers - 1):
-                h = self.activative((self.linears[layer](h)))
-            return self.linears[self.num_layers - 1](h)
+                h = self.activative(_linear(self.linears[layer], h))
+            return _linear(self.linears[self.num_layers - 1], h)
 
 
 class Critic(nn.Module):
@@ -124,10 +135,10 @@ class Critic(nn.Module):
     def forward(self, x):
         if self.linear_or_not:
             # If linear model
-            return self.linear(x)
+            return _linear(self.linear, x)
         else:
             # If MLP
             h = x
             for layer in range(self.num_layers - 1):
-                h = self.activative((self.linears[layer](h)))
-            return self.linears[self.num_layers - 1](h)
+                h = self.activative(_linear(self.linears[layer], h))
+            return _linear(self.linears[self.num_layers - 1], h)
