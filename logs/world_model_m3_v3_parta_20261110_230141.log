@@ -1,0 +1,23 @@
+[2026-11-10 23:01:41] pre-flight: part a, 3 parallel jobs
+world-model M3 settings OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+test_c1_at_1000_held_out (tests.test_v1_reproduction.V1ReproducesStep4.test_c1_at_1000_held_out) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 7.815s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+..................................
+----------------------------------------------------------------------
+Ran 45 tests in 65.971s
+
+OK
+[2026-11-10 23:02:58] pre-flight OK: GPU NVIDIA GeForce RTX 5060 Ti, 10 GB RAM, settings and specialists verified, tests pass
+[2026-11-10 23:02:58] Part A: zero-training merge fronts of the four sets (validation and evaluation)
+[2026-11-10 23:07:50] report written
+[2026-11-10 23:07:50] DONE (4 min). Committed locally; push when ready.
