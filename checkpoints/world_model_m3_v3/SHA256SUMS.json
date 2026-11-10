@@ -1,4 +1,6 @@
 {
+ "10x5+mix+bv3_wm3_ctrl_s111.pth": "568f369b2bba7882ca3d48c3b71be2a44a771448b2b0f82d175fe33c8b681033",
+ "10x5+mix+bv3_wm3_ctrl_s111_start.pth": "d4a2764e057da6d92e057b042fd4d71e6b0bf55a0cb13a292314326de88c605f",
  "10x5+mix+bv3_wm3_orig_s111.pth": "9d17018cfc41bde970e68d347be402ad2b6a7ba6dc5aa668a0af2af990079349",
  "10x5+mix+bv3_wm3_orig_s111_start.pth": "0e1e723c2a92eaa6a6a34a7a7b86399d621a7015664a061a44a3cd482d53db60",
  "10x5+mix+bv3_wm3_wm_s111.pth": "d2753dbe68c819d537f43f1b18a93a06a5abbeda6228bc18cce5ab79c317a1f3",
