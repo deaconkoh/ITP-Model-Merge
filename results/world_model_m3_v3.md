@@ -84,14 +84,41 @@ Sets 1–3 only. Three trainable specialist networks; for each training sample w
 - **Reference:** the frozen starting mix for the same w.
 - **Stopping rule:** stop once the best validation HV has improved by less than 0.5% over the last 1,000 updates, after at least 1,000 updates; hard cap 8,000 updates, reported as 'capped'.
 
-_Not run yet._ Command: `bash scripts/run_world_model_m3_v3.sh --jobs 3`.
+| Arm | HV at update 0 | Best validation HV | Update of best | Stop update | Evaluation HV | IGD+ | Unique non-dominated | Mean regret |
+|---|---|---|---|---|---|---|---|---|
+| World-model base mix | 0.517 | 0.566 | 1650 | 2250 (converged) | 0.642 | 0.285 | 6.2 | 0.2878 |
+| Random shared base mix | 0.531 | 0.593 | 2650 | 3650 (converged) | 0.618 | 0.302 | 6.1 | 0.2861 |
+| Original specialists mix | 0.466 | 0.541 | 1650 | 2650 (converged) | 0.600 | 0.330 | 6.3 | 0.3278 |
+| *From scratch, converged (reference)* | 0.000 | 0.542 | 4150 | 4550 (converged) | 0.600 | 0.323 | 5.1 | 0.2918 |
+| *Distillation, converged (reference)* | 0.494 | 0.540 | 900 | 1900 (converged) | 0.609 | 0.309 | 6.5 | 0.3142 |
+
+Mean regret uses the frozen Part A evaluation pool, plus the arm's own points.
+
+![validation HV](world_model_m3_v3/figures/partb_validation.png)
+
+### Cost
+
+- **Merge fine-tuning:** this Part B run.
+- **+ specialists:** the three specialists' training. For the Old shared-base specialists, their shared PPO base as well.
+- **+ world model:** M1 pretraining, 1.27 h (0.22 h data + 1.05 h GPU). It applies to the world-model set only and is paid once for all objectives.
+- **Parallel:** wall-clock if the three specialists train in parallel (the longest one, plus a shared base where there is one).
+
+| Arm | Merge fine-tuning (h) | + specialist training (h) | + world-model pretraining (h) | Same, specialists in parallel (h) |
+|---|---|---|---|---|
+| World-model base mix | 1.94 | 5.16 | 6.43 | 4.48 |
+| Random shared base mix | 2.90 | 6.93 | 6.93 | 4.55 |
+| Original specialists mix | 2.27 | 3.57 | 3.57 | 2.81 |
+| *From scratch, converged (reference)* | 2.70 | - | - | - |
+| *Distillation, converged (reference)* | 1.15 | - | - | - |
+
+Runs shared one GPU in up to 3 parallel slots, so hours are approximate; updates are the primary measure.
 
 ## Verdicts (H2: world-model base vs random shared base)
 
 - **Mergeable: NO.**
   - **(a)** In-between mean regret (evaluation): 0.3037 vs 0.3130, ratio 0.970. Needs ≤ 0.90 → no.
   - **(b)** Smaller barrier on 1 of 3 pairs (Carbon-Tardiness). Needs ≥ 2 → no.
-- **Better after merging:** pending (Part B not run).
-- **Faster after merging:** pending (Part B not run).
+- **Better after merging: NO.** Evaluation HV 0.642 vs 0.618, ratio 1.038. Needs ≥ 1.05.
+- **Faster after merging: YES.** Updates to reach validation HV 0.542: world-model mix 250, random shared base mix 500. Needs ≤ 70%.
 
 Single seed: numbers only.

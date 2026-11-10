@@ -17,3 +17,31 @@
   import pynvml  # type: ignore[import]
 wrote results/world_model_m3_v3.md
 [2026-11-10 23:07:50] report written
+[2026-11-10 23:13:21] Part B: 3 merge fine-tuning runs, 3 parallel slots, cap 8000
+[2026-11-10 23:13:21] train 10x5+mix+bv3_wm3_wm_s111: chunk (status NONE, slot 0)
+[2026-11-10 23:13:21] train 10x5+mix+bv3_wm3_orig_s111: chunk (status NONE, slot 2)
+[2026-11-10 23:13:21] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status NONE, slot 1)
+[2026-11-10 23:39:10] train 10x5+mix+bv3_wm3_orig_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 23:39:23] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 23:39:39] train 10x5+mix+bv3_wm3_wm_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 00:05:25] train 10x5+mix+bv3_wm3_orig_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 00:05:31] train 10x5+mix+bv3_wm3_wm_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 00:05:38] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 00:31:25] train 10x5+mix+bv3_wm3_wm_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 00:31:34] train 10x5+mix+bv3_wm3_orig_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 00:31:42] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 00:57:08] train 10x5+mix+bv3_wm3_wm_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 00:57:43] train 10x5+mix+bv3_wm3_orig_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 00:57:57] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 01:10:17] 10x5+mix+bv3_wm3_wm_s111: CONVERGED at update 2250, best validation HV 0.5662 @ 1650, 1.94 h
+[2026-11-11 01:22:39] train 10x5+mix+bv3_wm3_orig_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 01:23:16] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 01:30:05] 10x5+mix+bv3_wm3_orig_s111: CONVERGED at update 2650, best validation HV 0.5406 @ 1650, 2.27 h
+[2026-11-11 01:43:09] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 02:02:20] train 10x5+mix+bv3_wm3_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 02:07:58] 10x5+mix+bv3_wm3_ctrl_s111: CONVERGED at update 3650, best validation HV 0.5934 @ 2650, 2.90 h
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote results/world_model_m3_v3.md
+[2026-11-11 02:08:16] report written
+[2026-11-11 02:08:16] runs ok 3/3
