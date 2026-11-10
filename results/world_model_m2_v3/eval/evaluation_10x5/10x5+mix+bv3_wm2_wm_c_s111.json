@@ -1,0 +1,31 @@
+{
+ "checkpoint_sha256": "c81c200eeb451e895a0157b1c2971b90c6f210c9cc4650ed5635ef8da30bd58a",
+ "goal": "c",
+ "update": 1700,
+ "greedy": {
+  "makespan": 457.55,
+  "carbon": 149.15179139282233,
+  "tardiness": 326.5807053753944,
+  "tardy_share": 0.384,
+  "mk_ratio": 1.118787890087054,
+  "carbon_ratio": 1.000915875130097,
+  "tardiness_ratio": 0.5858811374682077,
+  "score_goal": 1.000915875130097,
+  "score_balanced": 0.901861634228453,
+  "seconds": 2.154201030731201,
+  "independent_rescore": "all schedules feasible; objectives identical to the environment"
+ },
+ "sample100": {
+  "makespan": 444.07,
+  "carbon": 137.91139894675868,
+  "tardiness": 265.9780198422497,
+  "tardy_share": 0.34099999999999997,
+  "mk_ratio": 1.0872817666254775,
+  "carbon_ratio": 0.9246346947698934,
+  "tardiness_ratio": 0.4771607821337616,
+  "score_goal": 0.9246346947698934,
+  "score_balanced": 0.829692414509711,
+  "seconds": 27.352779388427734,
+  "independent_rescore": "all schedules feasible; objectives identical to the environment"
+ }
+}
