@@ -1,0 +1,42 @@
+[2026-11-10 18:46:24] bases for seeds [111]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{
+ "shared_random_base_s111.pth": "51dd57d1a92134c9e4ca14693f9ec591e3c58e64d7b45b0229649432771d178f",
+ "world_model_base_s111.pth": "231a1806b548e3dab8843db95089b88fb4de10f44e0fe1b02b4968c8e23d5f44"
+}
+[2026-11-10 18:46:25] 6 runs, 3 parallel slots, cap 8000
+[2026-11-10 18:46:25] train 10x5+mix+bv3_wm2_wm_t_s111: chunk (status NONE, slot 1)
+[2026-11-10 18:46:25] train 10x5+mix+bv3_wm2_ctrl_t_s111: chunk (status NONE, slot 0)
+[2026-11-10 18:46:25] train 10x5+mix+bv3_wm2_ctrl_c_s111: chunk (status NONE, slot 2)
+[2026-11-10 19:06:17] train 10x5+mix+bv3_wm2_wm_t_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 19:06:18] train 10x5+mix+bv3_wm2_ctrl_c_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 19:06:33] train 10x5+mix+bv3_wm2_ctrl_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 19:26:06] train 10x5+mix+bv3_wm2_wm_t_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 19:26:22] train 10x5+mix+bv3_wm2_ctrl_c_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 19:26:52] train 10x5+mix+bv3_wm2_ctrl_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 19:44:27] 10x5+mix+bv3_wm2_ctrl_c_s111: CONVERGED at update 1450, best 0.9913 @ 450, 0.96 h
+[2026-11-10 19:44:57] train 10x5+mix+bv3_wm2_wm_c_s111: chunk (status NONE, slot 2)
+[2026-11-10 19:46:07] train 10x5+mix+bv3_wm2_wm_t_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 19:47:01] train 10x5+mix+bv3_wm2_ctrl_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 19:58:02] 10x5+mix+bv3_wm2_wm_t_s111: CONVERGED at update 1800, best 0.32706 @ 800, 1.19 h
+[2026-11-10 19:58:32] train 10x5+mix+bv3_wm2_ctrl_m_s111: chunk (status NONE, slot 1)
+[2026-11-10 20:05:18] train 10x5+mix+bv3_wm2_wm_c_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 20:07:17] train 10x5+mix+bv3_wm2_ctrl_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 20:18:32] train 10x5+mix+bv3_wm2_ctrl_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 20:25:29] 10x5+mix+bv3_wm2_ctrl_t_s111: CONVERGED at update 2450, best 0.33055 @ 1450, 1.65 h
+[2026-11-10 20:25:30] train 10x5+mix+bv3_wm2_wm_c_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 20:26:00] train 10x5+mix+bv3_wm2_wm_m_s111: chunk (status NONE, slot 0)
+[2026-11-10 20:38:17] train 10x5+mix+bv3_wm2_ctrl_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 20:45:31] train 10x5+mix+bv3_wm2_wm_c_s111: chunk (status RUNNING, slot 2)
+[2026-11-10 20:46:27] train 10x5+mix+bv3_wm2_wm_m_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 20:58:22] train 10x5+mix+bv3_wm2_ctrl_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 21:01:25] 10x5+mix+bv3_wm2_wm_c_s111: CONVERGED at update 1900, best 0.98719 @ 1700, 1.27 h
+[2026-11-10 21:06:22] train 10x5+mix+bv3_wm2_wm_m_s111: chunk (status RUNNING, slot 0)
+[2026-11-10 21:11:44] 10x5+mix+bv3_wm2_wm_m_s111: CONVERGED at update 1150, best 0.96601 @ 150, 0.76 h
+[2026-11-10 21:15:33] train 10x5+mix+bv3_wm2_ctrl_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-10 21:23:37] 10x5+mix+bv3_wm2_ctrl_m_s111: CONVERGED at update 2300, best 0.9627 @ 1300, 1.41 h
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/world_model_m2_v3.md
+[2026-11-10 21:23:59] report written; runs ok 6/6
