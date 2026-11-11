@@ -1,0 +1,23 @@
+[2026-11-11 10:50:52] Part A: 18 checkpoints ready (start networks match the logged hashes)
+[2026-11-11 10:55:21] eval pd_fs_u0: ok (269 s)
+[2026-11-11 10:55:25] eval pd_fs_u2600: ok (273 s)
+[2026-11-11 10:55:36] eval pd_fs_u2450: ok (284 s)
+[2026-11-11 10:59:49] eval pd_fs_u4150: ok (268 s)
+[2026-11-11 10:59:56] eval pd_fs_u4550: ok (270 s)
+[2026-11-11 11:00:02] eval pd_dist_u0: ok (266 s)
+[2026-11-11 11:04:16] eval pd_dist_u900: ok (267 s)
+[2026-11-11 11:04:22] eval pd_dist_u1000: ok (267 s)
+[2026-11-11 11:04:33] eval pd_dist_u1900: ok (271 s)
+[2026-11-11 11:09:18] eval pd_wm_u0: ok (302 s)
+[2026-11-11 11:09:32] eval pd_wm_u1650: ok (309 s)
+[2026-11-11 11:09:46] eval pd_wm_u2250: ok (313 s)
+[2026-11-11 11:14:22] eval pd_ctrl_u0: ok (304 s)
+[2026-11-11 11:14:49] eval pd_ctrl_u2650: ok (317 s)
+[2026-11-11 11:14:52] eval pd_ctrl_u3650: ok (306 s)
+[2026-11-11 11:19:30] eval pd_orig_u0: ok (307 s)
+[2026-11-11 11:19:57] eval pd_orig_u1650: ok (308 s)
+[2026-11-11 11:19:57] eval pd_orig_u2650: ok (305 s)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote results/plateau_diagnosis_v3.md
+[2026-11-11 11:20:02] report written
