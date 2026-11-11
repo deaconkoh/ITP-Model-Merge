@@ -4,7 +4,7 @@ Protocol: `docs/plateau_diagnosis_protocol_v3.md`; settings frozen in `configs/p
 
 ## Verdict
 
-- **Weak training signal:** pending Part B. From the logs: no run's signal shrinks by the rules (S2/S3); late loss From scratch 0.629, Distillation 0.690, World-model base mix 0.682, Random shared base mix 0.684, Original specialists mix 0.691.
+- **Weak training signal:** no: no stronger push, faster learning or more samples beats the Control by ≥ 0.02 greedy evaluation HV (Control 0.637; Stronger push (beta 0.5) 0.609, Faster learning (lr 1e-3) 0.631, More samples (K 16) 0.636).
 - **Greedy decoding:** partly: best-of-16 is 0.107–0.162 HV above greedy at every final checkpoint, so greedy decoding leaves HV unused, but best-of-16 also stops rising, so it does not explain the flat curve.
 - **Something shared by all methods:** no: the five final checkpoints span 0.045 greedy and 0.069 best-of-16 evaluation HV (not both within 0.05). On the 20 instances with a CP-SAT front: CP-SAT B2 (waiting allowed) 1.205; all non-delay schedules found here, pooled, 0.894; the best single method's final greedy front 0.666. The pooled non-delay front is only a lower bound on what the no-waiting rule allows. Model size was not varied, so it is not tested.
 
@@ -120,5 +120,16 @@ The 20 evaluation instances with a CP-SAT B2 front (evaluation normalisation, HV
 
 ## Part B: short training runs from the World-model base mix start
 
-Not run yet (set up and smoke-tested only). Command: `bash scripts/run_plateau_diagnosis_v3.sh --jobs 3`.
+One change per arm; otherwise the M3 World-model base mix settings, 1500 updates fixed, validation every 50 updates. Evaluation split (evaluation), 66 preferences; best-of-16 as in Part A.
+
+| Arm | Best validation HV (update) | Final validation HV | Final: greedy / best-of-16 HV | Best checkpoint: greedy / best-of-16 HV | Loss, last 250 | Entropy, last 250 | Distance from start at end | Wall-clock (h) |
+|---|---|---|---|---|---|---|---|---|
+| More samples (K 16) | 0.578 (1250) | 0.548 | 0.636 / 0.795 | 0.634 / 0.793 | 0.682 | 0.375 | trunk 0.054, actor 0.276 | 1.60 (process 1.60) |
+| Stronger push (beta 0.5) | 0.552 (1400) | 0.518 | 0.609 / 0.728 | 0.603 / 0.723 | 0.654 | 0.515 | trunk 0.036, actor 0.114 | 1.40 (process 1.41) |
+| Faster learning (lr 1e-3) | 0.584 (1050) | 0.577 | 0.631 / 0.780 | 0.618 / 0.777 | 0.685 | 0.365 | trunk 0.118, actor 0.417 | 1.43 (process 1.43) |
+| Control (M3 settings) | 0.566 (1250) | 0.552 | 0.637 / 0.788 | 0.628 / 0.783 | 0.682 | 0.381 | trunk 0.049, actor 0.240 | 1.07 (process 1.08) |
+
+Control vs the M3 World-model base mix run, validation HV at the 31 shared validation points: identical (largest difference 0.000000).
+
+![Part B](plateau_diagnosis_v3/figures/part_b.png)
 

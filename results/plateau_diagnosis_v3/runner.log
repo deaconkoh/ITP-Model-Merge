@@ -21,3 +21,25 @@
   import pynvml  # type: ignore[import]
 wrote results/plateau_diagnosis_v3.md
 [2026-11-11 11:20:02] report written
+[2026-11-11 11:30:03] Part B: 4 runs, 3 parallel slots
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_beta05_s111: chunk (status NONE, slot 1)
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_k16_s111: chunk (status NONE, slot 0)
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status NONE, slot 2)
+[2026-11-11 11:58:09] train 10x5+mix+bv3_pd_beta05_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 11:58:40] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 12:01:44] train 10x5+mix+bv3_pd_k16_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 12:26:31] train 10x5+mix+bv3_pd_beta05_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 12:27:07] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 12:34:16] train 10x5+mix+bv3_pd_k16_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 12:54:27] 10x5+mix+bv3_pd_beta05_s111: FINISHED at update 1500, best validation HV 0.5523 @ 1400, 1.40 h
+[2026-11-11 12:55:59] 10x5+mix+bv3_pd_lr1e3_s111: FINISHED at update 1500, best validation HV 0.5842 @ 1050, 1.43 h
+[2026-11-11 13:05:23] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status NONE, slot 1)
+[2026-11-11 13:06:17] 10x5+mix+bv3_pd_k16_s111: FINISHED at update 1500, best validation HV 0.5783 @ 1250, 1.60 h
+[2026-11-11 13:27:49] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 13:48:37] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 14:09:58] 10x5+mix+bv3_pd_ctrl_s111: FINISHED at update 1500, best validation HV 0.5661 @ 1250, 1.07 h
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+wrote results/plateau_diagnosis_v3.md
+[2026-11-11 14:17:40] report written
+[2026-11-11 14:17:40] runs ok 4/4
