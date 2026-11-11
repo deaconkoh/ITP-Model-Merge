@@ -1,0 +1,45 @@
+[2026-11-11 10:49:05] pre-flight: part a, 3 parallel jobs
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+plateau diagnosis settings OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+test_c1_at_1000_held_out (tests.test_v1_reproduction.V1ReproducesStep4.test_c1_at_1000_held_out) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 8.788s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+........................................
+----------------------------------------------------------------------
+Ran 51 tests in 84.860s
+
+OK
+[2026-11-11 10:50:44] pre-flight OK: GPU NVIDIA GeForce RTX 5060 Ti, 9 GB RAM, settings verified, tests pass
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-11-11 10:50:52] Part A: 18 checkpoints ready (start networks match the logged hashes)
+[2026-11-11 10:55:21] eval pd_fs_u0: ok (269 s)
+[2026-11-11 10:55:25] eval pd_fs_u2600: ok (273 s)
+[2026-11-11 10:55:36] eval pd_fs_u2450: ok (284 s)
+[2026-11-11 10:59:49] eval pd_fs_u4150: ok (268 s)
+[2026-11-11 10:59:56] eval pd_fs_u4550: ok (270 s)
+[2026-11-11 11:00:02] eval pd_dist_u0: ok (266 s)
+[2026-11-11 11:04:16] eval pd_dist_u900: ok (267 s)
+[2026-11-11 11:04:22] eval pd_dist_u1000: ok (267 s)
+[2026-11-11 11:04:33] eval pd_dist_u1900: ok (271 s)
+[2026-11-11 11:09:18] eval pd_wm_u0: ok (302 s)
+[2026-11-11 11:09:32] eval pd_wm_u1650: ok (309 s)
+[2026-11-11 11:09:46] eval pd_wm_u2250: ok (313 s)
+[2026-11-11 11:14:22] eval pd_ctrl_u0: ok (304 s)
+[2026-11-11 11:14:49] eval pd_ctrl_u2650: ok (317 s)
+[2026-11-11 11:14:52] eval pd_ctrl_u3650: ok (306 s)
+[2026-11-11 11:19:30] eval pd_orig_u0: ok (307 s)
+[2026-11-11 11:19:57] eval pd_orig_u1650: ok (308 s)
+[2026-11-11 11:19:57] eval pd_orig_u2650: ok (305 s)
+[2026-11-11 11:20:02] report written
+[2026-11-11 11:20:02] DONE (29 min). Committed locally; push when ready.
