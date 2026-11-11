@@ -171,7 +171,7 @@ def main():
             if d["update"]:
                 L.append(f"| {lab[d['run']]} | {d['update']} | {d['trunk_drift']:.3f} | {d['actor_drift']:.3f} | "
                          f"{d['policy_drift']:.3f} |")
-    L += ["", "![signals](plateau_diagnosis_v3/figures/signals.png)", ""]
+    L += ["", f"![signals]({res.name}/figures/signals.png)", ""]
     verdict["signals"] = rules
 
     # ------------------------------------------------------------------ Part A.2 greedy vs best-of-16
@@ -220,7 +220,7 @@ def main():
         ax[i].set_title(f"{lab[r]}: evaluation HV", fontsize=11); ax[i].set_xlabel("updates"); ax[i].grid(alpha=.3)
         ax[i].legend()
     f.tight_layout(); f.savefig(fig / "greedy_vs_sampling.png", dpi=110, facecolor="white"); plt.close(f)
-    L += ["", "![greedy vs best-of-16](plateau_diagnosis_v3/figures/greedy_vs_sampling.png)", ""]
+    L += ["", f"![greedy vs best-of-16]({res.name}/figures/greedy_vs_sampling.png)", ""]
     verdict["greedy"] = rise
 
     # ------------------------------------------------------------------ Part A.3 noise
@@ -303,8 +303,9 @@ def main():
               ""]
     else:
         last_bc = (cfg["smoke"] if a.smoke else pb)["budget_checkpoints"][-1]
+        vt = (cfg["smoke"] if a.smoke else pb)["validate_timestep"]
         L += [f"One change per arm; otherwise the M3 World-model base mix settings, {last_bc} updates fixed, validation "
-              "every 50 updates. Evaluation split, 66 preferences; best-of-16 as in Part A.", "",
+              f"every {vt} updates. Evaluation split ({split}), 66 preferences; best-of-16 as in Part A.", "",
               "| Arm | Best validation HV (update) | Final validation HV | Final: greedy / best-of-16 HV | "
               "Best checkpoint: greedy / best-of-16 HV | Loss, last 250 | Entropy, last 250 | Distance from start at end | "
               "Wall-clock (h) |", "|---|---|---|---|---|---|---|---|---|"]
@@ -333,7 +334,7 @@ def main():
                      f"{x['loss_late']:.3f} | {x['entropy_late']:.3f} | trunk {f3(dr[0])}, actor {f3(dr[1])} | "
                      f"{x['train_h']:.2f} (process {f3(x['process_h'], 2)}) |")
         # control vs the M3 run's first updates
-        if "ctrl" in runs:
+        if "ctrl" in runs and not a.smoke:                    # smoke validates on 3 instances: not comparable
             m3v = {e["update"]: e["hv"] for e in vq["wm"]}
             cv = json.loads((runs["ctrl"] / "valiquality.json").read_text())
             same = [e["update"] for e in cv if e["update"] in m3v]
@@ -360,7 +361,7 @@ def main():
             ax.set_title(t, fontsize=11); ax.set_xlabel("updates"); ax.grid(alpha=.3)
         axs[0].legend(fontsize=9)
         f.tight_layout(); f.savefig(fig / "part_b.png", dpi=110, facecolor="white"); plt.close(f)
-        L += ["", "![Part B](plateau_diagnosis_v3/figures/part_b.png)", ""]
+        L += ["", f"![Part B]({res.name}/figures/part_b.png)", ""]
     verdict["part_b"] = pbv
 
     # ------------------------------------------------------------------ verdict
