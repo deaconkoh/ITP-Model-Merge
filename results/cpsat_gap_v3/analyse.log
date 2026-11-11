@@ -1,0 +1,16 @@
+[02:19:37] part 1: 272 front schedules
+[02:19:53] pool: 2627 distinct schedules per instance, all non-delay
+[02:19:53] ls: 0 pass the non-delay test, 0 reproduced by DANIEL's rule
+[02:19:53] nd: 0 pass the non-delay test, 0 reproduced by DANIEL's rule
+[02:20:28] hv: cpsat 1.205, ls 1.206, nd 1.129, env 0.454, pool 0.913, wm_final 0.656, fs_final 0.666
+[02:20:32] part 4 wm_final: 1320 of 1320 (instance, preference) pairs diverge from the best known schedule
+[02:20:36] part 4 fs_final: 1319 of 1320 (instance, preference) pairs diverge from the best known schedule
+[02:20:36] analysis written (59 s)
+[02:21:56] part 1: 272 front schedules
+[02:22:13] pool: 2627 distinct schedules per instance, all non-delay
+[02:22:13] ls: 0 pass the non-delay test, 0 reproduced by DANIEL's rule
+[02:22:13] nd: 0 pass the non-delay test, 0 reproduced by DANIEL's rule
+[02:22:48] hv: cpsat 1.205, ls 1.206, nd 1.129, env 0.454, pool 0.913, wm_final 0.656, fs_final 0.666
+[02:22:52] part 4 wm_final: 1320 of 1320 (instance, preference) pairs diverge from the best known schedule
+[02:22:55] part 4 fs_final: 1319 of 1320 (instance, preference) pairs diverge from the best known schedule
+[02:22:56] analysis written (59 s)
