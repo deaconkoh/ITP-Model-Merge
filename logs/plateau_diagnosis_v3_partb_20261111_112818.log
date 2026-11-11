@@ -1,0 +1,44 @@
+[2026-11-11 11:28:18] pre-flight: part b, 3 parallel jobs
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+plateau diagnosis settings OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+test_c1_at_1000_held_out (tests.test_v1_reproduction.V1ReproducesStep4.test_c1_at_1000_held_out) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 8.521s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+........................................
+----------------------------------------------------------------------
+Ran 51 tests in 90.007s
+
+OK
+[2026-11-11 11:30:02] pre-flight OK: GPU NVIDIA GeForce RTX 5060 Ti, 9 GB RAM, settings verified, tests pass
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[2026-11-11 11:30:03] Part B: 4 runs, 3 parallel slots
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_beta05_s111: chunk (status NONE, slot 1)
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_k16_s111: chunk (status NONE, slot 0)
+[2026-11-11 11:30:03] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status NONE, slot 2)
+[2026-11-11 11:58:09] train 10x5+mix+bv3_pd_beta05_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 11:58:40] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 12:01:44] train 10x5+mix+bv3_pd_k16_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 12:26:31] train 10x5+mix+bv3_pd_beta05_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 12:27:07] train 10x5+mix+bv3_pd_lr1e3_s111: chunk (status RUNNING, slot 2)
+[2026-11-11 12:34:16] train 10x5+mix+bv3_pd_k16_s111: chunk (status RUNNING, slot 0)
+[2026-11-11 12:54:27] 10x5+mix+bv3_pd_beta05_s111: FINISHED at update 1500, best validation HV 0.5523 @ 1400, 1.40 h
+[2026-11-11 12:55:59] 10x5+mix+bv3_pd_lr1e3_s111: FINISHED at update 1500, best validation HV 0.5842 @ 1050, 1.43 h
+[2026-11-11 13:05:23] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status NONE, slot 1)
+[2026-11-11 13:06:17] 10x5+mix+bv3_pd_k16_s111: FINISHED at update 1500, best validation HV 0.5783 @ 1250, 1.60 h
+[2026-11-11 13:27:49] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 13:48:37] train 10x5+mix+bv3_pd_ctrl_s111: chunk (status RUNNING, slot 1)
+[2026-11-11 14:09:58] 10x5+mix+bv3_pd_ctrl_s111: FINISHED at update 1500, best validation HV 0.5661 @ 1250, 1.07 h
+[2026-11-11 14:17:40] report written
+[2026-11-11 14:17:40] runs ok 4/4
+[2026-11-11 14:17:40] DONE (167 min). Committed locally; push when ready.
