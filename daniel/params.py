@@ -196,6 +196,9 @@ parser.add_argument('--cl_beta', type=float, default=0.1, help='Contrastive: DPO
 parser.add_argument('--cl_margin', type=float, default=0.01,
                     help='Contrastive: minimum Tchebycheff-score difference for a preference pair')
 parser.add_argument('--cl_grad_clip', type=float, default=1.0, help='Contrastive: gradient-norm clip')
+parser.add_argument('--cl_log_drift', type=str2bool, default=False,
+                    help='Contrastive (docs/plateau_diagnosis_protocol_v3.md): log the trunk and actor distance from the '
+                         'frozen start network every update (logging only; training unchanged)')
 # merge-failure test (docs/merge_failure_test_protocol_v3.md); every default leaves training unchanged
 parser.add_argument('--cl_anchor', type=str, default='reference', choices=['reference', 'none'],
                     help='Contrastive: reference = the DPO loss against the frozen start network (default); none = the '

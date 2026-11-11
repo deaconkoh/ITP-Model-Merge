@@ -375,12 +375,14 @@ class Trainer:
 
     def weight_drift(self):
         """Relative distance of the trunk (feature_exact) and the actor from the frozen start network:
-        ||theta - theta_0|| / ||theta_0|| over all their parameters (single-objective contrastive only)."""
+        ||theta - theta_0|| / ||theta_0|| over all their parameters (a merge mix: over its three networks together)."""
+        import re
         cur, ref = self.ppo.policy.state_dict(), self.cl_ref.state_dict()
         out = {}
         for name, prefix in (("trunk", "feature_exact."), ("actor", "actor.")):
-            d = sum(float(((cur[k] - ref[k]).double() ** 2).sum()) for k in ref if k.startswith(prefix))
-            n0 = sum(float((ref[k].double() ** 2).sum()) for k in ref if k.startswith(prefix))
+            ks = [k for k in ref if re.sub(r"^nets\.\d+\.", "", k).startswith(prefix)]
+            d = sum(float(((cur[k] - ref[k]).double() ** 2).sum()) for k in ks)
+            n0 = sum(float((ref[k].double() ** 2).sum()) for k in ks)
             out[f"{name}_drift"] = (d ** 0.5) / (n0 ** 0.5)
             out[f"{name}_drift_abs"] = d ** 0.5
         return out
@@ -441,7 +443,7 @@ class Trainer:
         self.budget_checkpoints = sorted(
             {int(v) for v in str(self.config.budget_checkpoints).split(',') if v.strip()}
         )
-        if 0 in self.budget_checkpoints:
+        if 0 in self.budget_checkpoints and start_update == 0:   # never overwrite the start snapshot on a resume
             self.save_budget_checkpoint(0)
 
         if (self.config.converge_window > 0 or self.cl) and start_update == 0:
@@ -458,6 +460,10 @@ class Trainer:
 
             if self.cl:                                   # contrastive fine-tuning in place of the PPO update
                 self.contrastive_update(i_update)
+                if getattr(self.config, "cl_log_drift", False):
+                    self.log[-1]["cl"].update(self.weight_drift())
+                if (i_update + 1) in self.budget_checkpoints:    # snapshots also in contrastive mode
+                    self.save_budget_checkpoint(i_update + 1)
                 if (i_update + 1) % self.validate_timestep == 0:
                     self.validate_and_select(i_update + 1, ep_st)
                 self.train_seconds += time.time() - ep_st
