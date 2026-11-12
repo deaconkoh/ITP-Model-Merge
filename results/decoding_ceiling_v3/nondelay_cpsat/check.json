@@ -1,0 +1,14 @@
+{
+ "mask_check": {
+  "states": 62000,
+  "states_with_difference": 871,
+  "pairs_allowed_only_by_float": 0,
+  "pairs_allowed_only_by_exact": 3374
+ },
+ "fixed_daniel_schedules": {
+  "OPTIMAL": 120
+ },
+ "fixed_left_shifted_cpsat": {
+  "INFEASIBLE (non-delay by the checker: False)": 120
+ }
+}
