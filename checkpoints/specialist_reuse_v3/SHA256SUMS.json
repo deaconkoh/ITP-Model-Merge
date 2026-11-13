@@ -1,5 +1,6 @@
 {
  "base_s111.pth": "4dcd032078562521f25322771b0b9552202ad610f4dc63c6506529e62a88b5b0",
+ "distill/student_s111.pth": "b3baa4e7ed60c4882f0ff87c42ae2c6bc386d908a448db69f03fb2dd32eb2455",
  "specialists/10x5+mix+bv3_sr_spec_c_s111.pth": "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
  "specialists/10x5+mix+bv3_sr_spec_m_s111.pth": "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
  "specialists/10x5+mix+bv3_sr_spec_t_s111.pth": "73a9cddc06f3e5eb1cc2c6b7d3eb5d72bfc24941e57a7889659f8d4a16141e81"

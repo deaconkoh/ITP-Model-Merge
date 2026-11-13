@@ -65,3 +65,4 @@ ties_keep0.8_lambda0.8 PASS weight change 0.224 {'m': (True, '2.4e-07'), 'c': (T
 ties_keep0.8_lambda1.0 PASS weight change 0.279 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
 ties_keep0.8_lambda1.5 PASS weight change 0.419 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
 [2026-11-14 05:09:49] merge checks passed: preference changes the merged weights; corners reproduce the specialists
+[2026-11-14 05:11:21] distillation stage 1: 90 s

@@ -108,5 +108,14 @@
    "train_seconds": 2166.96586561203,
    "capped": true
   }
+ },
+ "distill_stage1": {
+  "wall_seconds": 91.91004776954651,
+  "states": 60000,
+  "epochs_run": 15,
+  "wall_cap_hit": false,
+  "collection_seconds": 18.345486879348755,
+  "training_seconds": 69.51522183418274,
+  "total_seconds": 90.26820921897888
  }
 }

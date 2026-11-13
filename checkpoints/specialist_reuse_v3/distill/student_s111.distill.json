@@ -1,0 +1,267 @@
+{
+ "size": "10x5",
+ "seed": 111,
+ "states": 60000,
+ "instances_per_teacher": 400,
+ "epochs_run": 15,
+ "epochs_planned": 15,
+ "wall_cap_s": 1200.0,
+ "wall_cap_hit": false,
+ "collection_seconds": 18.345486879348755,
+ "training_seconds": 69.51522183418274,
+ "total_seconds": 90.26820921897888,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 1200,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_kl": 0.9044955927848816,
+   "heldout_kl": {
+    "m": 0.3410019278526306,
+    "c": 1.038116216659546,
+    "t": 0.5101315379142761
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.31333333253860474,
+    "c": 0.4277777671813965,
+    "t": 0.3100000023841858
+   },
+   "seconds": 25.35111403465271
+  },
+  {
+   "epoch": 2,
+   "train_kl": 0.5869007113456726,
+   "heldout_kl": {
+    "m": 0.24756957590579987,
+    "c": 0.7748318314552307,
+    "t": 0.35589173436164856
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.4188888967037201,
+    "c": 0.5377777814865112,
+    "t": 0.4588888883590698
+   },
+   "seconds": 29.822986602783203
+  },
+  {
+   "epoch": 3,
+   "train_kl": 0.3933195739269257,
+   "heldout_kl": {
+    "m": 0.17790575325489044,
+    "c": 0.501523494720459,
+    "t": 0.30520063638687134
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.4811111092567444,
+    "c": 0.6277777552604675,
+    "t": 0.4788888990879059
+   },
+   "seconds": 34.84661316871643
+  },
+  {
+   "epoch": 4,
+   "train_kl": 0.2906309574445089,
+   "heldout_kl": {
+    "m": 0.14963409304618835,
+    "c": 0.36330217123031616,
+    "t": 0.26221686601638794
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5266666412353516,
+    "c": 0.6766666769981384,
+    "t": 0.5166666507720947
+   },
+   "seconds": 39.23298454284668
+  },
+  {
+   "epoch": 5,
+   "train_kl": 0.2342908971786499,
+   "heldout_kl": {
+    "m": 0.1362386792898178,
+    "c": 0.2837234139442444,
+    "t": 0.22800616919994354
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5411111116409302,
+    "c": 0.7200000286102295,
+    "t": 0.5477777719497681
+   },
+   "seconds": 43.92389893531799
+  },
+  {
+   "epoch": 6,
+   "train_kl": 0.19850793086687724,
+   "heldout_kl": {
+    "m": 0.12344079464673996,
+    "c": 0.23400814831256866,
+    "t": 0.20400336384773254
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5611110925674438,
+    "c": 0.7488889098167419,
+    "t": 0.5644444227218628
+   },
+   "seconds": 48.53848195075989
+  },
+  {
+   "epoch": 7,
+   "train_kl": 0.1724519819577535,
+   "heldout_kl": {
+    "m": 0.11755990982055664,
+    "c": 0.1957309991121292,
+    "t": 0.192053884267807
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5611110925674438,
+    "c": 0.7588889002799988,
+    "t": 0.5733333230018616
+   },
+   "seconds": 53.21638250350952
+  },
+  {
+   "epoch": 8,
+   "train_kl": 0.1510783910592397,
+   "heldout_kl": {
+    "m": 0.1137198954820633,
+    "c": 0.1505499631166458,
+    "t": 0.17850179970264435
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5722222328186035,
+    "c": 0.7922222018241882,
+    "t": 0.596666693687439
+   },
+   "seconds": 57.80978775024414
+  },
+  {
+   "epoch": 9,
+   "train_kl": 0.1321229411482811,
+   "heldout_kl": {
+    "m": 0.10395354777574539,
+    "c": 0.11869503557682037,
+    "t": 0.16043250262737274
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5988888740539551,
+    "c": 0.8144444227218628,
+    "t": 0.6044444441795349
+   },
+   "seconds": 62.57513761520386
+  },
+  {
+   "epoch": 10,
+   "train_kl": 0.11692589941819509,
+   "heldout_kl": {
+    "m": 0.10026546567678452,
+    "c": 0.10930860042572021,
+    "t": 0.15191760659217834
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.5944444537162781,
+    "c": 0.8277778029441833,
+    "t": 0.6144444346427917
+   },
+   "seconds": 66.83652114868164
+  },
+  {
+   "epoch": 11,
+   "train_kl": 0.10525615838368733,
+   "heldout_kl": {
+    "m": 0.09176556020975113,
+    "c": 0.08997952193021774,
+    "t": 0.1387619972229004
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.6144444346427917,
+    "c": 0.8311111330986023,
+    "t": 0.6355555653572083
+   },
+   "seconds": 71.01373434066772
+  },
+  {
+   "epoch": 12,
+   "train_kl": 0.09598778365850448,
+   "heldout_kl": {
+    "m": 0.09081480652093887,
+    "c": 0.07724522799253464,
+    "t": 0.13307639956474304
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.6000000238418579,
+    "c": 0.8422222137451172,
+    "t": 0.6433333158493042
+   },
+   "seconds": 75.49185132980347
+  },
+  {
+   "epoch": 13,
+   "train_kl": 0.08905290982723237,
+   "heldout_kl": {
+    "m": 0.0856780856847763,
+    "c": 0.0742487758398056,
+    "t": 0.12570154666900635
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.6066666841506958,
+    "c": 0.8600000143051147,
+    "t": 0.6422222256660461
+   },
+   "seconds": 81.05947995185852
+  },
+  {
+   "epoch": 14,
+   "train_kl": 0.08422680840492248,
+   "heldout_kl": {
+    "m": 0.0829063430428505,
+    "c": 0.0664563998579979,
+    "t": 0.12058724462985992
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.6255555748939514,
+    "c": 0.8611111044883728,
+    "t": 0.6355555653572083
+   },
+   "seconds": 85.41511940956116
+  },
+  {
+   "epoch": 15,
+   "train_kl": 0.07995935362577439,
+   "heldout_kl": {
+    "m": 0.0782216340303421,
+    "c": 0.058968499302864075,
+    "t": 0.11590272933244705
+   },
+   "heldout_greedy_agreement": {
+    "m": 0.6222222447395325,
+    "c": 0.8666666746139526,
+    "t": 0.6499999761581421
+   },
+   "seconds": 90.26810717582703
+  }
+ ],
+ "teachers": [
+  {
+   "path": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_m_s111.pth",
+   "sha256": "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
+   "role": "teacher m"
+  },
+  {
+   "path": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_c_s111.pth",
+   "sha256": "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
+   "role": "teacher c"
+  },
+  {
+   "path": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_t_s111.pth",
+   "sha256": "73a9cddc06f3e5eb1cc2c6b7d3eb5d72bfc24941e57a7889659f8d4a16141e81",
+   "role": "teacher t"
+  }
+ ],
+ "gpu": "NVIDIA GeForce RTX 5060 Ti"
+}
