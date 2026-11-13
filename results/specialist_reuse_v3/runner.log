@@ -52,3 +52,16 @@
 [2026-11-14 04:45:46] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
 [2026-11-14 04:59:06] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
 [2026-11-14 05:09:46] 10x5+mix+bv3_sr_spec_t_s111: CONVERGED at update 7900 (best 0.1768 @ 6900, 4.58 h)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+rewarded_soups PASS weight change 0.18 {'m': (True, '4.2e-07'), 'c': (True, '4.8e-07'), 't': (True, '3.0e-07')}
+ties_keep0.2_lambda0.8 PASS weight change 0.216 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.2_lambda1.0 PASS weight change 0.27 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.2_lambda1.5 PASS weight change 0.406 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.5_lambda0.8 PASS weight change 0.224 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.5_lambda1.0 PASS weight change 0.279 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.5_lambda1.5 PASS weight change 0.419 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.8_lambda0.8 PASS weight change 0.224 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.8_lambda1.0 PASS weight change 0.279 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+ties_keep0.8_lambda1.5 PASS weight change 0.419 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
+[2026-11-14 05:09:49] merge checks passed: preference changes the merged weights; corners reproduce the specialists
