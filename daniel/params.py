@@ -196,6 +196,10 @@ parser.add_argument('--cl_beta', type=float, default=0.1, help='Contrastive: DPO
 parser.add_argument('--cl_margin', type=float, default=0.01,
                     help='Contrastive: minimum Tchebycheff-score difference for a preference pair')
 parser.add_argument('--cl_grad_clip', type=float, default=1.0, help='Contrastive: gradient-norm clip')
+parser.add_argument('--dispatch_rule', type=str, default='nondelay', choices=['nondelay', 'semi_active'],
+                    help="nondelay: DANIEL's action mask (only pairs that can start at the earliest possible time); "
+                         "semi_active: every eligible pair of every job's next operation, started at max(job ready, "
+                         "machine free), so a machine may wait (docs/waiting_training_protocol_v3.md)")
 parser.add_argument('--cl_log_drift', type=str2bool, default=False,
                     help='Contrastive (docs/plateau_diagnosis_protocol_v3.md): log the trunk and actor distance from the '
                          'frozen start network every update (logging only; training unchanged)')

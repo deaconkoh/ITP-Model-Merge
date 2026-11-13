@@ -1,0 +1,13 @@
+{
+ "baseline_hv_rescored": 0.7541234580118686,
+ "baseline_rescore_max_abs_diff": 8.526512829121202e-14,
+ "reconstruction": {
+  "updates": 100,
+  "losses_identical": true,
+  "validation_hv_identical": true,
+  "start_network_sha256": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+  "control_start_network_sha256": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+  "start_identical": true,
+  "seconds": 162.86296772956848
+ }
+}

@@ -114,6 +114,7 @@ class FJSPEnvForSameOpNums:
         if getattr(configs, "obs_version", "v1") == "v3" and self.obs_version != "v3":
             raise ValueError("a v1/v2 environment cannot be built from a benchmark v3 config")
         cfg_v2 = getattr(configs, "obs_version", "v1") == "v2"
+        self.dispatch_rule = getattr(configs, "dispatch_rule", "nondelay")
         self.number_of_jobs = n_j
         self.number_of_machines = n_m
         self.old_state = EnvState()
@@ -638,6 +639,8 @@ class FJSPEnvForSameOpNums:
         self.dynamic_pair_mask = np.copy(self.candidate_process_relation)
 
         self.unavailable_pairs = self.pair_free_time > self.next_schedule_time[:, np.newaxis, np.newaxis]
+        if self.dispatch_rule == "semi_active":          # waiting allowed (--dispatch_rule semi_active)
+            self.unavailable_pairs = np.zeros_like(self.unavailable_pairs)
 
         self.dynamic_pair_mask = np.logical_or(self.dynamic_pair_mask, self.unavailable_pairs)
 
