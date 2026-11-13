@@ -60,7 +60,7 @@ class Runner:
         st = self.cfg["stopping"]
         self.updates_trial = sm.get("updates", self.cfg["tuning"]["updates_per_trial"])
         self.rule = ({"converge_window": 0, "converge_tol": st["converge_tol"], "min_updates": 0,
-                      "max_updates": sm["updates"], "chunk": sm["updates"]} if a.smoke else st)
+                      "max_updates": sm["updates"], "chunk": 0} if a.smoke else st)   # smoke: one invocation
         self.validate = sm.get("validate_timestep", self.cfg["recipe"]["constants"]["validate_timestep"])
         self.trials = self.cfg["tuning"]["trials"][: sm.get("trials", len(self.cfg["tuning"]["trials"]))]
         self.base = self.ckpt / "base_s111.pth"
@@ -118,7 +118,7 @@ class Runner:
                     "--min_updates", str(r["min_updates"]), "--max_updates", str(r["max_updates"]),
                     "--chunk_updates", str(r["chunk"])]
         return ["--converge_window", "0", "--max_updates", str(self.updates_trial),
-                "--chunk_updates", str(min(500, self.updates_trial))]
+                "--chunk_updates", str(0 if self.smoke else min(500, self.updates_trial))]
 
     def specialist_args(self, o):
         return ["train.py", "--config", str(REPO / self.cfg["specialists"]["configs"][o]["path"]),
