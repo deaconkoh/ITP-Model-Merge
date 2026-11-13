@@ -1,0 +1,85 @@
+{
+ "examples": [
+  {
+   "valid": true,
+   "deliberate_waiting": 2802.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1268.0,
+    205.78853526291874,
+    4314.585560274265
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 2986.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1160.0,
+    197.20665663321367,
+    5243.458804184201
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 3038.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1309.0,
+    222.28806587603538,
+    6839.585560274266
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 1769.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    924.0,
+    190.79241733986697,
+    3964.585560274265
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 2720.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1393.0,
+    229.76981979923116,
+    6242.585560274266
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 1726.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1125.0,
+    196.84484380509832,
+    3771.683772542122
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 1546.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1032.0,
+    212.73941957534913,
+    3865.5855602742645
+   ]
+  },
+  {
+   "valid": true,
+   "deliberate_waiting": 2918.0,
+   "no_delay_rule_reproduces": false,
+   "objectives": [
+    1323.0,
+    193.63013629220438,
+    6078.585560274266
+   ]
+  }
+ ],
+ "mean_legal_pairs_waiting": 17.93
+}
