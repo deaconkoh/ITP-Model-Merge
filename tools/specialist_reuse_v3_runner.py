@@ -291,7 +291,7 @@ class Runner:
         self.commit(f"{self.prefix}: TIES screen", self.res)
 
     def stage_pool_b(self):
-        units = self.trial_units("distill") + self.trial_units("rs") + self.trial_units("ties")
+        units = self.trial_units("ties") + self.trial_units("rs") + self.trial_units("distill")   # slowest first
         ok = self.pool(units)
         self.commit(f"{self.prefix}: Distillation, Rewarded Soups and TIES trials", self.res)
         return ok
@@ -313,8 +313,8 @@ class Runner:
         def keep(name):
             d = self.ckpt / "finals"; d.mkdir(exist_ok=True)
             shutil.copy2(TN / f"{name}.pth", d / f"{name}.pth"); self.write_sums()
-        units = [(f"final:{m}", self.method_args(m, m, t["lr"], t["cl_beta"], full=True), self.model(m), keep)
-                 for m, t in sel.items()]
+        units = [(f"final:{m}", self.method_args(m, m, sel[m]["lr"], sel[m]["cl_beta"], full=True), self.model(m), keep)
+                 for m in ("ties", "rs", "distill", "scratch")]                          # slowest first
         ok = self.pool(units)
         self.commit(f"{self.prefix}: full runs", self.ckpt, self.res)
         return ok
