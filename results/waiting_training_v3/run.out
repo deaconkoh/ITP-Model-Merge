@@ -1,0 +1,9 @@
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+Traceback (most recent call last):
+  File "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/tools/waiting_training_v3.py", line 195, in <module>
+    {"verify": verify, "train": train, "evaluate": evaluate}[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/tools/waiting_training_v3.py", line 159, in evaluate
+    from checkpointing import make_checkpoint_bundle
+ModuleNotFoundError: No module named 'checkpointing'

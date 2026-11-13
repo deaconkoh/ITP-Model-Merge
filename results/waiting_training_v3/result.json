@@ -1,0 +1,11 @@
+{
+ "hv_waiting": 0.9016108756256642,
+ "hv_nodelay": 0.7541234580118686,
+ "difference": 0.14748741761379558,
+ "train_hours": 2.3006568343109555,
+ "phase1_update": 2600,
+ "phase2_update": 5300,
+ "phase2_status": "CONVERGED",
+ "checkpoint": "checkpoints/waiting_training_v3/10x5+mix+bv3_wt_W2_s111_final_u5300.pth",
+ "checkpoint_sha256": "9ed22554fe20f07b67c013121e6a19315a4f620cef6b247aa6502c0c020cdd64"
+}

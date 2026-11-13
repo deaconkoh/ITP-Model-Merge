@@ -1,0 +1,51 @@
+{
+ "phase1": {
+  "model_name": "10x5+mix+bv3_wt_W1_s111",
+  "goal": "mct",
+  "update": 2600,
+  "max_updates": 2600,
+  "status": "FINISHED",
+  "best_value": -0.807062476088831,
+  "best_update": 2550,
+  "latest_value": -0.7899169339990418,
+  "rel_improvement_window": null,
+  "train_seconds": 3946.0896656513214,
+  "generator": {
+   "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+   "generated": 2600,
+   "collisions_discarded": 0,
+   "forbidden_hashes": {
+    "v3 validation/development/evaluation": 137,
+    "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+   }
+  },
+  "written": "2026-11-13 19:39:23"
+ },
+ "phase2": {
+  "model_name": "10x5+mix+bv3_wt_W2_s111",
+  "goal": "mct",
+  "update": 5300,
+  "max_updates": 8000,
+  "status": "CONVERGED",
+  "best_value": -0.9168622758801059,
+  "best_update": 5200,
+  "latest_value": -0.898947109526078,
+  "rel_improvement_window": 0.0016219828394982484,
+  "train_seconds": 8282.36460351944,
+  "generator": {
+   "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+   "generated": 5300,
+   "collisions_discarded": 0,
+   "forbidden_hashes": {
+    "v3 validation/development/evaluation": 137,
+    "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+   }
+  },
+  "written": "2026-11-13 20:51:56"
+ },
+ "phase1_resume_sha256": "f5ed0123c03ec236d6b2840ada5429ad58dc820901b4f5ef8234776ced4e2441",
+ "final_resume_sha256": "355a61816ca7319102238c45a0d550b9743c89c744d1df7fb0befb42c320e693",
+ "train_hours": 2.3006568343109555,
+ "wall_hours": 2.3091862073871825,
+ "train_hours_note": "train_seconds is cumulative across the resume; phase 2 value = total"
+}

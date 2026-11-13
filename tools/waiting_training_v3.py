@@ -146,7 +146,7 @@ def train():
     s1, s2 = status(P1), status(P2)
     rec = {"phase1": s1, "phase2": s2, "phase1_resume_sha256": sha(resume),
            "final_resume_sha256": sha(tn / f"10x5+mix+{P2}.resume.pth"),
-           "train_hours": (s1["train_seconds"] + s2["train_seconds"]) / 3600, "wall_hours": (time.time() - t0) / 3600}
+           "train_hours": s2["train_seconds"] / 3600, "wall_hours": (time.time() - t0) / 3600}
     (OUT / "train.json").write_text(json.dumps(rec, indent=1) + "\n")
 
 
@@ -154,6 +154,7 @@ def evaluate():
     """Final state of phase 2 wrapped as a bundle (as the control's u4550), then best-of-128, seed 51, waiting rule."""
     os.environ["DECODING_DEVICE"] = "cuda"
     sys.argv = [sys.argv[0]]; sys.path.insert(0, str(REPO / "tools"))
+    import decoding_v3 as D                                           # puts daniel/ on the path (CUDA)
     import numpy as np, torch
     import freeze_plateau_diagnosis_v3 as F
     from checkpointing import make_checkpoint_bundle
@@ -184,6 +185,7 @@ def evaluate():
     hv = float(np.mean([MM.instance_hv(o[i, N.SUBSET], *MM.ideal_nadir(norm[data.keys[i]])) for i in range(I)]))
     base = json.loads((OUT / "verify.json").read_text())["baseline_hv_rescored"]
     tr = json.loads((OUT / "train.json").read_text())
+    tr["train_hours"] = tr["phase2"]["train_seconds"] / 3600                # cumulative across the resume
     rec = {"hv_waiting": hv, "hv_nodelay": base, "difference": hv - base, "train_hours": tr["train_hours"],
            "phase1_update": tr["phase1"]["update"], "phase2_update": tr["phase2"]["update"],
            "phase2_status": tr["phase2"]["status"], "checkpoint": str(out.relative_to(REPO)), "checkpoint_sha256": sha(out)}
