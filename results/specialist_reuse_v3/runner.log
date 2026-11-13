@@ -66,3 +66,13 @@ ties_keep0.8_lambda1.0 PASS weight change 0.279 {'m': (True, '2.4e-07'), 'c': (T
 ties_keep0.8_lambda1.5 PASS weight change 0.419 {'m': (True, '2.4e-07'), 'c': (True, '6.6e-07'), 't': (True, '3.0e-07')}
 [2026-11-14 05:09:49] merge checks passed: preference changes the merged weights; corners reproduce the specialists
 [2026-11-14 05:11:21] distillation stage 1: 90 s
+[2026-11-14 05:11:26] TIES screen keep 0.2 lambda 0.8: validation HV 0.6885
+[2026-11-14 05:11:30] TIES screen keep 0.2 lambda 1.0: validation HV 0.6920
+[2026-11-14 05:11:33] TIES screen keep 0.2 lambda 1.5: validation HV 0.7198
+[2026-11-14 05:11:38] TIES screen keep 0.5 lambda 0.8: validation HV 0.7870
+[2026-11-14 05:11:42] TIES screen keep 0.5 lambda 1.0: validation HV 0.8358
+[2026-11-14 05:11:46] TIES screen keep 0.5 lambda 1.5: validation HV 0.8799
+[2026-11-14 05:11:50] TIES screen keep 0.8 lambda 0.8: validation HV 0.8138
+[2026-11-14 05:11:54] TIES screen keep 0.8 lambda 1.0: validation HV 0.8662
+[2026-11-14 05:11:57] TIES screen keep 0.8 lambda 1.5: validation HV 0.8399
+[2026-11-14 05:11:57] TIES merge setting selected: keep 0.5, lambda 1.5
