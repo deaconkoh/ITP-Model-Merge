@@ -1,0 +1,112 @@
+{
+ "units": {
+  "spec:c": {
+   "name": "10x5+mix+bv3_sr_spec_c_s111",
+   "start": 1794587659.9060326,
+   "slot": "4-7",
+   "end": 1794592049.782792,
+   "status": "CONVERGED",
+   "update": 1950,
+   "best": 0.8008872562975999,
+   "best_update": 1950,
+   "train_seconds": 4376.2905423641205,
+   "capped": false
+  },
+  "spec:t": {
+   "name": "10x5+mix+bv3_sr_spec_t_s111",
+   "start": 1794587659.9060903,
+   "slot": "0-3",
+   "end": 1794604186.5156417,
+   "status": "CONVERGED",
+   "update": 7900,
+   "best": 0.17684252965267994,
+   "best_update": 6900,
+   "train_seconds": 16471.94371318817,
+   "capped": false
+  },
+  "spec:m": {
+   "name": "10x5+mix+bv3_sr_spec_m_s111",
+   "start": 1794587659.9062808,
+   "slot": "8-11",
+   "end": 1794595713.77689,
+   "status": "CONVERGED",
+   "update": 3550,
+   "best": 0.9297688834624959,
+   "best_update": 3050,
+   "train_seconds": 8023.333966016769,
+   "capped": false
+  },
+  "trial:scratch:0": {
+   "name": "10x5+mix+bv3_sr_scratch_t0_s111",
+   "start": 1794592049.7847333,
+   "slot": "4-7",
+   "end": 1794594362.417548,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.4883938004228719,
+   "best_update": 900,
+   "train_seconds": 2306.294285774231,
+   "capped": true
+  },
+  "trial:scratch:1": {
+   "name": "10x5+mix+bv3_sr_scratch_t1_s111",
+   "start": 1794594362.4180214,
+   "slot": "4-7",
+   "end": 1794596682.0873275,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.2877371355002578,
+   "best_update": 750,
+   "train_seconds": 2313.0750753879547,
+   "capped": true
+  },
+  "trial:scratch:2": {
+   "name": "10x5+mix+bv3_sr_scratch_t2_s111",
+   "start": 1794595713.7788043,
+   "slot": "8-11",
+   "end": 1794598042.2807765,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.5925520587363688,
+   "best_update": 900,
+   "train_seconds": 2321.9476823806763,
+   "capped": true
+  },
+  "trial:scratch:3": {
+   "name": "10x5+mix+bv3_sr_scratch_t3_s111",
+   "start": 1794596682.0876617,
+   "slot": "4-7",
+   "end": 1794599004.0673482,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.5004555535870717,
+   "best_update": 1000,
+   "train_seconds": 2315.0411643981934,
+   "capped": true
+  },
+  "trial:scratch:4": {
+   "name": "10x5+mix+bv3_sr_scratch_t4_s111",
+   "start": 1794598042.2811534,
+   "slot": "8-11",
+   "end": 1794600354.6736526,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.7969053843657246,
+   "best_update": 950,
+   "train_seconds": 2304.824516773224,
+   "capped": true
+  },
+  "trial:scratch:5": {
+   "name": "10x5+mix+bv3_sr_scratch_t5_s111",
+   "start": 1794599004.0676806,
+   "slot": "4-7",
+   "end": 1794601176.976742,
+   "status": "FINISHED",
+   "update": 1000,
+   "best": -0.6926616825326256,
+   "best_update": 950,
+   "train_seconds": 2166.96586561203,
+   "capped": true
+  }
+ }
+}
