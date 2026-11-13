@@ -97,3 +97,108 @@ def load_specialists(paths, config, device):
         parents.append({"path": str(Path(p).resolve()), "sha256": file_sha256(p), "init_mode": "merge_mix",
                         "transfer": {k: len(v) for k, v in report.items()}})
     return nets, parents
+
+
+# ------------------------------------------------------------------------------------------------ preference-weighted TIES
+
+def pref_ties_flat(base, thetas, w, keep, lam):
+    """Preference-weighted TIES-Merging (docs/specialist_reuse_protocol_v3.md) on flattened parameters.
+
+    base [P] (frozen), thetas [3, P] (the specialists, trainable), w [U, 3] (preferences) -> theta(w) [U, P]:
+      tau_x   = theta_x - base
+      trim    keep the top `keep` fraction of each tau_x by |value| over the whole vector (masks from the current
+              values, no gradient through them; as warmstart.ties_merge)
+      v_x     = w_x * trim(tau_x)                       weighted BEFORE sign election
+      s       = sign(sum_x v_x)                         elected sign per entry
+      merged  = sum_x v_x [v_x != 0 and sign(v_x) = s]  SUM of the agreeing entries (not the mean)
+      theta   = base + lam * merged
+    A zero weight gives v_x = 0: that vector neither votes nor contributes; an entry with every v_x = 0 stays at base.
+    Exact corner w = e_x: theta(w) = theta_x (trimming and lambda cannot change a specialist at its own corner)."""
+    tau = thetas - base[None]
+    P = tau.shape[1]
+    n_keep = int(round(keep * P))
+    mask = torch.zeros_like(tau, dtype=torch.bool)
+    if n_keep > 0:
+        idx = tau.detach().abs().topk(n_keep, dim=1).indices
+        mask.scatter_(1, idx, True)
+    trimmed = tau * mask
+    v = w[:, :, None].to(tau.dtype) * trimmed[None]                                   # [U, 3, P]
+    s = torch.sign(v.detach().sum(1))                                                  # [U, P]
+    agree = (torch.sign(v.detach()) == s[:, None]) & (v.detach() != 0)
+    out = base[None] + lam * (v * agree).sum(1)
+    corner = (w == 1).any(1) & ((w == 0).sum(1) == 2)
+    if corner.any():
+        out = out.clone()
+        for u in torch.nonzero(corner).squeeze(1).tolist():
+            out[u] = thetas[int(torch.argmax(w[u]))]
+    return out
+
+
+class TiesMixturePolicy(MixturePolicy):
+    """Like MixturePolicy, with theta(w) given by pref_ties_flat over the three trainable specialists and the frozen
+    shared base (kept as buffers, so checkpoints carry it). One merge per distinct preference in the batch."""
+
+    def __init__(self, nets, base_sd, keep, lam, grouped=False):
+        super().__init__(nets, grouped=grouped)
+        self.keep, self.lam = float(keep), float(lam)
+        self.shapes = {k: p.shape for k, p in nets[0].named_parameters()}
+        for k in self.names:
+            self.register_buffer("base__" + k.replace(".", "__"), base_sd[k].detach().clone().float())
+
+    def base_flat(self):
+        return torch.cat([getattr(self, "base__" + k.replace(".", "__")).reshape(-1) for k in self.names])
+
+    def merged_flat(self, w):
+        st = self.stacked()
+        thetas = torch.cat([st[k].reshape(3, -1) for k in self.names], 1)
+        return pref_ties_flat(self.base_flat(), thetas, w, self.keep, self.lam)
+
+    def unflatten(self, flat):
+        out, i = {}, 0
+        for k in self.names:
+            n = int(torch.Size(self.shapes[k]).numel())
+            out[k] = flat[:, i:i + n].reshape(flat.shape[0], *self.shapes[k]); i += n
+        return out
+
+    def mixed(self, w):
+        uniq, inv = torch.unique(w, dim=0, return_inverse=True)
+        per = self.unflatten(self.merged_flat(uniq))
+        return {k: v[inv] for k, v in per.items()}
+
+    def _grouped(self, w, x):
+        uniq, inv = torch.unique(w, dim=0, return_inverse=True)
+        per = self.unflatten(self.merged_flat(uniq))
+        pi_out = v_out = None
+        for g in range(len(uniq)):
+            rows = (inv == g).nonzero().squeeze(1)
+            pi, v = functional_call(self.nets[0], {k: t[g] for k, t in per.items()}, kwargs={k: t[rows] for k, t in x.items()})
+            if pi_out is None:
+                pi_out = pi.new_zeros((len(w), pi.shape[1])); v_out = v.new_zeros((len(w), v.shape[1]))
+            pi_out = pi_out.index_copy(0, rows, pi); v_out = v_out.index_copy(0, rows, v)
+        return pi_out, v_out
+
+
+def load_base(path, config, device):
+    """The shared base (unconditioned v3) as a preference-conditioned state dict, preference columns zero."""
+    from checkpointing import unwrap_checkpoint, validate_checkpoint_schema
+    from feature_schemas import SCHEMA_V3
+    from model.main_model import DANIEL
+    from warmstart import transfer
+    sd, meta = unwrap_checkpoint(torch.load(path, map_location=device, weights_only=False))
+    validate_checkpoint_schema(meta, SCHEMA_V3, sd)
+    net = DANIEL(config).to(device)
+    transfer(sd, net, "full")
+    return {k: v.detach() for k, v in net.state_dict().items()}
+
+
+def build_policy(meta_config, config, device):
+    """An empty policy of the right kind for a checkpoint's saved config (evaluation): DANIEL, MixturePolicy or
+    TiesMixturePolicy (base buffers are then filled by load_state_dict)."""
+    from model.main_model import DANIEL
+    if not meta_config.get("merge_mix"):
+        return DANIEL(config).to(device)
+    nets = [DANIEL(config).to(device) for _ in range(3)]
+    if meta_config.get("merge_rule", "mix") == "ties":
+        zero = {k: torch.zeros_like(v) for k, v in nets[0].state_dict().items()}
+        return TiesMixturePolicy(nets, zero, meta_config["ties_keep"], meta_config["ties_lambda"]).to(device)
+    return MixturePolicy(nets)

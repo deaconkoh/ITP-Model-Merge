@@ -311,11 +311,8 @@ def load_net(path):
     from feature_schemas import SCHEMA_V3_MO
     from model.main_model import DANIEL
     _, meta = unwrap_checkpoint(torch.load(path, map_location=configs.device, weights_only=False))
-    if meta.get("config", {}).get("merge_mix"):
-        from mixture import MixturePolicy
-        net = MixturePolicy([DANIEL(configs).to(configs.device) for _ in range(3)])
-    else:
-        net = DANIEL(configs).to(configs.device)
+    from mixture import build_policy                # DANIEL, Rewarded Soups or preference-weighted TIES
+    net = build_policy(meta.get("config", {}), configs, configs.device)
     net.load_state_dict(load_checkpoint_state_dict(path, map_location=configs.device, expected_schema=SCHEMA_V3_MO))
     return net.eval()
 

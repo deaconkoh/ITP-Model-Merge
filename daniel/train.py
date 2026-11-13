@@ -190,7 +190,16 @@ class Trainer:
         from mixture import MixturePolicy, load_specialists
         paths = [self.resolve_checkpoint_path(p.strip()) for p in config.merge_mix.split(",")]
         nets, self.parent_checkpoints = load_specialists(paths, config, device)
-        self.ppo.policy = MixturePolicy(nets)
+        if getattr(config, "merge_rule", "mix") == "ties":           # docs/specialist_reuse_protocol_v3.md
+            from mixture import TiesMixturePolicy, load_base
+            base_path = self.resolve_checkpoint_path(config.merge_base)
+            self.ppo.policy = TiesMixturePolicy(nets, load_base(base_path, config, device), config.ties_keep,
+                                                config.ties_lambda).to(device)
+            from checkpointing import file_sha256
+            self.parent_checkpoints.append({"path": str(Path(base_path).resolve()), "sha256": file_sha256(base_path),
+                                            "role": "ties_base"})
+        else:
+            self.ppo.policy = MixturePolicy(nets)
         self.ppo.policy_old = deepcopy(self.ppo.policy)
         self.ppo.optimizer = torch.optim.Adam(self.ppo.policy.parameters(), lr=config.lr)
         self.merge_mix_sha = [p["sha256"] for p in self.parent_checkpoints]
@@ -674,7 +683,11 @@ class Trainer:
                 # single-objective contrastive: recorded only in that mode (earlier identities unchanged)
                 **({"cl_pairs": "single_objective"} if getattr(self, "cl_single", False) else {}),
                 # preference-weighted merging: recorded only in that mode (earlier identities unchanged)
-                **({"merge_mix_sha256": self.merge_mix_sha} if getattr(c, "merge_mix", "") else {})}
+                **({"merge_mix_sha256": self.merge_mix_sha} if getattr(c, "merge_mix", "") else {}),
+                # preference-weighted TIES: recorded only in that mode (earlier identities unchanged)
+                **({"merge_rule": c.merge_rule, "merge_base_sha256": self.parent_checkpoints[-1]["sha256"],
+                    "ties_keep": c.ties_keep, "ties_lambda": c.ties_lambda}
+                   if getattr(c, "merge_rule", "mix") != "mix" else {})}
 
     def write_status(self, update):
         last = self.validation_log[-1] if self.validation_log else {}

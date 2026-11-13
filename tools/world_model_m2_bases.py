@@ -37,11 +37,23 @@ def wm_trunk(path, expect_sha):
     return {k: v for k, v in sd.items() if k.startswith("feature_exact.")}
 
 
+def random_base_sd(seed):
+    """The unconditioned DANIEL (schema benchmark_v3_f12_m9_p10) right after setup_seed(seed)."""
+    setup_seed(seed)
+    return {k: v.detach().cpu().clone() for k, v in DANIEL(configs).state_dict().items()}
+
+
+def save_bundle(state, out_file, parents=()):
+    torch.save(make_checkpoint_bundle(state, config=json_safe_config(configs), data_fingerprints={}, update=0,
+                                      validation_metrics={}, selection_metric=float("nan"), parents=list(parents),
+                                      repo_root=REPO), out_file)
+    return sha(out_file)
+
+
 def build(seed, trunk_path, trunk_sha, out: Path):
     out.mkdir(parents=True, exist_ok=True)
     trunk = wm_trunk(trunk_path, trunk_sha)
-    setup_seed(seed)
-    sd = {k: v.detach().cpu().clone() for k, v in DANIEL(configs).state_dict().items()}
+    sd = random_base_sd(seed)
     wm = dict(sd); wm.update({k: v.clone() for k, v in trunk.items()})
     assert set(trunk) == {k for k in sd if k.startswith("feature_exact.")}
     files = {}

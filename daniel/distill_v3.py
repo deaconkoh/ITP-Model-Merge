@@ -31,11 +31,14 @@ ap.add_argument("--lr", type=float, default=3e-4)
 ap.add_argument("--wall_cap", type=float, default=1200.0, help="hard cap in seconds, collection included")
 ap.add_argument("--val_first", type=int, default=0, help="held-out check on the first N validation instances (0 = all)")
 ap.add_argument("--device", default="cuda")
+ap.add_argument("--specs", default="", help="comma-separated makespan, carbon, tardiness specialists (overrides --spec_dir)")
+ap.add_argument("--dispatch_rule", default="nondelay", choices=["nondelay", "semi_active"],
+                help="the environment's dispatch rule for the teachers' rollouts and the held-out check (params.py)")
 args = ap.parse_args()
 N_J, N_M = {"10x5": (10, 5), "20x10": (20, 10)}[args.size]
 sys.argv = [sys.argv[0], "--device", args.device, "--obs_version", "v3", "--reward_version", "v3", "--goal", "mct",
             "--preference_dim", "3", "--n_j", str(N_J), "--n_m", str(N_M), "--data_suffix", "mix", "--low", "1",
-            "--high", "99", "--op_per_job", "0"]
+            "--high", "99", "--op_per_job", "0", "--dispatch_rule", args.dispatch_rule]
 
 import copy                                                 # noqa: E402
 import numpy as np                                          # noqa: E402
@@ -58,7 +61,8 @@ EYE = np.eye(3)
 def teacher(o):
     c = copy.copy(configs); c.preference_dim = 0; c.feature_schema = SCHEMA_V3
     net = DANIEL(c).to(DEV)
-    path = Path(args.spec_dir) / f"{args.size}+mix+bv3_spec_{o}_s{args.seed}.pth"
+    path = (Path(args.specs.split(",")["mct".index(o)].strip()) if args.specs else
+            Path(args.spec_dir) / f"{args.size}+mix+bv3_spec_{o}_s{args.seed}.pth")
     net.load_state_dict(load_checkpoint_state_dict(path, map_location=DEV, expected_schema=SCHEMA_V3))
     net.eval()
     return net, path

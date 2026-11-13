@@ -219,6 +219,13 @@ parser.add_argument('--merge_mix', type=str, default='',
                     help='Comma-separated makespan, carbon and tardiness specialists (v3, unconditioned). The policy for '
                          'preference w is the weight mix w_M theta_M + w_C theta_C + w_T theta_T, one mix per sample; '
                          'all three networks are trained (MO contrastive only; reference = the starting mix)')
+# preference-weighted TIES (docs/specialist_reuse_protocol_v3.md); the default 'mix' leaves --merge_mix unchanged
+parser.add_argument('--merge_rule', type=str, default='mix', choices=['mix', 'ties'],
+                    help='--merge_mix: mix = Rewarded Soups (sum_x w_x theta_x); ties = preference-weighted TIES over task '
+                         'vectors relative to --merge_base (mixture.pref_ties_flat), the specialist itself at exact corners')
+parser.add_argument('--merge_base', type=str, default='', help='--merge_rule ties: the shared base the specialists started from')
+parser.add_argument('--ties_keep', type=float, default=0.2, help='--merge_rule ties: fraction of each task vector kept')
+parser.add_argument('--ties_lambda', type=float, default=1.0, help='--merge_rule ties: scale of the merged vector')
 # tardiness features (docs/tardiness_features_protocol_v3.md); the default leaves inputs and training unchanged
 parser.add_argument('--lateness_inputs', type=str, default='off', choices=['off', 'on'],
                     help='Benchmark v3: append 5 per-job operation features with FIXED scaling (time / 99, the benchmark '
@@ -320,5 +327,8 @@ if configs.merge_mix:
             or len(configs.merge_mix.split(',')) != 3):
         raise ValueError('--merge_mix needs three specialists (m,c,t), --finetune_objective contrastive, '
                          '--preference_dim 3 and no --init_from or merge-failure options')
+if configs.merge_rule != 'mix' and (not configs.merge_mix or not configs.merge_base
+                                    or not 0.0 < configs.ties_keep <= 1.0):
+    raise ValueError('--merge_rule ties needs --merge_mix, --merge_base and 0 < --ties_keep <= 1')
 if configs.resume_from and not configs.resume:
     raise ValueError('--resume_from needs --resume True')
