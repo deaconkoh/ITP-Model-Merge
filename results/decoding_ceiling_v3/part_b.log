@@ -1,0 +1,273 @@
+[02:45:54] inputs ready
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[02:46:38] search w0: mean score 0.0738 (seed 0.0754; improved 3/20) 31 s
+[02:47:06] search w1: mean score 0.1611 (seed 0.1626; improved 5/20) 59 s
+[02:47:35] search w2: mean score 0.2476 (seed 0.2492; improved 4/20) 88 s
+[02:48:03] search w3: mean score 0.3339 (seed 0.3353; improved 3/20) 116 s
+[02:48:34] search w4: mean score 0.4190 (seed 0.4208; improved 4/20) 146 s
+[02:49:04] search w5: mean score 0.5040 (seed 0.5059; improved 5/20) 176 s
+[02:49:40] search w6: mean score 0.5870 (seed 0.5901; improved 9/20) 212 s
+[02:50:12] search w7: mean score 0.6702 (seed 0.6725; improved 4/20) 245 s
+[02:50:39] search w8: mean score 0.7502 (seed 0.7514; improved 6/20) 272 s
+[02:51:05] search w9: mean score 0.8250 (seed 0.8280; improved 8/20) 298 s
+[02:51:33] search w10: mean score 0.8912 (seed 0.8928; improved 7/20) 325 s
+[02:52:03] search w11: mean score 0.1644 (seed 0.1667; improved 4/20) 356 s
+[02:52:31] search w12: mean score 0.2534 (seed 0.2545; improved 4/20) 384 s
+[02:53:06] search w13: mean score 0.3397 (seed 0.3413; improved 5/20) 418 s
+[02:53:40] search w14: mean score 0.4245 (seed 0.4270; improved 6/20) 453 s
+[02:54:11] search w15: mean score 0.5091 (seed 0.5119; improved 5/20) 483 s
+[02:54:42] search w16: mean score 0.5934 (seed 0.5961; improved 8/20) 514 s
+[02:55:13] search w17: mean score 0.6753 (seed 0.6784; improved 7/20) 545 s
+[02:55:43] search w18: mean score 0.7562 (seed 0.7586; improved 7/20) 576 s
+[02:56:15] search w19: mean score 0.8324 (seed 0.8348; improved 7/20) 607 s
+[02:56:49] search w20: mean score 0.8981 (seed 0.8989; improved 7/20) 641 s
+[02:57:21] search w21: mean score 0.2562 (seed 0.2572; improved 4/20) 673 s
+[02:57:53] search w22: mean score 0.3434 (seed 0.3451; improved 7/20) 706 s
+[02:58:22] search w23: mean score 0.4291 (seed 0.4313; improved 4/20) 735 s
+[02:58:48] search w24: mean score 0.5135 (seed 0.5167; improved 7/20) 760 s
+[02:59:14] search w25: mean score 0.5992 (seed 0.6010; improved 5/20) 786 s
+[02:59:45] search w26: mean score 0.6813 (seed 0.6832; improved 7/20) 817 s
+[03:00:15] search w27: mean score 0.7586 (seed 0.7615; improved 8/20) 848 s
+[03:00:42] search w28: mean score 0.8328 (seed 0.8351; improved 6/20) 874 s
+[03:01:10] search w29: mean score 0.8971 (seed 0.8982; improved 6/20) 902 s
+[03:01:54] search w30: mean score 0.3435 (seed 0.3457; improved 5/20) 946 s
+[03:02:21] search w31: mean score 0.4312 (seed 0.4329; improved 5/20) 974 s
+[03:02:55] search w32: mean score 0.5161 (seed 0.5185; improved 6/20) 1008 s
+[03:03:31] search w33: mean score 0.6011 (seed 0.6029; improved 7/20) 1044 s
+[03:04:05] search w34: mean score 0.6803 (seed 0.6838; improved 7/20) 1077 s
+[03:04:32] search w35: mean score 0.7571 (seed 0.7594; improved 7/20) 1105 s
+[03:05:07] search w36: mean score 0.8297 (seed 0.8315; improved 8/20) 1139 s
+[03:05:37] search w37: mean score 0.8944 (seed 0.8944; improved 2/20) 1170 s
+[03:06:09] search w38: mean score 0.4300 (seed 0.4325; improved 6/20) 1201 s
+[03:06:37] search w39: mean score 0.5154 (seed 0.5184; improved 5/20) 1229 s
+[03:07:08] search w40: mean score 0.5966 (seed 0.6010; improved 8/20) 1260 s
+[03:07:34] search w41: mean score 0.6772 (seed 0.6812; improved 6/20) 1287 s
+[03:08:03] search w42: mean score 0.7507 (seed 0.7551; improved 8/20) 1316 s
+[03:08:32] search w43: mean score 0.8246 (seed 0.8264; improved 7/20) 1344 s
+[03:09:03] search w44: mean score 0.8891 (seed 0.8899; improved 3/20) 1375 s
+[03:09:32] search w45: mean score 0.5103 (seed 0.5151; improved 7/20) 1405 s
+[03:10:06] search w46: mean score 0.5928 (seed 0.5969; improved 8/20) 1439 s
+[03:10:46] search w47: mean score 0.6717 (seed 0.6758; improved 8/20) 1478 s
+[03:11:15] search w48: mean score 0.7461 (seed 0.7494; improved 7/20) 1508 s
+[03:11:45] search w49: mean score 0.8183 (seed 0.8201; improved 7/20) 1538 s
+[03:12:20] search w50: mean score 0.8823 (seed 0.8829; improved 2/20) 1572 s
+[03:12:57] search w51: mean score 0.5863 (seed 0.5913; improved 8/20) 1609 s
+[03:13:25] search w52: mean score 0.6646 (seed 0.6686; improved 10/20) 1638 s
+[03:14:02] search w53: mean score 0.7384 (seed 0.7429; improved 10/20) 1674 s
+[03:14:30] search w54: mean score 0.8103 (seed 0.8128; improved 11/20) 1703 s
+[03:14:57] search w55: mean score 0.8739 (seed 0.8747; improved 3/20) 1730 s
+[03:15:32] search w56: mean score 0.6563 (seed 0.6603; improved 10/20) 1765 s
+[03:16:08] search w57: mean score 0.7312 (seed 0.7343; improved 10/20) 1801 s
+[03:16:40] search w58: mean score 0.8011 (seed 0.8037; improved 12/20) 1832 s
+[03:17:09] search w59: mean score 0.8640 (seed 0.8655; improved 6/20) 1862 s
+[03:17:39] search w60: mean score 0.7212 (seed 0.7246; improved 11/20) 1891 s
+[03:18:14] search w61: mean score 0.7902 (seed 0.7938; improved 13/20) 1927 s
+[03:18:44] search w62: mean score 0.8537 (seed 0.8552; improved 5/20) 1956 s
+[03:19:21] search w63: mean score 0.7803 (seed 0.7831; improved 11/20) 1993 s
+[03:19:59] search w64: mean score 0.8419 (seed 0.8442; improved 9/20) 2032 s
+[03:20:29] search w65: mean score 0.8295 (seed 0.8327; improved 5/20) 2061 s
+search written: /home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/results/decoding_ceiling_v3/search/evaluation.npz
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[03:20:45] restricted 0 w0 OPTIMAL score 0.0033 hint 0.0318 bound 0.0033 (12.2 s)
+[03:21:46] restricted 0 w10 FEASIBLE score 0.9270 hint 0.9680 bound 0.8710 (60.1 s)
+[03:22:30] restricted 0 w65 OPTIMAL score 0.8624 hint 0.8993 bound 0.8624 (44.0 s)
+[03:23:09] restricted 0 w50 OPTIMAL score 0.9241 hint 0.9595 bound 0.9241 (38.5 s)
+[03:24:09] restricted 0 w45 FEASIBLE score 0.6183 hint 0.6514 bound 0.4312 (60.0 s)
+[03:25:10] restricted 0 w5 FEASIBLE score 0.5476 hint 0.5476 bound 0.4361 (60.2 s)
+[03:26:12] restricted 0 w53 FEASIBLE score 0.8406 hint 0.8417 bound 0.6075 (60.6 s)
+[03:27:13] restricted 0 w27 FEASIBLE score 0.8688 hint 0.8776 bound 0.6449 (60.3 s)
+[03:28:13] restricted 0 w23 FEASIBLE score 0.4992 hint 0.4992 bound 0.2965 (60.1 s)
+[03:29:14] restricted 0 w41 FEASIBLE score 0.7932 hint 0.7932 bound 0.5060 (60.1 s)
+[03:29:19] restricted 1 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.3 s)
+[03:30:20] restricted 1 w10 FEASIBLE score 0.8804 hint 0.8921 bound 0.8751 (60.1 s)
+[03:31:21] restricted 1 w65 FEASIBLE score 0.8155 hint 0.8529 bound 0.5486 (60.1 s)
+[03:32:21] restricted 1 w50 FEASIBLE score 0.8849 hint 0.9022 bound 0.8366 (60.0 s)
+[03:33:21] restricted 1 w45 FEASIBLE score 0.4277 hint 0.4414 bound 0.3978 (60.1 s)
+[03:34:22] restricted 1 w5 FEASIBLE score 0.4519 hint 0.4556 bound 0.4399 (60.1 s)
+[03:35:22] restricted 1 w53 FEASIBLE score 0.6953 hint 0.7174 bound 0.6402 (60.1 s)
+[03:36:22] restricted 1 w27 FEASIBLE score 0.7161 hint 0.7240 bound 0.6815 (60.0 s)
+[03:37:23] restricted 1 w23 FEASIBLE score 0.3572 hint 0.3621 bound 0.3222 (60.0 s)
+[03:38:23] restricted 1 w41 FEASIBLE score 0.6309 hint 0.6309 bound 0.5778 (60.0 s)
+[03:38:29] restricted 2 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (5.0 s)
+[03:39:29] restricted 2 w10 FEASIBLE score 0.9049 hint 0.9144 bound 0.8551 (60.2 s)
+[03:40:30] restricted 2 w65 FEASIBLE score 0.7381 hint 0.7476 bound 0.4643 (60.0 s)
+[03:41:15] restricted 2 w50 OPTIMAL score 0.8348 hint 0.8396 bound 0.8347 (44.2 s)
+[03:42:15] restricted 2 w45 FEASIBLE score 0.4257 hint 0.4405 bound 0.3583 (60.1 s)
+[03:43:15] restricted 2 w5 FEASIBLE score 0.4922 hint 0.4949 bound 0.4271 (60.0 s)
+[03:44:16] restricted 2 w53 FEASIBLE score 0.6750 hint 0.6826 bound 0.4420 (60.1 s)
+[03:45:16] restricted 2 w27 FEASIBLE score 0.7412 hint 0.7412 bound 0.6026 (60.1 s)
+[03:46:17] restricted 2 w23 FEASIBLE score 0.3736 hint 0.3791 bound 0.2892 (60.1 s)
+[03:47:17] restricted 2 w41 FEASIBLE score 0.6196 hint 0.6263 bound 0.4420 (60.1 s)
+[03:48:18] restricted 3 w0 FEASIBLE score 0.0618 hint 0.1016 bound 0.0040 (60.2 s)
+[03:49:19] restricted 3 w10 FEASIBLE score 0.8744 hint 0.9249 bound 0.8158 (60.1 s)
+[03:50:19] restricted 3 w65 FEASIBLE score 0.8422 hint 0.8702 bound 0.6081 (60.1 s)
+[03:51:20] restricted 3 w50 FEASIBLE score 0.9150 hint 0.9305 bound 0.8146 (60.1 s)
+[03:52:20] restricted 3 w45 FEASIBLE score 0.5077 hint 0.5279 bound 0.4109 (60.1 s)
+[03:53:21] restricted 3 w5 FEASIBLE score 0.5261 hint 0.5261 bound 0.3979 (60.0 s)
+[03:54:21] restricted 3 w53 FEASIBLE score 0.7774 hint 0.7798 bound 0.4819 (60.0 s)
+[03:55:21] restricted 3 w27 FEASIBLE score 0.7818 hint 0.7901 bound 0.5905 (60.0 s)
+[03:56:22] restricted 3 w23 FEASIBLE score 0.4405 hint 0.4448 bound 0.3014 (60.0 s)
+[03:57:22] restricted 3 w41 FEASIBLE score 0.6961 hint 0.7016 bound 0.5295 (60.1 s)
+[03:58:23] restricted 4 w0 FEASIBLE score 0.3267 hint 0.4112 bound 0.0049 (60.1 s)
+[03:59:23] restricted 4 w10 FEASIBLE score 0.9542 hint 0.9605 bound 0.9300 (60.1 s)
+[03:59:51] restricted 4 w65 OPTIMAL score 0.7731 hint 0.7731 bound 0.7731 (27.4 s)
+[04:00:09] restricted 4 w50 OPTIMAL score 0.8755 hint 0.8774 bound 0.8755 (17.4 s)
+[04:01:09] restricted 4 w45 FEASIBLE score 0.6985 hint 0.6985 bound 0.3785 (60.0 s)
+[04:02:09] restricted 4 w5 FEASIBLE score 0.6939 hint 0.7072 bound 0.4650 (60.1 s)
+[04:03:10] restricted 4 w53 FEASIBLE score 0.8165 hint 0.8340 bound 0.5142 (60.0 s)
+[04:04:10] restricted 4 w27 FEASIBLE score 0.8615 hint 0.8757 bound 0.6668 (60.0 s)
+[04:05:10] restricted 4 w23 FEASIBLE score 0.6535 hint 0.6783 bound 0.3145 (60.0 s)
+[04:06:10] restricted 4 w41 FEASIBLE score 0.7800 hint 0.8062 bound 0.4973 (60.0 s)
+[04:06:16] restricted 5 w0 OPTIMAL score 0.0000 hint 0.0027 bound 0.0000 (5.3 s)
+[04:06:51] restricted 5 w10 OPTIMAL score 0.8766 hint 0.9002 bound 0.8766 (34.4 s)
+[04:07:07] restricted 5 w65 OPTIMAL score 0.8538 hint 0.8538 bound 0.8538 (15.6 s)
+[04:07:34] restricted 5 w50 OPTIMAL score 0.8885 hint 0.9004 bound 0.8885 (26.2 s)
+[04:08:34] restricted 5 w45 FEASIBLE score 0.4536 hint 0.4695 bound 0.4313 (60.0 s)
+[04:09:34] restricted 5 w5 FEASIBLE score 0.4740 hint 0.4767 bound 0.4323 (60.1 s)
+[04:10:32] restricted 5 w53 OPTIMAL score 0.7121 hint 0.7290 bound 0.7121 (57.1 s)
+[04:11:32] restricted 5 w27 FEASIBLE score 0.7476 hint 0.7502 bound 0.6651 (60.1 s)
+[04:12:32] restricted 5 w23 FEASIBLE score 0.3901 hint 0.3982 bound 0.2959 (60.0 s)
+[04:13:33] restricted 5 w41 FEASIBLE score 0.6499 hint 0.6520 bound 0.6185 (60.0 s)
+[04:14:36] restricted 6 w0 FEASIBLE score 0.1837 hint 0.1999 bound 0.0033 (62.1 s)
+[04:15:36] restricted 6 w10 FEASIBLE score 0.8640 hint 0.8690 bound 0.8240 (60.1 s)
+[04:16:21] restricted 6 w65 OPTIMAL score 0.7389 hint 0.7588 bound 0.7389 (45.1 s)
+[04:17:11] restricted 6 w50 OPTIMAL score 0.8164 hint 0.8282 bound 0.8163 (49.4 s)
+[04:18:11] restricted 6 w45 FEASIBLE score 0.5347 hint 0.5551 bound 0.3573 (60.0 s)
+[04:19:12] restricted 6 w5 FEASIBLE score 0.5575 hint 0.5599 bound 0.4081 (60.0 s)
+[04:20:12] restricted 6 w53 FEASIBLE score 0.7281 hint 0.7281 bound 0.4566 (60.0 s)
+[04:21:12] restricted 6 w27 FEASIBLE score 0.7564 hint 0.7595 bound 0.5922 (60.0 s)
+[04:22:13] restricted 6 w23 FEASIBLE score 0.4819 hint 0.4893 bound 0.2610 (60.1 s)
+[04:23:13] restricted 6 w41 FEASIBLE score 0.6937 hint 0.6937 bound 0.4724 (60.0 s)
+[04:23:16] restricted 7 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (2.5 s)
+[04:23:40] restricted 7 w10 OPTIMAL score 0.8467 hint 0.8483 bound 0.8467 (24.0 s)
+[04:24:02] restricted 7 w65 OPTIMAL score 0.8025 hint 0.8101 bound 0.8025 (21.1 s)
+[04:24:41] restricted 7 w50 OPTIMAL score 0.8316 hint 0.8418 bound 0.8315 (39.4 s)
+[04:25:42] restricted 7 w45 FEASIBLE score 0.4209 hint 0.4218 bound 0.4114 (60.1 s)
+[04:26:10] restricted 7 w5 OPTIMAL score 0.4259 hint 0.4365 bound 0.4259 (28.4 s)
+[04:27:04] restricted 7 w53 OPTIMAL score 0.6675 hint 0.6675 bound 0.6674 (54.0 s)
+[04:28:05] restricted 7 w27 FEASIBLE score 0.6915 hint 0.6915 bound 0.6311 (60.1 s)
+[04:29:05] restricted 7 w23 FEASIBLE score 0.3477 hint 0.3568 bound 0.3261 (60.0 s)
+[04:30:05] restricted 7 w41 FEASIBLE score 0.5961 hint 0.5961 bound 0.5724 (60.0 s)
+[04:30:11] restricted 8 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.9 s)
+[04:31:11] restricted 8 w10 FEASIBLE score 0.9430 hint 0.9432 bound 0.8764 (60.1 s)
+[04:32:12] restricted 8 w65 FEASIBLE score 0.8727 hint 0.9117 bound 0.6156 (60.1 s)
+[04:33:12] restricted 8 w50 FEASIBLE score 0.9453 hint 0.9610 bound 0.8470 (60.1 s)
+[04:34:13] restricted 8 w45 FEASIBLE score 0.4971 hint 0.5071 bound 0.4078 (60.0 s)
+[04:35:13] restricted 8 w5 FEASIBLE score 0.4888 hint 0.4965 bound 0.4382 (60.0 s)
+[04:36:14] restricted 8 w53 FEASIBLE score 0.7832 hint 0.7832 bound 0.5449 (60.1 s)
+[04:37:14] restricted 8 w27 FEASIBLE score 0.7948 hint 0.7948 bound 0.6660 (60.1 s)
+[04:38:15] restricted 8 w23 FEASIBLE score 0.4090 hint 0.4090 bound 0.3180 (60.1 s)
+[04:39:15] restricted 8 w41 FEASIBLE score 0.7059 hint 0.7059 bound 0.5072 (60.1 s)
+[04:40:16] restricted 9 w0 FEASIBLE score 0.1465 hint 0.1465 bound 0.0005 (60.2 s)
+[04:41:17] restricted 9 w10 FEASIBLE score 0.7720 hint 0.8175 bound 0.6381 (60.2 s)
+[04:42:08] restricted 9 w65 OPTIMAL score 0.7740 hint 0.8077 bound 0.7740 (50.4 s)
+[04:43:08] restricted 9 w50 FEASIBLE score 0.8430 hint 0.8504 bound 0.7453 (60.2 s)
+[04:44:09] restricted 9 w45 FEASIBLE score 0.5408 hint 0.5408 bound 0.3774 (60.1 s)
+[04:45:09] restricted 9 w5 FEASIBLE score 0.5194 hint 0.5194 bound 0.3400 (60.0 s)
+[04:46:10] restricted 9 w53 FEASIBLE score 0.7078 hint 0.7287 bound 0.4785 (60.1 s)
+[04:47:10] restricted 9 w27 FEASIBLE score 0.7409 hint 0.7415 bound 0.5173 (60.0 s)
+[04:48:11] restricted 9 w23 FEASIBLE score 0.4534 hint 0.4534 bound 0.2436 (60.1 s)
+[04:49:11] restricted 9 w41 FEASIBLE score 0.6801 hint 0.6808 bound 0.4310 (60.0 s)
+[04:49:15] restricted 10 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (3.2 s)
+[04:49:35] restricted 10 w10 OPTIMAL score 0.8708 hint 0.8910 bound 0.8708 (19.0 s)
+[04:50:02] restricted 10 w65 OPTIMAL score 0.8298 hint 0.8298 bound 0.8298 (27.0 s)
+[04:50:51] restricted 10 w50 OPTIMAL score 0.8785 hint 0.8809 bound 0.8785 (48.3 s)
+[04:51:51] restricted 10 w45 FEASIBLE score 0.4649 hint 0.4670 bound 0.4172 (60.0 s)
+[04:52:51] restricted 10 w5 FEASIBLE score 0.4545 hint 0.4568 bound 0.4347 (60.0 s)
+[04:53:52] restricted 10 w53 FEASIBLE score 0.7268 hint 0.7268 bound 0.6725 (60.1 s)
+[04:54:52] restricted 10 w27 FEASIBLE score 0.7377 hint 0.7407 bound 0.6720 (60.0 s)
+[04:55:52] restricted 10 w23 FEASIBLE score 0.3737 hint 0.3746 bound 0.3286 (60.0 s)
+[04:56:53] restricted 10 w41 FEASIBLE score 0.6496 hint 0.6499 bound 0.4965 (60.0 s)
+[04:56:58] restricted 11 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.9 s)
+[04:57:59] restricted 11 w10 FEASIBLE score 0.7738 hint 0.7874 bound 0.7602 (60.0 s)
+[04:58:59] restricted 11 w65 FEASIBLE score 0.8265 hint 0.8434 bound 0.6819 (60.1 s)
+[05:00:00] restricted 11 w50 FEASIBLE score 0.8377 hint 0.8476 bound 0.7759 (60.0 s)
+[05:01:00] restricted 11 w45 FEASIBLE score 0.4364 hint 0.4446 bound 0.3988 (60.0 s)
+[05:02:00] restricted 11 w5 FEASIBLE score 0.3901 hint 0.3937 bound 0.3801 (60.0 s)
+[05:03:01] restricted 11 w53 FEASIBLE score 0.6999 hint 0.7005 bound 0.5954 (60.0 s)
+[05:04:01] restricted 11 w27 FEASIBLE score 0.6628 hint 0.6675 bound 0.6005 (60.0 s)
+[05:05:02] restricted 11 w23 FEASIBLE score 0.3446 hint 0.3448 bound 0.2983 (60.1 s)
+[05:06:02] restricted 11 w41 FEASIBLE score 0.5947 hint 0.6061 bound 0.5200 (60.1 s)
+[05:06:07] restricted 12 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.1 s)
+[05:07:08] restricted 12 w10 FEASIBLE score 0.8530 hint 0.8530 bound 0.7972 (60.0 s)
+[05:07:37] restricted 12 w65 OPTIMAL score 0.8250 hint 0.8500 bound 0.8250 (29.6 s)
+[05:08:20] restricted 12 w50 OPTIMAL score 0.8460 hint 0.8657 bound 0.8460 (42.2 s)
+[05:09:20] restricted 12 w45 FEASIBLE score 0.4800 hint 0.5166 bound 0.4172 (60.0 s)
+[05:10:21] restricted 12 w5 FEASIBLE score 0.4268 hint 0.4429 bound 0.3986 (60.0 s)
+[05:11:21] restricted 12 w53 FEASIBLE score 0.7343 hint 0.7425 bound 0.5738 (60.0 s)
+[05:12:21] restricted 12 w27 FEASIBLE score 0.7163 hint 0.7227 bound 0.6283 (60.1 s)
+[05:13:22] restricted 12 w23 FEASIBLE score 0.3753 hint 0.3861 bound 0.3119 (60.0 s)
+[05:14:22] restricted 12 w41 FEASIBLE score 0.6648 hint 0.6745 bound 0.5391 (60.2 s)
+[05:14:28] restricted 13 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.7 s)
+[05:15:14] restricted 13 w10 OPTIMAL score 0.8311 hint 0.8413 bound 0.8310 (45.9 s)
+[05:16:15] restricted 13 w65 FEASIBLE score 0.8099 hint 0.8264 bound 0.5455 (60.0 s)
+[05:17:00] restricted 13 w50 OPTIMAL score 0.8338 hint 0.8375 bound 0.8338 (45.3 s)
+[05:18:01] restricted 13 w45 FEASIBLE score 0.4164 hint 0.4247 bound 0.3857 (60.1 s)
+[05:19:01] restricted 13 w5 FEASIBLE score 0.4281 hint 0.4293 bound 0.4084 (60.1 s)
+[05:20:02] restricted 13 w53 FEASIBLE score 0.6672 hint 0.6713 bound 0.5603 (60.1 s)
+[05:20:31] restricted 13 w27 OPTIMAL score 0.6757 hint 0.6757 bound 0.6757 (29.4 s)
+[05:21:32] restricted 13 w23 FEASIBLE score 0.3454 hint 0.3454 bound 0.3148 (60.2 s)
+[05:22:32] restricted 13 w41 FEASIBLE score 0.5909 hint 0.5909 bound 0.4694 (60.1 s)
+[05:23:33] restricted 14 w0 FEASIBLE score 0.3421 hint 0.3539 bound 0.0079 (60.1 s)
+[05:24:34] restricted 14 w10 FEASIBLE score 0.8701 hint 0.8784 bound 0.8439 (60.0 s)
+[05:24:54] restricted 14 w65 OPTIMAL score 0.8122 hint 0.8317 bound 0.8122 (20.5 s)
+[05:25:18] restricted 14 w50 OPTIMAL score 0.8943 hint 0.9098 bound 0.8943 (23.2 s)
+[05:26:18] restricted 14 w45 FEASIBLE score 0.6348 hint 0.6348 bound 0.4288 (60.1 s)
+[05:27:19] restricted 14 w5 FEASIBLE score 0.6712 hint 0.6734 bound 0.4207 (60.0 s)
+[05:28:19] restricted 14 w53 FEASIBLE score 0.8005 hint 0.8005 bound 0.6502 (60.0 s)
+[05:29:19] restricted 14 w27 FEASIBLE score 0.8336 hint 0.8336 bound 0.6141 (60.0 s)
+[05:30:20] restricted 14 w23 FEASIBLE score 0.6007 hint 0.6007 bound 0.2824 (60.0 s)
+[05:31:20] restricted 14 w41 FEASIBLE score 0.7649 hint 0.7649 bound 0.5322 (60.0 s)
+[05:31:27] restricted 15 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.6 s)
+[05:32:28] restricted 15 w10 FEASIBLE score 0.9050 hint 0.9404 bound 0.8846 (60.0 s)
+[05:32:40] restricted 15 w65 OPTIMAL score 0.8179 hint 0.8543 bound 0.8179 (11.8 s)
+[05:33:40] restricted 15 w50 FEASIBLE score 0.9061 hint 0.9142 bound 0.8884 (60.0 s)
+[05:33:56] restricted 15 w45 OPTIMAL score 0.4174 hint 0.4272 bound 0.4174 (15.6 s)
+[05:34:57] restricted 15 w5 FEASIBLE score 0.4525 hint 0.4702 bound 0.4423 (60.0 s)
+[05:35:17] restricted 15 w53 OPTIMAL score 0.6995 hint 0.7129 bound 0.6995 (20.4 s)
+[05:36:18] restricted 15 w27 FEASIBLE score 0.7409 hint 0.7418 bound 0.7045 (60.0 s)
+[05:37:18] restricted 15 w23 FEASIBLE score 0.3646 hint 0.3657 bound 0.3492 (60.0 s)
+[05:38:18] restricted 15 w41 FEASIBLE score 0.6345 hint 0.6373 bound 0.6120 (60.1 s)
+[05:38:27] restricted 16 w0 OPTIMAL score 0.0000 hint 0.0098 bound 0.0000 (8.1 s)
+[05:39:04] restricted 16 w10 OPTIMAL score 0.8272 hint 0.8412 bound 0.8272 (36.1 s)
+[05:39:30] restricted 16 w65 OPTIMAL score 0.7760 hint 0.8024 bound 0.7760 (26.5 s)
+[05:40:16] restricted 16 w50 OPTIMAL score 0.8407 hint 0.8442 bound 0.8407 (45.6 s)
+[05:41:17] restricted 16 w45 FEASIBLE score 0.4889 hint 0.4889 bound 0.3921 (60.0 s)
+[05:42:17] restricted 16 w5 FEASIBLE score 0.4599 hint 0.4622 bound 0.4037 (60.0 s)
+[05:43:17] restricted 16 w53 FEASIBLE score 0.7219 hint 0.7219 bound 0.5100 (60.0 s)
+[05:44:18] restricted 16 w27 FEASIBLE score 0.7340 hint 0.7340 bound 0.6196 (60.3 s)
+[05:45:18] restricted 16 w23 FEASIBLE score 0.4042 hint 0.4042 bound 0.3019 (60.0 s)
+[05:46:19] restricted 16 w41 FEASIBLE score 0.6669 hint 0.6669 bound 0.5247 (60.2 s)
+[05:46:24] restricted 17 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (4.5 s)
+[05:47:25] restricted 17 w10 FEASIBLE score 0.9005 hint 0.9098 bound 0.8526 (60.1 s)
+[05:48:25] restricted 17 w65 FEASIBLE score 0.7981 hint 0.8248 bound 0.5450 (60.1 s)
+[05:49:26] restricted 17 w50 FEASIBLE score 0.8751 hint 0.8784 bound 0.7979 (60.0 s)
+[05:50:26] restricted 17 w45 FEASIBLE score 0.4112 hint 0.4136 bound 0.3650 (60.1 s)
+[05:51:27] restricted 17 w5 FEASIBLE score 0.4517 hint 0.4552 bound 0.4202 (60.0 s)
+[05:52:27] restricted 17 w53 FEASIBLE score 0.6677 hint 0.6823 bound 0.4958 (60.1 s)
+[05:53:27] restricted 17 w27 FEASIBLE score 0.7152 hint 0.7232 bound 0.6305 (60.0 s)
+[05:54:28] restricted 17 w23 FEASIBLE score 0.3482 hint 0.3514 bound 0.2802 (60.2 s)
+[05:55:28] restricted 17 w41 FEASIBLE score 0.6001 hint 0.6098 bound 0.4749 (60.0 s)
+[05:56:29] restricted 18 w0 FEASIBLE score 0.1732 hint 0.1975 bound 0.0012 (60.2 s)
+[05:57:15] restricted 18 w10 OPTIMAL score 0.9252 hint 0.9446 bound 0.9252 (45.5 s)
+[05:57:28] restricted 18 w65 OPTIMAL score 0.8325 hint 0.8586 bound 0.8325 (12.4 s)
+[05:57:54] restricted 18 w50 OPTIMAL score 0.9122 hint 0.9255 bound 0.9122 (26.3 s)
+[05:58:55] restricted 18 w45 FEASIBLE score 0.6152 hint 0.6152 bound 0.4190 (60.0 s)
+[05:59:55] restricted 18 w5 FEASIBLE score 0.5919 hint 0.5919 bound 0.4481 (60.0 s)
+[06:00:55] restricted 18 w53 FEASIBLE score 0.8032 hint 0.8068 bound 0.6001 (60.2 s)
+[06:01:56] restricted 18 w27 FEASIBLE score 0.8341 hint 0.8341 bound 0.6688 (60.1 s)
+[06:02:56] restricted 18 w23 FEASIBLE score 0.5314 hint 0.5314 bound 0.2913 (60.0 s)
+[06:03:56] restricted 18 w41 FEASIBLE score 0.7556 hint 0.7612 bound 0.5465 (60.0 s)
+[06:04:02] restricted 19 w0 OPTIMAL score 0.0000 hint 0.0000 bound 0.0000 (5.2 s)
+[06:05:03] restricted 19 w10 FEASIBLE score 0.8223 hint 0.8289 bound 0.7767 (60.0 s)
+[06:06:03] restricted 19 w65 FEASIBLE score 0.7411 hint 0.7835 bound 0.6138 (60.1 s)
+[06:07:04] restricted 19 w50 FEASIBLE score 0.8222 hint 0.8329 bound 0.7766 (60.1 s)
+[06:07:40] restricted 19 w45 OPTIMAL score 0.3917 hint 0.4230 bound 0.3917 (36.2 s)
+[06:08:30] restricted 19 w5 OPTIMAL score 0.4174 hint 0.4174 bound 0.4174 (49.6 s)
+[06:09:31] restricted 19 w53 FEASIBLE score 0.6542 hint 0.6693 bound 0.5895 (60.1 s)
+[06:10:31] restricted 19 w27 FEASIBLE score 0.6856 hint 0.6856 bound 0.5989 (60.0 s)
+[06:11:32] restricted 19 w23 FEASIBLE score 0.3496 hint 0.3499 bound 0.2552 (60.0 s)
+[06:12:32] restricted 19 w41 FEASIBLE score 0.5906 hint 0.5977 bound 0.4999 (60.0 s)
+[06:12:33] PART B DONE

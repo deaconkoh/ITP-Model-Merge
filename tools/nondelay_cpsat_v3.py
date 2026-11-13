@@ -430,8 +430,8 @@ def search(split="evaluation", pop=100, elite=10, gens=300, n_seed=20, quick=Fal
     assert np.array_equal(res["machine"], flat_m) and np.allclose(res["start"], flat_s), "search: not reproduced"
     dst = REPO / "results" / "decoding_ceiling_v3" / "search" / (f"{split}_quick.npz" if quick else f"{split}.npz")
     dst.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(dst, **out, settings=json.dumps({"population": pop, "elite": elite, "generations": gens,
-                                                         "seeds": n_seed, **TD.SEARCH}))
+    np.savez_compressed(dst, **out, settings=json.dumps({**TD.SEARCH, "population": pop, "elite": elite,
+                                                         "generations": gens, "seeds": n_seed}))
     print(f"search written: {dst}", flush=True)
 
 

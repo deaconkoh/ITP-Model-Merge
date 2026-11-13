@@ -198,8 +198,17 @@ def render():
     w_(f"- **Question B (the non-delay ceiling):**")
     w_(f"  - Best known DANIEL-reachable hypervolume: {f(old_nd)} before this study, {f(best_nd_hv)} now.")
     w_(f"  - No hypervolume ceiling could be proven: the exact restricted model is too hard to solve.")
-    w_(f"  - On the 200 instance-preference pairs of the proven subset, see B2/B3 for how much of the gap to "
-       "unrestricted CP-SAT is proven to come from the non-delay rule.")
+    rows_ = subset["rows"]
+    tot_ = np.mean([r["nd_best"] - r["u_best"] for r in rows_]); pc_ = np.mean([max(0.0, r["r_lb"] - r["u_best"]) for r in rows_])
+    w_(f"  - **Proven subset** (200 instance-preference pairs, 10 preferences): the best known DANIEL score is "
+       f"{f(tot_)} worse than the best unrestricted schedule on average.")
+    w_(f"  - CP-SAT's own bounds prove that at least {f(pc_)} of that gap ({pct(pc_, tot_)}) is caused by the non-delay "
+       f"rule. The cost is proven in {sum(r['r_lb'] > r['u_best'] + 1e-9 for r in rows_)} of {len(rows_)} pairs, mostly "
+       "carbon-heavy and makespan-heavy preferences.")
+    w_(f"  - The other {pct(tot_ - pc_, tot_)} is unresolved: it could be more cost of the rule, or better DANIEL "
+       "schedules not yet found.")
+    w_(f"  - Search alone is incomplete: the 60 s restricted solves still found {sum(r['r_improved'] and r['r_reproduced'] for r in rows_)} "
+       "better DANIEL-reachable schedules than any other method.")
     w_("")
 
     # ---------------- Part A

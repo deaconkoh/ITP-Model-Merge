@@ -1,0 +1,105 @@
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[00:54:34] validation wm greedy: 3 s
+[00:55:12] validation wm sample16: 38 s
+[01:00:15] validation wm sample128: 303 s
+[01:00:22] validation wm beam2: 7 s
+[01:00:35] validation wm beam4: 13 s
+[01:01:03] validation wm beam8: 28 s
+[01:01:57] validation wm beam16: 55 s
+[01:03:46] validation wm beam32: 109 s
+[01:04:59] validation wm la_g2: 73 s
+[01:07:00] validation wm la_g3: 121 s
+[01:14:06] validation wm la_s2: 426 s
+[01:14:09] validation ctrl greedy: 3 s
+[01:14:56] validation ctrl sample16: 47 s
+[01:20:43] validation ctrl sample128: 347 s
+[01:20:49] validation ctrl beam2: 6 s
+[01:21:02] validation ctrl beam4: 12 s
+[01:21:27] validation ctrl beam8: 25 s
+[01:22:18] validation ctrl beam16: 52 s
+[01:23:58] validation ctrl beam32: 100 s
+[01:25:07] validation ctrl la_g2: 69 s
+[01:26:57] validation ctrl la_g3: 110 s
+[01:33:39] validation ctrl la_s2: 402 s
+[01:33:42] validation fs greedy: 3 s
+[01:34:21] validation fs sample16: 40 s
+[01:39:40] validation fs sample128: 318 s
+[01:39:45] validation fs beam2: 5 s
+[01:39:56] validation fs beam4: 11 s
+[01:40:19] validation fs beam8: 23 s
+[01:41:07] validation fs beam16: 48 s
+[01:42:46] validation fs beam32: 99 s
+[01:43:45] validation fs la_g2: 59 s
+[01:45:24] validation fs la_g3: 99 s
+[01:51:53] validation fs la_s2: 390 s
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[01:52:00] evaluation wm greedy: 4 s
+[01:52:50] evaluation wm sample16: 50 s
+[01:58:09] evaluation wm sample128: 319 s
+[01:58:15] evaluation wm beam2: 6 s
+[01:58:26] evaluation wm beam4: 11 s
+[01:58:49] evaluation wm beam8: 23 s
+[01:59:35] evaluation wm beam16: 46 s
+[02:01:07] evaluation wm beam32: 93 s
+[02:02:11] evaluation wm la_g2: 64 s
+[02:03:50] evaluation wm la_g3: 99 s
+[02:10:25] evaluation wm la_s2: 395 s
+[02:10:28] evaluation ctrl greedy: 3 s
+[02:11:10] evaluation ctrl sample16: 42 s
+[02:16:20] evaluation ctrl sample128: 310 s
+[02:16:25] evaluation ctrl beam2: 6 s
+[02:16:36] evaluation ctrl beam4: 11 s
+[02:16:59] evaluation ctrl beam8: 23 s
+[02:17:45] evaluation ctrl beam16: 46 s
+[02:19:17] evaluation ctrl beam32: 92 s
+[02:20:18] evaluation ctrl la_g2: 61 s
+[02:21:58] evaluation ctrl la_g3: 100 s
+[02:28:24] evaluation ctrl la_s2: 386 s
+[02:28:26] evaluation fs greedy: 2 s
+[02:29:04] evaluation fs sample16: 38 s
+[02:33:58] evaluation fs sample128: 294 s
+[02:34:03] evaluation fs beam2: 5 s
+[02:34:13] evaluation fs beam4: 10 s
+[02:34:36] evaluation fs beam8: 22 s
+[02:35:20] evaluation fs beam16: 44 s
+[02:36:49] evaluation fs beam32: 89 s
+[02:37:43] evaluation fs la_g2: 55 s
+[02:39:17] evaluation fs la_g3: 93 s
+[02:45:32] evaluation fs la_s2: 375 s
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+latency wm greedy: mean 0.630 s, max 1.362 s
+latency wm sample16: mean 0.714 s, max 1.562 s
+latency wm sample128: mean 0.992 s, max 1.780 s
+latency wm beam2: mean 0.565 s, max 1.016 s
+latency wm beam4: mean 0.628 s, max 1.278 s
+latency wm beam8: mean 0.950 s, max 2.370 s
+latency wm beam16: mean 0.730 s, max 1.652 s
+latency wm beam32: mean 0.698 s, max 1.671 s
+latency wm la_g2: mean 15.559 s, max 19.856 s
+latency wm la_g3: mean 14.908 s, max 17.894 s
+latency wm la_s2: mean 17.324 s, max 21.164 s
+latency ctrl greedy: mean 0.694 s, max 1.557 s
+latency ctrl sample16: mean 0.475 s, max 0.984 s
+latency ctrl sample128: mean 1.278 s, max 1.913 s
+latency ctrl beam2: mean 0.643 s, max 1.470 s
+latency ctrl beam4: mean 0.739 s, max 1.921 s
+latency ctrl beam8: mean 0.541 s, max 0.985 s
+latency ctrl beam16: mean 0.596 s, max 0.958 s
+latency ctrl beam32: mean 0.837 s, max 2.110 s
+latency ctrl la_g2: mean 15.026 s, max 18.241 s
+latency ctrl la_g3: mean 14.545 s, max 17.538 s
+latency ctrl la_s2: mean 15.533 s, max 20.480 s
+latency fs greedy: mean 0.555 s, max 1.184 s
+latency fs sample16: mean 0.634 s, max 1.240 s
+latency fs sample128: mean 0.902 s, max 1.064 s
+latency fs beam2: mean 0.518 s, max 0.580 s
+latency fs beam4: mean 0.572 s, max 0.673 s
+latency fs beam8: mean 0.584 s, max 0.773 s
+latency fs beam16: mean 0.589 s, max 1.094 s
+latency fs beam32: mean 0.710 s, max 0.871 s
+latency fs la_g2: mean 11.833 s, max 13.235 s
+latency fs la_g3: mean 11.864 s, max 12.820 s
+latency fs la_s2: mean 13.509 s, max 14.702 s
