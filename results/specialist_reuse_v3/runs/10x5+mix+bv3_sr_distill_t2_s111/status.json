@@ -1,0 +1,22 @@
+{
+ "model_name": "10x5+mix+bv3_sr_distill_t2_s111",
+ "goal": "mct",
+ "update": 1000,
+ "max_updates": 1000,
+ "status": "FINISHED",
+ "best_value": -0.9533560454734231,
+ "best_update": 800,
+ "latest_value": -0.9366520151061748,
+ "rel_improvement_window": null,
+ "train_seconds": 2237.8427760601044,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 1000,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ },
+ "written": "2026-11-14 09:24:35"
+}
