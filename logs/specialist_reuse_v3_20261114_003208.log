@@ -1,0 +1,175 @@
+[2026-11-14 00:32:08] pre-flight: 3 parallel jobs
+specialist reuse settings OK
+----------------------------------------------------------------------
+Ran 1 test in 8.303s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+.........../home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/__init__.py:1275: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:434.)
+  _C._set_default_tensor_type(t)
+................................................
+----------------------------------------------------------------------
+Ran 59 tests in 109.222s
+
+OK
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+....
+----------------------------------------------------------------------
+Ran 4 tests in 8.210s
+
+OK
+[2026-11-14 00:34:18] pre-flight OK: GPU NVIDIA GeForce RTX 5060 Ti, 10 GB RAM, settings verified, tests pass
+[2026-11-14 00:34:18] start (3 slots)
+[2026-11-14 00:34:19] base: base_s111.pth 4dcd03207856
+[2026-11-14 00:34:19] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status NONE, slot 0)
+[2026-11-14 00:34:19] train 10x5+mix+bv3_sr_spec_c_s111: chunk (status NONE, slot 1)
+[2026-11-14 00:34:19] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status NONE, slot 2)
+[2026-11-14 00:52:17] train 10x5+mix+bv3_sr_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 00:52:24] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 00:52:51] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 01:11:12] train 10x5+mix+bv3_sr_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 01:11:18] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 01:11:26] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 01:30:13] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 01:30:23] train 10x5+mix+bv3_sr_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 01:30:26] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 01:47:29] 10x5+mix+bv3_sr_spec_c_s111: CONVERGED at update 1950 (best 0.8009 @ 1950, 1.22 h)
+[2026-11-14 01:47:29] train 10x5+mix+bv3_sr_scratch_t0_s111: chunk (status NONE, slot 1)
+[2026-11-14 01:49:22] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 01:49:28] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 02:06:58] train 10x5+mix+bv3_sr_scratch_t0_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 02:08:23] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 02:08:27] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 02:26:02] 10x5+mix+bv3_sr_scratch_t0_s111: FINISHED at update 1000 (best -0.4884 @ 900, 0.64 h)
+[2026-11-14 02:26:02] train 10x5+mix+bv3_sr_scratch_t1_s111: chunk (status NONE, slot 1)
+[2026-11-14 02:27:28] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 02:27:37] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 02:45:24] train 10x5+mix+bv3_sr_scratch_t1_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 02:46:34] train 10x5+mix+bv3_sr_spec_m_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 02:46:46] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 02:48:33] 10x5+mix+bv3_sr_spec_m_s111: CONVERGED at update 3550 (best 0.9298 @ 3050, 2.23 h)
+[2026-11-14 02:48:33] train 10x5+mix+bv3_sr_scratch_t2_s111: chunk (status NONE, slot 2)
+[2026-11-14 03:04:42] 10x5+mix+bv3_sr_scratch_t1_s111: FINISHED at update 1000 (best -0.2877 @ 750, 0.64 h)
+[2026-11-14 03:04:42] train 10x5+mix+bv3_sr_scratch_t3_s111: chunk (status NONE, slot 1)
+[2026-11-14 03:05:46] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 03:07:48] train 10x5+mix+bv3_sr_scratch_t2_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 03:24:03] train 10x5+mix+bv3_sr_scratch_t3_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 03:24:33] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 03:27:22] 10x5+mix+bv3_sr_scratch_t2_s111: FINISHED at update 1000 (best -0.5926 @ 900, 0.64 h)
+[2026-11-14 03:27:22] train 10x5+mix+bv3_sr_scratch_t4_s111: chunk (status NONE, slot 2)
+[2026-11-14 03:43:24] 10x5+mix+bv3_sr_scratch_t3_s111: FINISHED at update 1000 (best -0.5005 @ 1000, 0.64 h)
+[2026-11-14 03:43:24] train 10x5+mix+bv3_sr_scratch_t5_s111: chunk (status NONE, slot 1)
+[2026-11-14 03:43:46] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 03:46:16] train 10x5+mix+bv3_sr_scratch_t4_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 04:02:22] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 04:02:46] train 10x5+mix+bv3_sr_scratch_t5_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 04:05:54] 10x5+mix+bv3_sr_scratch_t4_s111: FINISHED at update 1000 (best -0.7969 @ 950, 0.64 h)
+[2026-11-14 04:18:44] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 04:19:36] 10x5+mix+bv3_sr_scratch_t5_s111: FINISHED at update 1000 (best -0.6927 @ 950, 0.60 h)
+[2026-11-14 04:32:19] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 04:45:46] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 04:59:06] train 10x5+mix+bv3_sr_spec_t_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 05:09:46] 10x5+mix+bv3_sr_spec_t_s111: CONVERGED at update 7900 (best 0.1768 @ 6900, 4.58 h)
+[2026-11-14 05:09:49] merge checks passed: preference changes the merged weights; corners reproduce the specialists
+[2026-11-14 05:11:21] distillation stage 1: 90 s
+[2026-11-14 05:11:26] TIES screen keep 0.2 lambda 0.8: validation HV 0.6885
+[2026-11-14 05:11:30] TIES screen keep 0.2 lambda 1.0: validation HV 0.6920
+[2026-11-14 05:11:33] TIES screen keep 0.2 lambda 1.5: validation HV 0.7198
+[2026-11-14 05:11:38] TIES screen keep 0.5 lambda 0.8: validation HV 0.7870
+[2026-11-14 05:11:42] TIES screen keep 0.5 lambda 1.0: validation HV 0.8358
+[2026-11-14 05:11:46] TIES screen keep 0.5 lambda 1.5: validation HV 0.8799
+[2026-11-14 05:11:50] TIES screen keep 0.8 lambda 0.8: validation HV 0.8138
+[2026-11-14 05:11:54] TIES screen keep 0.8 lambda 1.0: validation HV 0.8662
+[2026-11-14 05:11:57] TIES screen keep 0.8 lambda 1.5: validation HV 0.8399
+[2026-11-14 05:11:57] TIES merge setting selected: keep 0.5, lambda 1.5
+[2026-11-14 05:11:57] train 10x5+mix+bv3_sr_ties_t0_s111: chunk (status NONE, slot 0)
+[2026-11-14 05:11:57] train 10x5+mix+bv3_sr_ties_t1_s111: chunk (status NONE, slot 1)
+[2026-11-14 05:11:57] train 10x5+mix+bv3_sr_ties_t2_s111: chunk (status NONE, slot 2)
+[2026-11-14 05:40:49] train 10x5+mix+bv3_sr_ties_t0_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 05:40:55] train 10x5+mix+bv3_sr_ties_t2_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 05:41:10] train 10x5+mix+bv3_sr_ties_t1_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 06:09:19] 10x5+mix+bv3_sr_ties_t0_s111: FINISHED at update 1000 (best -0.9245 @ 1000, 0.95 h)
+[2026-11-14 06:09:19] train 10x5+mix+bv3_sr_ties_t3_s111: chunk (status NONE, slot 0)
+[2026-11-14 06:09:45] 10x5+mix+bv3_sr_ties_t2_s111: FINISHED at update 1000 (best -0.9177 @ 700, 0.96 h)
+[2026-11-14 06:09:45] train 10x5+mix+bv3_sr_ties_t4_s111: chunk (status NONE, slot 2)
+[2026-11-14 06:10:34] 10x5+mix+bv3_sr_ties_t1_s111: FINISHED at update 1000 (best -0.8898 @ 450, 0.97 h)
+[2026-11-14 06:10:34] train 10x5+mix+bv3_sr_ties_t5_s111: chunk (status NONE, slot 1)
+[2026-11-14 06:38:02] train 10x5+mix+bv3_sr_ties_t3_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 06:38:57] train 10x5+mix+bv3_sr_ties_t4_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 06:39:39] train 10x5+mix+bv3_sr_ties_t5_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 07:07:10] 10x5+mix+bv3_sr_ties_t3_s111: FINISHED at update 1000 (best -0.8980 @ 550, 0.96 h)
+[2026-11-14 07:07:10] train 10x5+mix+bv3_sr_rs_t0_s111: chunk (status NONE, slot 0)
+[2026-11-14 07:07:38] 10x5+mix+bv3_sr_ties_t4_s111: FINISHED at update 1000 (best -0.9156 @ 850, 0.96 h)
+[2026-11-14 07:07:38] train 10x5+mix+bv3_sr_rs_t1_s111: chunk (status NONE, slot 2)
+[2026-11-14 07:08:38] 10x5+mix+bv3_sr_ties_t5_s111: FINISHED at update 1000 (best -0.9025 @ 1000, 0.97 h)
+[2026-11-14 07:08:38] train 10x5+mix+bv3_sr_rs_t2_s111: chunk (status NONE, slot 1)
+[2026-11-14 07:31:16] train 10x5+mix+bv3_sr_rs_t0_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 07:31:47] train 10x5+mix+bv3_sr_rs_t1_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 07:33:28] train 10x5+mix+bv3_sr_rs_t2_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 07:55:16] 10x5+mix+bv3_sr_rs_t0_s111: FINISHED at update 1000 (best -0.9142 @ 800, 0.80 h)
+[2026-11-14 07:55:16] train 10x5+mix+bv3_sr_rs_t3_s111: chunk (status NONE, slot 0)
+[2026-11-14 07:55:52] 10x5+mix+bv3_sr_rs_t1_s111: FINISHED at update 1000 (best -0.9031 @ 300, 0.80 h)
+[2026-11-14 07:55:52] train 10x5+mix+bv3_sr_rs_t4_s111: chunk (status NONE, slot 2)
+[2026-11-14 07:58:24] 10x5+mix+bv3_sr_rs_t2_s111: FINISHED at update 1000 (best -0.9264 @ 700, 0.83 h)
+[2026-11-14 07:58:24] train 10x5+mix+bv3_sr_rs_t5_s111: chunk (status NONE, slot 1)
+[2026-11-14 08:19:40] train 10x5+mix+bv3_sr_rs_t4_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 08:19:49] train 10x5+mix+bv3_sr_rs_t3_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 08:22:50] train 10x5+mix+bv3_sr_rs_t5_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 08:43:46] 10x5+mix+bv3_sr_rs_t4_s111: FINISHED at update 1000 (best -0.9330 @ 700, 0.80 h)
+[2026-11-14 08:43:46] train 10x5+mix+bv3_sr_distill_t0_s111: chunk (status NONE, slot 2)
+[2026-11-14 08:44:24] 10x5+mix+bv3_sr_rs_t3_s111: FINISHED at update 1000 (best -0.8999 @ 700, 0.82 h)
+[2026-11-14 08:44:24] train 10x5+mix+bv3_sr_distill_t1_s111: chunk (status NONE, slot 0)
+[2026-11-14 08:47:12] 10x5+mix+bv3_sr_rs_t5_s111: FINISHED at update 1000 (best -0.9026 @ 800, 0.81 h)
+[2026-11-14 08:47:12] train 10x5+mix+bv3_sr_distill_t2_s111: chunk (status NONE, slot 1)
+[2026-11-14 09:02:11] train 10x5+mix+bv3_sr_distill_t0_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 09:02:40] train 10x5+mix+bv3_sr_distill_t1_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 09:05:40] train 10x5+mix+bv3_sr_distill_t2_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 09:21:32] 10x5+mix+bv3_sr_distill_t1_s111: FINISHED at update 1000 (best -0.9271 @ 1000, 0.62 h)
+[2026-11-14 09:21:32] train 10x5+mix+bv3_sr_distill_t3_s111: chunk (status NONE, slot 0)
+[2026-11-14 09:21:42] 10x5+mix+bv3_sr_distill_t0_s111: FINISHED at update 1000 (best -0.9312 @ 700, 0.63 h)
+[2026-11-14 09:21:42] train 10x5+mix+bv3_sr_distill_t4_s111: chunk (status NONE, slot 2)
+[2026-11-14 09:24:36] 10x5+mix+bv3_sr_distill_t2_s111: FINISHED at update 1000 (best -0.9534 @ 800, 0.62 h)
+[2026-11-14 09:24:36] train 10x5+mix+bv3_sr_distill_t5_s111: chunk (status NONE, slot 1)
+[2026-11-14 09:40:34] train 10x5+mix+bv3_sr_distill_t3_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 09:41:10] train 10x5+mix+bv3_sr_distill_t4_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 09:43:39] train 10x5+mix+bv3_sr_distill_t5_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 09:59:36] 10x5+mix+bv3_sr_distill_t3_s111: FINISHED at update 1000 (best -0.9248 @ 800, 0.63 h)
+[2026-11-14 10:00:35] 10x5+mix+bv3_sr_distill_t4_s111: FINISHED at update 1000 (best -0.9516 @ 1000, 0.65 h)
+[2026-11-14 10:01:42] 10x5+mix+bv3_sr_distill_t5_s111: FINISHED at update 1000 (best -0.9203 @ 750, 0.62 h)
+[2026-11-14 10:01:42] selected for scratch: lr 0.001, beta 0.1
+[2026-11-14 10:01:42] selected for distill: lr 0.0003, beta 0.1
+[2026-11-14 10:01:42] selected for rs: lr 0.001, beta 0.1
+[2026-11-14 10:01:42] selected for ties: lr 0.0001, beta 0.1
+[2026-11-14 10:01:42] train 10x5+mix+bv3_sr_rs_s111: chunk (status NONE, slot 1)
+[2026-11-14 10:01:42] train 10x5+mix+bv3_sr_ties_s111: chunk (status NONE, slot 0)
+[2026-11-14 10:01:42] train 10x5+mix+bv3_sr_distill_s111: chunk (status NONE, slot 2)
+[2026-11-14 10:20:10] train 10x5+mix+bv3_sr_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 10:26:23] train 10x5+mix+bv3_sr_rs_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 10:29:52] train 10x5+mix+bv3_sr_ties_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 10:38:55] train 10x5+mix+bv3_sr_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 10:51:11] train 10x5+mix+bv3_sr_rs_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 10:58:36] train 10x5+mix+bv3_sr_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 10:59:15] train 10x5+mix+bv3_sr_ties_s111: chunk (status RUNNING, slot 0)
+[2026-11-14 11:10:12] 10x5+mix+bv3_sr_distill_s111: CONVERGED at update 1800 (best -0.9535 @ 1300, 1.14 h)
+[2026-11-14 11:10:12] train 10x5+mix+bv3_sr_scratch_s111: chunk (status NONE, slot 2)
+[2026-11-14 11:16:23] train 10x5+mix+bv3_sr_rs_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 11:29:01] 10x5+mix+bv3_sr_ties_s111: CONVERGED at update 1500 (best -0.9245 @ 1000, 1.45 h)
+[2026-11-14 11:29:19] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 11:39:53] train 10x5+mix+bv3_sr_rs_s111: chunk (status RUNNING, slot 1)
+[2026-11-14 11:45:05] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 11:46:30] 10x5+mix+bv3_sr_rs_s111: CONVERGED at update 2150 (best -0.9377 @ 1150, 1.74 h)
+[2026-11-14 11:57:31] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 12:09:28] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 12:21:42] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 12:34:01] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 12:47:54] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 13:00:50] train 10x5+mix+bv3_sr_scratch_s111: chunk (status RUNNING, slot 2)
+[2026-11-14 13:10:37] 10x5+mix+bv3_sr_scratch_s111: CONVERGED at update 4400 (best -0.9567 @ 3400, 2.00 h)
+[2026-11-14 13:35:46] evaluated scratch
+[2026-11-14 14:00:49] evaluated distill
+[2026-11-14 14:27:09] evaluated rs
+[2026-11-14 14:53:36] evaluated ties
+[2026-11-14 14:53:37] done (14.32 h this invocation)
+[2026-11-14 14:53:37] DONE (859 min). Committed locally; push when ready.
