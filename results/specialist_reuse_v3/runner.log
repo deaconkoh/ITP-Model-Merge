@@ -174,3 +174,8 @@ sample128: 1488 s (0.2221 s per pair)
 greedy: 13 s (0.0019 s per pair)
 sample128: 1564 s (0.2334 s per pair)
 [2026-11-14 14:27:09] evaluated rs
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 13 s (0.0020 s per pair)
+sample128: 1571 s (0.2345 s per pair)
+[2026-11-14 14:53:36] evaluated ties
