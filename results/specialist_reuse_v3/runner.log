@@ -164,3 +164,8 @@ ties_keep0.8_lambda1.5 PASS weight change 0.419 {'m': (True, '2.4e-07'), 'c': (T
 greedy: 12 s (0.0019 s per pair)
 sample128: 1493 s (0.2229 s per pair)
 [2026-11-14 13:35:46] evaluated scratch
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 13 s (0.0019 s per pair)
+sample128: 1488 s (0.2221 s per pair)
+[2026-11-14 14:00:49] evaluated distill
