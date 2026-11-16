@@ -1,0 +1,239 @@
+{
+ "states": 4410,
+ "valid_actions": 12480,
+ "rules": [
+  "MWKR+ECT",
+  "MWKR+MINE",
+  "EDD+ECT"
+ ],
+ "checks": {
+  "candidates_legal_under_saved_mask": "12480/12480",
+  "true_completion_below_saved_lower_bound": 0,
+  "states_where_saved_lower_bounds_differ_across_actions": 3647
+ },
+ "results": {
+  "MWKR+ECT": {
+   "makespan": {
+    "pairs": 14202,
+    "exact_ties": 2124,
+    "near_ties": 3477,
+    "accuracy": 0.5204918032786885,
+    "accuracy_excl_near_ties": 0.5223776223776224,
+    "accuracy_by_true_difference_quartile": [
+     0.5162052667116813,
+     0.4977921195652174,
+     0.5242513020833334,
+     0.5424193548387096
+    ],
+    "quartile_edges": [
+     12.0,
+     25.0,
+     44.0
+    ],
+    "predicted_ties": 3,
+    "mae_difference": 26.572595256530906,
+    "mae_difference_if_predict_zero": 26.169764821856077,
+    "accuracy_shuffled": 0.5031876138433515,
+    "mae_objective": 45.87149113141573,
+    "true_sd_between_states": 47.95135219270959
+   },
+   "carbon": {
+    "pairs": 14202,
+    "exact_ties": 1033,
+    "near_ties": 1626,
+    "accuracy": 0.49840534588807045,
+    "accuracy_excl_near_ties": 0.49646151399491095,
+    "accuracy_by_true_difference_quartile": [
+     0.4949863263445761,
+     0.496355906468266,
+     0.5036474164133738,
+     0.4986342943854325
+    ],
+    "quartile_edges": [
+     2.9762966368521404,
+     6.9474775635940205,
+     12.86325888017052
+    ],
+    "predicted_ties": 5,
+    "mae_difference": 8.640416283271852,
+    "mae_difference_if_predict_zero": 8.473793408769074,
+    "accuracy_shuffled": 0.5050877059761562,
+    "mae_objective": 28.838898234446905,
+    "true_sd_between_states": 32.72075019427163
+   },
+   "tardiness": {
+    "pairs": 14202,
+    "exact_ties": 870,
+    "near_ties": 1255,
+    "accuracy": 0.5218646864686468,
+    "accuracy_excl_near_ties": 0.5226693442496331,
+    "accuracy_by_true_difference_quartile": [
+     0.5051005100510051,
+     0.5376537653765376,
+     0.5153061224489796,
+     0.5293941211757649
+    ],
+    "quartile_edges": [
+     56.99999999999994,
+     142.45617704858068,
+     278.3404948052257
+    ],
+    "predicted_ties": 3,
+    "mae_difference": 183.19818313696967,
+    "mae_difference_if_predict_zero": 182.02945384940472,
+    "accuracy_shuffled": 0.5091884188418841,
+    "mae_objective": 240.03030969484595,
+    "true_sd_between_states": 403.46199982164995
+   }
+  },
+  "MWKR+MINE": {
+   "makespan": {
+    "pairs": 14202,
+    "exact_ties": 2117,
+    "near_ties": 3516,
+    "accuracy": 0.5170459247000414,
+    "accuracy_excl_near_ties": 0.5183885457608085,
+    "accuracy_by_true_difference_quartile": [
+     0.5072939460247994,
+     0.5092825676526117,
+     0.5099283854166666,
+     0.5407371483996121
+    ],
+    "quartile_edges": [
+     11.0,
+     25.0,
+     44.0
+    ],
+    "predicted_ties": 3,
+    "mae_difference": 26.563183585584476,
+    "mae_difference_if_predict_zero": 26.140613998028446,
+    "accuracy_shuffled": 0.4982209350434423,
+    "mae_objective": 46.145166453337055,
+    "true_sd_between_states": 48.229009224288035
+   },
+   "carbon": {
+    "pairs": 14202,
+    "exact_ties": 1012,
+    "near_ties": 1583,
+    "accuracy": 0.49920394238059135,
+    "accuracy_excl_near_ties": 0.4987320706870592,
+    "accuracy_by_true_difference_quartile": [
+     0.48650697392359005,
+     0.4969660194174757,
+     0.5069739235900546,
+     0.5063674954517889
+    ],
+    "quartile_edges": [
+     2.9912119792887424,
+     6.9059449419975465,
+     12.901812075863376
+    ],
+    "predicted_ties": 5,
+    "mae_difference": 8.697501617059913,
+    "mae_difference_if_predict_zero": 8.52793459198258,
+    "accuracy_shuffled": 0.5047763457164519,
+    "mae_objective": 28.754717680689936,
+    "true_sd_between_states": 32.761329425618726
+   },
+   "tardiness": {
+    "pairs": 14202,
+    "exact_ties": 856,
+    "near_ties": 1237,
+    "accuracy": 0.5227034317398471,
+    "accuracy_excl_near_ties": 0.5237948322406479,
+    "accuracy_by_true_difference_quartile": [
+     0.5061432424333233,
+     0.5350719424460432,
+     0.5176858513189448,
+     0.5319148936170213
+    ],
+    "quartile_edges": [
+     56.53802588205505,
+     142.99999999999966,
+     275.8233777653822
+    ],
+    "predicted_ties": 2,
+    "mae_difference": 183.27865051001802,
+    "mae_difference_if_predict_zero": 182.09853948501086,
+    "accuracy_shuffled": 0.49719016933912785,
+    "mae_objective": 239.9037536940674,
+    "true_sd_between_states": 401.89488669494256
+   }
+  },
+  "EDD+ECT": {
+   "makespan": {
+    "pairs": 14202,
+    "exact_ties": 2095,
+    "near_ties": 3244,
+    "accuracy": 0.5399768728834559,
+    "accuracy_excl_near_ties": 0.5407464865851432,
+    "accuracy_by_true_difference_quartile": [
+     0.5184069611780455,
+     0.527449046679816,
+     0.5425993985967257,
+     0.5706874189364461
+    ],
+    "quartile_edges": [
+     15.0,
+     32.0,
+     59.0
+    ],
+    "predicted_ties": 3,
+    "mae_difference": 35.48303604072256,
+    "mae_difference_if_predict_zero": 35.01513871285734,
+    "accuracy_shuffled": 0.49743949781118363,
+    "mae_objective": 51.626162416507036,
+    "true_sd_between_states": 67.00561824655813
+   },
+   "carbon": {
+    "pairs": 14202,
+    "exact_ties": 794,
+    "near_ties": 1456,
+    "accuracy": 0.5062276252983293,
+    "accuracy_excl_near_ties": 0.5087478424603797,
+    "accuracy_by_true_difference_quartile": [
+     0.495972553699284,
+     0.5014916467780429,
+     0.5065632458233891,
+     0.5208830548926014
+    ],
+    "quartile_edges": [
+     2.743562700277998,
+     6.215041776946663,
+     11.892758053512253
+    ],
+    "predicted_ties": 5,
+    "mae_difference": 8.009602531894867,
+    "mae_difference_if_predict_zero": 7.833543456850095,
+    "accuracy_shuffled": 0.5019764319809069,
+    "mae_objective": 27.91824401423321,
+    "true_sd_between_states": 32.03809306797116
+   },
+   "tardiness": {
+    "pairs": 14202,
+    "exact_ties": 567,
+    "near_ties": 1002,
+    "accuracy": 0.5405573890722406,
+    "accuracy_excl_near_ties": 0.5414393939393939,
+    "accuracy_by_true_difference_quartile": [
+     0.5130536814315049,
+     0.5375697094217787,
+     0.5425969447708578,
+     0.5689604685212298
+    ],
+    "quartile_edges": [
+     48.4550922866606,
+     112.01450449819924,
+     212.0
+    ],
+    "predicted_ties": 3,
+    "mae_difference": 143.92668640662046,
+    "mae_difference_if_predict_zero": 143.596477739114,
+    "accuracy_shuffled": 0.503960396039604,
+    "mae_objective": 222.0366291245916,
+    "true_sd_between_states": 410.7283384527729
+   }
+  }
+ },
+ "tie_rule": "exact true ties (|true difference| < 1e-9) are excluded from accuracy; a predicted tie counts as 0.5; near ties: |true difference| <= 5 min (makespan, tardiness) or 0.5 kg (carbon)"
+}
