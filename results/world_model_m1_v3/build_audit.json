@@ -1,0 +1,638 @@
+{
+ "state_reproduction_exact": {
+  "fea_j": true,
+  "op_mask": true,
+  "candidate": true,
+  "fea_m": true,
+  "mch_mask": true,
+  "comp_idx": true,
+  "dynamic_pair_mask": true,
+  "rec_cand": true,
+  "rec_step": true,
+  "instance": true
+ },
+ "due_matches_manifest": true,
+ "replays": {
+  "schedules": 24,
+  "max_abs_diff": {
+   "max_abs_job_completion": 0.0,
+   "max_abs_machine_busy": 0.0,
+   "max_abs_machine_energy": 1.4210854715202004e-14,
+   "objectives_vs_scorer": 5.684341886080802e-14
+  },
+  "pairs": [
+   {
+    "state": 1478,
+    "a1": 2,
+    "a2": 3,
+    "rule": 0,
+    "recorded_makespan_diff": 71.0,
+    "slot": "a1",
+    "action": 40,
+    "job": 8,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1478,
+    "a1": 2,
+    "a2": 3,
+    "rule": 0,
+    "recorded_makespan_diff": 71.0,
+    "slot": "a2",
+    "action": 20,
+    "job": 4,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1058,
+    "a1": 1,
+    "a2": 2,
+    "rule": 0,
+    "recorded_makespan_diff": 44.0,
+    "slot": "a1",
+    "action": 47,
+    "job": 9,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1058,
+    "a1": 1,
+    "a2": 2,
+    "rule": 0,
+    "recorded_makespan_diff": 44.0,
+    "slot": "a2",
+    "action": 7,
+    "job": 1,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 316,
+    "a1": 2,
+    "a2": 3,
+    "rule": 0,
+    "recorded_makespan_diff": 75.0,
+    "slot": "a1",
+    "action": 20,
+    "job": 4,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 316,
+    "a1": 2,
+    "a2": 3,
+    "rule": 0,
+    "recorded_makespan_diff": 75.0,
+    "slot": "a2",
+    "action": 0,
+    "job": 0,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 2247,
+    "a1": 1,
+    "a2": 2,
+    "rule": 0,
+    "recorded_makespan_diff": 82.0,
+    "slot": "a1",
+    "action": 27,
+    "job": 5,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 3.552713678800501e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 2247,
+    "a1": 1,
+    "a2": 2,
+    "rule": 0,
+    "recorded_makespan_diff": 82.0,
+    "slot": "a2",
+    "action": 12,
+    "job": 2,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 661,
+    "a1": 0,
+    "a2": 1,
+    "rule": 1,
+    "recorded_makespan_diff": 66.0,
+    "slot": "a1",
+    "action": 38,
+    "job": 7,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 1.4210854715202004e-14,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 661,
+    "a1": 0,
+    "a2": 1,
+    "rule": 1,
+    "recorded_makespan_diff": 66.0,
+    "slot": "a2",
+    "action": 48,
+    "job": 9,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 1.4210854715202004e-14,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 4034,
+    "a1": 0,
+    "a2": 1,
+    "rule": 1,
+    "recorded_makespan_diff": 54.0,
+    "slot": "a1",
+    "action": 20,
+    "job": 4,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 1.4210854715202004e-14,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 4034,
+    "a1": 0,
+    "a2": 1,
+    "rule": 1,
+    "recorded_makespan_diff": 54.0,
+    "slot": "a2",
+    "action": 35,
+    "job": 7,
+    "machine": 0,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 0.0,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1019,
+    "a1": 0,
+    "a2": 2,
+    "rule": 1,
+    "recorded_makespan_diff": 57.0,
+    "slot": "a1",
+    "action": 33,
+    "job": 6,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1019,
+    "a1": 0,
+    "a2": 2,
+    "rule": 1,
+    "recorded_makespan_diff": 57.0,
+    "slot": "a2",
+    "action": 28,
+    "job": 5,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 775,
+    "a1": 0,
+    "a2": 2,
+    "rule": 1,
+    "recorded_makespan_diff": 53.0,
+    "slot": "a1",
+    "action": 47,
+    "job": 9,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 1.4210854715202004e-14,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 775,
+    "a1": 0,
+    "a2": 2,
+    "rule": 1,
+    "recorded_makespan_diff": 53.0,
+    "slot": "a2",
+    "action": 2,
+    "job": 0,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 3.552713678800501e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 634,
+    "a1": 1,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 108.0,
+    "slot": "a1",
+    "action": 38,
+    "job": 7,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 5.684341886080802e-14
+   },
+   {
+    "state": 634,
+    "a1": 1,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 108.0,
+    "slot": "a2",
+    "action": 23,
+    "job": 4,
+    "machine": 3,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 1.4210854715202004e-14,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 1522,
+    "a1": 0,
+    "a2": 1,
+    "rule": 2,
+    "recorded_makespan_diff": 86.0,
+    "slot": "a1",
+    "action": 7,
+    "job": 1,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 3.552713678800501e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1522,
+    "a1": 0,
+    "a2": 1,
+    "rule": 2,
+    "recorded_makespan_diff": 86.0,
+    "slot": "a2",
+    "action": 17,
+    "job": 3,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 1224,
+    "a1": 1,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 86.0,
+    "slot": "a1",
+    "action": 37,
+    "job": 7,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 1224,
+    "a1": 1,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 86.0,
+    "slot": "a2",
+    "action": 7,
+    "job": 1,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 2.842170943040401e-14
+   },
+   {
+    "state": 961,
+    "a1": 0,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 75.0,
+    "slot": "a1",
+    "action": 42,
+    "job": 8,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   },
+   {
+    "state": 961,
+    "a1": 0,
+    "a2": 3,
+    "rule": 2,
+    "recorded_makespan_diff": 75.0,
+    "slot": "a2",
+    "action": 7,
+    "job": 1,
+    "machine": 2,
+    "max_abs_job_completion": 0.0,
+    "max_abs_machine_busy": 0.0,
+    "max_abs_machine_energy": 7.105427357601002e-15,
+    "objectives_vs_scorer": 0.0
+   }
+  ]
+ },
+ "train_shard_units": {
+  "tj_max": 892.0,
+  "tm_busy_max": 826.0,
+  "tm_energy_max": 94.21688079833984,
+  "t_norm": 990.0,
+  "e_norm": 133.65,
+  "note": "raw units in the shards; pretrain() divides by t_norm/e_norm"
+ },
+ "head_input_check": {
+  "state_part_identical_across_actions": true,
+  "action_part_identical_across_rules": true,
+  "rule_part_only_varies_by_rule": true
+ },
+ "readout_index_matches_environment": "24/24",
+ "action_embedding": {
+  "pairs": 14202,
+  "same_job_pairs": 684,
+  "a_op_identical_when_same_job": true,
+  "median_norm_diff_same_job": 0.3329385817050934,
+  "median_norm_diff_other": 1.2816684246063232,
+  "median_norm_of_a": 1.551306962966919
+ },
+ "sensitivity": {
+  "MWKR+ECT|makespan": {
+   "sd_true_diff": 39.15481769846456,
+   "sd_pred_diff": 5.607277870178223,
+   "corr_pred_true_diff": 0.10074658987615945
+  },
+  "MWKR+ECT|carbon": {
+   "sd_true_diff": 12.251763093850338,
+   "sd_pred_diff": 1.347338318824768,
+   "corr_pred_true_diff": 0.002542098399688843
+  },
+  "MWKR+ECT|tardiness": {
+   "sd_true_diff": 263.4760980274138,
+   "sd_pred_diff": 31.11457519378377,
+   "corr_pred_true_diff": 0.06376405975826342
+  },
+  "MWKR+MINE|makespan": {
+   "sd_true_diff": 39.28409081738194,
+   "sd_pred_diff": 5.639459133148193,
+   "corr_pred_true_diff": 0.09766995743687654
+  },
+  "MWKR+MINE|carbon": {
+   "sd_true_diff": 12.319574801083563,
+   "sd_pred_diff": 1.3325998783111572,
+   "corr_pred_true_diff": 0.0029285962861263764
+  },
+  "MWKR+MINE|tardiness": {
+   "sd_true_diff": 264.25864177815436,
+   "sd_pred_diff": 31.165747860962448,
+   "corr_pred_true_diff": 0.0661698218352137
+  },
+  "EDD+ECT|makespan": {
+   "sd_true_diff": 53.57377373875886,
+   "sd_pred_diff": 17.67789649963379,
+   "corr_pred_true_diff": 0.22233541307041313
+  },
+  "EDD+ECT|carbon": {
+   "sd_true_diff": 11.067735249253467,
+   "sd_pred_diff": 1.574575424194336,
+   "corr_pred_true_diff": 0.03058263643256853
+  },
+  "EDD+ECT|tardiness": {
+   "sd_true_diff": 200.8364919680822,
+   "sd_pred_diff": 35.83039193225475,
+   "corr_pred_true_diff": 0.11410928344382555
+  }
+ },
+ "accuracy_same_vs_different_job": {
+  "MWKR+ECT|makespan": {
+   "all_accuracy": 0.5204918032786885,
+   "same_job_accuracy": 0.5661231884057971,
+   "same_job_pairs": 552,
+   "different_job_accuracy": 0.5183064376192955,
+   "different_job_pairs": 11526
+  },
+  "MWKR+ECT|carbon": {
+   "all_accuracy": 0.49840534588807045,
+   "same_job_accuracy": 0.5,
+   "same_job_pairs": 684,
+   "different_job_accuracy": 0.4983179815778935,
+   "different_job_pairs": 12485
+  },
+  "MWKR+ECT|tardiness": {
+   "all_accuracy": 0.5218646864686468,
+   "same_job_accuracy": 0.5133333333333333,
+   "same_job_pairs": 675,
+   "different_job_accuracy": 0.5223196650075057,
+   "different_job_pairs": 12657
+  },
+  "MWKR+MINE|makespan": {
+   "all_accuracy": 0.5170459247000414,
+   "same_job_accuracy": 0.5503663003663004,
+   "same_job_pairs": 546,
+   "different_job_accuracy": 0.5154692781003554,
+   "different_job_pairs": 11539
+  },
+  "MWKR+MINE|carbon": {
+   "all_accuracy": 0.49920394238059135,
+   "same_job_accuracy": 0.5014619883040936,
+   "same_job_pairs": 684,
+   "different_job_accuracy": 0.4990804413881337,
+   "different_job_pairs": 12506
+  },
+  "MWKR+MINE|tardiness": {
+   "all_accuracy": 0.5227034317398471,
+   "same_job_accuracy": 0.5200594353640416,
+   "same_job_pairs": 673,
+   "different_job_accuracy": 0.5228438412372761,
+   "different_job_pairs": 12673
+  },
+  "EDD+ECT|makespan": {
+   "all_accuracy": 0.5399768728834559,
+   "same_job_accuracy": 0.5590909090909091,
+   "same_job_pairs": 550,
+   "different_job_accuracy": 0.5390672319806178,
+   "different_job_pairs": 11557
+  },
+  "EDD+ECT|carbon": {
+   "all_accuracy": 0.5062276252983293,
+   "same_job_accuracy": 0.5372807017543859,
+   "same_job_pairs": 684,
+   "different_job_accuracy": 0.5045583149952845,
+   "different_job_pairs": 12724
+  },
+  "EDD+ECT|tardiness": {
+   "all_accuracy": 0.5405573890722406,
+   "same_job_accuracy": 0.5215773809523809,
+   "same_job_pairs": 672,
+   "different_job_accuracy": 0.5415413098819718,
+   "different_job_pairs": 12963
+  }
+ },
+ "pair_feature_ranking": {
+  "MWKR+ECT|makespan": {
+   "same_job_pairs_with_feature_difference": 550,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.6563636363636364
+  },
+  "MWKR+ECT|carbon": {
+   "same_job_pairs_with_feature_difference": 684,
+   "feature": "energy on the chosen machine",
+   "lower_feature_is_better_share": 0.7470760233918129
+  },
+  "MWKR+ECT|tardiness": {
+   "same_job_pairs_with_feature_difference": 672,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.7098214285714286
+  },
+  "MWKR+MINE|makespan": {
+   "same_job_pairs_with_feature_difference": 544,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.6323529411764706
+  },
+  "MWKR+MINE|carbon": {
+   "same_job_pairs_with_feature_difference": 684,
+   "feature": "energy on the chosen machine",
+   "lower_feature_is_better_share": 0.75
+  },
+  "MWKR+MINE|tardiness": {
+   "same_job_pairs_with_feature_difference": 670,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.7089552238805971
+  },
+  "EDD+ECT|makespan": {
+   "same_job_pairs_with_feature_difference": 548,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.6423357664233577
+  },
+  "EDD+ECT|carbon": {
+   "same_job_pairs_with_feature_difference": 684,
+   "feature": "energy on the chosen machine",
+   "lower_feature_is_better_share": 0.7456140350877193
+  },
+  "EDD+ECT|tardiness": {
+   "same_job_pairs_with_feature_difference": 669,
+   "feature": "processing time on the chosen machine",
+   "lower_feature_is_better_share": 0.7159940209267563
+  }
+ },
+ "diagnostic_reproduced": {
+  "MWKR+ECT|makespan": [
+   0.5204918032786885,
+   0.5204918032786885
+  ],
+  "MWKR+ECT|carbon": [
+   0.49840534588807045,
+   0.49840534588807045
+  ],
+  "MWKR+ECT|tardiness": [
+   0.5218646864686468,
+   0.5218646864686468
+  ],
+  "MWKR+MINE|makespan": [
+   0.5170459247000414,
+   0.5170459247000414
+  ],
+  "MWKR+MINE|carbon": [
+   0.49920394238059135,
+   0.49920394238059135
+  ],
+  "MWKR+MINE|tardiness": [
+   0.5227034317398471,
+   0.5227034317398471
+  ],
+  "EDD+ECT|makespan": [
+   0.5399768728834559,
+   0.5399768728834559
+  ],
+  "EDD+ECT|carbon": [
+   0.5062276252983293,
+   0.5062276252983293
+  ],
+  "EDD+ECT|tardiness": [
+   0.5405573890722406,
+   0.5405573890722406
+  ]
+ },
+ "missing_information": {
+  "fea_pairs (pair processing time and its 5 ratios, pair waiting time, pair energy, lateness)": "not in the readout; not stored in the dataset",
+  "dynamic_pair_mask (legal pairs)": "not an input of the trunk or heads",
+  "operation features": "z-scored per state (absolute scale removed; machine and global embeddings carry the rest)",
+  "global context": "two mean-pooled embeddings"
+ },
+ "loss": {
+  "validation": {
+   "mean_predictor": 0.003980804805389167,
+   "state_only_oracle": 0.0003643572854343802,
+   "world_model": 0.0017202079761773348,
+   "within_state_variance_share": {
+    "job completion": 0.10873010754585266,
+    "machine busy": 0.1972207874059677,
+    "machine energy": 0.025903312489390373
+   },
+   "share_of_mean_loss_removed_by_state_oracle": 0.9084714515664979,
+   "share_of_action_dependent_loss_removed_by_model": -3.721211966782917
+  },
+  "training_holdout_5_shards": {
+   "mean_predictor": 0.003995701319450777,
+   "state_only_oracle": 0.00034350012429058553,
+   "world_model": 0.0016223005019128322,
+   "within_state_variance_share": {
+    "job completion": 0.10984380543231964,
+    "machine busy": 0.1788901388645172,
+    "machine energy": 0.0239104013890028
+   },
+   "share_of_mean_loss_removed_by_state_oracle": 0.9139995800381977,
+   "share_of_action_dependent_loss_removed_by_model": -3.7555791456961485
+  },
+  "note": "Huber (delta 1) averaged over the 20 outputs, as world_model.loss; errors are << 1, so it is 0.5 x squared error. state-only oracle: each target replaced by its mean over the state's valid actions (same rule), the lowest loss any predictor that ignores the action can reach."
+ }
+}
