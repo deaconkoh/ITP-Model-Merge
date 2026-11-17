@@ -1,0 +1,156 @@
+{
+ "factories": {
+  "total": 200,
+  "train": 160,
+  "heldout": 40
+ },
+ "per_source": {
+  "MWKR+ECT": {
+   "train": {
+    "factories": 160,
+    "states": 1278,
+    "transitions": 5101,
+    "branches_per_state": 3.991392801251956,
+    "share_transitions_in_same_op_group": 0.5159772593609097,
+    "share_later_starting": 0.6684963732601451,
+    "share_states_with_both_start_types": 0.9757433489827856,
+    "behaviour_actions_later_starting": 0.0
+   },
+   "heldout": {
+    "factories": 40,
+    "states": 319,
+    "transitions": 1271,
+    "branches_per_state": 3.9843260188087775,
+    "share_transitions_in_same_op_group": 0.4925255704169945,
+    "share_later_starting": 0.6569630212431157,
+    "share_states_with_both_start_types": 0.9780564263322884,
+    "behaviour_actions_later_starting": 0.0
+   }
+  },
+  "MWKR+MINE": {
+   "train": {
+    "factories": 160,
+    "states": 1280,
+    "transitions": 5098,
+    "branches_per_state": 3.9828125,
+    "share_transitions_in_same_op_group": 0.5074539034915653,
+    "share_later_starting": 0.6612397018438604,
+    "share_states_with_both_start_types": 0.96875,
+    "behaviour_actions_later_starting": 0.0
+   },
+   "heldout": {
+    "factories": 40,
+    "states": 320,
+    "transitions": 1279,
+    "branches_per_state": 3.996875,
+    "share_transitions_in_same_op_group": 0.5058639562157936,
+    "share_later_starting": 0.6708365910867865,
+    "share_states_with_both_start_types": 0.984375,
+    "behaviour_actions_later_starting": 0.0
+   }
+  },
+  "EDD+ECT": {
+   "train": {
+    "factories": 160,
+    "states": 1273,
+    "transitions": 5072,
+    "branches_per_state": 3.9842890809112332,
+    "share_transitions_in_same_op_group": 0.5565851735015773,
+    "share_later_starting": 0.6500394321766562,
+    "share_states_with_both_start_types": 0.9685781618224666,
+    "behaviour_actions_later_starting": 0.0
+   },
+   "heldout": {
+    "factories": 40,
+    "states": 316,
+    "transitions": 1261,
+    "branches_per_state": 3.990506329113924,
+    "share_transitions_in_same_op_group": 0.5646312450436162,
+    "share_later_starting": 0.6661379857256146,
+    "share_states_with_both_start_types": 0.9810126582278481,
+    "behaviour_actions_later_starting": 0.0
+   }
+  },
+  "RANDOM": {
+   "train": {
+    "factories": 160,
+    "states": 1265,
+    "transitions": 5004,
+    "branches_per_state": 3.9557312252964425,
+    "share_transitions_in_same_op_group": 0.5265787370103917,
+    "share_later_starting": 0.6832533972821743,
+    "share_states_with_both_start_types": 0.9707509881422924,
+    "behaviour_actions_later_starting": 0.7965
+   },
+   "heldout": {
+    "factories": 40,
+    "states": 315,
+    "transitions": 1235,
+    "branches_per_state": 3.9206349206349205,
+    "share_transitions_in_same_op_group": 0.5222672064777328,
+    "share_later_starting": 0.6923076923076923,
+    "share_states_with_both_start_types": 0.9714285714285714,
+    "behaviour_actions_later_starting": 0.7955
+   }
+  },
+  "DANIEL": {
+   "train": {
+    "factories": 160,
+    "states": 1274,
+    "transitions": 5080,
+    "branches_per_state": 3.987441130298273,
+    "share_transitions_in_same_op_group": 0.5480314960629922,
+    "share_later_starting": 0.6791338582677166,
+    "share_states_with_both_start_types": 0.966248037676609,
+    "behaviour_actions_later_starting": 0.7075
+   },
+   "heldout": {
+    "factories": 40,
+    "states": 320,
+    "transitions": 1273,
+    "branches_per_state": 3.978125,
+    "share_transitions_in_same_op_group": 0.5435978004713276,
+    "share_later_starting": 0.6928515318146111,
+    "share_states_with_both_start_types": 0.975,
+    "behaviour_actions_later_starting": 0.7085
+   }
+  }
+ },
+ "replay_checks": {
+  "MWKR+ECT": {
+   "checked": 5,
+   "mismatches": 0
+  },
+  "MWKR+MINE": {
+   "checked": 5,
+   "mismatches": 0
+  },
+  "EDD+ECT": {
+   "checked": 5,
+   "mismatches": 0
+  },
+  "RANDOM": {
+   "checked": 5,
+   "mismatches": 0
+  },
+  "DANIEL": {
+   "checked": 5,
+   "mismatches": 0
+  }
+ },
+ "branch_main_episode_untouched": true,
+ "totals": {
+  "states": 7960,
+  "transitions": 31674
+ },
+ "collection_seconds": 6.497973442077637,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 200,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ }
+}

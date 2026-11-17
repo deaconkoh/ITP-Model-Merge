@@ -1,0 +1,39 @@
+[2026-11-17 22:37:29] collect MWKR+ECT: 1597 states, 6372 transitions, 1 s
+[2026-11-17 22:37:29] collect MWKR+MINE: 1600 states, 6377 transitions, 1 s
+[2026-11-17 22:37:30] collect EDD+ECT: 1589 states, 6333 transitions, 1 s
+[2026-11-17 22:37:31] collect RANDOM: 1580 states, 6239 transitions, 1 s
+[2026-11-17 22:37:33] collect DANIEL: 1594 states, 6353 transitions, 2 s
+[2026-11-17 22:37:34] collection: 7960 states, 31674 transitions, 6 s
+[2026-11-17 22:37:34] train: 25355 transitions, start {'mean_std': 0.4196365278451576, 'min_std': 0.24076430379356234, 'effective_rank': 5.121519007104592}, variance floor 0.2098
+[2026-11-17 22:37:39] epoch 1: pred 0.17175 var 0.00000 rank 5.19 std 0.4058
+[2026-11-17 22:37:44] epoch 2: pred 0.07662 var 0.00000 rank 5.22 std 0.3906
+[2026-11-17 22:37:48] epoch 3: pred 0.06126 var 0.00000 rank 5.23 std 0.3779
+[2026-11-17 22:37:52] epoch 4: pred 0.05152 var 0.00001 rank 5.22 std 0.3673
+[2026-11-17 22:37:55] epoch 5: pred 0.04431 var 0.00001 rank 5.21 std 0.3580
+[2026-11-17 22:38:01] epoch 6: pred 0.03867 var 0.00001 rank 5.19 std 0.3500
+[2026-11-17 22:38:06] epoch 7: pred 0.03420 var 0.00000 rank 5.17 std 0.3428
+[2026-11-17 22:38:10] epoch 8: pred 0.03051 var 0.00000 rank 5.15 std 0.3362
+[2026-11-17 22:38:14] epoch 9: pred 0.02745 var 0.00000 rank 5.13 std 0.3301
+[2026-11-17 22:38:17] epoch 10: pred 0.02486 var 0.00000 rank 5.11 std 0.3246
+[2026-11-17 22:38:20] epoch 11: pred 0.02263 var 0.00000 rank 5.09 std 0.3194
+[2026-11-17 22:38:25] epoch 12: pred 0.02071 var 0.00002 rank 5.07 std 0.3146
+[2026-11-17 22:38:29] epoch 13: pred 0.01907 var 0.00000 rank 5.05 std 0.3103
+[2026-11-17 22:38:33] epoch 14: pred 0.01764 var 0.00000 rank 5.04 std 0.3064
+[2026-11-17 22:38:37] epoch 15: pred 0.01636 var 0.00000 rank 5.03 std 0.3028
+[2026-11-17 22:38:42] epoch 16: pred 0.01522 var 0.00000 rank 5.02 std 0.2990
+[2026-11-17 22:38:46] epoch 17: pred 0.01422 var 0.00000 rank 5.01 std 0.2956
+[2026-11-17 22:38:51] epoch 18: pred 0.01332 var 0.00000 rank 5.00 std 0.2925
+[2026-11-17 22:38:55] epoch 19: pred 0.01257 var 0.00000 rank 5.00 std 0.2901
+[2026-11-17 22:38:59] epoch 20: pred 0.01187 var 0.00000 rank 4.99 std 0.2875
+[2026-11-17 22:39:03] epoch 21: pred 0.01126 var 0.00000 rank 4.99 std 0.2853
+[2026-11-17 22:39:07] epoch 22: pred 0.01071 var 0.00000 rank 4.99 std 0.2830
+[2026-11-17 22:39:11] epoch 23: pred 0.01021 var 0.00000 rank 4.99 std 0.2808
+[2026-11-17 22:39:15] epoch 24: pred 0.00976 var 0.00000 rank 4.99 std 0.2787
+[2026-11-17 22:39:19] epoch 25: pred 0.00936 var 0.00000 rank 5.00 std 0.2768
+[2026-11-17 22:39:23] epoch 26: pred 0.00899 var 0.00000 rank 5.00 std 0.2748
+[2026-11-17 22:39:28] epoch 27: pred 0.00864 var 0.00000 rank 5.01 std 0.2729
+[2026-11-17 22:39:34] epoch 28: pred 0.00832 var 0.00000 rank 5.02 std 0.2710
+[2026-11-17 22:39:38] epoch 29: pred 0.00804 var 0.00000 rank 5.03 std 0.2695
+[2026-11-17 22:39:41] epoch 30: pred 0.00777 var 0.00000 rank 5.04 std 0.2680
+[2026-11-17 22:39:42] train done: 128 s
+[2026-11-17 22:39:43] evaluate: {"change_explained_changed_tokens": 0.6000543098982504, "shuffle_worse_share": 0.9723270440251572, "discrimination_overall": 0.7598450270671904, "discrimination_each_type_ok": false, "responds_reliably": false}
