@@ -1,0 +1,33 @@
+{
+ "encoders": {
+  "path": "checkpoints/world_model_latent_pilot_aux_centred_v3",
+  "sha256": {
+   "online_encoder.pth": "24dc9c96268513bf2e456442756c5fabc148dd256258128c7234fb451f19cf77",
+   "target_encoder.pth": "4af991eb66170ce336e41dbba04f489b5bcedbbb7b2684fe40bb56f821df8578"
+  },
+  "frozen": true
+ },
+ "constants": {
+  "instances": 200,
+  "seed": 3111,
+  "holdout_mod": 5,
+  "holdout_rem": 4,
+  "states_per_episode": 8,
+  "max_branches": 4,
+  "epochs": 30,
+  "lr": 0.0001,
+  "batch": 256,
+  "train_seed": 111,
+  "ema": 0.996,
+  "var_weight": 1.0,
+  "var_floor_share_of_initial_std": 0.5,
+  "pred_hidden": 64,
+  "pred_heads": 4,
+  "collapse_rank_share": 0.25,
+  "collapse_std_share": 0.1,
+  "eval_tol": 1e-06
+ },
+ "historical_reference_same_op": 0.5171484566389025,
+ "mch_head": "Linear(64,64)-ReLU-Linear(64,8), shared across machines",
+ "written": "2026-11-17 23:29:23"
+}
