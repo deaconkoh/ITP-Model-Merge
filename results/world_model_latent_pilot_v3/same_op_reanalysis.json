@@ -1,0 +1,239 @@
+{
+ "reproduction": {
+  "accuracy": 0.5156785889269966,
+  "unordered_pairs": 2041,
+  "saved_accuracy": 0.5156785889269966,
+  "saved_unordered_pairs": 2041,
+  "identical": true
+ },
+ "classes": {
+  "interchangeable": {
+   "unordered_pairs": 0,
+   "accuracy": null
+  },
+  "meaningfully_different": {
+   "unordered_pairs": 2041,
+   "accuracy": 0.5156785889269966,
+   "median_true_branch_distance": 0.060625649988651276,
+   "median_pred_branch_distance": 0.013090045191347599
+  },
+  "unclear": {
+   "unordered_pairs": 0,
+   "accuracy": null
+  }
+ },
+ "unclear_reasons": {},
+ "meaningful_by_what_changed": {
+  "finish_time+energy+other_job_start": {
+   "unordered_pairs": 1923,
+   "accuracy": 0.5145605824232969,
+   "median_true_branch_distance": 0.06135253235697746,
+   "median_pred_branch_distance": 0.012948631308972836
+  },
+  "finish_time+energy": {
+   "unordered_pairs": 103,
+   "accuracy": 0.5388349514563107,
+   "median_true_branch_distance": 0.022533567622303963,
+   "median_pred_branch_distance": 0.018414609134197235
+  },
+  "energy+other_job_start": {
+   "unordered_pairs": 14,
+   "accuracy": 0.5,
+   "median_true_branch_distance": 0.046572791412472725,
+   "median_pred_branch_distance": 0.0055400177370756865
+  },
+  "energy": {
+   "unordered_pairs": 1,
+   "accuracy": 0.5,
+   "median_true_branch_distance": 0.007729599718004465,
+   "median_pred_branch_distance": 0.00889376737177372
+  }
+ },
+ "meaningful_by_single_fact": {
+  "finish_time": {
+   "unordered_pairs": 2026,
+   "accuracy": 0.5157946692991116,
+   "median_true_branch_distance": 0.060654349625110626,
+   "median_pred_branch_distance": 0.013096493668854237
+  },
+  "energy": {
+   "unordered_pairs": 2041,
+   "accuracy": 0.5156785889269966,
+   "median_true_branch_distance": 0.060625649988651276,
+   "median_pred_branch_distance": 0.013090045191347599
+  },
+  "other_job_start": {
+   "unordered_pairs": 1937,
+   "accuracy": 0.5144553433144037,
+   "median_true_branch_distance": 0.06131701543927193,
+   "median_pred_branch_distance": 0.01291419006884098
+  }
+ },
+ "finish_time_difference_quartiles": {
+  "edges": [
+   0.21212121212121193,
+   0.43434343434343425,
+   0.727272727272727
+  ],
+  "accuracy_by_quartile": [
+   {
+    "unordered_pairs": 499,
+    "accuracy": 0.5050100200400801,
+    "median_true_branch_distance": 0.04812685027718544,
+    "median_pred_branch_distance": 0.009258299134671688
+   },
+   {
+    "unordered_pairs": 509,
+    "accuracy": 0.5137524557956779,
+    "median_true_branch_distance": 0.05586394667625427,
+    "median_pred_branch_distance": 0.011579844169318676
+   },
+   {
+    "unordered_pairs": 511,
+    "accuracy": 0.5136986301369864,
+    "median_true_branch_distance": 0.05996193364262581,
+    "median_pred_branch_distance": 0.014298081398010254
+   },
+   {
+    "unordered_pairs": 507,
+    "accuracy": 0.5305719921104537,
+    "median_true_branch_distance": 0.07792000472545624,
+    "median_pred_branch_distance": 0.018635008484125137
+   }
+  ]
+ },
+ "energy_relative_difference_quartiles": {
+  "edges": [
+   0.31953861565990216,
+   0.562884143936372,
+   0.7820912918216307
+  ],
+  "accuracy_by_quartile": [
+   {
+    "unordered_pairs": 510,
+    "accuracy": 0.5058823529411764,
+    "median_true_branch_distance": 0.06058301217854023,
+    "median_pred_branch_distance": 0.00795295462012291
+   },
+   {
+    "unordered_pairs": 510,
+    "accuracy": 0.503921568627451,
+    "median_true_branch_distance": 0.05828039348125458,
+    "median_pred_branch_distance": 0.010022520553320646
+   },
+   {
+    "unordered_pairs": 510,
+    "accuracy": 0.5186274509803922,
+    "median_true_branch_distance": 0.05914626829326153,
+    "median_pred_branch_distance": 0.01387940114364028
+   },
+   {
+    "unordered_pairs": 511,
+    "accuracy": 0.5342465753424658,
+    "median_true_branch_distance": 0.06389515101909637,
+    "median_pred_branch_distance": 0.021839817985892296
+   }
+  ]
+ },
+ "meaningful_near_chance": true,
+ "example_missed": {
+  "inst": 14,
+  "state": 4508,
+  "job": 2,
+  "op": 14,
+  "m1": 4,
+  "m2": 1,
+  "pt": [
+   19.0,
+   89.0
+  ],
+  "carbon": [
+   1.028087421079105,
+   5.89461366993399
+  ],
+  "d_finish": -1.3434343434343439,
+  "d_energy": -4.866526248854885,
+  "free_before": [
+   3.353535353535354,
+   4.040404040404041
+  ],
+  "free_after_i": [
+   3.5959595959595956,
+   4.040404040404041
+  ],
+  "free_after_j": [
+   3.353535353535354,
+   4.9393939393939394
+  ],
+  "delayed": [
+   {
+    "job": 0,
+    "machine": 1,
+    "start_branch_i": 4.040404040404041,
+    "start_branch_j": 4.9393939393939394
+   },
+   {
+    "job": 1,
+    "machine": 1,
+    "start_branch_i": 4.040404040404041,
+    "start_branch_j": 4.9393939393939394
+   },
+   {
+    "job": 6,
+    "machine": 1,
+    "start_branch_i": 4.040404040404041,
+    "start_branch_j": 4.9393939393939394
+   }
+  ],
+  "true_dist": 0.04460107162594795,
+  "pred_dist": 0.020273396745324135,
+  "ok": [
+   false,
+   false
+  ],
+  "source": "EDD+ECT"
+ },
+ "frozen_encoder_probe": {
+  "epochs": 200,
+  "train_val_mse": 0.014628714881837368,
+  "time_scale": 15.444444444444446,
+  "heldout_r2_free_time": {
+   "actual_tokens": 0.0050191568456022795,
+   "predicted_tokens": 0.018919191619562903
+  },
+  "meaningfully_different": {
+   "actual_tokens": {
+    "machine_pairs_with_availability_difference": 4082,
+    "sign_accuracy": 0.48922097011268983,
+    "pearson": 0.024982032188960404,
+    "median_abs_true_difference": 0.5757575757575757,
+    "median_abs_recovered_difference": 0.22891747951507568
+   },
+   "predicted_tokens": {
+    "machine_pairs_with_availability_difference": 4082,
+    "sign_accuracy": 0.5303772660460558,
+    "pearson": 0.018207106405882564,
+    "median_abs_true_difference": 0.5757575757575757,
+    "median_abs_recovered_difference": 0.16569077968597412
+   }
+  },
+  "finish_time_differs": {
+   "actual_tokens": {
+    "machine_pairs_with_availability_difference": 4052,
+    "sign_accuracy": 0.4891411648568608,
+    "pearson": 0.024733272206160846,
+    "median_abs_true_difference": 0.5757575757575757,
+    "median_abs_recovered_difference": 0.22850048542022705
+   },
+   "predicted_tokens": {
+    "machine_pairs_with_availability_difference": 4052,
+    "sign_accuracy": 0.5310957551826259,
+    "pearson": 0.01944480091139993,
+    "median_abs_true_difference": 0.5757575757575757,
+    "median_abs_recovered_difference": 0.16592717170715332
+   }
+  },
+  "seconds": 11.968118667602539
+ },
+ "seconds": 14.40944242477417
+}
