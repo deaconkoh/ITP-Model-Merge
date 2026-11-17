@@ -1,0 +1,37 @@
+{
+ "baseline": {
+  "results": "results/world_model_latent_pilot_v3",
+  "checkpoints": "checkpoints/world_model_latent_pilot_v3",
+  "collection_sha256": "6cc7ed6954a2777067f830c09c129785b7a073c806746f4728364c830881cc43"
+ },
+ "constants": {
+  "instances": 200,
+  "seed": 3111,
+  "holdout_mod": 5,
+  "holdout_rem": 4,
+  "states_per_episode": 8,
+  "max_branches": 4,
+  "epochs": 30,
+  "lr": 0.0001,
+  "batch": 256,
+  "train_seed": 111,
+  "ema": 0.996,
+  "var_weight": 1.0,
+  "var_floor_share_of_initial_std": 0.5,
+  "pred_hidden": 64,
+  "pred_heads": 4,
+  "collapse_rank_share": 0.25,
+  "collapse_std_share": 0.1,
+  "eval_tol": 1e-06
+ },
+ "constants_identical_to_baseline": true,
+ "aux": {
+  "weight": 1.0,
+  "head": "shared Linear(8, 1), pretraining only",
+  "input": "online-encoder machine token of the actual simulator next state",
+  "label": "p1_mch_free_time / scale",
+  "scale": 15.444444444444446,
+  "scale_rule": "largest next free time among the training transitions"
+ },
+ "written": "2026-11-17 23:08:50"
+}

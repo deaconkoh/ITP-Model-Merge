@@ -1,0 +1,8 @@
+{
+ "strict_load_into_specialist_daniel": true,
+ "missing_or_unexpected": [
+  "<All keys matched successfully>"
+ ],
+ "shapes_equal": true,
+ "encoder_tensors": 40
+}

@@ -1,0 +1,43 @@
+{
+ "pairs": {
+  "train": 8198,
+  "heldout": 2041
+ },
+ "machine_comparisons": {
+  "train": 40990,
+  "heldout": 10205
+ },
+ "heldout_zero_difference": 6123,
+ "heldout_nonzero_difference": 4082,
+ "heldout_nonzero_on_the_two_chosen_machines": 4082,
+ "heldout_nonzero_on_other_machines": 0,
+ "train_nonzero_difference": 16396,
+ "baseline_zero": {
+  "mae_all": 0.2642386629647776,
+  "mae_nonzero": 0.6605966574119441,
+  "mae_zero": 0.0
+ },
+ "readouts": {
+  "encoded": {
+   "inputs": 8,
+   "train_r2": 0.004604692055718007,
+   "mae_all": 0.2790387705881343,
+   "mae_nonzero": 0.6561505348942649,
+   "mae_zero": 0.0276309277173806,
+   "pearson_all": 0.07799363641187888,
+   "pearson_nonzero": 0.11624118168566568,
+   "sign_accuracy_nonzero": 0.5391964723174915
+  },
+  "raw": {
+   "inputs": 9,
+   "train_r2": 0.5193404358335134,
+   "mae_all": 0.20414927123377605,
+   "mae_nonzero": 0.3359772538571239,
+   "mae_zero": 0.11626394948487752,
+   "pearson_all": 0.723021718565352,
+   "pearson_nonzero": 0.7620737083884387,
+   "sign_accuracy_nonzero": 0.9541891229789319
+  }
+ },
+ "seconds": 1.2111153602600098
+}
