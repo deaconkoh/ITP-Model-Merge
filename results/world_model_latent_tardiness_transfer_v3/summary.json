@@ -1,0 +1,34 @@
+{
+ "rows": {
+  "random encoder": {
+   "start": 20.35179631401976,
+   "reached_update": 2000,
+   "reached_hours": 1.074432447552681,
+   "at_budget": 0.22707100407542416,
+   "best": 0.22707100407542416,
+   "hours_total": 1.074432447552681
+  },
+  "earlier outcome-prediction encoder": {
+   "start": 24.697128841160428,
+   "reached_update": 1350,
+   "reached_hours": 0.6800665327575471,
+   "at_budget": 0.20978219821395547,
+   "best": 0.20284664546850423,
+   "hours_total": 1.0251692685153748
+  },
+  "centred latent encoder": {
+   "start": 23.241508722375837,
+   "reached_update": 1750,
+   "reached_hours": 0.7222931056552463,
+   "at_budget": 0.2469945242231827,
+   "best": 0.21807734936042322,
+   "hours_total": 0.8348737559715906
+  }
+ },
+ "target": 0.22707100407542416,
+ "budget": 2000,
+ "centred_pretraining_cost_s": {
+  "data_collection": 6.497973442077637,
+  "encoder_pretraining": 257.6274654865265
+ }
+}

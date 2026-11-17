@@ -1,0 +1,45 @@
+{
+ "start": {
+  "identical_outside_encoder_vs_rnd": true,
+  "encoder_differs_vs_rnd": true,
+  "identical_outside_encoder_vs_pre": true,
+  "encoder_differs_vs_pre": true,
+  "encoder_equals_saved_online_encoder": true
+ },
+ "command": {
+  "command_diff_vs_pre": [
+   [
+    "bv3_wmtp_pre_s111",
+    "bv3_wmtp_latc_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_pre.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_latent_tardiness_transfer_v3/start_latc.pth"
+   ]
+  ],
+  "command_diff_vs_rnd": [
+   [
+    "bv3_wmtp_rnd_s111",
+    "bv3_wmtp_latc_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_latent_tardiness_transfer_v3/start_latc.pth"
+   ]
+  ]
+ },
+ "record": {
+  "config_keys_differing_vs_pre": [
+   "init_from",
+   "model_suffix"
+  ],
+  "data_fingerprints_equal_vs_pre": true,
+  "protocol_matches_pre": true,
+  "config_keys_differing_vs_rnd": [
+   "init_from",
+   "model_suffix"
+  ],
+  "data_fingerprints_equal_vs_rnd": true,
+  "protocol_matches_rnd": true
+ }
+}
