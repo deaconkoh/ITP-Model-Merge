@@ -1,0 +1,386 @@
+[
+ {
+  "state": 7,
+  "source": "MWKR+ECT",
+  "for_type": "same_operation_other_machine",
+  "branches": [
+   {
+    "job": 5,
+    "machine": 3,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.027731388807296753,
+    "mse_copy_changed": 0.027193333953619003
+   },
+   {
+    "job": 5,
+    "machine": 2,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.04846150055527687,
+    "mse_copy_changed": 0.1449139267206192
+   },
+   {
+    "job": 9,
+    "machine": 4,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.056771110743284225,
+    "mse_copy_changed": 0.14120107889175415
+   },
+   {
+    "job": 3,
+    "machine": 2,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.04381339251995087,
+    "mse_copy_changed": 0.0872500017285347
+   }
+  ],
+  "true_distance_between_next_states": [
+   [
+    0.0,
+    0.02615761198103428,
+    0.19993093609809875,
+    0.1891716569662094
+   ],
+   [
+    0.02615761198103428,
+    0.0,
+    0.20128536224365234,
+    0.19509585201740265
+   ],
+   [
+    0.19993093609809875,
+    0.20128536224365234,
+    0.0,
+    0.18763980269432068
+   ],
+   [
+    0.1891716569662094,
+    0.19509585201740265,
+    0.18763980269432068,
+    0.0
+   ]
+  ],
+  "pred_to_true_distance": [
+   [
+    0.08234041184186935,
+    0.08570971339941025,
+    0.16295602917671204,
+    0.15098246932029724
+   ],
+   [
+    0.08298903703689575,
+    0.08627593517303467,
+    0.1627170741558075,
+    0.1505696028470993
+   ],
+   [
+    0.16177144646644592,
+    0.1633509248495102,
+    0.08454994112253189,
+    0.14683741331100464
+   ],
+   [
+    0.1553230732679367,
+    0.16045713424682617,
+    0.1523798108100891,
+    0.07357887178659439
+   ]
+  ],
+  "diagonal_smallest_in_every_row": false
+ },
+ {
+  "state": 42,
+  "source": "MWKR+ECT",
+  "for_type": "immediate_vs_later",
+  "branches": [
+   {
+    "job": 7,
+    "machine": 3,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.014268615283071995,
+    "mse_copy_changed": 0.057202521711587906
+   },
+   {
+    "job": 7,
+    "machine": 0,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.0447378046810627,
+    "mse_copy_changed": 0.1602981984615326
+   },
+   {
+    "job": 8,
+    "machine": 1,
+    "start": "later",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.023612262681126595,
+    "mse_copy_changed": 0.08805373311042786
+   },
+   {
+    "job": 0,
+    "machine": 1,
+    "start": "later",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.020803507417440414,
+    "mse_copy_changed": 0.09619491547346115
+   }
+  ],
+  "true_distance_between_next_states": [
+   [
+    0.0,
+    0.03561801463365555,
+    0.17891812324523926,
+    0.18196341395378113
+   ],
+   [
+    0.03561801463365555,
+    0.0,
+    0.1755117028951645,
+    0.1787489503622055
+   ],
+   [
+    0.17891812324523926,
+    0.1755117028951645,
+    0.0,
+    0.15193943679332733
+   ],
+   [
+    0.18196341395378113,
+    0.1787489503622055,
+    0.15193943679332733,
+    0.0
+   ]
+  ],
+  "pred_to_true_distance": [
+   [
+    0.08793308585882187,
+    0.0789760872721672,
+    0.13049142062664032,
+    0.13367381691932678
+   ],
+   [
+    0.08942190557718277,
+    0.08051931113004684,
+    0.13029778003692627,
+    0.13344122469425201
+   ],
+   [
+    0.16003824770450592,
+    0.15532179176807404,
+    0.05984216928482056,
+    0.1268981397151947
+   ],
+   [
+    0.16336999833583832,
+    0.1586211770772934,
+    0.12694421410560608,
+    0.05651934817433357
+   ]
+  ],
+  "diagonal_smallest_in_every_row": false
+ },
+ {
+  "state": 5,
+  "source": "MWKR+ECT",
+  "for_type": "other",
+  "branches": [
+   {
+    "job": 9,
+    "machine": 4,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.019832327961921692,
+    "mse_copy_changed": 0.08818423002958298
+   },
+   {
+    "job": 1,
+    "machine": 1,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.02699086256325245,
+    "mse_copy_changed": 0.06061197817325592
+   },
+   {
+    "job": 6,
+    "machine": 2,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.018107114359736443,
+    "mse_copy_changed": 0.05728223919868469
+   },
+   {
+    "job": 5,
+    "machine": 0,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.06360728293657303,
+    "mse_copy_changed": 0.16405721008777618
+   }
+  ],
+  "true_distance_between_next_states": [
+   [
+    0.0,
+    0.1964113563299179,
+    0.21071262657642365,
+    0.24004286527633667
+   ],
+   [
+    0.1964113563299179,
+    0.0,
+    0.15523333847522736,
+    0.18078269064426422
+   ],
+   [
+    0.21071262657642365,
+    0.15523333847522736,
+    0.0,
+    0.19620992243289948
+   ],
+   [
+    0.24004286527633667,
+    0.18078269064426422,
+    0.19620992243289948,
+    0.0
+   ]
+  ],
+  "pred_to_true_distance": [
+   [
+    0.10610174387693405,
+    0.12558265030384064,
+    0.14190824329853058,
+    0.17992304265499115
+   ],
+   [
+    0.17889003455638885,
+    0.06834539771080017,
+    0.1281435340642929,
+    0.1623079776763916
+   ],
+   [
+    0.18956297636032104,
+    0.12165343016386032,
+    0.06419464200735092,
+    0.17404751479625702
+   ],
+   [
+    0.19074909389019012,
+    0.11896538734436035,
+    0.1367376446723938,
+    0.11469271779060364
+   ]
+  ],
+  "diagonal_smallest_in_every_row": true
+ },
+ {
+  "state": 19,
+  "source": "MWKR+ECT",
+  "for_type": "any",
+  "branches": [
+   {
+    "job": 5,
+    "machine": 2,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.03156711906194687,
+    "mse_copy_changed": 0.0650213435292244
+   },
+   {
+    "job": 5,
+    "machine": 1,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.09060434252023697,
+    "mse_copy_changed": 0.2055169939994812
+   },
+   {
+    "job": 2,
+    "machine": 2,
+    "start": "immediate",
+    "changed_operations": 5,
+    "changed_machines": 1,
+    "mse_model_changed": 0.042952969670295715,
+    "mse_copy_changed": 0.10885781049728394
+   },
+   {
+    "job": 8,
+    "machine": 4,
+    "start": "immediate",
+    "changed_operations": 1,
+    "changed_machines": 1,
+    "mse_model_changed": 0.022693395614624023,
+    "mse_copy_changed": 0.04977547749876976
+   }
+  ],
+  "true_distance_between_next_states": [
+   [
+    0.0,
+    0.01241290383040905,
+    0.20672199130058289,
+    0.21842043101787567
+   ],
+   [
+    0.01241290383040905,
+    0.0,
+    0.2065281718969345,
+    0.21836993098258972
+   ],
+   [
+    0.20672199130058289,
+    0.2065281718969345,
+    0.0,
+    0.18876151740550995
+   ],
+   [
+    0.21842043101787567,
+    0.21836993098258972,
+    0.18876151740550995,
+    0.0
+   ]
+  ],
+  "pred_to_true_distance": [
+   [
+    0.10633204132318497,
+    0.10638123750686646,
+    0.1467529535293579,
+    0.16219498217105865
+   ],
+   [
+    0.10892420262098312,
+    0.1085398942232132,
+    0.14678864181041718,
+    0.16231630742549896
+   ],
+   [
+    0.1778322458267212,
+    0.17740879952907562,
+    0.07540661096572876,
+    0.15683284401893616
+   ],
+   [
+    0.1724722534418106,
+    0.1716630458831787,
+    0.13285599648952484,
+    0.1107412800192833
+   ]
+  ],
+  "diagonal_smallest_in_every_row": true
+ }
+]

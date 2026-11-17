@@ -34,6 +34,16 @@ L.CK = REPO / "checkpoints" / NAME
 AP.OUT = L.RES / "availability_difference_probe.json"
 AUX_WEIGHT = 1.0
 C = L.C
+LABEL = "absolute"            # "absolute": free time / scale; "centred": (free time - mean over the state's machines) / scale
+LABEL_TEXT = {"absolute": "p1_mch_free_time / scale",
+              "centred": "(p1_mch_free_time - its mean over the machines of the same next state) / scale"}
+
+
+def aux_label(Dt, tr, scale):
+    y = Dt["p1_mch_free_time"][tr]
+    if LABEL == "centred":
+        y = y - y.mean(1, keepdims=True)
+    return y / scale
 
 
 def settings(Dt, tr_rows):
@@ -46,7 +56,7 @@ def settings(Dt, tr_rows):
          "constants": C, "constants_identical_to_baseline": base["constants"] == C,
          "aux": {"weight": AUX_WEIGHT, "head": "shared Linear(8, 1), pretraining only",
                  "input": "online-encoder machine token of the actual simulator next state",
-                 "label": "p1_mch_free_time / scale",
+                 "label": LABEL_TEXT[LABEL],
                  "scale": float(np.abs(Dt["p1_mch_free_time"][tr_rows]).max()),
                  "scale_rule": "largest next free time among the training transitions"},
          "written": time.strftime("%Y-%m-%d %H:%M:%S")}
@@ -91,7 +101,7 @@ def train(s):
             yo, ym, yg = L.targets(tgt, Dt, tr, dev)
             lp = ((po - yo) ** 2).mean() + ((pm - ym) ** 2).mean() + ((pg - yg) ** 2).mean()
             _, n_mch, _ = L.encode(trunk, L.tensors(Dt, "n_", tr, dev))          # online encoder, actual next state
-            lab = torch.as_tensor(Dt["p1_mch_free_time"][tr] / scale, dtype=torch.float32, device=dev)
+            lab = torch.as_tensor(aux_label(Dt, tr, scale), dtype=torch.float32, device=dev)
             la = ((head(n_mch).squeeze(-1) - lab) ** 2).mean()
             X = torch.cat([h_op, h_mch], 1).reshape(-1, h_op.shape[-1])
             lv = torch.relu(floor - X.std(0)).mean()

@@ -1,0 +1,50 @@
+{
+ "original": {
+  "probe_sign_accuracy_nonzero": 0.5041646251837335,
+  "probe_mae_nonzero": 0.6595853526294105,
+  "probe_pearson_nonzero": 0.03891858023307991,
+  "probe_nonzero_comparisons": 4082,
+  "raw_sign_accuracy_nonzero": 0.9541891229789319,
+  "raw_mae_nonzero": 0.3359772538571239,
+  "zero_mae_nonzero": 0.6605966574119441,
+  "same_op_discrimination": 0.5156785889269966,
+  "same_op_pairs": 2041,
+  "median_pred_branch_distance_same_op": 0.013090045191347599,
+  "median_true_branch_distance_same_op": 0.060625649988651276,
+  "discrimination_overall": 0.7598450270671904,
+  "change_explained_changed_tokens": 0.6000543098982504,
+  "responds_reliably": false
+ },
+ "absolute_aux": {
+  "probe_sign_accuracy_nonzero": 0.5391964723174915,
+  "probe_mae_nonzero": 0.6561505348942649,
+  "probe_pearson_nonzero": 0.11624118168566568,
+  "probe_nonzero_comparisons": 4082,
+  "raw_sign_accuracy_nonzero": 0.9541891229789319,
+  "raw_mae_nonzero": 0.3359772538571239,
+  "zero_mae_nonzero": 0.6605966574119441,
+  "same_op_discrimination": 0.5139637432631063,
+  "same_op_pairs": 2041,
+  "median_pred_branch_distance_same_op": 0.01304276380687952,
+  "median_true_branch_distance_same_op": 0.061214424669742584,
+  "discrimination_overall": 0.7479036195732937,
+  "change_explained_changed_tokens": 0.5862684463776364,
+  "responds_reliably": false
+ },
+ "centred_aux": {
+  "probe_sign_accuracy_nonzero": 0.6822635962763351,
+  "probe_mae_nonzero": 0.5996137169990895,
+  "probe_pearson_nonzero": 0.3739870821124605,
+  "probe_nonzero_comparisons": 4082,
+  "raw_sign_accuracy_nonzero": 0.9541891229789319,
+  "raw_mae_nonzero": 0.3359772538571239,
+  "zero_mae_nonzero": 0.6605966574119441,
+  "same_op_discrimination": 0.5171484566389025,
+  "same_op_pairs": 2041,
+  "median_pred_branch_distance_same_op": 0.013421242125332355,
+  "median_true_branch_distance_same_op": 0.060328781604766846,
+  "discrimination_overall": 0.751937161660121,
+  "change_explained_changed_tokens": 0.5830962959427897,
+  "responds_reliably": false
+ }
+}
