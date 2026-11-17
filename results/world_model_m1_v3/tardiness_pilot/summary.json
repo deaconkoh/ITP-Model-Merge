@@ -1,0 +1,26 @@
+{
+ "rows": {
+  "pre": {
+   "start": 24.697128841160428,
+   "reached_update": 1350,
+   "reached_hours": 0.6800665327575471,
+   "final_update": 2000,
+   "final": 0.20978219821395547,
+   "best": 0.20284664546850423,
+   "hours_total": 1.0251692685153748
+  },
+  "rnd": {
+   "start": 20.35179631401976,
+   "reached_update": 2000,
+   "reached_hours": 1.074432447552681,
+   "final_update": 2000,
+   "final": 0.22707100407542416,
+   "best": 0.22707100407542416,
+   "hours_total": 1.074432447552681
+  }
+ },
+ "pretraining_cost": {
+  "pilot_data_regeneration_s": 81.29252743721008,
+  "pilot_encoder_training_s": 203.28634810447693
+ }
+}

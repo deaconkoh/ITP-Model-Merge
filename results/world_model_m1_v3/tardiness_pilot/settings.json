@@ -1,0 +1,36 @@
+{
+ "budget_updates": 2000,
+ "target": 0.22707100407542416,
+ "target_reached_by_reference_at": 2000,
+ "target_rule": "the reference run's best validation tardiness (T / Tref, greedy, 18 validation instances, every 50 updates, waiting rule) within the same update budget",
+ "reference": {
+  "run": "results/specialist_reuse_v3/runs/10x5+mix+bv3_sr_spec_t_s111",
+  "valiquality_sha256": "121bba9c892308d562cc0512cfb5eda808bf77841457bf713b8210b46d789165"
+ },
+ "recipe": {
+  "cl_k": 8,
+  "cl_beta": 0.1,
+  "cl_margin": 0.01,
+  "cl_grad_clip": 1.0,
+  "lr": 0.0003,
+  "minibatch_size": 1024,
+  "num_envs": 20,
+  "reset_env_timestep": 20,
+  "validate_timestep": 50,
+  "goal": "t",
+  "seed_train": 111,
+  "dispatch_rule": "semi_active",
+  "train_source": "generator"
+ },
+ "sources": {
+  "pilot_encoder": {
+   "path": "checkpoints/world_model_m1_v3_action_pilot/pilot_pairs_abs+diff.pth",
+   "sha256": "cdb22aa021f2c9763ec008d9c6f11b5abacbb5d2ed433c6947a4c0951dd2d368"
+  },
+  "start_bundle": {
+   "path": "checkpoints/world_model_m1_v3/world_model_trunk_start.pth",
+   "sha256": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3"
+  }
+ },
+ "written": "2026-11-17 20:14:56"
+}
