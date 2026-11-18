@@ -1,0 +1,23 @@
+[
+ {
+  "run": "Rewarded Soups, random shared base",
+  "update0_hv": 0.8734511530425562,
+  "best_hv": 0.9376917988462348,
+  "best_update": 1150,
+  "stop_update": 2150
+ },
+ {
+  "run": "Rewarded Soups, world-model shared base",
+  "update0_hv": 0.86220099926425,
+  "best_hv": 0.9561040819906097,
+  "best_update": 950,
+  "stop_update": 1950
+ },
+ {
+  "run": "From-scratch DANIEL",
+  "update0_hv": 0.0,
+  "best_hv": 0.9567006941964045,
+  "best_update": 3400,
+  "stop_update": 4400
+ }
+]
