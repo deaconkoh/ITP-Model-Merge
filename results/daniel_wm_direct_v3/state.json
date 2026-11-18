@@ -1,0 +1,135 @@
+{
+ "units": {
+  "final:wmdirect": {
+   "name": "10x5+mix+bv3_srwmd_wmdirect_s111",
+   "start": 1794993810.1386034,
+   "slot": "0-3",
+   "end": 1794999914.6163259,
+   "status": "CONVERGED",
+   "update": 4100,
+   "best": -0.964805880971555,
+   "best_update": 3750,
+   "train_seconds": 6082.790972709656,
+   "capped": false
+  }
+ },
+ "command_check": {
+  "selected": {
+   "lr": 0.001,
+   "cl_beta": 0.1
+  },
+  "differing_flags": [
+   "--model_suffix"
+  ],
+  "diff": [
+   [
+    "bv3_sr_scratch_s111",
+    "bv3_srwmd_wmdirect_s111"
+   ]
+  ],
+  "added": [
+   "--init_from",
+   "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/daniel_wm_direct_v3/start_s111.pth",
+   "--init_mode",
+   "exact"
+  ]
+ },
+ "start_check": {
+  "scratch_init_hash": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+  "baseline_scratch_reference_hash": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+  "scratch_init_matches_baseline_start": true,
+  "wm_base_sha_matches_recorded": true,
+  "encoder_equals_wm_base_encoder": true,
+  "encoder_equals_pilot_trunk": true,
+  "encoder_differs_from_scratch": true,
+  "non_encoder_identical_to_scratch_init": true,
+  "encoder_tensors": 40,
+  "non_encoder_tensors": 12,
+  "start_sha256": "5c9ca1b03e9119e1ecff6eb27667e89c6a8d2bcf8563946b7debfb9ecc24f700",
+  "pilot_sha256": "cdb22aa021f2c9763ec008d9c6f11b5abacbb5d2ed433c6947a4c0951dd2d368"
+ },
+ "eval_seconds": 1511.9983303546906,
+ "record_check": {
+  "differing_config_keys": [
+   "init_from",
+   "model_suffix"
+  ],
+  "data_fingerprints_equal": true,
+  "matches": true,
+  "effective_settings_equal": {
+   "finetune_objective": [
+    "contrastive",
+    "contrastive"
+   ],
+   "cl_beta": [
+    0.1,
+    0.1
+   ],
+   "cl_k": [
+    8,
+    8
+   ],
+   "cl_margin": [
+    0.01,
+    0.01
+   ],
+   "cl_grad_clip": [
+    1.0,
+    1.0
+   ],
+   "cl_anchor": [
+    "reference",
+    "reference"
+   ],
+   "lr": [
+    0.001,
+    0.001
+   ],
+   "minibatch_size": [
+    1024,
+    1024
+   ],
+   "num_envs": [
+    20,
+    20
+   ],
+   "init_mode": [
+    "exact",
+    "exact"
+   ],
+   "pref_dirichlet": [
+    1.0,
+    1.0
+   ],
+   "max_updates": [
+    8000,
+    8000
+   ],
+   "converge_window": [
+    1000,
+    1000
+   ],
+   "converge_tol": [
+    0.005,
+    0.005
+   ],
+   "min_updates": [
+    1000,
+    1000
+   ],
+   "validate_timestep": [
+    50,
+    50
+   ],
+   "dispatch_rule": [
+    "semi_active",
+    "semi_active"
+   ],
+   "seed_train": [
+    111,
+    111
+   ]
+  }
+ },
+ "wall_hours": 2.1158938886059655
+}

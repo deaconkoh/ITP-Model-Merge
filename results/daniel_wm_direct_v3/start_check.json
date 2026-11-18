@@ -1,0 +1,14 @@
+{
+ "scratch_init_hash": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+ "baseline_scratch_reference_hash": "097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754",
+ "scratch_init_matches_baseline_start": true,
+ "wm_base_sha_matches_recorded": true,
+ "encoder_equals_wm_base_encoder": true,
+ "encoder_equals_pilot_trunk": true,
+ "encoder_differs_from_scratch": true,
+ "non_encoder_identical_to_scratch_init": true,
+ "encoder_tensors": 40,
+ "non_encoder_tensors": 12,
+ "start_sha256": "5c9ca1b03e9119e1ecff6eb27667e89c6a8d2bcf8563946b7debfb9ecc24f700",
+ "pilot_sha256": "cdb22aa021f2c9763ec008d9c6f11b5abacbb5d2ed433c6947a4c0951dd2d368"
+}

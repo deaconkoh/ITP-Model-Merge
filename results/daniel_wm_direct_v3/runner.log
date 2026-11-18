@@ -1,0 +1,17 @@
+[2026-11-18 17:23:20] start built: {'scratch_init_hash': '097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754', 'baseline_scratch_reference_hash': '097807a883a8bdbeb749220e071dc2965c804e9f29c665e6962bbe93166f4754', 'scratch_init_matches_baseline_start': True, 'wm_base_sha_matches_recorded': True, 'encoder_equals_wm_base_encoder': True, 'encoder_equals_pilot_trunk': True, 'encoder_differs_from_scratch': True, 'non_encoder_identical_to_scratch_init': True, 'encoder_tensors': 40, 'non_encoder_tensors': 12, 'start_sha256': '5c9ca1b03e9119e1ecff6eb27667e89c6a8d2bcf8563946b7debfb9ecc24f700', 'pilot_sha256': 'cdb22aa021f2c9763ec008d9c6f11b5abacbb5d2ed433c6947a4c0951dd2d368'}
+[2026-11-18 17:23:29] start
+[2026-11-18 17:23:30] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status NONE, slot 0)
+[2026-11-18 17:36:59] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 17:48:55] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 18:01:34] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 18:13:51] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 18:25:50] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 18:38:17] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 18:49:56] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 19:02:46] train 10x5+mix+bv3_srwmd_wmdirect_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 19:05:14] 10x5+mix+bv3_srwmd_wmdirect_s111: CONVERGED at update 4100 (best -0.9648 @ 3750, 1.69 h)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 12 s (0.0018 s per pair)
+sample128: 1498 s (0.2235 s per pair)
+[2026-11-18 19:30:27] done (2.12 h)
