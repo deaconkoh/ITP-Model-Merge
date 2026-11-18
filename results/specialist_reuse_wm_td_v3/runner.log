@@ -1,0 +1,28 @@
+[2026-11-18 14:01:43] start
+[2026-11-18 14:01:44] identity and command checks passed: {"ties": {"selected": {"lr": 0.0001, "cl_beta": 0.1}, "ties": [0.5, 1.5], "differing_flags": ["--merge_base", "--merge_mix", "--model_suffix"], "diff": [["bv3_sr_ties_s111", "bv3_srwmtd_ties_s111"], ["/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_m_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_c_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_t_s111.pth", "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_m_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_c_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_t_s111.pth"], ["/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/base_s111.pth", "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/base_s111.pth"]]}, "distill": {"selected": {"lr": 0.0003, "cl_beta": 0.1}, "differing_flags": ["--init_from", "--model_suffix"], "diff": [["bv3_sr_distill_s111", "bv3_srwmtd_distill_s111"], ["/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/distill/student_s111.pth", "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_td_v3/distill/student_s111.pth"]]}}
+[2026-11-18 14:01:44] ties: baseline's selected setting {'lr': 0.0001, 'cl_beta': 0.1} {'ties': (0.5, 1.5)}
+[2026-11-18 14:01:44] train 10x5+mix+bv3_srwmtd_ties_s111: chunk (status NONE, slot 0)
+[2026-11-18 14:20:22] train 10x5+mix+bv3_srwmtd_ties_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 14:40:29] train 10x5+mix+bv3_srwmtd_ties_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 14:58:33] train 10x5+mix+bv3_srwmtd_ties_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 15:02:11] 10x5+mix+bv3_srwmtd_ties_s111: CONVERGED at update 1600 (best -0.9088 @ 600, 1.00 h)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 13 s (0.0020 s per pair)
+sample128: 1589 s (0.2371 s per pair)
+[2026-11-18 15:28:56] evaluated ties
+[2026-11-18 15:30:26] distillation stage 1: 89 s
+[2026-11-18 15:30:26] distill: baseline's selected setting {'lr': 0.0003, 'cl_beta': 0.1} {}
+[2026-11-18 15:30:26] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status NONE, slot 0)
+[2026-11-18 15:42:35] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 15:55:41] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 16:07:31] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 16:19:10] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 16:32:04] train 10x5+mix+bv3_srwmtd_distill_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 16:34:31] 10x5+mix+bv3_srwmtd_distill_s111: CONVERGED at update 2600 (best -0.9627 @ 1600, 1.06 h)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 12 s (0.0018 s per pair)
+sample128: 1493 s (0.2228 s per pair)
+[2026-11-18 16:59:38] evaluated distill
+[2026-11-18 16:59:40] done (2.97 h)

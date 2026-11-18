@@ -1,0 +1,618 @@
+{
+ "methods": {
+  "ties": {
+   "baseline_best_validation_hv": 0.9245460858986131,
+   "random": {
+    "update0_hv": 0.8798715628206881,
+    "best_hv": 0.9245460858986131,
+    "best_update": 1000,
+    "stop_update": 1500,
+    "status": "CONVERGED",
+    "reaches_baseline_best_at": 1000,
+    "greedy_hv": 0.9938408883791924,
+    "best_of_128_hv": 1.0759686442928444,
+    "greedy_igd_plus": 0.11337843601829549,
+    "best_of_128_igd_plus": 0.07621475481256014,
+    "igd_plus_instances": 20,
+    "eval_instances": 100,
+    "train_hours": 1.452108311785592,
+    "artefact_checks": {
+     "eval_model_sha_equals_final_checkpoint": true,
+     "checkpoint_update_equals_best_validation_update": true,
+     "checkpoint_selection_metric_equals_minus_best_hv": true,
+     "state_best_equals_curve_best": true
+    }
+   },
+   "world_model": {
+    "update0_hv": 0.8305789006333422,
+    "best_hv": 0.9087693014434564,
+    "best_update": 600,
+    "stop_update": 1600,
+    "status": "CONVERGED",
+    "reaches_baseline_best_at": null,
+    "greedy_hv": 0.9939562066603744,
+    "best_of_128_hv": 1.0712301195280372,
+    "greedy_igd_plus": 0.12344754524933155,
+    "best_of_128_igd_plus": 0.08161098998423927,
+    "igd_plus_instances": 20,
+    "eval_instances": 100,
+    "train_hours": 1.0041932703389063,
+    "artefact_checks": {
+     "eval_model_sha_equals_final_checkpoint": true,
+     "checkpoint_update_equals_best_validation_update": true,
+     "checkpoint_selection_metric_equals_minus_best_hv": true,
+     "state_best_equals_curve_best": true
+    }
+   },
+   "matched_updates": [
+    {
+     "update": 0,
+     "random": 0.8798715628206881,
+     "world_model": 0.8305789006333422
+    },
+    {
+     "update": 50,
+     "random": 0.8728383561618716,
+     "world_model": 0.8637277504383857
+    },
+    {
+     "update": 100,
+     "random": 0.8818712546959196,
+     "world_model": 0.8701506066286291
+    },
+    {
+     "update": 150,
+     "random": 0.8942891238295638,
+     "world_model": 0.8865519642920431
+    },
+    {
+     "update": 200,
+     "random": 0.888215852405872,
+     "world_model": 0.8747483342383604
+    },
+    {
+     "update": 250,
+     "random": 0.8887447922043001,
+     "world_model": 0.879223032421843
+    },
+    {
+     "update": 300,
+     "random": 0.8845130510116979,
+     "world_model": 0.8794466519650885
+    },
+    {
+     "update": 350,
+     "random": 0.8889792318464426,
+     "world_model": 0.8938020170325769
+    },
+    {
+     "update": 400,
+     "random": 0.8963869995381428,
+     "world_model": 0.8830241217554734
+    },
+    {
+     "update": 450,
+     "random": 0.9151752415984341,
+     "world_model": 0.8752524204285712
+    },
+    {
+     "update": 500,
+     "random": 0.9216237194465554,
+     "world_model": 0.8662205972005338
+    },
+    {
+     "update": 550,
+     "random": 0.8926800491584294,
+     "world_model": 0.8862852756040268
+    },
+    {
+     "update": 600,
+     "random": 0.9039267311798083,
+     "world_model": 0.9087693014434564
+    },
+    {
+     "update": 650,
+     "random": 0.9178679612926592,
+     "world_model": 0.8825904140419628
+    },
+    {
+     "update": 700,
+     "random": 0.9062346113430352,
+     "world_model": 0.8771225509062619
+    },
+    {
+     "update": 750,
+     "random": 0.916890101005435,
+     "world_model": 0.8995733273609334
+    },
+    {
+     "update": 800,
+     "random": 0.9177780742924033,
+     "world_model": 0.8987786777655367
+    },
+    {
+     "update": 850,
+     "random": 0.9213543394970356,
+     "world_model": 0.889683172219503
+    },
+    {
+     "update": 900,
+     "random": 0.9109059238910073,
+     "world_model": 0.8887857445042475
+    },
+    {
+     "update": 950,
+     "random": 0.9087853974882252,
+     "world_model": 0.8828311588057705
+    },
+    {
+     "update": 1000,
+     "random": 0.9245460858986131,
+     "world_model": 0.8842057757706733
+    },
+    {
+     "update": 1050,
+     "random": 0.8955002403062675,
+     "world_model": 0.9039649212932874
+    },
+    {
+     "update": 1100,
+     "random": 0.9000298934891828,
+     "world_model": 0.9013154978038455
+    },
+    {
+     "update": 1150,
+     "random": 0.9087452075883079,
+     "world_model": 0.9031805463211511
+    },
+    {
+     "update": 1200,
+     "random": 0.9031783537951286,
+     "world_model": 0.9010398013003434
+    },
+    {
+     "update": 1250,
+     "random": 0.907453499782553,
+     "world_model": 0.9015814578359558
+    },
+    {
+     "update": 1300,
+     "random": 0.8998109799259364,
+     "world_model": 0.8925108722886104
+    },
+    {
+     "update": 1350,
+     "random": 0.8900303191013198,
+     "world_model": 0.90456289824455
+    },
+    {
+     "update": 1400,
+     "random": 0.9052289341906667,
+     "world_model": 0.8862910648759199
+    },
+    {
+     "update": 1450,
+     "random": 0.8954692715378718,
+     "world_model": 0.8878288279082929
+    },
+    {
+     "update": 1500,
+     "random": 0.8932521781583291,
+     "world_model": 0.8673001741188759
+    }
+   ],
+   "delta_world_model_minus_random": {
+    "update0_hv": -0.04929266218734596,
+    "best_hv": -0.015776784455156734,
+    "greedy_hv": 0.000115318281182053,
+    "best_of_128_hv": -0.004738524764807295,
+    "greedy_igd_plus": 0.010069109231036058,
+    "best_of_128_igd_plus": 0.0053962351716791285
+   }
+  },
+  "distill": {
+   "baseline_best_validation_hv": 0.9535172432278931,
+   "random": {
+    "update0_hv": 0.9039867846016821,
+    "best_hv": 0.9535172432278931,
+    "best_update": 1300,
+    "stop_update": 1800,
+    "status": "CONVERGED",
+    "reaches_baseline_best_at": 1300,
+    "greedy_hv": 1.0128698042277318,
+    "best_of_128_hv": 1.0915823382763923,
+    "greedy_igd_plus": 0.10625118906293667,
+    "best_of_128_igd_plus": 0.06903799733785343,
+    "igd_plus_instances": 20,
+    "eval_instances": 100,
+    "train_hours": 1.1379959123664432,
+    "artefact_checks": {
+     "eval_model_sha_equals_final_checkpoint": true,
+     "checkpoint_update_equals_best_validation_update": true,
+     "checkpoint_selection_metric_equals_minus_best_hv": true,
+     "state_best_equals_curve_best": true
+    }
+   },
+   "world_model": {
+    "update0_hv": 0.8691145245932208,
+    "best_hv": 0.9626656151970029,
+    "best_update": 1600,
+    "stop_update": 2600,
+    "status": "CONVERGED",
+    "reaches_baseline_best_at": 1600,
+    "greedy_hv": 1.0240904029016453,
+    "best_of_128_hv": 1.0894043104051478,
+    "greedy_igd_plus": 0.10661568839052668,
+    "best_of_128_igd_plus": 0.06874111900860924,
+    "igd_plus_instances": 20,
+    "eval_instances": 100,
+    "train_hours": 1.0642559244235357,
+    "artefact_checks": {
+     "eval_model_sha_equals_final_checkpoint": true,
+     "checkpoint_update_equals_best_validation_update": true,
+     "checkpoint_selection_metric_equals_minus_best_hv": true,
+     "state_best_equals_curve_best": true
+    }
+   },
+   "matched_updates": [
+    {
+     "update": 0,
+     "random": 0.9039867846016821,
+     "world_model": 0.8691145245932208
+    },
+    {
+     "update": 50,
+     "random": 0.9097557780511786,
+     "world_model": 0.8932062740358181
+    },
+    {
+     "update": 100,
+     "random": 0.9143817169600776,
+     "world_model": 0.9079761841451273
+    },
+    {
+     "update": 150,
+     "random": 0.9229901935930531,
+     "world_model": 0.9070557180905596
+    },
+    {
+     "update": 200,
+     "random": 0.9088811558935923,
+     "world_model": 0.9175944334991435
+    },
+    {
+     "update": 250,
+     "random": 0.9266979011242645,
+     "world_model": 0.8960398018455528
+    },
+    {
+     "update": 300,
+     "random": 0.9235456521193743,
+     "world_model": 0.8759129339683402
+    },
+    {
+     "update": 350,
+     "random": 0.9179781190618586,
+     "world_model": 0.9322231813703331
+    },
+    {
+     "update": 400,
+     "random": 0.9303514847965997,
+     "world_model": 0.9030419951728026
+    },
+    {
+     "update": 450,
+     "random": 0.9148436338003803,
+     "world_model": 0.9157892200621338
+    },
+    {
+     "update": 500,
+     "random": 0.9017850467841111,
+     "world_model": 0.9207262269903745
+    },
+    {
+     "update": 550,
+     "random": 0.9269059650960195,
+     "world_model": 0.912035839465785
+    },
+    {
+     "update": 600,
+     "random": 0.9308603199813091,
+     "world_model": 0.930995131882298
+    },
+    {
+     "update": 650,
+     "random": 0.9362686264909745,
+     "world_model": 0.9224773901900881
+    },
+    {
+     "update": 700,
+     "random": 0.9267065472134607,
+     "world_model": 0.9282259325596736
+    },
+    {
+     "update": 750,
+     "random": 0.9417064082962283,
+     "world_model": 0.9393055749067708
+    },
+    {
+     "update": 800,
+     "random": 0.9533560454734231,
+     "world_model": 0.945892853253505
+    },
+    {
+     "update": 850,
+     "random": 0.9323727438009493,
+     "world_model": 0.9254982885769623
+    },
+    {
+     "update": 900,
+     "random": 0.9076952721966914,
+     "world_model": 0.9366147684595487
+    },
+    {
+     "update": 950,
+     "random": 0.9368412498172837,
+     "world_model": 0.92936899178564
+    },
+    {
+     "update": 1000,
+     "random": 0.9366520151061748,
+     "world_model": 0.9257380320653746
+    },
+    {
+     "update": 1050,
+     "random": 0.9415078944665082,
+     "world_model": 0.93616861393645
+    },
+    {
+     "update": 1100,
+     "random": 0.9205269978823161,
+     "world_model": 0.9380626846616226
+    },
+    {
+     "update": 1150,
+     "random": 0.9515249638904059,
+     "world_model": 0.9187966303837182
+    },
+    {
+     "update": 1200,
+     "random": 0.930201878138443,
+     "world_model": 0.9083676187766405
+    },
+    {
+     "update": 1250,
+     "random": 0.9154544845262012,
+     "world_model": 0.9258434823256133
+    },
+    {
+     "update": 1300,
+     "random": 0.9535172432278931,
+     "world_model": 0.9299078809573804
+    },
+    {
+     "update": 1350,
+     "random": 0.940227770640039,
+     "world_model": 0.9401533671814545
+    },
+    {
+     "update": 1400,
+     "random": 0.9436043015366258,
+     "world_model": 0.9367627357818267
+    },
+    {
+     "update": 1450,
+     "random": 0.9388082823034836,
+     "world_model": 0.9520130034904492
+    },
+    {
+     "update": 1500,
+     "random": 0.924929486020869,
+     "world_model": 0.9483972072682746
+    },
+    {
+     "update": 1550,
+     "random": 0.9449267188026297,
+     "world_model": 0.9450944517913794
+    },
+    {
+     "update": 1600,
+     "random": 0.9372459326572954,
+     "world_model": 0.9626656151970029
+    },
+    {
+     "update": 1650,
+     "random": 0.9313398924069184,
+     "world_model": 0.9439276472973508
+    },
+    {
+     "update": 1700,
+     "random": 0.9414792656637884,
+     "world_model": 0.935804866988263
+    },
+    {
+     "update": 1750,
+     "random": 0.9255949951126211,
+     "world_model": 0.9350759691047408
+    },
+    {
+     "update": 1800,
+     "random": 0.9323430281190132,
+     "world_model": 0.9384419439981895
+    }
+   ],
+   "delta_world_model_minus_random": {
+    "update0_hv": -0.03487226000846133,
+    "best_hv": 0.009148371969109781,
+    "greedy_hv": 0.011220598673913562,
+    "best_of_128_hv": -0.0021780278712444368,
+    "greedy_igd_plus": 0.0003644993275900149,
+    "best_of_128_igd_plus": -0.0002968783292441879
+   }
+  }
+ },
+ "costs_hours": {
+  "shared_upstream_world_model": {
+   "pilot_data_regeneration": 0.022581257621447245,
+   "pilot_encoder_training": 0.05646843002902137,
+   "specialist_training_sum": 5.1337598177459505
+  },
+  "shared_upstream_random_specialists_sum": 8.019880061546962,
+  "ties_fine_tuning": {
+   "world_model": 1.0041932703389063,
+   "random": 1.452108311785592
+  },
+  "distill_teacher_data_and_student_imitation": {
+   "world_model": {
+    "collection_s": 16.14388132095337,
+    "imitation_training_s": 70.28309082984924,
+    "total_s": 88.72736191749573
+   },
+   "random": {
+    "collection_s": 18.345486879348755,
+    "imitation_training_s": 69.51522183418274,
+    "total_s": 90.26820921897888
+   }
+  },
+  "distill_ppo_training": {
+   "world_model": 1.0642559244235357,
+   "random": 1.1379959123664432
+  },
+  "evaluation_seconds": {
+   "ties": 1604.6642343997955,
+   "distill": 1507.2664806842804
+  }
+ },
+ "hardware": {
+  "world_model": "TIES and distillation run one after the other, one training process at a time",
+  "random": "baseline finals ran TIES, Rewarded Soups, Distillation and From-scratch together on 3 CPU slots and one GPU; compare learning speed in updates"
+ },
+ "identity": {
+  "base_sha256": "6184473b14ae47584ae7cc9907e5a337d6e3adf4261940f4a29cfa5114a15f4a",
+  "base_sha_matches_wm_sums": true,
+  "base_sha_matches_wm_base_check": true,
+  "wm_checkpoints_unchanged_since_bbe1959": true,
+  "spec_m": {
+   "sha256": "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+   "sha_matches_wm_sums": true,
+   "update": 2350,
+   "is_validation_selected": true,
+   "initialised_from_wm_base": true
+  },
+  "spec_c": {
+   "sha256": "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+   "sha_matches_wm_sums": true,
+   "update": 1700,
+   "is_validation_selected": true,
+   "initialised_from_wm_base": true
+  },
+  "spec_t": {
+   "sha256": "2c4beeeb0ae5340d86106ae3264c4e2ac4dc47c778b701e01cfdc75a40dbdbe3",
+   "sha_matches_wm_sums": true,
+   "update": 2350,
+   "is_validation_selected": true,
+   "initialised_from_wm_base": true
+  }
+ },
+ "command_check": {
+  "ties": {
+   "selected": {
+    "lr": 0.0001,
+    "cl_beta": 0.1
+   },
+   "ties": [
+    0.5,
+    1.5
+   ],
+   "differing_flags": [
+    "--merge_base",
+    "--merge_mix",
+    "--model_suffix"
+   ],
+   "diff": [
+    [
+     "bv3_sr_ties_s111",
+     "bv3_srwmtd_ties_s111"
+    ],
+    [
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_m_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_c_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_t_s111.pth",
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_m_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_c_s111.pth,/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_t_s111.pth"
+    ],
+    [
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/base_s111.pth",
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/base_s111.pth"
+    ]
+   ]
+  },
+  "distill": {
+   "selected": {
+    "lr": 0.0003,
+    "cl_beta": 0.1
+   },
+   "differing_flags": [
+    "--init_from",
+    "--model_suffix"
+   ],
+   "diff": [
+    [
+     "bv3_sr_distill_s111",
+     "bv3_srwmtd_distill_s111"
+    ],
+    [
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_v3/distill/student_s111.pth",
+     "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_td_v3/distill/student_s111.pth"
+    ]
+   ]
+  }
+ },
+ "record_check": {
+  "ties": {
+   "differing_config_keys": [
+    "merge_base",
+    "merge_mix",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "distill": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ },
+ "teacher_inputs": {
+  "student_initialisation": "fresh DANIEL (preference-conditioned), torch.manual_seed(111 + 7001), identical procedure and seed to the baseline (distill_v3.py); not from either shared base",
+  "instance_stream": "GeneratorSource, numpy seed 111 + 7001, 400 instances per teacher (same instances as the baseline)",
+  "teacher_sampling": "torch generator seeded 111 + 7001; sampled teacher rollouts (actions differ with the teachers, so the stored states and target distributions differ)",
+  "teachers_new": [
+   "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_m_s111.pth",
+   "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_c_s111.pth",
+   "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_t_s111.pth"
+  ],
+  "teachers_baseline": "see baseline record",
+  "record_keys_equal": [
+   "epochs_planned",
+   "epochs_run",
+   "generator",
+   "gpu",
+   "instances_per_teacher",
+   "seed",
+   "size",
+   "states",
+   "wall_cap_hit",
+   "wall_cap_s"
+  ],
+  "record_keys_differing": [
+   "collection_seconds",
+   "history",
+   "teachers",
+   "total_seconds",
+   "training_seconds"
+  ],
+  "generator_equal": true
+ }
+}

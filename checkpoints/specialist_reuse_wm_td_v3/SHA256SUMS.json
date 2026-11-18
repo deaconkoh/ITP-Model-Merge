@@ -1,0 +1,5 @@
+{
+ "distill/student_s111.pth": "df635c6f72dcff36c8465adceb1ae5809042e4f75503ea1861ef1a5cd5d47925",
+ "finals/10x5+mix+bv3_srwmtd_distill_s111.pth": "50d561188bf3d0b188a75fc825e6eebedcbdb7b243692d8b4946ab627d2ce955",
+ "finals/10x5+mix+bv3_srwmtd_ties_s111.pth": "9e76128086ae34e7ce1dcbe8a7993920d864f294065dcf3eb5ae0b7ffb5bf59f"
+}
