@@ -1,0 +1,32 @@
+{
+ "split": "validation 10x5",
+ "instances": 18,
+ "decoder": "greedy",
+ "dispatch_rule": "semi_active",
+ "checkpoints": {
+  "random": {
+   "m": "checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_m_s111.pth",
+   "c": "checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_c_s111.pth",
+   "t": "checkpoints/specialist_reuse_v3/specialists/10x5+mix+bv3_sr_spec_t_s111.pth"
+  },
+  "world_model": {
+   "m": "checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_m_s111.pth",
+   "c": "checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_c_s111.pth",
+   "t": "checkpoints/specialist_reuse_wm_v3/specialists/10x5+mix+bv3_srwm_spec_t_s111.pth"
+  }
+ },
+ "end_of_run": {
+  "random": {
+   "m": "daniel/trained_network/SD2/10x5+mix+bv3_sr_spec_m_s111.resume.pth",
+   "c": "daniel/trained_network/SD2/10x5+mix+bv3_sr_spec_c_s111.resume.pth",
+   "t": "daniel/trained_network/SD2/10x5+mix+bv3_sr_spec_t_s111.resume.pth"
+  },
+  "world_model": {
+   "m": "daniel/trained_network/SD2/10x5+mix+bv3_srwm_spec_m_s111.resume.pth",
+   "c": "daniel/trained_network/SD2/10x5+mix+bv3_srwm_spec_c_s111.resume.pth",
+   "t": "daniel/trained_network/SD2/10x5+mix+bv3_srwm_spec_t_s111.resume.pth"
+  }
+ },
+ "final_test_loaded": false,
+ "seconds": 65.60280442237854
+}
