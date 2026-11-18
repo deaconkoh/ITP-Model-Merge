@@ -1,0 +1,95 @@
+{
+ "units": {
+  "spec:c": {
+   "name": "10x5+mix+bv3_srwm_spec_c_s111",
+   "start": 1794933954.606978,
+   "slot": "4-7",
+   "end": 1794938302.9480867,
+   "status": "CONVERGED",
+   "update": 1850,
+   "best": 0.8014663509266396,
+   "best_update": 1700,
+   "train_seconds": 4333.254673719406,
+   "capped": false
+  },
+  "spec:m": {
+   "name": "10x5+mix+bv3_srwm_spec_m_s111",
+   "start": 1794933954.607165,
+   "slot": "8-11",
+   "end": 1794941005.2243536,
+   "status": "CONVERGED",
+   "update": 3350,
+   "best": 0.911757487634292,
+   "best_update": 2350,
+   "train_seconds": 7027.016385793686,
+   "capped": false
+  },
+  "spec:t": {
+   "name": "10x5+mix+bv3_srwm_spec_t_s111",
+   "start": 1794933954.607213,
+   "slot": "0-3",
+   "end": 1794941098.4166715,
+   "status": "CONVERGED",
+   "update": 3350,
+   "best": 0.1961479896204112,
+   "best_update": 2350,
+   "train_seconds": 7121.26428437233,
+   "capped": false
+  },
+  "final:rs": {
+   "name": "10x5+mix+bv3_srwm_rs_s111",
+   "start": 1794941100.89223,
+   "slot": "0-3",
+   "end": 1794945024.9368691,
+   "status": "CONVERGED",
+   "update": 1950,
+   "best": -0.9561040819906097,
+   "best_update": 950,
+   "train_seconds": 3914.0786230564117,
+   "capped": false
+  }
+ },
+ "selected": {
+  "rs": {
+   "lr": 0.001,
+   "cl_beta": 0.1
+  },
+  "source": "baseline state.json (not re-tuned)"
+ },
+ "eval_seconds": 1575.9586815834045,
+ "protocol_check": {
+  "spec_m": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "spec_c": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "spec_t": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "rs": {
+   "differing_config_keys": [
+    "merge_mix",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ },
+ "wall_hours": 3.5130825008948645
+}

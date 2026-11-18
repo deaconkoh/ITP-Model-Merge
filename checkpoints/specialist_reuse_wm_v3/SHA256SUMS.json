@@ -1,0 +1,7 @@
+{
+ "base_s111.pth": "6184473b14ae47584ae7cc9907e5a337d6e3adf4261940f4a29cfa5114a15f4a",
+ "finals/10x5+mix+bv3_srwm_rs_s111.pth": "236fec853210f8a6f594851f439c8940e697f92dad626312398c684687cbd798",
+ "specialists/10x5+mix+bv3_srwm_spec_c_s111.pth": "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+ "specialists/10x5+mix+bv3_srwm_spec_m_s111.pth": "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+ "specialists/10x5+mix+bv3_srwm_spec_t_s111.pth": "2c4beeeb0ae5340d86106ae3264c4e2ac4dc47c778b701e01cfdc75a40dbdbe3"
+}

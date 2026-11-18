@@ -1,0 +1,8 @@
+{
+ "baseline_base_sha_matches_its_sums": true,
+ "pilot_sha_matches_tardiness_transfer_run": true,
+ "encoder_equals_tardiness_transfer_pretrained_start": true,
+ "identical_outside_encoder_to_baseline_base": true,
+ "encoder_differs_from_baseline_base": true,
+ "new_base_sha256": "6184473b14ae47584ae7cc9907e5a337d6e3adf4261940f4a29cfa5114a15f4a"
+}

@@ -1,0 +1,140 @@
+{
+ "eval": {
+  "random shared base": {
+   "greedy_hv": 1.0139683900343146,
+   "best_of_128_hv": 1.0852829634274996,
+   "greedy_igd": 0.1083230036288693,
+   "best_of_128_igd": 0.07490171914015316,
+   "instances": 100,
+   "model_sha256": "2356afad66efa3f82685303d4389d3197ffa37dc9aca0f8e660de527cd5b253b"
+  },
+  "world-model shared base": {
+   "greedy_hv": 1.026726067375385,
+   "best_of_128_hv": 1.1018513652676223,
+   "greedy_igd": 0.10439278813771649,
+   "best_of_128_igd": 0.06790681702761889,
+   "instances": 100,
+   "model_sha256": "236fec853210f8a6f594851f439c8940e697f92dad626312398c684687cbd798"
+  }
+ },
+ "specialists": {
+  "m": {
+   "world_model": {
+    "status": "CONVERGED",
+    "updates": 3350,
+    "best": 0.911757487634292,
+    "best_update": 2350,
+    "hours": 1.9519489960538017
+   },
+   "random": {
+    "status": "CONVERGED",
+    "updates": 3550,
+    "best": 0.9297688834624959,
+    "best_update": 3050,
+    "hours": 2.2287038794491028
+   }
+  },
+  "c": {
+   "world_model": {
+    "status": "CONVERGED",
+    "updates": 1850,
+    "best": 0.8014663509266396,
+    "best_update": 1700,
+    "hours": 1.2036818538109462
+   },
+   "random": {
+    "status": "CONVERGED",
+    "updates": 1950,
+    "best": 0.8008872562975999,
+    "best_update": 1950,
+    "hours": 1.2156362617678111
+   }
+  },
+  "t": {
+   "world_model": {
+    "status": "CONVERGED",
+    "updates": 3350,
+    "best": 0.1961479896204112,
+    "best_update": 2350,
+    "hours": 1.9781289678812026
+   },
+   "random": {
+    "status": "CONVERGED",
+    "updates": 7900,
+    "best": 0.17684252965267994,
+    "best_update": 6900,
+    "hours": 4.575539920330048
+   }
+  }
+ },
+ "rs": {
+  "target_baseline_best_validation_hv": 0.9376917988462348,
+  "world_model": {
+   "start_hv": 0.86220099926425,
+   "best_hv": 0.9561040819906097,
+   "best_update": 950,
+   "status": "CONVERGED",
+   "updates": 1950,
+   "hours": 1.0872440619601145,
+   "reached_update": 500,
+   "reached_hours": 0.29280275695853764
+  },
+  "random": {
+   "start_hv": 0.8734511530425562,
+   "best_hv": 0.9376917988462348,
+   "best_update": 1150,
+   "status": "CONVERGED",
+   "updates": 2150,
+   "hours": 1.74173473238945
+  }
+ },
+ "costs_hours": {
+  "pretraining": {
+   "pilot_data_regeneration": 0.022581257621447245,
+   "pilot_encoder_training": 0.05646843002902137
+  },
+  "specialist_training": {
+   "world_model_sum": 5.1337598177459505,
+   "random_sum": 8.019880061546962
+  },
+  "merge_fine_tuning": {
+   "world_model": 1.0872440619601145,
+   "random": 1.74173473238945
+  },
+  "evaluation_seconds": 1575.9586815834045
+ },
+ "protocol_check": {
+  "spec_m": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "spec_c": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "spec_t": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  },
+  "rs": {
+   "differing_config_keys": [
+    "merge_mix",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ }
+}
