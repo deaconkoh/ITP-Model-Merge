@@ -213,42 +213,43 @@ def summarise(r):
 
 
 def plot(r, out):
+    """One panel: every evaluated snapshot on its line; the validation-selected checkpoint is the large ringed point."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     INK, MUTED, GRIDC, BG = "#1f1f1e", "#6b6a64", "#e4e3de", "#fcfcfb"
-    style = {"rs_random": ("#2a78d6", "o"), "rs_world_model": ("#eb6834", "s"), "scratch": ("#1baf7a", "^")}
-    plt.rcParams.update({"font.size": 9.5, "axes.edgecolor": MUTED, "xtick.color": MUTED, "ytick.color": MUTED,
+    style = {"rs_world_model": ("#eb6834", "s"), "rs_random": ("#2a78d6", "o"), "scratch": ("#1baf7a", "^")}
+    plt.rcParams.update({"font.size": 10, "axes.edgecolor": MUTED, "xtick.color": MUTED, "ytick.color": MUTED,
                          "text.color": INK, "axes.labelcolor": INK})
-    fig, axs = plt.subplots(1, 2, figsize=(14, 5.6), facecolor=BG, gridspec_kw={"width_ratios": [1, 1.15]})
-    for k, ax in enumerate(axs):
-        ax.set_facecolor(BG)
-        for run, d in out["runs"].items():
-            col, mk = style[run]
-            grid_pts = [p for p in d["points"] if p["update"] in GRID]
-            x = [p["update"] for p in grid_pts]; y = [p["best_of_128_hv"] for p in grid_pts]
-            ax.plot(x, y, color=col, lw=2, marker=mk, ms=6, mec=BG, mew=1.2, zorder=3, label=d["label"])
-            ax.axvline(d["rerun"]["stop_update"], color=col, lw=.9, ls=":", zorder=1)
-            bu = d["original"]["best_update"]; ob = d["original"]["best_of_128_hv_selected"]
-            ax.plot(bu, ob, marker=mk, ms=11, mfc="none", mec=col, mew=2, zorder=4)
-            if k == 1:
-                ax.annotate(f"{ob:.3f}", (bu, ob), xytext=(0, 9), textcoords="offset points", ha="center", fontsize=8.5)
-        ax.set_xlabel("training updates")
-        ax.grid(color=GRIDC, lw=.8); ax.set_axisbelow(True)
-        for s_ in ("top", "right"):
-            ax.spines[s_].set_visible(False)
-    axs[0].set_ylabel("best-of-128 HV (evaluation: 100 instances x 67 preferences)")
-    axs[0].set_title("Full range", fontsize=10.5, loc="left")
-    axs[1].set_title("Zoomed: best-of-128 HV 0.94-1.12", fontsize=10.5, loc="left")
-    axs[1].set_ylim(0.94, 1.12)
-    axs[1].plot([], [], marker="o", ms=10, mfc="none", mec=MUTED, mew=2, ls="none",
-                label="validation-selected checkpoint")
-    axs[1].legend(frameon=False, loc="lower right", fontsize=8.5)
-    fig.suptitle("Best-of-128 evaluation HV over training (10x5, seed 111, waiting allowed)", fontsize=12, x=0.01, ha="left")
-    fig.text(0.01, 0.01, "Rewarded Soups x-axis = merge fine-tuning updates, counted after specialist training. "
-                         "Dotted verticals: stopping update.\nCurves: snapshots of re-runs with the original commands "
-                         "(reproduction checks in summary.json). Single seed.", fontsize=8, color=MUTED)
-    fig.tight_layout(rect=(0, 0.06, 1, 0.96))
+    fig, ax = plt.subplots(figsize=(11, 6), facecolor=BG)
+    ax.set_facecolor(BG)
+    for run in style:
+        d = out["runs"][run]
+        col, mk = style[run]
+        pts = sorted(d["points"], key=lambda p: p["update"])
+        x = [p["update"] for p in pts]; y = [p["best_of_128_hv"] for p in pts]
+        bu = d["original"]["best_update"]; bv = next(p["best_of_128_hv"] for p in pts if p["update"] == bu)
+        ax.plot(x, y, color=col, lw=2.2, marker=mk, ms=5, mec=BG, mew=1, zorder=3,
+                label=f"{d['label']}: selected checkpoint {bv:.3f} (update {bu:,})")
+        ax.plot(bu, bv, marker=mk, ms=13, color=col, mec=INK, mew=1.4, zorder=5)
+        ax.annotate(f"{bv:.3f}", (bu, bv), xytext=(0, 11), textcoords="offset points", ha="center",
+                    fontsize=9.5, fontweight="bold", color=INK, zorder=6)
+    ax.plot([], [], marker="o", ms=11, color="#bdbcb5", mec=INK, mew=1.4, ls="none",
+            label="large outlined point = validation-selected checkpoint (the reported final policy)")
+    ax.set_ylim(0.70, 1.13)
+    ax.set_xlim(-100, 4500)
+    ax.set_xlabel("training updates")
+    ax.set_ylabel("best-of-128 HV on the evaluation set (higher is better)")
+    ax.set_title("Best-of-128 evaluation HV during training", fontsize=13, loc="left", pad=12)
+    ax.grid(color=GRIDC, lw=.8); ax.set_axisbelow(True)
+    for s_ in ("top", "right"):
+        ax.spines[s_].set_visible(False)
+    ax.legend(frameon=False, loc="lower right", fontsize=9)
+    fig.text(0.01, 0.012, "Rewarded Soups starts from merged specialists, so its updates are merge fine-tuning only "
+                          "(specialist training happened before update 0).\nFrom scratch starts at HV 0.003 (below the "
+                          "axis). 100 evaluation instances x 67 preferences, best of 128 samples (seed 51). "
+                          "10x5, seed 111, waiting allowed. Single seed.", fontsize=8.5, color=MUTED)
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(r.res / "best_of_128_curve.png", dpi=150, facecolor=BG); plt.close(fig)
 
 
