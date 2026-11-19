@@ -1,0 +1,189 @@
+[2026-11-18 21:25:48] start (3 slots); budget checkpoints [0, 250, 500, 750, 950, 1000, 1150, 1250, 1500, 1750, 2000, 2500, 3000, 3400, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000]
+[2026-11-18 21:25:48] train 10x5+mix+bv3_ecv_rs_random_s111: chunk (status NONE, slot 1)
+[2026-11-18 21:25:48] train 10x5+mix+bv3_ecv_rs_world_model_s111: chunk (status NONE, slot 2)
+[2026-11-18 21:25:48] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status NONE, slot 0)
+[2026-11-18 21:43:52] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 21:49:44] train 10x5+mix+bv3_ecv_rs_world_model_s111: chunk (status RUNNING, slot 2)
+[2026-11-18 21:50:45] train 10x5+mix+bv3_ecv_rs_random_s111: chunk (status RUNNING, slot 1)
+[2026-11-18 22:01:59] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 22:13:35] train 10x5+mix+bv3_ecv_rs_world_model_s111: chunk (status RUNNING, slot 2)
+[2026-11-18 22:16:03] train 10x5+mix+bv3_ecv_rs_random_s111: chunk (status RUNNING, slot 1)
+[2026-11-18 22:20:23] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 22:37:30] train 10x5+mix+bv3_ecv_rs_world_model_s111: chunk (status RUNNING, slot 2)
+[2026-11-18 22:38:41] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 22:40:47] train 10x5+mix+bv3_ecv_rs_random_s111: chunk (status RUNNING, slot 1)
+[2026-11-18 22:57:09] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 22:59:12] 10x5+mix+bv3_ecv_rs_world_model_s111: CONVERGED at update 1950 (best -0.9561 @ 950, 1.55 h)
+[2026-11-18 23:04:37] train 10x5+mix+bv3_ecv_rs_random_s111: chunk (status RUNNING, slot 1)
+[2026-11-18 23:11:06] 10x5+mix+bv3_ecv_rs_random_s111: CONVERGED at update 2150 (best -0.9377 @ 1150, 1.75 h)
+[2026-11-18 23:12:40] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 23:25:07] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 23:38:18] train 10x5+mix+bv3_ecv_scratch_s111: chunk (status RUNNING, slot 0)
+[2026-11-18 23:48:46] 10x5+mix+bv3_ecv_scratch_s111: CONVERGED at update 4400 (best -0.9567 @ 3400, 2.37 h)
+[2026-11-18 23:48:46] evaluating 33 snapshots
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 17 s (0.0026 s per pair)
+greedy: 18 s (0.0028 s per pair)
+greedy: 19 s (0.0028 s per pair)
+sample128: 2208 s (0.3296 s per pair)
+[2026-11-19 00:25:55] evaluated scratch @ 0 (2229 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0029 s per pair)
+sample128: 2281 s (0.3404 s per pair)
+[2026-11-19 00:27:09] evaluated rs_random @ 0 (2303 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2299 s (0.3432 s per pair)
+[2026-11-19 00:27:28] evaluated rs_world_model @ 0 (2321 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+greedy: 18 s (0.0026 s per pair)
+sample128: 2304 s (0.3439 s per pair)
+[2026-11-19 01:04:42] evaluated rs_random @ 250 (2327 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2216 s (0.3307 s per pair)
+[2026-11-19 01:04:44] evaluated scratch @ 250 (2236 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0029 s per pair)
+greedy: 19 s (0.0028 s per pair)
+sample128: 2300 s (0.3432 s per pair)
+[2026-11-19 01:05:51] evaluated rs_world_model @ 250 (2321 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2217 s (0.3310 s per pair)
+[2026-11-19 01:43:10] evaluated scratch @ 500 (2239 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2311 s (0.3449 s per pair)
+[2026-11-19 01:43:37] evaluated rs_world_model @ 500 (2333 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2322 s (0.3465 s per pair)
+[2026-11-19 01:43:46] evaluated rs_random @ 500 (2344 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+greedy: 18 s (0.0027 s per pair)
+sample128: 2210 s (0.3299 s per pair)
+[2026-11-19 02:20:58] evaluated scratch @ 750 (2232 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2308 s (0.3445 s per pair)
+[2026-11-19 02:21:59] evaluated rs_random @ 750 (2330 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2296 s (0.3427 s per pair)
+[2026-11-19 02:22:15] evaluated rs_world_model @ 750 (2318 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+greedy: 18 s (0.0027 s per pair)
+sample128: 2289 s (0.3417 s per pair)
+[2026-11-19 02:59:29] evaluated rs_world_model @ 950 (2312 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2281 s (0.3404 s per pair)
+[2026-11-19 03:00:22] evaluated rs_random @ 1000 (2302 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2287 s (0.3414 s per pair)
+[2026-11-19 03:00:44] evaluated rs_world_model @ 1000 (2309 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2217 s (0.3309 s per pair)
+[2026-11-19 03:36:49] evaluated scratch @ 1000 (2239 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2310 s (0.3448 s per pair)
+[2026-11-19 03:39:14] evaluated rs_random @ 1150 (2333 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2309 s (0.3446 s per pair)
+greedy: 18 s (0.0027 s per pair)
+[2026-11-19 03:39:35] evaluated rs_random @ 1250 (2331 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2336 s (0.3486 s per pair)
+[2026-11-19 04:16:07] evaluated rs_world_model @ 1250 (2358 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+sample128: 2199 s (0.3282 s per pair)
+[2026-11-19 04:16:15] evaluated scratch @ 1250 (2220 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+greedy: 18 s (0.0027 s per pair)
+sample128: 2287 s (0.3413 s per pair)
+[2026-11-19 04:18:04] evaluated rs_random @ 1500 (2309 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0029 s per pair)
+sample128: 2216 s (0.3308 s per pair)
+[2026-11-19 04:53:32] evaluated scratch @ 1500 (2238 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2285 s (0.3410 s per pair)
+[2026-11-19 04:54:34] evaluated rs_world_model @ 1500 (2307 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0026 s per pair)
+sample128: 2284 s (0.3409 s per pair)
+[2026-11-19 04:56:31] evaluated rs_random @ 1750 (2306 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 19 s (0.0028 s per pair)
+sample128: 2219 s (0.3312 s per pair)
+[2026-11-19 05:31:54] evaluated scratch @ 1750 (2240 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2336 s (0.3486 s per pair)
+[2026-11-19 05:32:50] evaluated rs_world_model @ 1750 (2358 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0026 s per pair)
+sample128: 2285 s (0.3411 s per pair)
+[2026-11-19 05:34:58] evaluated rs_random @ 2000 (2307 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 17 s (0.0026 s per pair)
+sample128: 2218 s (0.3311 s per pair)
+[2026-11-19 06:09:14] evaluated scratch @ 2000 (2240 s, slot 1, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0026 s per pair)
+sample128: 2239 s (0.3342 s per pair)
+[2026-11-19 06:10:31] evaluated scratch @ 2500 (2261 s, slot 2, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2221 s (0.3315 s per pair)
+[2026-11-19 06:12:19] evaluated scratch @ 3000 (2242 s, slot 0, rc 0)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+greedy: 18 s (0.0027 s per pair)
+sample128: 2235 s (0.3336 s per pair)
+[2026-11-19 06:46:51] evaluated scratch @ 3400 (2257 s, slot 1, rc 0)
+sample128: 2200 s (0.3283 s per pair)
+[2026-11-19 06:47:32] evaluated scratch @ 3500 (2221 s, slot 2, rc 0)
+sample128: 2188 s (0.3266 s per pair)
+[2026-11-19 06:49:08] evaluated scratch @ 4000 (2209 s, slot 0, rc 0)
+[2026-11-19 06:49:13] done (9.39 h)
