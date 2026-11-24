@@ -1,0 +1,109 @@
+[2026-11-24 22:01:30] stage collect
+[2026-11-24 22:01:37] collect MWKR+ECT instances 0-269: 2159 states, 10748 transitions
+[2026-11-24 22:01:41] collect MWKR+ECT instances 270-539: 2153 states, 10695 transitions
+[2026-11-24 22:01:45] collect MWKR+ECT instances 540-809: 2150 states, 10663 transitions
+[2026-11-24 22:01:49] collect MWKR+ECT instances 810-1079: 2159 states, 10723 transitions
+[2026-11-24 22:01:53] collect MWKR+ECT instances 1080-1349: 2157 states, 10681 transitions
+[2026-11-24 22:01:57] collect MWKR+MINE instances 0-269: 2157 states, 10699 transitions
+[2026-11-24 22:02:01] collect MWKR+MINE instances 270-539: 2151 states, 10658 transitions
+[2026-11-24 22:02:06] collect MWKR+MINE instances 540-809: 2154 states, 10686 transitions
+[2026-11-24 22:02:10] collect MWKR+MINE instances 810-1079: 2158 states, 10694 transitions
+[2026-11-24 22:02:14] collect MWKR+MINE instances 1080-1349: 2155 states, 10683 transitions
+[2026-11-24 22:02:17] collect EDD+ECT instances 0-269: 2147 states, 10604 transitions
+[2026-11-24 22:02:22] collect EDD+ECT instances 270-539: 2144 states, 10564 transitions
+[2026-11-24 22:02:26] collect EDD+ECT instances 540-809: 2152 states, 10617 transitions
+[2026-11-24 22:02:30] collect EDD+ECT instances 810-1079: 2152 states, 10634 transitions
+[2026-11-24 22:02:34] collect EDD+ECT instances 1080-1349: 2149 states, 10610 transitions
+[2026-11-24 22:02:38] collect RANDOM instances 0-269: 2143 states, 10499 transitions
+[2026-11-24 22:02:42] collect RANDOM instances 270-539: 2130 states, 10467 transitions
+[2026-11-24 22:02:46] collect RANDOM instances 540-809: 2131 states, 10481 transitions
+[2026-11-24 22:02:49] collect RANDOM instances 810-1079: 2142 states, 10486 transitions
+[2026-11-24 22:02:53] collect RANDOM instances 1080-1349: 2135 states, 10492 transitions
+[2026-11-24 22:02:59] collect DANIEL instances 0-269: 2144 states, 10594 transitions
+[2026-11-24 22:03:03] collect DANIEL instances 270-539: 2145 states, 10618 transitions
+[2026-11-24 22:03:08] collect DANIEL instances 540-809: 2152 states, 10646 transitions
+[2026-11-24 22:03:13] collect DANIEL instances 810-1079: 2153 states, 10649 transitions
+[2026-11-24 22:03:18] collect DANIEL instances 1080-1349: 2151 states, 10641 transitions
+[2026-11-24 22:03:21] collection done: 53723 states, 265532 transitions, 1.39 GB, 110 s
+[2026-11-24 22:03:21] stage lrcheck
+[2026-11-24 22:09:28] lrcheck B lr 0.0001 epoch 10: train_out 0.0046, val_out 0.0032, val_rank_acc 0.5517, val_same_op_acc 0.5825, val_diff_mae 79.3706, val_diff_mae_zero 67.2836
+[2026-11-24 22:16:14] lrcheck B lr 0.0003 epoch 10: train_out 0.0040, val_out 0.0029, val_rank_acc 0.5665, val_same_op_acc 0.6003, val_diff_mae 74.7065, val_diff_mae_zero 67.2836
+[2026-11-24 22:22:57] lrcheck B lr 0.001 epoch 10: train_out 0.0037, val_out 0.0027, val_rank_acc 0.5700, val_same_op_acc 0.5963, val_diff_mae 71.7382, val_diff_mae_zero 67.2836
+[2026-11-24 22:22:57] lrcheck B: chose 0.001 by val_out
+[2026-11-24 22:28:43] lrcheck C lr 0.0001 epoch 10: train_lat 0.0044, train_var 0.0000, val_lat 0.0034, val_var 0.0019, val_change_explained 0.6672, val_disc_overall 0.8087, val_disc_same_op 0.5179
+[2026-11-24 22:34:37] lrcheck C lr 0.0003 epoch 10: train_lat 0.0033, train_var 0.0000, val_lat 0.0026, val_var 0.0022, val_change_explained 0.8121, val_disc_overall 0.8972, val_disc_same_op 0.5249
+[2026-11-24 22:40:26] lrcheck C lr 0.001 epoch 10: train_lat 0.0032, train_var 0.0000, val_lat 0.0026, val_var 0.0022, val_change_explained 0.8693, val_disc_overall 0.9177, val_disc_same_op 0.5468
+[2026-11-24 22:40:26] lrcheck C: chose 0.001 by val_change_explained
+[2026-11-24 22:48:01] lrcheck D lr 0.0001 epoch 10: train_lat 0.0059, train_var 0.0000, train_out 0.0048, val_lat 0.0046, val_var 0.0021, val_out 0.0034, val_norm_mean 0.0143, val_change_explained 0.6798, val_disc_overall 0.8471, val_disc_same_op 0.5254, val_rank_acc 0.5549, val_same_op_acc 0.5828, val_diff_mae 79.2942, val_diff_mae_zero 67.2836
+[2026-11-24 22:56:19] lrcheck D lr 0.0003 epoch 10: train_lat 0.0051, train_var 0.0000, train_out 0.0042, val_lat 0.0039, val_var 0.0030, val_out 0.0030, val_norm_mean 0.0126, val_change_explained 0.8272, val_disc_overall 0.9214, val_disc_same_op 0.5651, val_rank_acc 0.5609, val_same_op_acc 0.5876, val_diff_mae 75.8947, val_diff_mae_zero 67.2836
+[2026-11-24 23:04:25] lrcheck D lr 0.001 epoch 10: train_lat 0.0051, train_var 0.0000, train_out 0.0037, val_lat 0.0043, val_var 0.0037, val_out 0.0028, val_norm_mean 0.0121, val_change_explained 0.8909, val_disc_overall 0.9482, val_disc_same_op 0.6725, val_rank_acc 0.5694, val_same_op_acc 0.5936, val_diff_mae 71.7367, val_diff_mae_zero 67.2836
+[2026-11-24 23:04:25] lrcheck D: chose 0.001 by val_norm_mean
+[2026-11-24 23:04:25] stage train
+[2026-11-24 23:07:55] B lr 0.001 epoch 5: train_out 0.0039, val_out 0.0028, val_rank_acc 0.5640, val_same_op_acc 0.5942, val_diff_mae 72.2263, val_diff_mae_zero 67.2836
+[2026-11-24 23:11:15] B lr 0.001 epoch 10: train_out 0.0037, val_out 0.0027, val_rank_acc 0.5700, val_same_op_acc 0.5963, val_diff_mae 71.7382, val_diff_mae_zero 67.2836
+[2026-11-24 23:14:33] B lr 0.001 epoch 15: train_out 0.0036, val_out 0.0027, val_rank_acc 0.5656, val_same_op_acc 0.5956, val_diff_mae 72.6829, val_diff_mae_zero 67.2836
+[2026-11-24 23:17:28] B lr 0.001 epoch 20: train_out 0.0035, val_out 0.0027, val_rank_acc 0.5714, val_same_op_acc 0.6029, val_diff_mae 70.6903, val_diff_mae_zero 67.2836
+[2026-11-24 23:20:15] B lr 0.001 epoch 25: train_out 0.0035, val_out 0.0026, val_rank_acc 0.5704, val_same_op_acc 0.6030, val_diff_mae 70.3426, val_diff_mae_zero 67.2836
+[2026-11-24 23:22:55] B lr 0.001 epoch 30: train_out 0.0034, val_out 0.0026, val_rank_acc 0.5693, val_same_op_acc 0.6020, val_diff_mae 70.4121, val_diff_mae_zero 67.2836
+[2026-11-24 23:25:35] B lr 0.001 epoch 35: train_out 0.0034, val_out 0.0026, val_rank_acc 0.5693, val_same_op_acc 0.6011, val_diff_mae 70.4840, val_diff_mae_zero 67.2836
+[2026-11-24 23:28:31] B lr 0.001 epoch 40: train_out 0.0034, val_out 0.0026, val_rank_acc 0.5732, val_same_op_acc 0.6018, val_diff_mae 70.2319, val_diff_mae_zero 67.2836
+[2026-11-24 23:31:47] B lr 0.001 epoch 45: train_out 0.0033, val_out 0.0026, val_rank_acc 0.5742, val_same_op_acc 0.6019, val_diff_mae 70.0623, val_diff_mae_zero 67.2836
+[2026-11-24 23:34:38] B lr 0.001 epoch 50: train_out 0.0033, val_out 0.0026, val_rank_acc 0.5687, val_same_op_acc 0.5942, val_diff_mae 70.2282, val_diff_mae_zero 67.2836
+[2026-11-24 23:37:19] B lr 0.001 epoch 55: train_out 0.0033, val_out 0.0026, val_rank_acc 0.5736, val_same_op_acc 0.5990, val_diff_mae 70.1555, val_diff_mae_zero 67.2836
+[2026-11-24 23:39:55] B lr 0.001 epoch 60: train_out 0.0033, val_out 0.0026, val_rank_acc 0.5768, val_same_op_acc 0.6054, val_diff_mae 70.4344, val_diff_mae_zero 67.2836
+[2026-11-24 23:39:57] trained B: 2126 s, convergence would benefit from more training
+[2026-11-24 23:42:16] C lr 0.001 epoch 5: train_lat 0.0046, train_var 0.0000, val_lat 0.0033, val_var 0.0021, val_change_explained 0.8451, val_disc_overall 0.9107, val_disc_same_op 0.5428
+[2026-11-24 23:44:31] C lr 0.001 epoch 10: train_lat 0.0032, train_var 0.0000, val_lat 0.0026, val_var 0.0022, val_change_explained 0.8693, val_disc_overall 0.9177, val_disc_same_op 0.5468
+[2026-11-24 23:47:25] C lr 0.001 epoch 15: train_lat 0.0030, train_var 0.0000, val_lat 0.0024, val_var 0.0019, val_change_explained 0.8695, val_disc_overall 0.9154, val_disc_same_op 0.5488
+[2026-11-24 23:50:13] C lr 0.001 epoch 20: train_lat 0.0029, train_var 0.0000, val_lat 0.0028, val_var 0.0015, val_change_explained 0.8755, val_disc_overall 0.9105, val_disc_same_op 0.5412
+[2026-11-24 23:52:57] C lr 0.001 epoch 25: train_lat 0.0030, train_var 0.0000, val_lat 0.0028, val_var 0.0010, val_change_explained 0.8823, val_disc_overall 0.9126, val_disc_same_op 0.5401
+[2026-11-24 23:55:09] C lr 0.001 epoch 30: train_lat 0.0031, train_var 0.0000, val_lat 0.0030, val_var 0.0005, val_change_explained 0.8790, val_disc_overall 0.9173, val_disc_same_op 0.5422
+[2026-11-24 23:57:27] C lr 0.001 epoch 35: train_lat 0.0031, train_var 0.0000, val_lat 0.0030, val_var 0.0004, val_change_explained 0.8835, val_disc_overall 0.9219, val_disc_same_op 0.5408
+[2026-11-24 23:59:39] C lr 0.001 epoch 40: train_lat 0.0030, train_var 0.0000, val_lat 0.0030, val_var 0.0005, val_change_explained 0.8841, val_disc_overall 0.9238, val_disc_same_op 0.5405
+[2026-11-25 00:02:11] C lr 0.001 epoch 45: train_lat 0.0030, train_var 0.0000, val_lat 0.0029, val_var 0.0005, val_change_explained 0.8948, val_disc_overall 0.9259, val_disc_same_op 0.5432
+[2026-11-25 00:05:00] C lr 0.001 epoch 50: train_lat 0.0029, train_var 0.0000, val_lat 0.0029, val_var 0.0007, val_change_explained 0.8960, val_disc_overall 0.9264, val_disc_same_op 0.5381
+[2026-11-25 00:07:55] C lr 0.001 epoch 55: train_lat 0.0029, train_var 0.0000, val_lat 0.0029, val_var 0.0007, val_change_explained 0.9003, val_disc_overall 0.9249, val_disc_same_op 0.5341
+[2026-11-25 00:10:53] C lr 0.001 epoch 60: train_lat 0.0029, train_var 0.0000, val_lat 0.0030, val_var 0.0006, val_change_explained 0.9044, val_disc_overall 0.9260, val_disc_same_op 0.5331
+[2026-11-25 00:10:55] trained C: 1855 s, convergence would benefit from more training
+[2026-11-25 00:14:00] D lr 0.001 epoch 5: train_lat 0.0058, train_var 0.0000, train_out 0.0042, val_lat 0.0044, val_var 0.0025, val_out 0.0029, val_norm_mean 0.0125, val_change_explained 0.8707, val_disc_overall 0.9324, val_disc_same_op 0.6056, val_rank_acc 0.5671, val_same_op_acc 0.5998, val_diff_mae 72.1509, val_diff_mae_zero 67.2836
+[2026-11-25 00:17:48] D lr 0.001 epoch 10: train_lat 0.0051, train_var 0.0000, train_out 0.0037, val_lat 0.0043, val_var 0.0037, val_out 0.0028, val_norm_mean 0.0121, val_change_explained 0.8909, val_disc_overall 0.9482, val_disc_same_op 0.6725, val_rank_acc 0.5694, val_same_op_acc 0.5936, val_diff_mae 71.7367, val_diff_mae_zero 67.2836
+[2026-11-25 00:21:55] D lr 0.001 epoch 15: train_lat 0.0050, train_var 0.0000, train_out 0.0036, val_lat 0.0042, val_var 0.0038, val_out 0.0028, val_norm_mean 0.0120, val_change_explained 0.8998, val_disc_overall 0.9562, val_disc_same_op 0.7200, val_rank_acc 0.5635, val_same_op_acc 0.5881, val_diff_mae 71.0214, val_diff_mae_zero 67.2836
+[2026-11-25 00:25:55] D lr 0.001 epoch 20: train_lat 0.0049, train_var 0.0000, train_out 0.0035, val_lat 0.0038, val_var 0.0046, val_out 0.0026, val_norm_mean 0.0114, val_change_explained 0.9043, val_disc_overall 0.9634, val_disc_same_op 0.7653, val_rank_acc 0.5680, val_same_op_acc 0.5990, val_diff_mae 70.1447, val_diff_mae_zero 67.2836
+[2026-11-25 00:28:58] D lr 0.001 epoch 25: train_lat 0.0048, train_var 0.0000, train_out 0.0034, val_lat 0.0038, val_var 0.0048, val_out 0.0026, val_norm_mean 0.0113, val_change_explained 0.9090, val_disc_overall 0.9657, val_disc_same_op 0.7809, val_rank_acc 0.5649, val_same_op_acc 0.5925, val_diff_mae 70.3755, val_diff_mae_zero 67.2836
+[2026-11-25 00:32:10] D lr 0.001 epoch 30: train_lat 0.0049, train_var 0.0000, train_out 0.0034, val_lat 0.0038, val_var 0.0038, val_out 0.0026, val_norm_mean 0.0112, val_change_explained 0.9133, val_disc_overall 0.9684, val_disc_same_op 0.7973, val_rank_acc 0.5682, val_same_op_acc 0.5949, val_diff_mae 70.3634, val_diff_mae_zero 67.2836
+[2026-11-25 00:36:25] D lr 0.001 epoch 35: train_lat 0.0049, train_var 0.0000, train_out 0.0034, val_lat 0.0037, val_var 0.0038, val_out 0.0026, val_norm_mean 0.0112, val_change_explained 0.9169, val_disc_overall 0.9703, val_disc_same_op 0.8118, val_rank_acc 0.5674, val_same_op_acc 0.5935, val_diff_mae 70.0647, val_diff_mae_zero 67.2836
+[2026-11-25 00:40:35] D lr 0.001 epoch 40: train_lat 0.0049, train_var 0.0000, train_out 0.0033, val_lat 0.0038, val_var 0.0039, val_out 0.0026, val_norm_mean 0.0113, val_change_explained 0.9191, val_disc_overall 0.9738, val_disc_same_op 0.8337, val_rank_acc 0.5697, val_same_op_acc 0.5941, val_diff_mae 70.1055, val_diff_mae_zero 67.2836
+[2026-11-25 00:44:36] D lr 0.001 epoch 45: train_lat 0.0048, train_var 0.0000, train_out 0.0033, val_lat 0.0036, val_var 0.0036, val_out 0.0026, val_norm_mean 0.0112, val_change_explained 0.9248, val_disc_overall 0.9745, val_disc_same_op 0.8394, val_rank_acc 0.5683, val_same_op_acc 0.5909, val_diff_mae 69.7258, val_diff_mae_zero 67.2836
+[2026-11-25 00:48:37] D lr 0.001 epoch 50: train_lat 0.0047, train_var 0.0000, train_out 0.0033, val_lat 0.0036, val_var 0.0037, val_out 0.0026, val_norm_mean 0.0110, val_change_explained 0.9238, val_disc_overall 0.9744, val_disc_same_op 0.8387, val_rank_acc 0.5725, val_same_op_acc 0.5938, val_diff_mae 70.1079, val_diff_mae_zero 67.2836
+[2026-11-25 00:52:38] D lr 0.001 epoch 55: train_lat 0.0047, train_var 0.0000, train_out 0.0033, val_lat 0.0036, val_var 0.0033, val_out 0.0026, val_norm_mean 0.0112, val_change_explained 0.9233, val_disc_overall 0.9772, val_disc_same_op 0.8551, val_rank_acc 0.5719, val_same_op_acc 0.5997, val_diff_mae 69.9407, val_diff_mae_zero 67.2836
+[2026-11-25 00:56:44] D lr 0.001 epoch 60: train_lat 0.0046, train_var 0.0000, train_out 0.0033, val_lat 0.0035, val_var 0.0040, val_out 0.0026, val_norm_mean 0.0111, val_change_explained 0.9250, val_disc_overall 0.9794, val_disc_same_op 0.8690, val_rank_acc 0.5677, val_same_op_acc 0.5930, val_diff_mae 70.7650, val_diff_mae_zero 67.2836
+[2026-11-25 00:56:46] trained D: 2747 s, convergence would benefit from more training
+[2026-11-25 00:58:39] A_latent lr 0.001 epoch 5: train_lat 0.0538, val_lat 0.0538, val_change_explained 0.8131, val_disc_overall 0.9168, val_disc_same_op 0.5734
+[2026-11-25 01:00:25] A_latent lr 0.001 epoch 10: train_lat 0.0519, val_lat 0.0521, val_change_explained 0.8257, val_disc_overall 0.9209, val_disc_same_op 0.5818
+[2026-11-25 01:02:18] A_latent lr 0.001 epoch 15: train_lat 0.0511, val_lat 0.0513, val_change_explained 0.8378, val_disc_overall 0.9249, val_disc_same_op 0.5835
+[2026-11-25 01:04:04] A_latent lr 0.001 epoch 20: train_lat 0.0505, val_lat 0.0509, val_change_explained 0.8423, val_disc_overall 0.9262, val_disc_same_op 0.5867
+[2026-11-25 01:05:55] A_latent lr 0.001 epoch 25: train_lat 0.0501, val_lat 0.0506, val_change_explained 0.8449, val_disc_overall 0.9270, val_disc_same_op 0.5928
+[2026-11-25 01:07:41] A_latent lr 0.001 epoch 30: train_lat 0.0499, val_lat 0.0508, val_change_explained 0.8438, val_disc_overall 0.9269, val_disc_same_op 0.5957
+[2026-11-25 01:09:37] A_latent lr 0.001 epoch 35: train_lat 0.0496, val_lat 0.0503, val_change_explained 0.8479, val_disc_overall 0.9263, val_disc_same_op 0.5900
+[2026-11-25 01:11:37] A_latent lr 0.001 epoch 40: train_lat 0.0494, val_lat 0.0504, val_change_explained 0.8462, val_disc_overall 0.9280, val_disc_same_op 0.6000
+[2026-11-25 01:13:29] A_latent lr 0.001 epoch 45: train_lat 0.0492, val_lat 0.0506, val_change_explained 0.8476, val_disc_overall 0.9269, val_disc_same_op 0.5967
+[2026-11-25 01:15:14] A_latent lr 0.001 epoch 50: train_lat 0.0491, val_lat 0.0503, val_change_explained 0.8486, val_disc_overall 0.9275, val_disc_same_op 0.5950
+[2026-11-25 01:17:02] A_latent lr 0.001 epoch 55: train_lat 0.0490, val_lat 0.0501, val_change_explained 0.8504, val_disc_overall 0.9279, val_disc_same_op 0.6002
+[2026-11-25 01:18:57] A_latent lr 0.001 epoch 60: train_lat 0.0489, val_lat 0.0498, val_change_explained 0.8507, val_disc_overall 0.9273, val_disc_same_op 0.5957
+[2026-11-25 01:18:59] trained A_latent: 1329 s, convergence would benefit from more training
+[2026-11-25 01:18:59] stage probe
+[2026-11-25 01:22:01] probe A lr 0.001 epoch 10: train_out 0.0056, val_out 0.0041, val_rank_acc 0.5514, val_same_op_acc 0.5844, val_diff_mae 81.6447, val_diff_mae_zero 67.2836
+[2026-11-25 01:25:11] probe B lr 0.001 epoch 10: train_out 0.0035, val_out 0.0027, val_rank_acc 0.5722, val_same_op_acc 0.5954, val_diff_mae 71.1491, val_diff_mae_zero 67.2836
+[2026-11-25 01:28:18] probe C lr 0.001 epoch 10: train_out 0.0061, val_out 0.0043, val_rank_acc 0.5558, val_same_op_acc 0.6029, val_diff_mae 83.8055, val_diff_mae_zero 67.2836
+[2026-11-25 01:31:20] probe D lr 0.001 epoch 10: train_out 0.0036, val_out 0.0027, val_rank_acc 0.5674, val_same_op_acc 0.5977, val_diff_mae 73.0806, val_diff_mae_zero 67.2836
+[2026-11-25 01:33:14] probe raw lr 0.001 epoch 10: train_out 0.0041, val_out 0.0029, val_rank_acc 0.5554, val_same_op_acc 0.5789, val_diff_mae 78.7659, val_diff_mae_zero 67.2836
+[2026-11-25 01:33:15] stage evaluate
+[2026-11-25 01:33:21] evaluated latent A_latent
+[2026-11-25 01:33:26] evaluated latent C
+[2026-11-25 01:33:34] evaluated latent D
+[2026-11-25 01:33:43] stage report
+[2026-11-25 01:33:44] report written; decision False
+[2026-11-25 01:33:44] done (212.2 min)
+[2026-11-25 01:34:54] stage report
+[2026-11-25 01:34:54] report written; decision False
+[2026-11-25 01:34:54] done (0.0 min)

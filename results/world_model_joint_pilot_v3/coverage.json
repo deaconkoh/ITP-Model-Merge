@@ -1,0 +1,529 @@
+{
+ "factories": {
+  "train": 948,
+  "validation": 201,
+  "test": 201
+ },
+ "per_split_source": {
+  "train|MWKR+ECT": {
+   "states": 7573,
+   "transitions": 37578,
+   "branches_per_state": 4.962102205202694,
+   "share_in_same_operation_group": 0.5022885731012827,
+   "share_in_other_operation_same_machine_group": 0.6504869870669009,
+   "share_waiting": 0.6386449518335197,
+   "share_states_with_immediate_and_waiting": 0.9795325498481448,
+   "progress_share_early_mid_late": [
+    0.3424006338307144,
+    0.33012016373960124,
+    0.3274792024296844
+   ]
+  },
+  "train|MWKR+MINE": {
+   "states": 7571,
+   "transitions": 37544,
+   "branches_per_state": 4.958922203143574,
+   "share_in_same_operation_group": 0.5103079053910079,
+   "share_in_other_operation_same_machine_group": 0.6471340294054976,
+   "share_waiting": 0.6344023012998082,
+   "share_states_with_immediate_and_waiting": 0.9780742306168274,
+   "progress_share_early_mid_late": [
+    0.3484348170651169,
+    0.3216219786025624,
+    0.3299432043323207
+   ]
+  },
+  "train|EDD+ECT": {
+   "states": 7543,
+   "transitions": 37245,
+   "branches_per_state": 4.937690574042159,
+   "share_in_same_operation_group": 0.5557256007517788,
+   "share_in_other_operation_same_machine_group": 0.628836085380588,
+   "share_waiting": 0.6415894750973286,
+   "share_states_with_immediate_and_waiting": 0.964072650139202,
+   "progress_share_early_mid_late": [
+    0.34575102744266206,
+    0.33845949887312743,
+    0.3157894736842105
+   ]
+  },
+  "train|RANDOM": {
+   "states": 7499,
+   "transitions": 36839,
+   "branches_per_state": 4.91252166955594,
+   "share_in_same_operation_group": 0.5201824153750102,
+   "share_in_other_operation_same_machine_group": 0.6177149216862564,
+   "share_waiting": 0.7258883248730964,
+   "share_states_with_immediate_and_waiting": 0.969729297239632,
+   "progress_share_early_mid_late": [
+    0.34484597946392853,
+    0.3396452860381384,
+    0.31550873449793304
+   ]
+  },
+  "train|DANIEL": {
+   "states": 7549,
+   "transitions": 37348,
+   "branches_per_state": 4.947410253013644,
+   "share_in_same_operation_group": 0.5181268073256935,
+   "share_in_other_operation_same_machine_group": 0.6327781942808183,
+   "share_waiting": 0.7219128199635857,
+   "share_states_with_immediate_and_waiting": 0.973771360445092,
+   "progress_share_early_mid_late": [
+    0.3519671479666181,
+    0.33554113127566565,
+    0.31249172075771625
+   ]
+  },
+  "validation|MWKR+ECT": {
+   "states": 1602,
+   "transitions": 7978,
+   "branches_per_state": 4.980024968789014,
+   "share_in_same_operation_group": 0.5001253446979192,
+   "share_in_other_operation_same_machine_group": 0.6563048383053397,
+   "share_waiting": 0.6380045124091251,
+   "share_states_with_immediate_and_waiting": 0.9744069912609239,
+   "progress_share_early_mid_late": [
+    0.3682896379525593,
+    0.3202247191011236,
+    0.3114856429463171
+   ]
+  },
+  "validation|MWKR+MINE": {
+   "states": 1602,
+   "transitions": 7932,
+   "branches_per_state": 4.951310861423221,
+   "share_in_same_operation_group": 0.504160363086233,
+   "share_in_other_operation_same_machine_group": 0.6394351991931417,
+   "share_waiting": 0.6335098335854765,
+   "share_states_with_immediate_and_waiting": 0.9744069912609239,
+   "progress_share_early_mid_late": [
+    0.35580524344569286,
+    0.3039950062421973,
+    0.34019975031210986
+   ]
+  },
+  "validation|EDD+ECT": {
+   "states": 1599,
+   "transitions": 7882,
+   "branches_per_state": 4.929330831769856,
+   "share_in_same_operation_group": 0.5701598579040853,
+   "share_in_other_operation_same_machine_group": 0.6346105049479828,
+   "share_waiting": 0.6464095407257041,
+   "share_states_with_immediate_and_waiting": 0.9643527204502814,
+   "progress_share_early_mid_late": [
+    0.3714821763602251,
+    0.30331457160725456,
+    0.3252032520325203
+   ]
+  },
+  "validation|RANDOM": {
+   "states": 1592,
+   "transitions": 7815,
+   "branches_per_state": 4.90891959798995,
+   "share_in_same_operation_group": 0.5175943698016635,
+   "share_in_other_operation_same_machine_group": 0.6225207933461292,
+   "share_waiting": 0.7375559820857326,
+   "share_states_with_immediate_and_waiting": 0.9780150753768844,
+   "progress_share_early_mid_late": [
+    0.33103015075376885,
+    0.3479899497487437,
+    0.32097989949748745
+   ]
+  },
+  "validation|DANIEL": {
+   "states": 1600,
+   "transitions": 7909,
+   "branches_per_state": 4.943125,
+   "share_in_same_operation_group": 0.5185232014161082,
+   "share_in_other_operation_same_machine_group": 0.6343406246048805,
+   "share_waiting": 0.7253761537488936,
+   "share_states_with_immediate_and_waiting": 0.971875,
+   "progress_share_early_mid_late": [
+    0.336875,
+    0.32875,
+    0.334375
+   ]
+  },
+  "test|MWKR+ECT": {
+   "states": 1603,
+   "transitions": 7954,
+   "branches_per_state": 4.961946350592639,
+   "share_in_same_operation_group": 0.5021372894141313,
+   "share_in_other_operation_same_machine_group": 0.6530047774704552,
+   "share_waiting": 0.6316318833291426,
+   "share_states_with_immediate_and_waiting": 0.9694323144104804,
+   "progress_share_early_mid_late": [
+    0.34809731752963197,
+    0.3156581409856519,
+    0.33624454148471616
+   ]
+  },
+  "test|MWKR+MINE": {
+   "states": 1602,
+   "transitions": 7944,
+   "branches_per_state": 4.9588014981273405,
+   "share_in_same_operation_group": 0.5023917421953675,
+   "share_in_other_operation_same_machine_group": 0.6520644511581067,
+   "share_waiting": 0.6309164149043303,
+   "share_states_with_immediate_and_waiting": 0.9681647940074907,
+   "progress_share_early_mid_late": [
+    0.3464419475655431,
+    0.32771535580524347,
+    0.3258426966292135
+   ]
+  },
+  "test|EDD+ECT": {
+   "states": 1602,
+   "transitions": 7902,
+   "branches_per_state": 4.932584269662922,
+   "share_in_same_operation_group": 0.5577069096431283,
+   "share_in_other_operation_same_machine_group": 0.6319919007846115,
+   "share_waiting": 0.6394583649708935,
+   "share_states_with_immediate_and_waiting": 0.9525593008739076,
+   "progress_share_early_mid_late": [
+    0.3570536828963795,
+    0.32397003745318353,
+    0.31897627965043696
+   ]
+  },
+  "test|RANDOM": {
+   "states": 1590,
+   "transitions": 7771,
+   "branches_per_state": 4.887421383647799,
+   "share_in_same_operation_group": 0.5205250289538026,
+   "share_in_other_operation_same_machine_group": 0.6224424141037189,
+   "share_waiting": 0.729121091236649,
+   "share_states_with_immediate_and_waiting": 0.9710691823899371,
+   "progress_share_early_mid_late": [
+    0.3339622641509434,
+    0.33270440251572325,
+    0.3333333333333333
+   ]
+  },
+  "test|DANIEL": {
+   "states": 1596,
+   "transitions": 7891,
+   "branches_per_state": 4.944235588972431,
+   "share_in_same_operation_group": 0.5231276137371689,
+   "share_in_other_operation_same_machine_group": 0.6314789000126727,
+   "share_waiting": 0.7166392092257001,
+   "share_states_with_immediate_and_waiting": 0.9661654135338346,
+   "progress_share_early_mid_late": [
+    0.35213032581453635,
+    0.33521303258145363,
+    0.31265664160401
+   ]
+  }
+ },
+ "totals": {
+  "states": 53723,
+  "transitions": 265532
+ },
+ "behaviour_waiting_share_per_chunk": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.7922222222222223,
+  0.794,
+  0.790074074074074,
+  0.7915555555555556,
+  0.7904444444444444,
+  0.7157777777777777,
+  0.7185925925925926,
+  0.7109629629629629,
+  0.7088888888888889,
+  0.7111851851851851
+ ],
+ "checks": {
+  "MWKR+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "MWKR+MINE": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "EDD+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "RANDOM": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "DANIEL": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ]
+ },
+ "branch_main_episode_untouched": true,
+ "seconds": {
+  "episodes_and_branching": 31.849907398223877,
+  "continuation_rollouts": 72.61609625816345,
+  "total_with_instance_generation": 109.88240385055542
+ },
+ "bytes": 1394617551,
+ "peak_rss_gb": 4.442,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 1350,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ }
+}

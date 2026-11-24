@@ -1,0 +1,28 @@
+{
+ "1_frozen_probe_ranking": {
+  "rank_acc_D_minus_B": -0.007099880435536998,
+  "rank_acc_D_minus_C": 0.013605985694437606,
+  "same_op_D_minus_B": -0.008698633693830504,
+  "same_op_D_minus_C": 0.008606534827583112,
+  "D_diff_mae": 78.85879792107477,
+  "zero_baseline": 64.3515518506368,
+  "pass": false
+ },
+ "2_latent_vs_C": {
+  "change_explained_D_minus_C": 0.009672263447366491,
+  "discrimination_D_minus_C": 0.05528397020808273,
+  "pass": true
+ },
+ "3_availability_vs_C": {
+  "abs_r2_D": 0.39138861952290993,
+  "abs_r2_C": 0.00011425835238432214,
+  "diff_sign_D": 0.9382160707420223,
+  "diff_sign_C": 0.5115340253748558,
+  "pass": true
+ },
+ "4_no_collapse": {
+  "collapsed": false,
+  "pass": true
+ },
+ "justifies_specialist_training": false
+}
