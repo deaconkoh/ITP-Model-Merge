@@ -1,0 +1,31 @@
+[2026-11-25 14:50:33] train 10x5+mix+bv3_srip_spec_m_s111: chunk (status NONE, slot 1)
+[2026-11-25 15:08:45] train 10x5+mix+bv3_srip_spec_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 15:27:23] train 10x5+mix+bv3_srip_spec_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 15:45:39] train 10x5+mix+bv3_srip_spec_m_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 15:58:33] 10x5+mix+bv3_srip_spec_m_s111: CONVERGED at update 1850 (best 0.9167 @ 1700, 1.13 h)
+[2026-11-25 15:58:33] train 10x5+mix+bv3_srip_spec_c_s111: chunk (status NONE, slot 1)
+[2026-11-25 16:16:52] train 10x5+mix+bv3_srip_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 16:34:38] train 10x5+mix+bv3_srip_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 16:53:43] train 10x5+mix+bv3_srip_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 17:12:35] train 10x5+mix+bv3_srip_spec_c_s111: chunk (status RUNNING, slot 1)
+[2026-11-25 17:20:25] 10x5+mix+bv3_srip_spec_c_s111: CONVERGED at update 2200 (best 0.8010 @ 2100, 1.36 h)
+/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+rewarded_soups PASS weight change 0.105 {'m': (True, '2.4e-07'), 'c': (True, '7.7e-07'), 't': (True, '2.7e-07')}
+ties_keep0.2_lambda0.8 PASS weight change 0.127 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.2_lambda1.0 PASS weight change 0.159 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.2_lambda1.5 PASS weight change 0.239 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.5_lambda0.8 PASS weight change 0.127 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.5_lambda1.0 PASS weight change 0.159 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.5_lambda1.5 PASS weight change 0.239 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.8_lambda0.8 PASS weight change 0.128 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.8_lambda1.0 PASS weight change 0.16 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+ties_keep0.8_lambda1.5 PASS weight change 0.24 {'m': (True, '3.3e-07'), 'c': (True, '5.4e-07'), 't': (True, '2.4e-07')}
+[2026-11-25 17:51:17] merge checks passed: preference changes the merged weights; corners reproduce the specialists
+[2026-11-25 17:51:20] train 10x5+mix+bv3_srip_rs_s111: chunk (status NONE, slot 0)
+[2026-11-25 18:12:31] train 10x5+mix+bv3_srip_rs_s111: chunk (status RUNNING, slot 0)
+[2026-11-25 18:33:47] train 10x5+mix+bv3_srip_rs_s111: chunk (status RUNNING, slot 0)
+[2026-11-25 18:56:14] train 10x5+mix+bv3_srip_rs_s111: chunk (status RUNNING, slot 0)
+[2026-11-25 19:18:45] train 10x5+mix+bv3_srip_rs_s111: chunk (status RUNNING, slot 0)
+[2026-11-25 19:41:24] train 10x5+mix+bv3_srip_rs_s111: chunk (status RUNNING, slot 0)
+[2026-11-25 19:52:53] 10x5+mix+bv3_srip_rs_s111: CONVERGED at update 2750 (best -0.9816 @ 1750, 2.02 h)

@@ -1,0 +1,29 @@
+{
+ "resume_from": "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/daniel/trained_network/SD2/10x5+mix+bv3_wmtp_dsD_s111.resume.pth",
+ "resume_from_sha256": "465e1109fc9f56462e6ac8d3d2d36fed7c420eddefeda1a448238db476dbede7",
+ "source_model": "10x5+mix+bv3_wmtp_dsD_s111",
+ "next_update": 2000,
+ "changed": {
+  "converge_window": [
+   0,
+   1000
+  ],
+  "max_updates": [
+   2000,
+   8000
+  ],
+  "min_updates": [
+   0,
+   1000
+  ],
+  "model_name": [
+   "10x5+mix+bv3_wmtp_dsD_s111",
+   "10x5+mix+bv3_srjp_spec_t_s111"
+  ]
+ },
+ "logged_update": 2000,
+ "logged_selection_metric": 0.2077252708202345,
+ "reproduced_selection_metric": 0.2077252708202345,
+ "exact": true,
+ "source_status": "FINISHED"
+}

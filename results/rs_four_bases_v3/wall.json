@@ -1,0 +1,11 @@
+{
+ "invocations": [
+  {
+   "specialists_s": 10842.185153007507,
+   "rewarded_soups_s": 8568.252429485321,
+   "evaluation_s": 6340.619005680084,
+   "total_s": 25751.919737815857,
+   "audit_pass": true
+  }
+ ]
+}

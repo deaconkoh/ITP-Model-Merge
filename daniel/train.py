@@ -610,6 +610,15 @@ class Trainer:
 
     def validate_and_select(self, update, ep_st):
         """Greedy validation, best-checkpoint selection and (if enabled) the convergence rule."""
+        validation_metrics, selection_metric = self.validate_and_score()
+        if selection_metric < self.record:
+            self.save_model(update, validation_metrics, selection_metric)
+            self.record = selection_metric
+            self.best_update = update
+        self._log_validation(update, ep_st, validation_metrics, selection_metric)
+
+    def validate_and_score(self):
+        """Greedy validation and its selection metric (lower is better); no side effects on the run."""
         if getattr(self, "mo", False):
             validation_metrics = self.validate_mo()
         elif self.data_source == "SD1":
@@ -624,11 +633,9 @@ class Trainer:
             selection_metric = validation_metrics[f"score_{self.config.reward_version}"]
         else:
             selection_metric = self.objective.selection_metric(validation_metrics)
-        if selection_metric < self.record:
-            self.save_model(update, validation_metrics, selection_metric)
-            self.record = selection_metric
-            self.best_update = update
+        return validation_metrics, selection_metric
 
+    def _log_validation(self, update, ep_st, validation_metrics, selection_metric):
         entry = {"update": update, **validation_metrics, "selection_metric": selection_metric,
                  "train_seconds": self.train_seconds + (time.time() - ep_st)}
         if getattr(self, "cl_single", False):                      # M2: how far trunk and actor moved from the start
@@ -795,7 +802,11 @@ class Trainer:
         continues under the new stopping rule. Writes <model>.extension.json."""
         rng = (random.getstate(), np.random.get_state(), torch.get_rng_state(),
                torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None)
-        hv = self.validate_mo()["hv"]
+        mo = getattr(self, "mo", False)
+        if mo:
+            key, val = "hv", self.validate_mo()["hv"]
+        else:                                           # single-objective run: its own selection metric
+            key, val = "selection_metric", self.validate_and_score()[1]
         random.setstate(rng[0]); np.random.set_state(rng[1]); torch.set_rng_state(rng[2])
         if rng[3] is not None:
             torch.cuda.set_rng_state_all(rng[3])
@@ -803,13 +814,13 @@ class Trainer:
         rec = {"resume_from": str(path), "resume_from_sha256": hashlib.sha256(Path(path).read_bytes()).hexdigest(),
                "source_model": state["identity"]["model_name"], "next_update": state["next_update"],
                "changed": {k: [state["identity"].get(k), self.run_identity().get(k)] for k in diff},
-               "logged_update": logged["update"], "logged_hv": logged["hv"], "reproduced_hv": hv,
-               "exact": abs(hv - logged["hv"]) <= 1e-9, "source_status": state["run_status"]}
+               "logged_update": logged["update"], f"logged_{key}": logged[key], f"reproduced_{key}": val,
+               "exact": abs(val - logged[key]) <= 1e-9, "source_status": state["run_status"]}
         Path(f'./train_log/{self.data_source}/{self.model_name}.extension.json').write_text(json.dumps(rec, indent=1))
         if not rec["exact"]:
-            print(f"resumed policy gives validation HV {hv} vs logged {logged['hv']}; not resumable", flush=True)
+            print(f"resumed policy gives validation {key} {val} vs logged {logged[key]}; not resumable", flush=True)
             sys.exit(self.NOT_EXACT)
-        print(f"extension check: validation HV {hv:.10f} at update {logged['update']} reproduced exactly")
+        print(f"extension check: validation {key} {val:.10f} at update {logged['update']} reproduced exactly")
         self.run_status = "RUNNING"                     # the source run had FINISHED; the new rule decides now
 
     def save_training_log(self):

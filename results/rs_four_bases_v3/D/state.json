@@ -1,0 +1,59 @@
+{
+ "units": {
+  "spec:t": {
+   "name": "10x5+mix+bv3_srjp_spec_t_s111",
+   "start": 1795589433.24325,
+   "slot": "0-3",
+   "end": 1795598556.7607512,
+   "status": "CONVERGED",
+   "update": 6050,
+   "best": 0.1654604118955816,
+   "best_update": 5050,
+   "train_seconds": 14359.155718803406,
+   "capped": false
+  },
+  "spec:m": {
+   "name": "10x5+mix+bv3_srjp_spec_m_s111",
+   "start": 1795589433.2437687,
+   "slot": "8-11",
+   "end": 1795596633.029542,
+   "status": "CONVERGED",
+   "update": 3250,
+   "best": 0.8944335270806341,
+   "best_update": 2250,
+   "train_seconds": 7174.9113800525665,
+   "capped": false
+  },
+  "spec:c": {
+   "name": "10x5+mix+bv3_srjp_spec_c_s111",
+   "start": 1795596633.0334015,
+   "slot": "8-11",
+   "end": 1795600275.4211297,
+   "status": "CONVERGED",
+   "update": 2000,
+   "best": 0.8008768673924851,
+   "best_update": 2000,
+   "train_seconds": 3632.198041200638,
+   "capped": false
+  },
+  "final:rs": {
+   "name": "10x5+mix+bv3_srjp_rs_s111",
+   "start": 1795600280.179832,
+   "slot": "4-7",
+   "end": 1795608843.6707742,
+   "status": "CONVERGED",
+   "update": 3350,
+   "best": -0.9672503959259284,
+   "best_update": 2350,
+   "train_seconds": 8539.70860695839,
+   "capped": false
+  }
+ },
+ "selected": {
+  "rs": {
+   "lr": 0.001,
+   "cl_beta": 0.1
+  },
+  "source": "specialist_reuse_v3 state.json (not re-tuned)"
+ }
+}

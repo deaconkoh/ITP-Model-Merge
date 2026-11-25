@@ -1,0 +1,7 @@
+{
+ "finals/10x5+mix+bv3_srip_rs_s111.pth": "3e5d0c73f71eb1b403d7adbeee5408baf299b88bf267fe7cbe0b9a7a98e5260f",
+ "finals/10x5+mix+bv3_srip_rs_s111@u0.pth": "f84351588599cd1958a0d5ad7d48c083d990c2b5840b43de58d9e9a140d66f87",
+ "specialists/10x5+mix+bv3_srip_spec_c_s111.pth": "5f11855784b085c54a917df918e569490a7c52824532c69fc7c22d0345cc8135",
+ "specialists/10x5+mix+bv3_srip_spec_m_s111.pth": "6b15cd1eaf1b542b8ae41af5fff41e8987f63a80957142793caf8294de9c4ab3",
+ "specialists/10x5+mix+bv3_wmtp_dsC_s111.pth": "aaa3a8440eca89d50ef49180fb16bfc102b02ff9cd1ecb275de51e09897715c5"
+}

@@ -1,0 +1,57 @@
+{
+ "units": {
+  "spec:t": {
+   "name": "10x5+mix+bv3_wmtp_dsC_s111",
+   "status": "CONVERGED (reuse rule replayed; run ended at 2000)",
+   "update": 2000,
+   "best": 0.19349424087022818,
+   "best_update": 1000,
+   "train_seconds": 5178.364739656448,
+   "capped": false,
+   "source": "tardiness_wm_downstream_v3 (adopted)"
+  },
+  "spec:m": {
+   "name": "10x5+mix+bv3_srip_spec_m_s111",
+   "start": 1795589433.2434635,
+   "slot": "4-7",
+   "end": 1795593513.2789993,
+   "status": "CONVERGED",
+   "update": 1850,
+   "best": 0.9167155076980266,
+   "best_update": 1700,
+   "train_seconds": 4064.0510761737823,
+   "capped": false
+  },
+  "spec:c": {
+   "name": "10x5+mix+bv3_srip_spec_c_s111",
+   "start": 1795593513.2887435,
+   "slot": "4-7",
+   "end": 1795598425.6211624,
+   "status": "CONVERGED",
+   "update": 2200,
+   "best": 0.8010415863659405,
+   "best_update": 2100,
+   "train_seconds": 4896.175651550293,
+   "capped": false
+  },
+  "final:rs": {
+   "name": "10x5+mix+bv3_srip_rs_s111",
+   "start": 1795600280.179994,
+   "slot": "0-3",
+   "end": 1795607573.5210688,
+   "status": "CONVERGED",
+   "update": 2750,
+   "best": -0.9815717820000105,
+   "best_update": 1750,
+   "train_seconds": 7270.265825033188,
+   "capped": false
+  }
+ },
+ "selected": {
+  "rs": {
+   "lr": 0.001,
+   "cl_beta": 0.1
+  },
+  "source": "specialist_reuse_v3 state.json (not re-tuned)"
+ }
+}

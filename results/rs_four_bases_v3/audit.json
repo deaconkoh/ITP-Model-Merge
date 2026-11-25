@@ -1,0 +1,77 @@
+{
+ "C_base": {
+  "sha256": "3653ca6363757a61efd8fb1b8119e2966c05ace85bc263e9411b14212b561992",
+  "sha_matches_downstream_sums": true,
+  "same_keys_as_random_base": true,
+  "identical_outside_encoder_to_random_base": true,
+  "encoder_differs_from_random_base": true,
+  "encoder_source": "checkpoints/world_model_immediate_pilot_v3/B/epoch60/online_encoder.pth",
+  "encoder_equals_epoch60_checkpoint": true
+ },
+ "D_base": {
+  "sha256": "10dba1ff2dd19daed718b3c4b590909db9bba9538c917be092ef0abfc2911034",
+  "sha_matches_downstream_sums": true,
+  "same_keys_as_random_base": true,
+  "identical_outside_encoder_to_random_base": true,
+  "encoder_differs_from_random_base": true,
+  "encoder_source": "checkpoints/world_model_immediate_pilot_v3/E/epoch60/online_encoder.pth",
+  "encoder_equals_epoch60_checkpoint": true
+ },
+ "A_downstream_tardiness_equals_reuse_specialist_prefix": true,
+ "B_downstream_tardiness_equals_reuse_specialist_prefix": true,
+ "C_tardiness": {
+  "run": "10x5+mix+bv3_wmtp_dsC_s111",
+  "config_keys_differing_from_reuse_tardiness_specialist": [
+   "budget_checkpoints",
+   "converge_window",
+   "init_from",
+   "max_updates",
+   "min_updates",
+   "model_suffix"
+  ],
+  "only_start_name_and_stopping_differ": true,
+  "updates_run": 2000,
+  "status": "FINISHED",
+  "reuse_rule_stop_update_replayed": 2000,
+  "decision": "adopt: the reuse rule stops exactly where the run ended",
+  "resume_state_sha256": "6b775b669dffad8b5e2ea974ba9e82c0ad8a067fd733819db3fdf70c6473a8f2",
+  "ok": true
+ },
+ "D_tardiness": {
+  "run": "10x5+mix+bv3_wmtp_dsD_s111",
+  "config_keys_differing_from_reuse_tardiness_specialist": [
+   "budget_checkpoints",
+   "converge_window",
+   "init_from",
+   "max_updates",
+   "min_updates",
+   "model_suffix"
+  ],
+  "only_start_name_and_stopping_differ": true,
+  "updates_run": 2000,
+  "status": "FINISHED",
+  "reuse_rule_stop_update_replayed": null,
+  "decision": "extend: continue from the saved resume state under the reuse rule",
+  "resume_state_sha256": "465e1109fc9f56462e6ac8d3d2d36fed7c420eddefeda1a448238db476dbede7",
+  "ok": true
+ },
+ "B_protocol_check_vs_A": {
+  "spec_m": true,
+  "spec_c": true,
+  "spec_t": true,
+  "rs": true
+ },
+ "merged_start_evaluations_reused": {
+  "rs_random": {
+   "u0_best_of_128_hv": 1.0072409473598825,
+   "rerun_reproduced_original": true
+  },
+  "rs_world_model": {
+   "u0_best_of_128_hv": 1.0088340149000004,
+   "rerun_reproduced_original": true
+  }
+ },
+ "A_final_eval_matches_checkpoint": true,
+ "B_final_eval_matches_checkpoint": true,
+ "all_pass": true
+}
