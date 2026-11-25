@@ -1,0 +1,57 @@
+{
+ "1_vs_C_transition_learning": {
+  "change_explained_E_minus_C": 0.05975893610505689,
+  "same_op_disc_E_minus_C": 0.3742558368276647,
+  "availability_sign_E_minus_C": 0.3921104130188484,
+  "pass": true
+ },
+ "2_vs_D_continuation_dependency": {
+  "same_op_disc_E_minus_D": 0.08810891960449341,
+  "overall_disc_E_minus_D": 0.01909330323551539,
+  "availability_sign_E_minus_D": -0.0356370377999794,
+  "relational_mean_E": 0.8006985140496713,
+  "relational_mean_D": 0.7594725150443183,
+  "pass": false
+ },
+ "3_vs_B_value_of_latent": {
+  "relational_mean_E_minus_B": -0.0005449466724620766,
+  "change_mae_E": 15.265532700590665,
+  "change_mae_B": 12.4299538758243,
+  "pass": false
+ },
+ "4_physical_quality": {
+  "sibling_diff_mae_vs_zero": {
+   "F": [
+    6.45288324290005,
+    22.51130835931827
+   ],
+   "B": [
+    7.395253164499869,
+    17.299696723762334
+   ],
+   "R": [
+    5.736314805486742,
+    17.69884071590278
+   ],
+   "W": [
+    2.3756978453977173,
+    4.720413480842339
+   ],
+   "T": [
+    5.825993452475024,
+    13.099500234932297
+   ]
+  },
+  "change_r2": {
+   "F": 0.8002209469671815,
+   "R": 0.9525626654007936,
+   "T": 0.7903752405374032
+  },
+  "pass": true
+ },
+ "5_no_collapse": {
+  "collapsed": false,
+  "pass": true
+ },
+ "recommend_E_for_specialist_training": false
+}

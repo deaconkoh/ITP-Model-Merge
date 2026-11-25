@@ -1,0 +1,17 @@
+{
+ "stored_mismatch": 0,
+ "transitions": 226070,
+ "max_err": {
+  "analytic_F": 2.2737367544323206e-13,
+  "analytic_R": 2.2737367544323206e-13,
+  "analytic_W": 1.4210854715202004e-14,
+  "true_free_time_vs_scaled": 4.547473508864641e-13,
+  "true_job_ready_vs_scaled": 4.547473508864641e-13,
+  "job_completion_lb_eq_R_plus_W": 4.547473508864641e-13,
+  "decision_time_never_decreases": 0.0,
+  "carbon_per_minute_constant_per_machine": 5.551115123125783e-17
+ },
+ "waiting_flag_equals_start_after_decision_time_share": 1.0,
+ "seconds": 18.953031063079834,
+ "states": 45730
+}

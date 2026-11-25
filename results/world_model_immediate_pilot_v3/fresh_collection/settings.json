@@ -1,0 +1,77 @@
+{
+ "constants": {
+  "instances": 300,
+  "seed": 6111,
+  "split_mod": 20,
+  "train_below": 0,
+  "val_below": 0,
+  "states_per_episode": 8,
+  "max_branches": 5,
+  "chunk_instances": 270,
+  "lrs": [
+   0.0001,
+   0.0003,
+   0.001
+  ],
+  "lr_epochs": 10,
+  "epochs": 60,
+  "eval_every": 5,
+  "batch_states": 56,
+  "train_seed": 111,
+  "ema": 0.996,
+  "var_weight": 1.0,
+  "var_floor_share_of_initial_std": 0.5,
+  "pred_hidden": 64,
+  "pred_heads": 4,
+  "head_hidden": 64,
+  "diff_weight": 1.0,
+  "norm_transitions": 1024,
+  "grad_ratio_band": [
+   0.3333333333333333,
+   3.0
+  ],
+  "grad_monitor_batches": 5,
+  "probe_epochs": 10,
+  "monitor_val_states": 2000,
+  "avail_fit_transitions": 20000,
+  "collapse_rank_share": 0.25,
+  "collapse_std_share": 0.1,
+  "converge_window_epochs": 20,
+  "converge_rel_tol": 0.01,
+  "eval_tol": 1e-06
+ },
+ "decision_rule": {
+  "probe_margin_over_B_and_C": 0.03,
+  "latent_tolerance_vs_C": 0.02
+ },
+ "decision_rule_text": "D justifies specialist training only if, on the TEST factories: (1) in the frozen-encoder probes D's mean ranking accuracy AND mean same-operation accuracy each beat both B and C by >= 0.03, and D's mean difference MAE is below the zero-difference baseline; (2) D's latent change explained (changed tokens) and overall discrimination are within 0.02 of C's or better; (3) D's availability readouts (absolute R^2 and same-operation difference sign accuracy) are at least C's; (4) D did not collapse.",
+ "sources": [
+  "MWKR+ECT",
+  "MWKR+MINE",
+  "EDD+ECT",
+  "RANDOM",
+  "DANIEL"
+ ],
+ "continuation_rules": [
+  "MWKR+ECT",
+  "MWKR+MINE",
+  "EDD+ECT"
+ ],
+ "dispatch_rule": "semi_active",
+ "seed": 111,
+ "inputs": {
+  "world_model_trunk_start.pth": {
+   "path": "checkpoints/world_model_m1_v3/world_model_trunk_start.pth",
+   "sha256": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3"
+  },
+  "10x5+mix+bv3_wt_W2_s111_final_u5300.pth": {
+   "path": "checkpoints/waiting_training_v3/10x5+mix+bv3_wt_W2_s111_final_u5300.pth",
+   "sha256": "9ed22554fe20f07b67c013121e6a19315a4f620cef6b247aa6502c0c020cdd64"
+  },
+  "start_rnd.pth": {
+   "path": "checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+   "sha256": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3"
+  }
+ },
+ "written": "2026-11-25 02:04:42"
+}

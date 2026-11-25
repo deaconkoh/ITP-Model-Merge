@@ -1,0 +1,364 @@
+{
+ "factories": {
+  "train": 0,
+  "validation": 0,
+  "test": 300
+ },
+ "per_split_source": {
+  "train|MWKR+ECT": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "train|MWKR+MINE": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "train|EDD+ECT": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "train|RANDOM": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "train|DANIEL": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "validation|MWKR+ECT": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "validation|MWKR+MINE": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "validation|EDD+ECT": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "validation|RANDOM": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "validation|DANIEL": {
+   "states": 0,
+   "transitions": 0,
+   "branches_per_state": 0.0,
+   "share_in_same_operation_group": null,
+   "share_in_other_operation_same_machine_group": null,
+   "share_waiting": null,
+   "share_states_with_immediate_and_waiting": null,
+   "progress_share_early_mid_late": [
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "test|MWKR+ECT": {
+   "states": 2398,
+   "transitions": 11909,
+   "branches_per_state": 4.966221851542953,
+   "share_in_same_operation_group": 0.5025610882525821,
+   "share_in_other_operation_same_machine_group": 0.6476614325300193,
+   "share_waiting": 0.6377529599462591,
+   "share_states_with_immediate_and_waiting": 0.9870725604670558,
+   "progress_share_early_mid_late": [
+    0.33444537114261885,
+    0.33194328607172646,
+    0.3336113427856547
+   ]
+  },
+  "test|MWKR+MINE": {
+   "states": 2398,
+   "transitions": 11903,
+   "branches_per_state": 4.96371976647206,
+   "share_in_same_operation_group": 0.5139040578005545,
+   "share_in_other_operation_same_machine_group": 0.6499201881878518,
+   "share_waiting": 0.6327816516844493,
+   "share_states_with_immediate_and_waiting": 0.9778982485404504,
+   "progress_share_early_mid_late": [
+    0.3519599666388657,
+    0.3244370308590492,
+    0.32360300250208507
+   ]
+  },
+  "test|EDD+ECT": {
+   "states": 2394,
+   "transitions": 11810,
+   "branches_per_state": 4.933166248955723,
+   "share_in_same_operation_group": 0.553259949195597,
+   "share_in_other_operation_same_machine_group": 0.6328535139712108,
+   "share_waiting": 0.643861134631668,
+   "share_states_with_immediate_and_waiting": 0.9653299916457811,
+   "progress_share_early_mid_late": [
+    0.3613199665831245,
+    0.3283208020050125,
+    0.310359231411863
+   ]
+  },
+  "test|RANDOM": {
+   "states": 2378,
+   "transitions": 11688,
+   "branches_per_state": 4.915054667788057,
+   "share_in_same_operation_group": 0.5250684462696783,
+   "share_in_other_operation_same_machine_group": 0.6216632443531828,
+   "share_waiting": 0.7292950034223135,
+   "share_states_with_immediate_and_waiting": 0.9739276703111859,
+   "progress_share_early_mid_late": [
+    0.3494533221194281,
+    0.31791421362489486,
+    0.33263246425567705
+   ]
+  },
+  "test|DANIEL": {
+   "states": 2385,
+   "transitions": 11727,
+   "branches_per_state": 4.916981132075471,
+   "share_in_same_operation_group": 0.5163298371279952,
+   "share_in_other_operation_same_machine_group": 0.6386117506608681,
+   "share_waiting": 0.7198772064466615,
+   "share_states_with_immediate_and_waiting": 0.9748427672955975,
+   "progress_share_early_mid_late": [
+    0.3387840670859539,
+    0.3287211740041929,
+    0.33249475890985325
+   ]
+  }
+ },
+ "totals": {
+  "states": 11953,
+  "transitions": 59037
+ },
+ "behaviour_waiting_share_per_chunk": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.7962222222222223,
+  0.8033333333333333,
+  0.7088148148148148,
+  0.7226666666666667
+ ],
+ "checks": {
+  "MWKR+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "MWKR+MINE": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "EDD+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "RANDOM": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "DANIEL": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ]
+ },
+ "branch_main_episode_untouched": true,
+ "seconds": {
+  "episodes_and_branching": 9.477113723754883,
+  "continuation_rollouts": 15.748610734939575,
+  "total_with_instance_generation": 26.584280490875244
+ },
+ "bytes": 310126116,
+ "peak_rss_gb": 3.726696,
+ "generator": {
+  "source": "SD2 generator (data_utils.SD2_instance_generator, global numpy RNG seeded by --seed_train)",
+  "generated": 300,
+  "collisions_discarded": 0,
+  "forbidden_hashes": {
+   "v3 validation/development/evaluation": 137,
+   "final-test stream regenerated in memory (seed 400, 100 instances)": 100
+  }
+ }
+}

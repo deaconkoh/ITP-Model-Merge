@@ -1,0 +1,128 @@
+{
+ "constants": {
+  "old_instances": 1350,
+  "old_seed": 4111,
+  "fresh_instances": 300,
+  "fresh_seed": 6111,
+  "smoke_states_train": 300,
+  "smoke_states_val": 80,
+  "lr": 0.001,
+  "lr_fallback": 0.0003,
+  "instability_val_rise": 0.5,
+  "epochs_matched": 60,
+  "epoch_cap": 150,
+  "eval_every": 5,
+  "batch_states": 56,
+  "train_seed": 111,
+  "ema": 0.996,
+  "var_weight": 1.0,
+  "var_floor_share_of_initial_std": 0.5,
+  "pred_hidden": 64,
+  "pred_heads": 4,
+  "head_hidden": 64,
+  "diff_weight": 1.0,
+  "norm_transitions": 1024,
+  "grad_ratio_band": [
+   0.3333333333333333,
+   3.0
+  ],
+  "grad_monitor_batches": 5,
+  "monitor_val_states": 2000,
+  "converge_window_epochs": 20,
+  "converge_rel_tol": 0.01,
+  "collapse_rank_share": 0.25,
+  "collapse_std_share": 0.1,
+  "probe_states": 20000,
+  "probe_epochs": 30,
+  "probe_batch": 256,
+  "probe_lr": 0.001,
+  "probe_hidden": 64,
+  "avail_fit_transitions": 20000,
+  "avail_fit_pairs": 20000,
+  "final_probe_epochs": 10,
+  "final_probe_lr": 0.001,
+  "identity_tol_minutes": 1e-06
+ },
+ "decision_rule": {
+  "vs_C_latent_tolerance": 0.02,
+  "vs_C_same_op_gain": 0.1,
+  "vs_C_availability_sign_gain": 0.1,
+  "vs_D_tolerance": 0.02,
+  "vs_B_relational_gain": 0.02,
+  "vs_B_delta_mae_ratio_max": 1.1,
+  "delta_r2_min_groups": [
+   "F",
+   "R",
+   "T"
+  ],
+  "delta_r2_min": 0.5
+ },
+ "decision_rule_text": "E (immediate-physical joint world model) is recommended as the shared encoder for specialist / Rewarded Soups training only if, on the FRESH test factories at the matched 60-epoch budget, ALL hold: (1) vs C: latent change explained (changed tokens) >= C - 0.02, same-operation/other-machine discrimination >= C + 0.10, actual-state availability same-operation difference sign accuracy >= C + 0.10; (2) vs D: same-operation/other-machine discrimination, overall discrimination and availability sign accuracy each >= D - 0.02, and the relational-probe mean (pair earliest start R^2, best-machine accuracy, machine earliest start R^2) >= D's; (3) vs B: relational-probe mean >= B + 0.02 and E's mean changed-entity change MAE <= 1.10 x B's; (4) physical quality: E's sibling-difference MAE below the zero-difference baseline in every target group, and changed-entity change R^2 >= 0.5 for machine free time, job ready time and decision-time advance; (5) E not collapsed. Final-outcome probes are reported but are not part of the rule.",
+ "dispatch_rule": "semi_active",
+ "targets": {
+  "F": {
+   "name": "machine free time",
+   "level": "machine"
+  },
+  "B": {
+   "name": "machine cumulative processing",
+   "level": "machine"
+  },
+  "R": {
+   "name": "job ready time",
+   "level": "job"
+  },
+  "W": {
+   "name": "job remaining workload",
+   "level": "job"
+  },
+  "T": {
+   "name": "decision-time advance",
+   "level": "global"
+  }
+ },
+ "target_frame": "minutes; F, R and T relative to S_t's decision time t_t; B, W absolute; z-scored per group with training-split mean and std",
+ "dropped_as_redundant": {
+  "machine energy / carbon": "gamma * P_m * B_m / 60 (carbon is processing energy only; checked)",
+  "job completion lower bound": "R_j + W_j (checked against op_ct_lb of the job's last operation)",
+  "operation completion lower bounds": "R_j + cumulative minimum processing times (static)",
+  "machine idle time": "F_m - B_m (definition)",
+  "current makespan": "max_m F_m (definition)",
+  "remaining operation count": "same information as W_j (which operations are scheduled)"
+ },
+ "splits": {
+  "train": "joint pilot train factories",
+  "validation": "joint pilot validation factories (selection, monitoring)",
+  "test": "300 fresh factories, seed 6111",
+  "unused": "joint pilot test factories (informed this redesign)"
+ },
+ "reused": {
+  "collection": {
+   "path": "data/world_model_joint_pilot_v3/collection.npz",
+   "bytes": 1394617551
+  },
+  "checkpoints": {
+   "A_latent": "checkpoints/world_model_joint_pilot_v3/A_latent",
+   "B": "checkpoints/world_model_joint_pilot_v3/B",
+   "C": "checkpoints/world_model_joint_pilot_v3/C",
+   "D": "checkpoints/world_model_joint_pilot_v3/D"
+  }
+ },
+ "inputs": {
+  "world_model_trunk_start.pth": {
+   "path": "checkpoints/world_model_m1_v3/world_model_trunk_start.pth",
+   "sha256": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3"
+  },
+  "10x5+mix+bv3_wt_W2_s111_final_u5300.pth": {
+   "path": "checkpoints/waiting_training_v3/10x5+mix+bv3_wt_W2_s111_final_u5300.pth",
+   "sha256": "9ed22554fe20f07b67c013121e6a19315a4f620cef6b247aa6502c0c020cdd64"
+  },
+  "start_rnd.pth": {
+   "path": "checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+   "sha256": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3"
+  }
+ },
+ "joint_pilot_settings_sha256": "7033c8218b1bdb62efc60c01456933e4cc1bd48e78e7dd017b562058574e60ea",
+ "seed": 111,
+ "written": "2026-11-25 02:04:23"
+}

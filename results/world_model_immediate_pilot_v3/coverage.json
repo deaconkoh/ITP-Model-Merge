@@ -1,0 +1,183 @@
+{
+ "train": {
+  "factories": 948,
+  "states": 37735,
+  "transitions": 186554,
+  "branches_per_state": 4.9437922353252945,
+  "share_in_same_operation_group": 0.5212753411880743,
+  "share_in_other_operation_same_machine_group": 0.6354728389635173,
+  "share_waiting": 0.6722771958789412,
+  "progress_share_early_mid_late": [
+   0.34668080031800713,
+   0.3330594938386114,
+   0.3202597058433815
+  ],
+  "per_source_states": {
+   "MWKR+ECT": 7573,
+   "MWKR+MINE": 7571,
+   "EDD+ECT": 7543,
+   "RANDOM": 7499,
+   "DANIEL": 7549
+  }
+ },
+ "validation": {
+  "factories": 201,
+  "states": 7995,
+  "transitions": 39516,
+  "branches_per_state": 4.942589118198875,
+  "share_in_same_operation_group": 0.5220417046259743,
+  "share_in_other_operation_same_machine_group": 0.6375139184127948,
+  "share_waiting": 0.675954043931572,
+  "progress_share_early_mid_late": [
+   0.3527204502814259,
+   0.32082551594746717,
+   0.32645403377110693
+  ],
+  "per_source_states": {
+   "MWKR+ECT": 1602,
+   "MWKR+MINE": 1602,
+   "EDD+ECT": 1599,
+   "RANDOM": 1592,
+   "DANIEL": 1600
+  }
+ },
+ "fresh test": {
+  "factories": 300,
+  "states": 11953,
+  "transitions": 59037,
+  "branches_per_state": 4.939094787919351,
+  "share_in_same_operation_group": 0.5221810051323746,
+  "share_in_other_operation_same_machine_group": 0.6382099361417416,
+  "share_waiting": 0.6724088283618748,
+  "progress_share_early_mid_late": [
+   0.3471931732619426,
+   0.32627792186062077,
+   0.32652890487743663
+  ],
+  "per_source_states": {
+   "MWKR+ECT": 2398,
+   "MWKR+MINE": 2398,
+   "EDD+ECT": 2394,
+   "RANDOM": 2378,
+   "DANIEL": 2385
+  }
+ },
+ "fresh_collection_seconds": {
+  "episodes_and_branching": 9.477113723754883,
+  "continuation_rollouts": 15.748610734939575,
+  "total_with_instance_generation": 26.584280490875244
+ },
+ "fresh_collection_checks": {
+  "MWKR+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "MWKR+MINE": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "EDD+ECT": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "RANDOM": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ],
+  "DANIEL": [
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   },
+   {
+    "replay": {
+     "checked": 5,
+     "mismatches": 0
+    },
+    "decoder_matches_environment": {
+     "checked": 5,
+     "mismatches": 0
+    }
+   }
+  ]
+ },
+ "fresh_bytes": 310126116
+}
