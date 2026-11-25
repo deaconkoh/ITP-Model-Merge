@@ -1,0 +1,258 @@
+{
+ "models": {
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsA/selected.pth": {
+   "checkpoint_sha256": "e786af55e5909a21a7f60aa9aee4e2a3b8c77bd0fd079097bd3167efa8cff076",
+   "goal": "t",
+   "update": 2000,
+   "greedy": {
+    "makespan": 461.76,
+    "carbon": 132.96417467594046,
+    "tardiness": 114.44443814831749,
+    "tardy_share": 0.262,
+    "mk_ratio": 1.1310233707554556,
+    "carbon_ratio": 0.8903251378282249,
+    "tardiness_ratio": 0.20531169323727602,
+    "score_goal": 0.205311693237276,
+    "score_balanced": 0.742220067273652,
+    "seconds": 1.3931736946105957,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 458.75,
+    "carbon": 139.58675422048645,
+    "tardiness": 105.73011711110415,
+    "tardy_share": 0.306,
+    "mk_ratio": 1.1249672467921918,
+    "carbon_ratio": 0.9354556985893054,
+    "tardiness_ratio": 0.18967832532083095,
+    "score_goal": 0.189678325320831,
+    "score_balanced": 0.7500337569007762,
+    "seconds": 22.621259212493896,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsA/u2000.pth": {
+   "checkpoint_sha256": "e8737cb4150f8bdfe0c2d7b0574040ccb8072002101b27a0f5d462d010c51454",
+   "goal": "t",
+   "update": 2000,
+   "greedy": {
+    "makespan": 461.76,
+    "carbon": 132.96417467594046,
+    "tardiness": 114.44443814831749,
+    "tardy_share": 0.262,
+    "mk_ratio": 1.1310233707554556,
+    "carbon_ratio": 0.8903251378282249,
+    "tardiness_ratio": 0.20531169323727602,
+    "score_goal": 0.205311693237276,
+    "score_balanced": 0.742220067273652,
+    "seconds": 0.537062406539917,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 458.75,
+    "carbon": 139.58675422048645,
+    "tardiness": 105.73011711110415,
+    "tardy_share": 0.306,
+    "mk_ratio": 1.1249672467921918,
+    "carbon_ratio": 0.9354556985893054,
+    "tardiness_ratio": 0.18967832532083095,
+    "score_goal": 0.189678325320831,
+    "score_balanced": 0.7500337569007762,
+    "seconds": 22.901216506958008,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsB/selected.pth": {
+   "checkpoint_sha256": "948d060395c6056ccfb11c315b6e983f7b7857d3f924d946d52636b81ae31e2d",
+   "goal": "t",
+   "update": 1350,
+   "greedy": {
+    "makespan": 461.89,
+    "carbon": 134.45423403046073,
+    "tardiness": 101.26461184952288,
+    "tardy_share": 0.262,
+    "mk_ratio": 1.131941795137388,
+    "carbon_ratio": 0.9002946907084253,
+    "tardiness_ratio": 0.1816672724357005,
+    "score_goal": 0.18166727243570047,
+    "score_balanced": 0.7379679194271712,
+    "seconds": 0.5780787467956543,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 450.95,
+    "carbon": 138.9149311783277,
+    "tardiness": 78.76121283137732,
+    "tardy_share": 0.25000000000000006,
+    "mk_ratio": 1.1047351832789634,
+    "carbon_ratio": 0.9316928538031268,
+    "tardiness_ratio": 0.1412964948709417,
+    "score_goal": 0.14129649487094173,
+    "score_balanced": 0.7259081773176771,
+    "seconds": 22.166252851486206,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsB/u2000.pth": {
+   "checkpoint_sha256": "63b3123e49c2f3727de899854ec5fb55e78767fc59b1fc9b97f4faf06e57635b",
+   "goal": "t",
+   "update": 2000,
+   "greedy": {
+    "makespan": 455.3,
+    "carbon": 135.06093515279878,
+    "tardiness": 93.93374557400497,
+    "tardy_share": 0.22899999999999998,
+    "mk_ratio": 1.113745447400834,
+    "carbon_ratio": 0.9050064281723808,
+    "tardiness_ratio": 0.1685158026720757,
+    "score_goal": 0.16851580267207575,
+    "score_balanced": 0.7290892260817634,
+    "seconds": 0.4228384494781494,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 449.64,
+    "carbon": 139.97442636334398,
+    "tardiness": 65.64977321830045,
+    "tardy_share": 0.20900000000000005,
+    "mk_ratio": 1.1038516490747634,
+    "carbon_ratio": 0.9388337436449199,
+    "tardiness_ratio": 0.11777475881024803,
+    "score_goal": 0.11777475881024803,
+    "score_balanced": 0.7201533838433102,
+    "seconds": 22.495405673980713,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsC/selected.pth": {
+   "checkpoint_sha256": "aaa3a8440eca89d50ef49180fb16bfc102b02ff9cd1ecb275de51e09897715c5",
+   "goal": "t",
+   "update": 1000,
+   "greedy": {
+    "makespan": 459.14,
+    "carbon": 134.59596669991845,
+    "tardiness": 98.54972306398817,
+    "tardy_share": 0.245,
+    "mk_ratio": 1.123839259103085,
+    "carbon_ratio": 0.9024649676183345,
+    "tardiness_ratio": 0.17679680059340225,
+    "score_goal": 0.17679680059340225,
+    "score_balanced": 0.7343670091049406,
+    "seconds": 0.47476673126220703,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 449.23,
+    "carbon": 139.27386616584548,
+    "tardiness": 69.95771405692633,
+    "tardy_share": 0.24,
+    "mk_ratio": 1.1016191490386062,
+    "carbon_ratio": 0.9344323370643263,
+    "tardiness_ratio": 0.12550314336309135,
+    "score_goal": 0.12550314336309137,
+    "score_balanced": 0.7205182098220078,
+    "seconds": 22.06748104095459,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsC/u2000.pth": {
+   "checkpoint_sha256": "ccca09cc0271fd7182ab889716fd4875d4bf61a38bfa95740b713e4796c8d006",
+   "goal": "t",
+   "update": 2000,
+   "greedy": {
+    "makespan": 452.65,
+    "carbon": 135.1264573181412,
+    "tardiness": 83.05831886116896,
+    "tardy_share": 0.226,
+    "mk_ratio": 1.1074181147550748,
+    "carbon_ratio": 0.9057387888563609,
+    "tardiness_ratio": 0.14900544193094,
+    "score_goal": 0.14900544193094004,
+    "score_balanced": 0.7207207818474586,
+    "seconds": 0.4790806770324707,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 451.09,
+    "carbon": 140.2109971825168,
+    "tardiness": 62.60166698400181,
+    "tardy_share": 0.20800000000000005,
+    "mk_ratio": 1.1071832181134311,
+    "carbon_ratio": 0.9403389623494723,
+    "tardiness_ratio": 0.11230649960729827,
+    "score_goal": 0.11230649960729826,
+    "score_balanced": 0.719942893356734,
+    "seconds": 22.298349380493164,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsD/selected.pth": {
+   "checkpoint_sha256": "8efb3430839864cd4f36120acddcb3f05071154e908739c003759ce2aed9c923",
+   "goal": "t",
+   "update": 1900,
+   "greedy": {
+    "makespan": 459.83,
+    "carbon": 135.58002323812764,
+    "tardiness": 86.75089466507472,
+    "tardy_share": 0.22799999999999998,
+    "mk_ratio": 1.12530577622688,
+    "carbon_ratio": 0.9086358618954213,
+    "tardiness_ratio": 0.15562987036951884,
+    "score_goal": 0.1556298703695188,
+    "score_balanced": 0.7298571694972732,
+    "seconds": 0.6491231918334961,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 450.81,
+    "carbon": 140.39329289595923,
+    "tardiness": 65.37382267322737,
+    "tardy_share": 0.22899999999999998,
+    "mk_ratio": 1.1062274520602113,
+    "carbon_ratio": 0.9423707328410014,
+    "tardiness_ratio": 0.11727970745978153,
+    "score_goal": 0.11727970745978153,
+    "score_balanced": 0.7219592974536648,
+    "seconds": 22.690258264541626,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  },
+  "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/dsD/u2000.pth": {
+   "checkpoint_sha256": "2052f60fadcd35cd66646ac6fdf8f4480d981024c532872d245e2982c89bf620",
+   "goal": "t",
+   "update": 2000,
+   "greedy": {
+    "makespan": 447.41,
+    "carbon": 134.46715228446786,
+    "tardiness": 86.0672277478792,
+    "tardy_share": 0.24100000000000005,
+    "mk_ratio": 1.094399024519199,
+    "carbon_ratio": 0.9011379803384711,
+    "tardiness_ratio": 0.15440338165018228,
+    "score_goal": 0.1544033816501823,
+    "score_balanced": 0.7166467955026173,
+    "seconds": 0.5492892265319824,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   },
+   "sample128": {
+    "makespan": 444.24,
+    "carbon": 138.98696761090693,
+    "tardiness": 66.04340513092312,
+    "tardy_share": 0.217,
+    "mk_ratio": 1.0913954112542548,
+    "carbon_ratio": 0.9320518998099733,
+    "tardiness_ratio": 0.11848092885922891,
+    "score_goal": 0.11848092885922892,
+    "score_balanced": 0.7139760799744856,
+    "seconds": 23.365009784698486,
+    "independent_rescore": "all schedules feasible; objectives identical to the environment"
+   }
+  }
+ },
+ "split": "evaluation",
+ "size": "10x5",
+ "subset": null,
+ "n": 100,
+ "manifest_sha256": "dc34667fbc3c4e02788d3deb8f763d1657da474a62142b81722e75e20115cfec",
+ "t_ref": 557.4180230253888
+}

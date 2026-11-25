@@ -1,0 +1,104 @@
+{
+ "start": {
+  "start_dsA_equals_earlier_start_rnd": true,
+  "start_dsB_equals_earlier_start_pre": true,
+  "dsA_identical_outside_encoder_vs_A": true,
+  "dsA_same_keys_and_shapes": true,
+  "dsB_identical_outside_encoder_vs_A": true,
+  "dsB_same_keys_and_shapes": true,
+  "dsC_identical_outside_encoder_vs_A": true,
+  "dsC_same_keys_and_shapes": true,
+  "dsD_identical_outside_encoder_vs_A": true,
+  "dsD_same_keys_and_shapes": true,
+  "encoders_differ_dsA_dsB": true,
+  "encoders_differ_dsA_dsC": true,
+  "encoders_differ_dsA_dsD": true,
+  "encoders_differ_dsB_dsC": true,
+  "encoders_differ_dsB_dsD": true,
+  "encoders_differ_dsC_dsD": true,
+  "dsC_encoder_equals_epoch60_online_encoder": true,
+  "dsD_encoder_equals_epoch60_online_encoder": true
+ },
+ "command": {
+  "dsA": [
+   [
+    "bv3_wmtp_rnd_s111",
+    "bv3_wmtp_dsA_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/start_dsA.pth"
+   ]
+  ],
+  "dsB": [
+   [
+    "bv3_wmtp_rnd_s111",
+    "bv3_wmtp_dsB_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/start_dsB.pth"
+   ]
+  ],
+  "dsC": [
+   [
+    "bv3_wmtp_rnd_s111",
+    "bv3_wmtp_dsC_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/start_dsC.pth"
+   ]
+  ],
+  "dsD": [
+   [
+    "bv3_wmtp_rnd_s111",
+    "bv3_wmtp_dsD_s111"
+   ],
+   [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/tardiness_wm_downstream_v3/start_dsD.pth"
+   ]
+  ]
+ },
+ "record": {
+  "dsA": {
+   "config_keys_differing_vs_earlier_random_arm": [
+    "budget_checkpoints",
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "protocol_matches": true
+  },
+  "dsB": {
+   "config_keys_differing_vs_earlier_random_arm": [
+    "budget_checkpoints",
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "protocol_matches": true
+  },
+  "dsC": {
+   "config_keys_differing_vs_earlier_random_arm": [
+    "budget_checkpoints",
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "protocol_matches": true
+  },
+  "dsD": {
+   "config_keys_differing_vs_earlier_random_arm": [
+    "budget_checkpoints",
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "protocol_matches": true
+  },
+  "dsA_reproduces_earlier_rnd_curve": true,
+  "dsB_reproduces_earlier_pre_curve": true
+ }
+}

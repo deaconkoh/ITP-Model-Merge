@@ -1,0 +1,130 @@
+{
+ "budget_updates": 2000,
+ "target": 0.22707100407542416,
+ "target_reached_by_reference_at": 2000,
+ "target_rule": "the reference run's best validation tardiness (T / Tref, greedy, 18 validation instances, every 50 updates, waiting rule) within the same update budget",
+ "reference": {
+  "run": "results/specialist_reuse_v3/runs/10x5+mix+bv3_sr_spec_t_s111",
+  "valiquality_sha256": "121bba9c892308d562cc0512cfb5eda808bf77841457bf713b8210b46d789165"
+ },
+ "recipe": {
+  "cl_k": 8,
+  "cl_beta": 0.1,
+  "cl_margin": 0.01,
+  "cl_grad_clip": 1.0,
+  "lr": 0.0003,
+  "minibatch_size": 1024,
+  "num_envs": 20,
+  "reset_env_timestep": 20,
+  "validate_timestep": 50,
+  "goal": "t",
+  "seed_train": 111,
+  "dispatch_rule": "semi_active",
+  "train_source": "generator"
+ },
+ "threshold_source": "the earlier tardiness pilot's frozen common target (results/world_model_m1_v3/tardiness_pilot/settings.json), i.e. existing validation evidence; reached = first validation point with T / Tref <= target",
+ "auc": {
+  "primary": "mean of log10(validation T / Tref) over updates 0..2000 (trapezoid, divided by 2000)",
+  "secondary": "mean of validation T / Tref over updates 50..2000 (trapezoid, divided by 1950; excludes the untrained start, whose value dominates a linear-scale area)"
+ },
+ "selection": "best validation T / Tref within the budget (train.py's own selection: <model>.pth)",
+ "evaluation": {
+  "split": "evaluation",
+  "size": "10x5",
+  "greedy": true,
+  "sample": 128,
+  "sample_seed": 51,
+  "checkpoints": [
+   "selected (best validation)",
+   "final (2,000-update snapshot)"
+  ],
+  "dispatch_rule": "semi_active",
+  "reserved_final_test": "never loaded"
+ },
+ "snapshots": [
+  0,
+  50,
+  100,
+  150,
+  200,
+  250,
+  300,
+  350,
+  400,
+  450,
+  500,
+  550,
+  600,
+  650,
+  700,
+  750,
+  800,
+  850,
+  900,
+  950,
+  1000,
+  1050,
+  1100,
+  1150,
+  1200,
+  1250,
+  1300,
+  1350,
+  1400,
+  1450,
+  1500,
+  1550,
+  1600,
+  1650,
+  1700,
+  1750,
+  1800,
+  1850,
+  1900,
+  1950,
+  2000
+ ],
+ "seed": 111,
+ "cpu_sets": {
+  "dsA": "0-2",
+  "dsB": "3-5",
+  "dsC": "6-8",
+  "dsD": "9-11"
+ },
+ "pretraining_seconds": {
+  "dsA": {
+   "total": 0.0
+  },
+  "dsB": {
+   "data": 81.29252743721008,
+   "encoder_training": 203.28634810447693,
+   "total": 284.578875541687
+  },
+  "dsC": {
+   "data_episodes_and_branching": 31.849907398223877,
+   "physical_target_extraction": 18.953031063079834,
+   "encoder_training_60_epochs": 2344.956747531891,
+   "total": 2395.7596859931946
+  },
+  "dsD": {
+   "data_episodes_and_branching": 31.849907398223877,
+   "physical_target_extraction": 18.953031063079834,
+   "encoder_training_60_epochs": 2856.372174501419,
+   "total": 2907.175112962723
+  }
+ },
+ "pretraining_notes": "C and D: the joint pilot's continuation rollouts are not needed for immediate targets and are excluded; their epoch-60 training time is the time to the matched snapshot within longer runs.",
+ "sources": {
+  "dsA": "checkpoints/world_model_m1_v3_tardiness_pilot/start_rnd.pth",
+  "dsB": "checkpoints/world_model_m1_v3_tardiness_pilot/start_pre.pth",
+  "dsC": "checkpoints/world_model_immediate_pilot_v3/B/epoch60/online_encoder.pth",
+  "dsD": "checkpoints/world_model_immediate_pilot_v3/E/epoch60/online_encoder.pth"
+ },
+ "written": "2026-11-25 11:22:03",
+ "source_sha256": {
+  "dsA": "380a24ed48fbaff2fc55e315bfd4eb280649a6377838fe1a484ae1c47483fdb3",
+  "dsB": "2d9e0c7e77b7f25d6f6c0ab80b2c97d7bab0f4fbf3b7b3a00d1cbf466301468c",
+  "dsC": "7f335893c0013ea204b48fbab3792a3d0286046315ab6c8096ab07a66bb76b66",
+  "dsD": "e945c2e241af112f5c293662d04161dbf76f95b0c90fb5d74016b7f6fa5e08ee"
+ }
+}
