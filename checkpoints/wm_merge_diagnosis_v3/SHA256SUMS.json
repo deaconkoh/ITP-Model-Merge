@@ -1,0 +1,18 @@
+{
+ "merges/10x5+mix+bv3_wmdx_at1000_s111@u0.pth": "21b106a0dcf0bcd86d8443588f8a6a59fb0ae0e5e048bd6806681e6fee3aaf7f",
+ "merges/10x5+mix+bv3_wmdx_at1500_s111@u0.pth": "5074a7f21dd76611e805388fcd6e8b1ef058e980f47cbd492619f7e523588f86",
+ "merges/10x5+mix+bv3_wmdx_at2000_s111@u0.pth": "91406f28c183a7b01908e15a1ce4d389fe453c196629cf4532d4b27e2188bfba",
+ "merges/10x5+mix+bv3_wmdx_at500_s111@u0.pth": "b8be2b38bb0168554f3c105d7f05b0c0de986390f3d27531af0d116fcf4d87a9",
+ "merges/10x5+mix+bv3_wmdx_bt1000_s111@u0.pth": "0b8e3891dfbca543c3031d4ffe5d7261aa15334f370de6f3279411a66cb44c0d",
+ "merges/10x5+mix+bv3_wmdx_bt1500_s111@u0.pth": "6af04020e46e2d6a60fa1e6deb528a5a807bc8c733a61f3d5e995dda4ebd20fc",
+ "merges/10x5+mix+bv3_wmdx_bt2000_s111@u0.pth": "676c207e946d21c868b2ad6f83ea959bef3cda55fb0942b9b59cb28a8e891528",
+ "merges/10x5+mix+bv3_wmdx_bt500_s111@u0.pth": "d0f9613ef7b7d69c766b3f0ac96fdc14b932da01aee0b249bc3f3eb99f173f92",
+ "merges/10x5+mix+bv3_wmdx_ct1000_s111@u0.pth": "f13774924d39c4320720153cc0248714228b0cf446b6e426fdb4c7b5f4921604",
+ "merges/10x5+mix+bv3_wmdx_ct1500_s111@u0.pth": "e049ce86891b7a6c52e7731d9d1ee0d4d92e8a526f999cdbd1c595a36057c4bf",
+ "merges/10x5+mix+bv3_wmdx_ct2000_s111@u0.pth": "b41fd8c1bc61a063d2ff26b3e58156f01b7c60eb636f7f8f0e4b7aebfadb6326",
+ "merges/10x5+mix+bv3_wmdx_ct500_s111@u0.pth": "0fffb15a6d6e45540891a07367fa9e52fad012eb131fec04f8fda9557717d7bd",
+ "merges/10x5+mix+bv3_wmdx_dt1000_s111@u0.pth": "26377f07c8aef701ad17592d330e9325c1e016f978902d8c5d7629edb120aae2",
+ "merges/10x5+mix+bv3_wmdx_dt1500_s111@u0.pth": "8319640ce6f994bcc3f3f1a80dcb3887b29eb03fda9427d60e1e3a5c7b0fa28c",
+ "merges/10x5+mix+bv3_wmdx_dt2000_s111@u0.pth": "bf1f341d585731fb02d973188db7736de60d906910aa2795e555f8db5c4e19f8",
+ "merges/10x5+mix+bv3_wmdx_dt500_s111@u0.pth": "8818ac44fd3b8eae24b3de8a50ded4b6c9ed0c507096b6abf87e167488cdd22f"
+}

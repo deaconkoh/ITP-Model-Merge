@@ -1,0 +1,1218 @@
+{
+ "drift": {
+  "A": {
+   "m": {
+    "parts": {
+     "encoder": {
+      "abs": 5.789676866418808,
+      "base_norm": 28.460340856554268,
+      "relative": 0.2034296390053767,
+      "rms": 0.04400283964745165,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 5.268741813991205,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8026787759293137,
+      "rms": 0.06307722163910635,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 2.0245675026615197,
+      "base_norm": 12.409919022507903,
+      "relative": 0.16314107279745793,
+      "rms": 0.047825911825941786,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 2.2468691897011257,
+      "base_norm": 11.67545115229977,
+      "relative": 0.1924438859271446,
+      "rms": 0.03483622795015613,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 3.263082586772605,
+      "base_norm": 16.475816175817986,
+      "relative": 0.1980528643893176,
+      "rms": 0.05887317530816074,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 3.7047746923376073,
+      "base_norm": 15.754879664947138,
+      "relative": 0.23515093552763341,
+      "rms": 0.04069461368695439,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 5.268741813991205,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8026787759293137,
+      "rms": 0.06307722163910635,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "c": {
+    "parts": {
+     "encoder": {
+      "abs": 4.868786022010245,
+      "base_norm": 28.460340856554268,
+      "relative": 0.17107265322470616,
+      "rms": 0.03700386317704614,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 8.380206651329754,
+      "base_norm": 6.563948084825387,
+      "relative": 1.27670215288619,
+      "rms": 0.10032758692478277,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 2.152598349171492,
+      "base_norm": 12.409919022507903,
+      "relative": 0.17345788842516366,
+      "rms": 0.05085035629032097,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.660555836582014,
+      "base_norm": 11.67545115229977,
+      "relative": 0.14222626731258486,
+      "rms": 0.025745825307626393,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.860983493511512,
+      "base_norm": 16.475816175817986,
+      "relative": 0.1736474516941174,
+      "rms": 0.05161842469143586,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 2.8510919730367488,
+      "base_norm": 15.754879664947138,
+      "relative": 0.18096564579798807,
+      "rms": 0.031317447365604614,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 8.380206651329754,
+      "base_norm": 6.563948084825387,
+      "relative": 1.27670215288619,
+      "rms": 0.10032758692478277,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "t": {
+    "parts": {
+     "encoder": {
+      "abs": 7.767771732033698,
+      "base_norm": 28.460340856554268,
+      "relative": 0.27293319399036015,
+      "rms": 0.05903680323252802,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 7.034598315699164,
+      "base_norm": 6.563948084825387,
+      "relative": 1.071702308548392,
+      "rms": 0.08421800360821043,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 2.820840897375487,
+      "base_norm": 12.409919022507903,
+      "relative": 0.22730534278743642,
+      "rms": 0.06663610270121259,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 3.265690818111671,
+      "base_norm": 11.67545115229977,
+      "relative": 0.2797057497404211,
+      "rms": 0.05063238673436202,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 4.298360271645489,
+      "base_norm": 16.475816175817986,
+      "relative": 0.26088906466159245,
+      "rms": 0.07755185812214113,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 4.8208398405585395,
+      "base_norm": 15.754879664947138,
+      "relative": 0.30599026733821233,
+      "rms": 0.05295388552614603,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 7.034598315699164,
+      "base_norm": 6.563948084825387,
+      "relative": 1.071702308548392,
+      "rms": 0.08421800360821043,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   }
+  },
+  "B": {
+   "m": {
+    "parts": {
+     "encoder": {
+      "abs": 5.020107146852867,
+      "base_norm": 29.195823767597016,
+      "relative": 0.17194606964385203,
+      "rms": 0.038153937584539034,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 5.588624581022096,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8514120631060359,
+      "rms": 0.06690684869370164,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.8585973678013585,
+      "base_norm": 12.899883858580225,
+      "relative": 0.14407861250356388,
+      "rms": 0.04390523591608608,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 2.131701785601229,
+      "base_norm": 11.985072392269341,
+      "relative": 0.177863071313297,
+      "rms": 0.033050633150048775,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.101725157726014,
+      "base_norm": 16.504449908852216,
+      "relative": 0.12734293898512467,
+      "rms": 0.037919737049241335,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 3.5757083842130073,
+      "base_norm": 16.430164176354896,
+      "relative": 0.21763071542272888,
+      "rms": 0.03927690168411786,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 5.588624581022096,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8514120631060359,
+      "rms": 0.06690684869370164,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "c": {
+    "parts": {
+     "encoder": {
+      "abs": 3.5950555345671624,
+      "base_norm": 29.195823767597016,
+      "relative": 0.12313595133277708,
+      "rms": 0.027323226470338774,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 7.30289233301561,
+      "base_norm": 6.563948084825387,
+      "relative": 1.1125761871728577,
+      "rms": 0.08743001167240819,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.7413165493169218,
+      "base_norm": 12.899883858580225,
+      "relative": 0.13498699433318564,
+      "rms": 0.04113473699405103,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.9446624909765482,
+      "base_norm": 11.985072392269341,
+      "relative": 0.16225705004759938,
+      "rms": 0.030150711991733144,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 1.151338913943128,
+      "base_norm": 16.504449908852216,
+      "relative": 0.06975930250941619,
+      "rms": 0.020772682246673637,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 2.1874522790511657,
+      "base_norm": 16.430164176354896,
+      "relative": 0.13313636160734102,
+      "rms": 0.024027783832238286,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 7.30289233301561,
+      "base_norm": 6.563948084825387,
+      "relative": 1.1125761871728577,
+      "rms": 0.08743001167240819,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "t": {
+    "parts": {
+     "encoder": {
+      "abs": 5.309240835262268,
+      "base_norm": 29.195823767597016,
+      "relative": 0.18184932466795917,
+      "rms": 0.0403514183112354,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 5.4714814549677095,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8335656199988457,
+      "rms": 0.06550441464274691,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.8014457380400541,
+      "base_norm": 12.899883858580225,
+      "relative": 0.13964821371952438,
+      "rms": 0.04255515556456422,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 2.653194769051823,
+      "base_norm": 11.985072392269341,
+      "relative": 0.22137494728552473,
+      "rms": 0.041136038624102395,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.3285836138719067,
+      "base_norm": 16.504449908852216,
+      "relative": 0.14108822934007412,
+      "rms": 0.04201276175935928,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 3.5328582437450002,
+      "base_norm": 16.430164176354896,
+      "relative": 0.21502269884979203,
+      "rms": 0.038806219913271225,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 5.4714814549677095,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8335656199988457,
+      "rms": 0.06550441464274691,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   }
+  },
+  "C": {
+   "m": {
+    "parts": {
+     "encoder": {
+      "abs": 4.771580427562193,
+      "base_norm": 38.132555789098404,
+      "relative": 0.12513140881383894,
+      "rms": 0.03626507890911193,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 4.519462190643595,
+      "base_norm": 6.563948084825387,
+      "relative": 0.6885280218915414,
+      "rms": 0.054106868082198854,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.3898621033604512,
+      "base_norm": 15.68543656746464,
+      "relative": 0.08860844244803226,
+      "rms": 0.03283240609075807,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.8347496881553558,
+      "base_norm": 16.039919872133538,
+      "relative": 0.11438646220065611,
+      "rms": 0.02844658632599782,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.0718849636082948,
+      "base_norm": 21.290106052463447,
+      "relative": 0.09731679863419751,
+      "rms": 0.03738135442091209,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 3.6300481249874275,
+      "base_norm": 22.304960109068574,
+      "relative": 0.1627462280693141,
+      "rms": 0.03987378946874829,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 4.519462190643595,
+      "base_norm": 6.563948084825387,
+      "relative": 0.6885280218915414,
+      "rms": 0.054106868082198854,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "c": {
+    "parts": {
+     "encoder": {
+      "abs": 4.166565585109596,
+      "base_norm": 38.132555789098404,
+      "relative": 0.109265311461257,
+      "rms": 0.03166683073205312,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 7.587367555767058,
+      "base_norm": 6.563948084825387,
+      "relative": 1.155915229327853,
+      "rms": 0.09083574065094288,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.456550521396018,
+      "base_norm": 15.68543656746464,
+      "relative": 0.09286005621400767,
+      "rms": 0.03440777188942257,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.8152307766191804,
+      "base_norm": 16.039919872133538,
+      "relative": 0.11316956637500514,
+      "rms": 0.02814395844951535,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.086112379116707,
+      "base_norm": 21.290106052463447,
+      "relative": 0.09798506282571222,
+      "rms": 0.037638048238838796,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 2.7553224353877748,
+      "base_norm": 22.304960109068574,
+      "relative": 0.12352958364034633,
+      "rms": 0.03026547938880327,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 7.587367555767058,
+      "base_norm": 6.563948084825387,
+      "relative": 1.155915229327853,
+      "rms": 0.09083574065094288,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "t": {
+    "parts": {
+     "encoder": {
+      "abs": 3.749386733434789,
+      "base_norm": 38.132555789098404,
+      "relative": 0.09832508353680004,
+      "rms": 0.028496178113937447,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 3.9280945359430173,
+      "base_norm": 6.563948084825387,
+      "relative": 0.5984347354946382,
+      "rms": 0.047027031957625164,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.1753719647195744,
+      "base_norm": 15.68543656746464,
+      "relative": 0.07493396563520444,
+      "rms": 0.02776555282719087,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.632516089123886,
+      "base_norm": 16.039919872133538,
+      "relative": 0.10177831947652603,
+      "rms": 0.02531108747838672,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 1.4545569172025379,
+      "base_norm": 21.290106052463447,
+      "relative": 0.06832079246661306,
+      "rms": 0.026243400865578668,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 2.8099033817513983,
+      "base_norm": 22.304960109068574,
+      "relative": 0.12597661542595498,
+      "rms": 0.030865016664721807,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 3.9280945359430173,
+      "base_norm": 6.563948084825387,
+      "relative": 0.5984347354946382,
+      "rms": 0.047027031957625164,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   }
+  },
+  "D": {
+   "m": {
+    "parts": {
+     "encoder": {
+      "abs": 5.5139053350906275,
+      "base_norm": 34.79805104795257,
+      "relative": 0.1584544297464341,
+      "rms": 0.04190691430440707,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 5.431801488825344,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8275204828908759,
+      "rms": 0.06502936725812317,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.6885982355971825,
+      "base_norm": 12.45860921431202,
+      "relative": 0.1355366563434207,
+      "rms": 0.0398893838901125,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 2.09232322869392,
+      "base_norm": 12.254685704482535,
+      "relative": 0.17073658836705927,
+      "rms": 0.03244009454323576,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.598413608252406,
+      "base_norm": 21.09426437966849,
+      "relative": 0.12318104871942644,
+      "rms": 0.04688108738095354,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 4.052433623169605,
+      "base_norm": 21.460244680477732,
+      "relative": 0.18883445568801377,
+      "rms": 0.044513427801153825,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 5.431801488825344,
+      "base_norm": 6.563948084825387,
+      "relative": 0.8275204828908759,
+      "rms": 0.06502936725812317,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "c": {
+    "parts": {
+     "encoder": {
+      "abs": 3.781561906132162,
+      "base_norm": 34.79805104795257,
+      "relative": 0.10867165810295171,
+      "rms": 0.028740716625757244,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 8.807881305295968,
+      "base_norm": 6.563948084825387,
+      "relative": 1.3418572468082333,
+      "rms": 0.10544769527133688,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 1.8740932350231134,
+      "base_norm": 12.45860921431202,
+      "relative": 0.1504255573623916,
+      "rms": 0.04427129137160431,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 1.5556486909456033,
+      "base_norm": 12.254685704482535,
+      "relative": 0.1269431732856744,
+      "rms": 0.024119309061935934,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 1.6865503492247238,
+      "base_norm": 21.09426437966849,
+      "relative": 0.07995302983166787,
+      "rms": 0.03042907181646099,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 2.350210642950905,
+      "base_norm": 21.460244680477732,
+      "relative": 0.10951462473719505,
+      "rms": 0.02581558182084997,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 8.807881305295968,
+      "base_norm": 6.563948084825387,
+      "relative": 1.3418572468082333,
+      "rms": 0.10544769527133688,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   },
+   "t": {
+    "parts": {
+     "encoder": {
+      "abs": 6.583179453056052,
+      "base_norm": 34.79805104795257,
+      "relative": 0.18918241840568223,
+      "rms": 0.05003363685517807,
+      "params": 17312
+     },
+     "actor": {
+      "abs": 6.62697735134831,
+      "base_norm": 6.563948084825387,
+      "relative": 1.0096023408028827,
+      "rms": 0.07933797744241357,
+      "params": 6977
+     },
+     "critic": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    },
+    "layers": {
+     "encoder:op_attention_blocks.0": {
+      "abs": 2.2730546858170233,
+      "base_norm": 12.45860921431202,
+      "relative": 0.1824485098389487,
+      "rms": 0.05369586977787411,
+      "params": 1792
+     },
+     "encoder:op_attention_blocks.1": {
+      "abs": 2.8076307939216862,
+      "base_norm": 12.254685704482535,
+      "relative": 0.2291067157189276,
+      "rms": 0.04353046754357063,
+      "params": 4160
+     },
+     "encoder:mch_attention_blocks.0": {
+      "abs": 2.8922466251730734,
+      "base_norm": 21.09426437966849,
+      "relative": 0.137110570585279,
+      "rms": 0.052182480237701896,
+      "params": 3072
+     },
+     "encoder:mch_attention_blocks.1": {
+      "abs": 4.682263650268136,
+      "base_norm": 21.460244680477732,
+      "relative": 0.21818314376105719,
+      "rms": 0.05143171346484867,
+      "params": 8288
+     },
+     "actor:actor.linears": {
+      "abs": 6.62697735134831,
+      "base_norm": 6.563948084825387,
+      "relative": 1.0096023408028827,
+      "rms": 0.07933797744241357,
+      "params": 6977
+     },
+     "critic:critic.linears": {
+      "abs": 0.0,
+      "base_norm": 6.665324303130697,
+      "relative": 0.0,
+      "rms": 0.0,
+      "params": 5313
+     }
+    }
+   }
+  }
+ },
+ "task_vectors": {
+  "A": {
+   "all": {
+    "norm": {
+     "m": 7.828154221784596,
+     "c": 9.691900786074601,
+     "t": 10.479687549932915
+    },
+    "mc": {
+     "cosine": 0.32344253145182,
+     "sign_agreement": 0.6192103421301823,
+     "norm_ratio": 1.2380825046986779
+    },
+    "mt": {
+     "cosine": 0.5333732673272187,
+     "sign_agreement": 0.6809255218411626,
+     "norm_ratio": 1.3387175639398485
+    },
+    "ct": {
+     "cosine": 0.2675449489745589,
+     "sign_agreement": 0.5997776771377991,
+     "norm_ratio": 1.0812829992017883
+    },
+    "mean_vector_norm_over_mean_norm": 0.7626354655812612
+   },
+   "encoder": {
+    "norm": {
+     "m": 5.789676866418771,
+     "c": 4.868786022010208,
+     "t": 7.767771732033635
+    },
+    "mc": {
+     "cosine": 0.3733195117333507,
+     "sign_agreement": 0.6033387245841035,
+     "norm_ratio": 1.1891417778981277
+    },
+    "mt": {
+     "cosine": 0.5310620038933317,
+     "sign_agreement": 0.6676871534195934,
+     "norm_ratio": 1.3416589407758126
+    },
+    "ct": {
+     "cosine": 0.3003469474300979,
+     "sign_agreement": 0.5904574861367837,
+     "norm_ratio": 1.5954226981670687
+    },
+    "mean_vector_norm_over_mean_norm": 0.7847576026377874
+   },
+   "actor": {
+    "norm": {
+     "m": 5.2687418139911975,
+     "c": 8.380206651329747,
+     "t": 7.034598315699155
+    },
+    "mc": {
+     "cosine": 0.3174427313283356,
+     "sign_agreement": 0.65859251827433,
+     "norm_ratio": 1.5905517763417487
+    },
+    "mt": {
+     "cosine": 0.5361812081855832,
+     "sign_agreement": 0.7137738282929625,
+     "norm_ratio": 1.3351571521342547
+    },
+    "ct": {
+     "cosine": 0.26827227804004083,
+     "sign_agreement": 0.6229038268596818,
+     "norm_ratio": 1.1912843172050904
+    },
+    "mean_vector_norm_over_mean_norm": 0.7596589240373484
+   },
+   "critic": {
+    "norm": {
+     "m": 0.0,
+     "c": 0.0,
+     "t": 0.0
+    },
+    "mc": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mt": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "ct": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mean_vector_norm_over_mean_norm": NaN
+   }
+  },
+  "B": {
+   "all": {
+    "norm": {
+     "m": 7.51226999471446,
+     "c": 8.13981945280359,
+     "t": 7.623985018274338
+    },
+    "mc": {
+     "cosine": 0.29622992985885593,
+     "sign_agreement": 0.609864547737659,
+     "norm_ratio": 1.0835365952675644
+    },
+    "mt": {
+     "cosine": 0.6517759103438162,
+     "sign_agreement": 0.7239079418666886,
+     "norm_ratio": 1.014871007516833
+    },
+    "ct": {
+     "cosine": 0.2691464279417328,
+     "sign_agreement": 0.5863147927045165,
+     "norm_ratio": 1.067659423948607
+    },
+    "mean_vector_norm_over_mean_norm": 0.7746477332646773
+   },
+   "encoder": {
+    "norm": {
+     "m": 5.020107146852832,
+     "c": 3.5950555345671225,
+     "t": 5.309240835262232
+    },
+    "mc": {
+     "cosine": 0.2531304632740363,
+     "sign_agreement": 0.5893022181146026,
+     "norm_ratio": 1.3963920998114148
+    },
+    "mt": {
+     "cosine": 0.6521965019134282,
+     "sign_agreement": 0.7037892791127541,
+     "norm_ratio": 1.0575951229627958
+    },
+    "ct": {
+     "cosine": 0.1887950154023874,
+     "sign_agreement": 0.5488678373382625,
+     "norm_ratio": 1.47681747450433
+    },
+    "mean_vector_norm_over_mean_norm": 0.7782180593931683
+   },
+   "actor": {
+    "norm": {
+     "m": 5.58862458102209,
+     "c": 7.302892333015596,
+     "t": 5.4714814549677016
+    },
+    "mc": {
+     "cosine": 0.3318940769094714,
+     "sign_agreement": 0.6608857675218576,
+     "norm_ratio": 1.3067423347445513
+    },
+    "mt": {
+     "cosine": 0.6523135019363588,
+     "sign_agreement": 0.7738282929625914,
+     "norm_ratio": 1.0214097638854338
+    },
+    "ct": {
+     "cosine": 0.3278251258480489,
+     "sign_agreement": 0.6792317615020782,
+     "norm_ratio": 1.3347193795905328
+    },
+    "mean_vector_norm_over_mean_norm": 0.7847990720423594
+   },
+   "critic": {
+    "norm": {
+     "m": 0.0,
+     "c": 0.0,
+     "t": 0.0
+    },
+    "mc": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mt": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "ct": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mean_vector_norm_over_mean_norm": NaN
+   }
+  },
+  "C": {
+   "all": {
+    "norm": {
+     "m": 6.572177589608437,
+     "c": 8.656120100906987,
+     "t": 5.430269566067785
+    },
+    "mc": {
+     "cosine": 0.28442962087308366,
+     "sign_agreement": 0.5713697558565606,
+     "norm_ratio": 1.3170855447657965
+    },
+    "mt": {
+     "cosine": 0.6744567354847097,
+     "sign_agreement": 0.7518629832434436,
+     "norm_ratio": 1.2102856975418148
+    },
+    "ct": {
+     "cosine": 0.29032516878344833,
+     "sign_agreement": 0.5863971345053316,
+     "norm_ratio": 1.5940497972691132
+    },
+    "mean_vector_norm_over_mean_norm": 0.7735985983311142
+   },
+   "encoder": {
+    "norm": {
+     "m": 4.771580427562171,
+     "c": 4.166565585109569,
+     "t": 3.7493867334347635
+    },
+    "mc": {
+     "cosine": 0.11639958551414684,
+     "sign_agreement": 0.5258780036968577,
+     "norm_ratio": 1.1452070848506015
+    },
+    "mt": {
+     "cosine": 0.6160780386187268,
+     "sign_agreement": 0.7130891866913124,
+     "norm_ratio": 1.2726295703273556
+    },
+    "ct": {
+     "cosine": 0.153976190853446,
+     "sign_agreement": 0.5537777264325323,
+     "norm_ratio": 1.111265889953324
+    },
+    "mean_vector_norm_over_mean_norm": 0.7295165792128956
+   },
+   "actor": {
+    "norm": {
+     "m": 4.519462190643585,
+     "c": 7.587367555767051,
+     "t": 3.928094535943008
+    },
+    "mc": {
+     "cosine": 0.40439170369127064,
+     "sign_agreement": 0.6842482442310449,
+     "norm_ratio": 1.678820894104346
+    },
+    "mt": {
+     "cosine": 0.7350098048402651,
+     "sign_agreement": 0.8480722373512971,
+     "norm_ratio": 1.1505482236462032
+    },
+    "ct": {
+     "cosine": 0.37717642760868403,
+     "sign_agreement": 0.6673355310305289,
+     "norm_ratio": 1.9315643975318864
+    },
+    "mean_vector_norm_over_mean_norm": 0.812496665153312
+   },
+   "critic": {
+    "norm": {
+     "m": 0.0,
+     "c": 0.0,
+     "t": 0.0
+    },
+    "mc": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mt": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "ct": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mean_vector_norm_over_mean_norm": NaN
+   }
+  },
+  "D": {
+   "all": {
+    "norm": {
+     "m": 7.74000125699898,
+     "c": 9.585352551580561,
+     "t": 9.341042796520243
+    },
+    "mc": {
+     "cosine": 0.2180586206486915,
+     "sign_agreement": 0.5532545596772201,
+     "norm_ratio": 1.2384174412004005
+    },
+    "mt": {
+     "cosine": 0.6421257668208803,
+     "sign_agreement": 0.7212730042406027,
+     "norm_ratio": 1.206852878489329
+    },
+    "ct": {
+     "cosine": 0.23135970146027218,
+     "sign_agreement": 0.5614887397587385,
+     "norm_ratio": 1.0261544412526757
+    },
+    "mean_vector_norm_over_mean_norm": 0.7553130167653576
+   },
+   "encoder": {
+    "norm": {
+     "m": 5.513905335090605,
+     "c": 3.7815619061321293,
+     "t": 6.583179453056017
+    },
+    "mc": {
+     "cosine": 0.09015164488396477,
+     "sign_agreement": 0.5193507393715342,
+     "norm_ratio": 1.45810262319105
+    },
+    "mt": {
+     "cosine": 0.634279966847473,
+     "sign_agreement": 0.7008433456561922,
+     "norm_ratio": 1.1939231910929862
+    },
+    "ct": {
+     "cosine": 0.11660105073784982,
+     "sign_agreement": 0.5373151571164511,
+     "norm_ratio": 1.7408625368213126
+    },
+    "mean_vector_norm_over_mean_norm": 0.7548238015380326
+   },
+   "actor": {
+    "norm": {
+     "m": 5.43180148882534,
+     "c": 8.807881305295966,
+     "t": 6.626977351348302
+    },
+    "mc": {
+     "cosine": 0.29885755301325284,
+     "sign_agreement": 0.6373799627346998,
+     "norm_ratio": 1.6215396169053895
+    },
+    "mt": {
+     "cosine": 0.6501129659024418,
+     "sign_agreement": 0.7719650279489753,
+     "norm_ratio": 1.2200330525667693
+    },
+    "ct": {
+     "cosine": 0.30516809768274317,
+     "sign_agreement": 0.6214705460799771,
+     "norm_ratio": 1.3290948253360102
+    },
+    "mean_vector_norm_over_mean_norm": 0.7757438985126349
+   },
+   "critic": {
+    "norm": {
+     "m": 0.0,
+     "c": 0.0,
+     "t": 0.0
+    },
+    "mc": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mt": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "ct": {
+     "cosine": 0.0,
+     "sign_agreement": NaN,
+     "norm_ratio": 0.0
+    },
+    "mean_vector_norm_over_mean_norm": NaN
+   }
+  }
+ }
+}

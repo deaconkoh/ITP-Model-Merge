@@ -1,0 +1,6 @@
+[2026-11-26 02:48:47] distillation stage 1: 93 s
+[2026-11-26 02:50:21] train 10x5+mix+bv3_srip_distill_s111: chunk (status NONE, slot 2)
+[2026-11-26 03:08:50] train 10x5+mix+bv3_srip_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 03:27:24] train 10x5+mix+bv3_srip_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 03:45:44] train 10x5+mix+bv3_srip_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 03:47:40] 10x5+mix+bv3_srip_distill_s111: CONVERGED at update 1550 (best -0.9455 @ 550, 0.95 h)

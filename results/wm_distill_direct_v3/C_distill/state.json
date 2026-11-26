@@ -1,0 +1,25 @@
+{
+ "units": {
+  "final:distill": {
+   "name": "10x5+mix+bv3_srip_distill_s111",
+   "start": 1795632621.4438684,
+   "slot": "8-11",
+   "end": 1795636060.0191383,
+   "status": "CONVERGED",
+   "update": 1550,
+   "best": -0.9455410247372981,
+   "best_update": 550,
+   "train_seconds": 3424.077514410019,
+   "capped": false
+  }
+ },
+ "distill_stage1": {
+  "wall_seconds": 94.61801671981812,
+  "states": 60000,
+  "epochs_run": 15,
+  "wall_cap_hit": false,
+  "collection_seconds": 16.084110021591187,
+  "training_seconds": 74.89306378364563,
+  "total_seconds": 92.75029349327087
+ }
+}

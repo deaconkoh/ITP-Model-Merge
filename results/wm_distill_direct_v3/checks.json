@@ -1,0 +1,152 @@
+{
+ "C_direct": {
+  "command": {
+   "differing_flags": [
+    "--model_suffix"
+   ],
+   "added": [
+    "--init_from",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/wm_distill_direct_v3/C_direct/start_s111.pth",
+    "--init_mode",
+    "exact"
+   ],
+   "matches": true
+  },
+  "start": {
+   "scratch_init_sha_matches_wm_direct_sums": true,
+   "scratch_init_hash_equals_baseline_scratch_reference": true,
+   "encoder_equals_epoch60_world_model_encoder": true,
+   "encoder_differs_from_scratch": true,
+   "non_encoder_identical_to_scratch_init": true,
+   "encoder_source": "checkpoints/world_model_immediate_pilot_v3/B/epoch60/online_encoder.pth",
+   "start_sha256": "d849b6f09e697cfcb1403a75de954d58e67fabbdf8e8b4937d7ac1ea7205e364"
+  },
+  "record": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ },
+ "C_distill": {
+  "command": {
+   "differing_flags": [
+    "--init_from",
+    "--model_suffix"
+   ],
+   "added": [],
+   "matches": true
+  },
+  "teacher_inputs": {
+   "record_keys_equal": [
+    "epochs_planned",
+    "epochs_run",
+    "generator",
+    "gpu",
+    "instances_per_teacher",
+    "seed",
+    "size",
+    "states",
+    "wall_cap_hit",
+    "wall_cap_s"
+   ],
+   "record_keys_differing": [
+    "collection_seconds",
+    "history",
+    "teachers",
+    "total_seconds",
+    "training_seconds"
+   ],
+   "teachers": [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/C/specialists/10x5+mix+bv3_srip_spec_m_s111.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/C/specialists/10x5+mix+bv3_srip_spec_c_s111.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/C/specialists/10x5+mix+bv3_wmtp_dsC_s111.pth"
+   ]
+  },
+  "record": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ },
+ "D_direct": {
+  "command": {
+   "differing_flags": [
+    "--model_suffix"
+   ],
+   "added": [
+    "--init_from",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/wm_distill_direct_v3/D_direct/start_s111.pth",
+    "--init_mode",
+    "exact"
+   ],
+   "matches": true
+  },
+  "start": {
+   "scratch_init_sha_matches_wm_direct_sums": true,
+   "scratch_init_hash_equals_baseline_scratch_reference": true,
+   "encoder_equals_epoch60_world_model_encoder": true,
+   "encoder_differs_from_scratch": true,
+   "non_encoder_identical_to_scratch_init": true,
+   "encoder_source": "checkpoints/world_model_immediate_pilot_v3/E/epoch60/online_encoder.pth",
+   "start_sha256": "d6bab890188b13c423c2fa81df9b822053c98ed69a585912c01db63ae519dc4f"
+  },
+  "record": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ },
+ "D_distill": {
+  "command": {
+   "differing_flags": [
+    "--init_from",
+    "--model_suffix"
+   ],
+   "added": [],
+   "matches": true
+  },
+  "teacher_inputs": {
+   "record_keys_equal": [
+    "epochs_planned",
+    "epochs_run",
+    "generator",
+    "gpu",
+    "instances_per_teacher",
+    "seed",
+    "size",
+    "states",
+    "wall_cap_hit",
+    "wall_cap_s"
+   ],
+   "record_keys_differing": [
+    "collection_seconds",
+    "history",
+    "teachers",
+    "total_seconds",
+    "training_seconds"
+   ],
+   "teachers": [
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/D/specialists/10x5+mix+bv3_srjp_spec_m_s111.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/D/specialists/10x5+mix+bv3_srjp_spec_c_s111.pth",
+    "/home/deaconkoh/projects/ITP-PROJECT-multi-objective-model-merging-for-fjsp/checkpoints/rs_four_bases_v3/D/specialists/10x5+mix+bv3_srjp_spec_t_s111.pth"
+   ]
+  },
+  "record": {
+   "differing_config_keys": [
+    "init_from",
+    "model_suffix"
+   ],
+   "data_fingerprints_equal": true,
+   "matches": true
+  }
+ }
+}

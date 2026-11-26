@@ -1,0 +1,7 @@
+{
+ "stage1_s": 188.44149136543274,
+ "training_s": 10308.580242872238,
+ "evaluation_s": 11981.430855989456,
+ "total_s": 22479.357707500458,
+ "concurrency": "C/D Direct and C/D Distillation fine-tuning: 4 runs on 3 CPU slots (4 cores each) and one GPU"
+}

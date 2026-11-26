@@ -1,0 +1,16 @@
+{
+ "units": {
+  "final:direct": {
+   "name": "10x5+mix+bv3_srjp_direct_s111",
+   "start": 1795632621.442786,
+   "slot": "4-7",
+   "end": 1795639188.3801885,
+   "status": "CONVERGED",
+   "update": 2900,
+   "best": -0.923198348046452,
+   "best_update": 2500,
+   "train_seconds": 6542.470995426178,
+   "capped": false
+  }
+ }
+}

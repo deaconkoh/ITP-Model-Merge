@@ -1,0 +1,7 @@
+[2026-11-26 02:50:21] train 10x5+mix+bv3_srjp_direct_s111: chunk (status NONE, slot 1)
+[2026-11-26 03:08:51] train 10x5+mix+bv3_srjp_direct_s111: chunk (status RUNNING, slot 1)
+[2026-11-26 03:27:08] train 10x5+mix+bv3_srjp_direct_s111: chunk (status RUNNING, slot 1)
+[2026-11-26 03:45:23] train 10x5+mix+bv3_srjp_direct_s111: chunk (status RUNNING, slot 1)
+[2026-11-26 04:04:53] train 10x5+mix+bv3_srjp_direct_s111: chunk (status RUNNING, slot 1)
+[2026-11-26 04:24:27] train 10x5+mix+bv3_srjp_direct_s111: chunk (status RUNNING, slot 1)
+[2026-11-26 04:39:48] 10x5+mix+bv3_srjp_direct_s111: CONVERGED at update 2900 (best -0.9232 @ 2500, 1.82 h)

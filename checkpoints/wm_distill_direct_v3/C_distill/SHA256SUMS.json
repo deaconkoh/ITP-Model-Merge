@@ -1,0 +1,4 @@
+{
+ "distill/student_s111.pth": "7b3486fa34f4260e3a69a6098176b03cd9819dc8ed738406e2eea8ca7176f823",
+ "finals/10x5+mix+bv3_srip_distill_s111.pth": "db64dd803d0a48692cb1e7eeb0700c71c7bbd3305cdf4d50b9f0bf4576e81029"
+}

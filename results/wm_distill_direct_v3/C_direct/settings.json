@@ -1,0 +1,208 @@
+{
+ "name": "wm_distill_direct_v3/C_direct",
+ "size": "10x5",
+ "seed": 111,
+ "tag": "sr",
+ "dispatch_rule": {
+  "flag": "--dispatch_rule semi_active",
+  "where": [
+   "specialist training and its validation (train.py)",
+   "distillation stage 1: teacher rollouts and held-out check (distill_v3.py)",
+   "multi-objective training and its validation (train.py), TIES screen",
+   "evaluation and timing (tools/decoding_v3.py environments)"
+  ]
+ },
+ "recipe": {
+  "source": "configs/contrastive_v3.json",
+  "sha256": "df851486354f209ee3b147518460c1ada4986706a41bdfa0be4432ca4282720b",
+  "constants": {
+   "cl_k": 8,
+   "cl_beta": 0.1,
+   "cl_margin": 0.01,
+   "cl_grad_clip": 1.0,
+   "lr": 0.0003,
+   "minibatch_size": 1024,
+   "validate_timestep": 50,
+   "converge_window": 0,
+   "mo_val_grid_step": 0.25,
+   "pref_dirichlet": 1.0,
+   "num_envs": 20,
+   "reset_env_timestep": 20
+  }
+ },
+ "stopping": {
+  "converge_window": 1000,
+  "converge_tol": 0.005,
+  "min_updates": 1000,
+  "max_updates": 8000,
+  "chunk": 500,
+  "rule": "stop when the best validation value improves by less than 0.5% over 1,000 updates; minimum 1,000, cap 8,000 (a run that reaches the cap is 'capped')"
+ },
+ "validation": {
+  "decoder": "greedy",
+  "split": "validation",
+  "instances": "all 18",
+  "grid_step": 0.25,
+  "preferences": 15,
+  "every": 50,
+  "norm": "results/warmstart_v3/norm/validation_normalisation_points_10x5.json",
+  "norm_sha256": "76b55f740e23c839d7d1209e5e29cc6d8b90e6647f75aacc2579ad0240975521",
+  "use": "tuning score, checkpoint selection (best), stopping, time to target"
+ },
+ "base": {
+  "what": "unconditioned DANIEL after setup_seed(111) (tools/world_model_m2_bases.random_base_sd)"
+ },
+ "specialists": {
+  "objectives": [
+   "m",
+   "c",
+   "t"
+  ],
+  "configs": {
+   "m": {
+    "path": "configs/benchmark_v3/m.json",
+    "sha256": "ac6fa24c93d399c10b45b0cc7ac4c3af3ca147841ca0ed24aede7fb73184fc6e"
+   },
+   "c": {
+    "path": "configs/benchmark_v3/c.json",
+    "sha256": "1e87d6d76e5530a6233a4ceedc10308299180d982cf071811709a27ffacd61cc"
+   },
+   "t": {
+    "path": "configs/benchmark_v3/t.json",
+    "sha256": "e9c6fa9c288e7802ca9d75a5c46fc10fdd1408e93beff412e7a9c90751fb7675"
+   }
+  },
+  "training": "single-objective contrastive from a copy of the base (--init_mode exact)",
+  "selection": "the specialist's own validation objective (score_v3 of its goal); best checkpoint"
+ },
+ "mo_config": {
+  "path": "configs/benchmark_v3/mct.json",
+  "sha256": "1da4045d2644cd52a9378d3fae4d2c18b5b110a093519fad88f945763dae484a"
+ },
+ "methods": {
+  "scratch": {
+   "label": "From scratch",
+   "start": "fresh preference-conditioned DANIEL, setup_seed(111)"
+  },
+  "distill": {
+   "label": "Distillation",
+   "stage1": {
+    "script": "daniel/distill_v3.py",
+    "instances": 400,
+    "epochs": 15,
+    "batch": 256,
+    "lr": 0.0003,
+    "wall_cap": 1200
+   },
+   "stage2": "contrastive fine-tuning from the student (--init_mode no_critic)"
+  },
+  "rs": {
+   "label": "Rewarded Soups",
+   "flags": "--merge_mix m,c,t (--merge_rule mix)",
+   "rule": "theta(w) = w_M theta_M + w_C theta_C + w_T theta_T per sample"
+  },
+  "ties": {
+   "label": "Preference-weighted TIES",
+   "flags": "--merge_mix m,c,t --merge_rule ties --merge_base base",
+   "rule": "daniel/mixture.py:pref_ties_flat (trim per vector, weight before election, sum of agreeing entries, lambda; zero weight: no vote, no contribution; exact corner: the specialist itself)",
+   "screen": {
+    "keep": [
+     0.2,
+     0.5,
+     0.8
+    ],
+    "lambda": [
+     0.8,
+     1.0,
+     1.5
+    ],
+    "score": "validation HV of the merged start (the fixed validation decoder, update 0)"
+   }
+  }
+ },
+ "tuning": {
+  "trials_per_method": 6,
+  "updates_per_trial": 1000,
+  "trials": [
+   {
+    "lr": 0.0001,
+    "cl_beta": 0.1
+   },
+   {
+    "lr": 0.0001,
+    "cl_beta": 0.5
+   },
+   {
+    "lr": 0.0003,
+    "cl_beta": 0.1
+   },
+   {
+    "lr": 0.0003,
+    "cl_beta": 0.5
+   },
+   {
+    "lr": 0.001,
+    "cl_beta": 0.1
+   },
+   {
+    "lr": 0.001,
+    "cl_beta": 0.5
+   }
+  ],
+  "score": "best validation HV within the trial",
+  "tie_break": "closest to the recipe (lr 3e-4, beta 0.1)",
+  "full_run": "the selected setting, trained fresh with the stopping rule"
+ },
+ "evaluation": {
+  "split": "evaluation",
+  "instances": 100,
+  "grid_step": 0.1,
+  "preferences": 66,
+  "extra": "equal weights also decoded (batch layout of evaluate_mo_v3), not in the metrics",
+  "decoders": {
+   "greedy": {},
+   "sample128": {
+    "K": 128,
+    "seed": 51
+   }
+  },
+  "norm": "results/baselines_v3/normalisation_points.json",
+  "norm_sha256": "e646dad70d9a6d4d90891af698edee6bdfee73b6d85a99007b032b7f8738ae91",
+  "hv_reference": 1.1,
+  "igd_front": "results/baselines_v3/cpsat/b2/evaluation_10x5",
+  "igd_front_sha256": "5d982ac2da1d971a6fbae27635a44b49cc758480bdbbc3a1f5ceed0f356a9bdc",
+  "igd_instances": 20,
+  "timing": "batched seconds per instance-preference pair, GPU alone, same batching for all"
+ },
+ "smoke": {
+  "updates": 5,
+  "validate_timestep": 5,
+  "mo_val_first": 3,
+  "trials": 2,
+  "distill": {
+   "instances": 4,
+   "epochs": 1,
+   "wall_cap": 120,
+   "val_first": 2
+  },
+  "screen": {
+   "keep": [
+    0.2,
+    0.5
+   ],
+   "lambda": [
+    1.0
+   ]
+  },
+  "eval_first": 2,
+  "sample_K": 4
+ },
+ "frozen": "2026-11-14",
+ "smoke_run": false,
+ "jobs": 3,
+ "slots": [
+  "0-3",
+  "4-7",
+  "8-11"
+ ]
+}

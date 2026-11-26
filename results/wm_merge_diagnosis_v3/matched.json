@@ -1,0 +1,238 @@
+{
+ "merges": {
+  "A@t500": {
+   "config": "A",
+   "tardiness_update": 500,
+   "validation_hv": 0.8175638938929254,
+   "makespan_update": 3050,
+   "carbon_update": 1950,
+   "parents": [
+    "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
+    "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
+    "4205d97418732599c73c230a4f2ef0a5c191c5bfa54eae617fee0d8e831efc76"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_at500_s111@u0.pth",
+   "seconds": 6.757307291030884
+  },
+  "A@t1000": {
+   "config": "A",
+   "tardiness_update": 1000,
+   "validation_hv": 0.8511568033533592,
+   "makespan_update": 3050,
+   "carbon_update": 1950,
+   "parents": [
+    "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
+    "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
+    "42ef474df73e9a29b232f0d882f8a84e47de9ea126b453a495ac4536aad5116e"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_at1000_s111@u0.pth",
+   "seconds": 5.342636346817017
+  },
+  "A@t1500": {
+   "config": "A",
+   "tardiness_update": 1500,
+   "validation_hv": 0.8669887295196071,
+   "makespan_update": 3050,
+   "carbon_update": 1950,
+   "parents": [
+    "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
+    "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
+    "6a0b0031bb6e21eebd849c43329cefa8a4bd429f7c97c9a644436c5fa5a6dfb7"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_at1500_s111@u0.pth",
+   "seconds": 6.196897268295288
+  },
+  "A@t2000": {
+   "config": "A",
+   "tardiness_update": 2000,
+   "validation_hv": 0.8787353440694256,
+   "makespan_update": 3050,
+   "carbon_update": 1950,
+   "parents": [
+    "35274ede69d317e2e76b00d41566f30405644bb94fa43721128e83c483e1fea2",
+    "8127672842b0ba816130726b6497726bab5e195e8f9bb6a99f2e2c194884897f",
+    "e8737cb4150f8bdfe0c2d7b0574040ccb8072002101b27a0f5d462d010c51454"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_at2000_s111@u0.pth",
+   "seconds": 6.5864222049713135
+  },
+  "B@t500": {
+   "config": "B",
+   "tardiness_update": 500,
+   "validation_hv": 0.8513366056842239,
+   "makespan_update": 2350,
+   "carbon_update": 1700,
+   "parents": [
+    "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+    "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+    "171ea767b1bbf61137de30dafe1d78d80fc8a428f961c6ab4af82cb2f130a23e"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_bt500_s111@u0.pth",
+   "seconds": 7.1385815143585205
+  },
+  "B@t1000": {
+   "config": "B",
+   "tardiness_update": 1000,
+   "validation_hv": 0.8615095790372761,
+   "makespan_update": 2350,
+   "carbon_update": 1700,
+   "parents": [
+    "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+    "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+    "193ca4f4a8b0d186c021265b8f75f45d86a4f39e6cbf9b13582db25e61d94a06"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_bt1000_s111@u0.pth",
+   "seconds": 7.58960485458374
+  },
+  "B@t1500": {
+   "config": "B",
+   "tardiness_update": 1500,
+   "validation_hv": 0.8537626457537707,
+   "makespan_update": 2350,
+   "carbon_update": 1700,
+   "parents": [
+    "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+    "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+    "fa001f0e233f18906e147bc416c3639f41fb27d941ef1588bc692e39096ffeba"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_bt1500_s111@u0.pth",
+   "seconds": 6.386513710021973
+  },
+  "B@t2000": {
+   "config": "B",
+   "tardiness_update": 2000,
+   "validation_hv": 0.8620616252836162,
+   "makespan_update": 2350,
+   "carbon_update": 1700,
+   "parents": [
+    "f138b3d2a0767eb5f329eaf796c4fb2342bf54d194d2d903a0bcdd0898f1e293",
+    "329353eabbbaf4283e1d07147f299c0120c14a79082483b46df996e608c42e3a",
+    "63b3123e49c2f3727de899854ec5fb55e78767fc59b1fc9b97f4faf06e57635b"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_bt2000_s111@u0.pth",
+   "seconds": 7.88808274269104
+  },
+  "C@t500": {
+   "config": "C",
+   "tardiness_update": 500,
+   "validation_hv": 0.8962734289873209,
+   "makespan_update": 1700,
+   "carbon_update": 2100,
+   "parents": [
+    "6b15cd1eaf1b542b8ae41af5fff41e8987f63a80957142793caf8294de9c4ab3",
+    "5f11855784b085c54a917df918e569490a7c52824532c69fc7c22d0345cc8135",
+    "3526051370f182210d266d42a1e61ac02c5df12d020dfffe1e1b678313b14f0a"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_ct500_s111@u0.pth",
+   "seconds": 9.149662494659424
+  },
+  "C@t1000": {
+   "config": "C",
+   "tardiness_update": 1000,
+   "validation_hv": 0.9137843887326602,
+   "makespan_update": 1700,
+   "carbon_update": 2100,
+   "parents": [
+    "6b15cd1eaf1b542b8ae41af5fff41e8987f63a80957142793caf8294de9c4ab3",
+    "5f11855784b085c54a917df918e569490a7c52824532c69fc7c22d0345cc8135",
+    "6816aefc051f37a7594e7730ac7432c1d9453f0d46b569c93a0eb182e7c75cb0"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_ct1000_s111@u0.pth",
+   "seconds": 8.493626594543457
+  },
+  "C@t1500": {
+   "config": "C",
+   "tardiness_update": 1500,
+   "validation_hv": 0.9148418374405962,
+   "makespan_update": 1700,
+   "carbon_update": 2100,
+   "parents": [
+    "6b15cd1eaf1b542b8ae41af5fff41e8987f63a80957142793caf8294de9c4ab3",
+    "5f11855784b085c54a917df918e569490a7c52824532c69fc7c22d0345cc8135",
+    "e296e8686f2a5b050309741f6b316ddf812fbffc743a64f29d730be0afe0d0ce"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_ct1500_s111@u0.pth",
+   "seconds": 9.945070505142212
+  },
+  "C@t2000": {
+   "config": "C",
+   "tardiness_update": 2000,
+   "validation_hv": 0.9116796832567715,
+   "makespan_update": 1700,
+   "carbon_update": 2100,
+   "parents": [
+    "6b15cd1eaf1b542b8ae41af5fff41e8987f63a80957142793caf8294de9c4ab3",
+    "5f11855784b085c54a917df918e569490a7c52824532c69fc7c22d0345cc8135",
+    "ccca09cc0271fd7182ab889716fd4875d4bf61a38bfa95740b713e4796c8d006"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_ct2000_s111@u0.pth",
+   "seconds": 7.839860439300537
+  },
+  "D@t500": {
+   "config": "D",
+   "tardiness_update": 500,
+   "validation_hv": 0.883188553880549,
+   "makespan_update": 2250,
+   "carbon_update": 2000,
+   "parents": [
+    "1e204c205dd5baf52360b75106aed5e918225fb372fd90a148faaba7e10329ce",
+    "03256e981a426484083bd7523ee039c05b2b45b86cbda4825f480a0cf0372984",
+    "af8f1f005a8b24a0027f7b1b07fd81e889aa423815ce485cd5a25bf6a371b8ec"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_dt500_s111@u0.pth",
+   "seconds": 8.492640256881714
+  },
+  "D@t1000": {
+   "config": "D",
+   "tardiness_update": 1000,
+   "validation_hv": 0.8702534361236127,
+   "makespan_update": 2250,
+   "carbon_update": 2000,
+   "parents": [
+    "1e204c205dd5baf52360b75106aed5e918225fb372fd90a148faaba7e10329ce",
+    "03256e981a426484083bd7523ee039c05b2b45b86cbda4825f480a0cf0372984",
+    "4f3107b22ed3311621ea9debd64d40bbf69cf59e4ca9a68d9dd41d9645158719"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_dt1000_s111@u0.pth",
+   "seconds": 7.643182039260864
+  },
+  "D@t1500": {
+   "config": "D",
+   "tardiness_update": 1500,
+   "validation_hv": 0.8716163304539941,
+   "makespan_update": 2250,
+   "carbon_update": 2000,
+   "parents": [
+    "1e204c205dd5baf52360b75106aed5e918225fb372fd90a148faaba7e10329ce",
+    "03256e981a426484083bd7523ee039c05b2b45b86cbda4825f480a0cf0372984",
+    "d060b6da0fe8d9569f97e0bbe20f11703c98aff54fab226d1e4899776a088767"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_dt1500_s111@u0.pth",
+   "seconds": 7.341045379638672
+  },
+  "D@t2000": {
+   "config": "D",
+   "tardiness_update": 2000,
+   "validation_hv": 0.8867387479911996,
+   "makespan_update": 2250,
+   "carbon_update": 2000,
+   "parents": [
+    "1e204c205dd5baf52360b75106aed5e918225fb372fd90a148faaba7e10329ce",
+    "03256e981a426484083bd7523ee039c05b2b45b86cbda4825f480a0cf0372984",
+    "2052f60fadcd35cd66646ac6fdf8f4480d981024c532872d245e2982c89bf620"
+   ],
+   "checkpoint": "checkpoints/wm_merge_diagnosis_v3/merges/10x5+mix+bv3_wmdx_dt2000_s111@u0.pth",
+   "seconds": 7.692733287811279
+  }
+ },
+ "eval_seconds": {
+  "A@t1000": 2488.309672832489,
+  "A@t2000": 2555.032519340515,
+  "B@t1000": 2409.8023104667664,
+  "B@t2000": 1812.760122537613,
+  "C@t1000": 1580.0582900047302,
+  "C@t2000": 1598.4653100967407,
+  "D@t1000": 1571.689962387085,
+  "D@t2000": 1555.0406584739685
+ }
+}

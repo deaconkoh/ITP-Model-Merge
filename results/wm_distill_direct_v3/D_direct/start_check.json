@@ -1,0 +1,9 @@
+{
+ "scratch_init_sha_matches_wm_direct_sums": true,
+ "scratch_init_hash_equals_baseline_scratch_reference": true,
+ "encoder_equals_epoch60_world_model_encoder": true,
+ "encoder_differs_from_scratch": true,
+ "non_encoder_identical_to_scratch_init": true,
+ "encoder_source": "checkpoints/world_model_immediate_pilot_v3/E/epoch60/online_encoder.pth",
+ "start_sha256": "d6bab890188b13c423c2fa81df9b822053c98ed69a585912c01db63ae519dc4f"
+}

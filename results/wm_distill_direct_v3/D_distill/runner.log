@@ -1,0 +1,9 @@
+[2026-11-26 02:50:21] distillation stage 1: 92 s
+[2026-11-26 03:47:40] train 10x5+mix+bv3_srjp_distill_s111: chunk (status NONE, slot 2)
+[2026-11-26 04:06:41] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 04:25:58] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 04:44:30] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 05:00:28] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 05:16:43] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 05:32:53] train 10x5+mix+bv3_srjp_distill_s111: chunk (status RUNNING, slot 2)
+[2026-11-26 05:42:10] 10x5+mix+bv3_srjp_distill_s111: CONVERGED at update 3350 (best -0.9588 @ 2750, 1.90 h)

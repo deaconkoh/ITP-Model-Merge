@@ -1,0 +1,16 @@
+{
+ "units": {
+  "final:direct": {
+   "name": "10x5+mix+bv3_srip_direct_s111",
+   "start": 1795632621.442681,
+   "slot": "0-3",
+   "end": 1795642392.6522458,
+   "status": "CONVERGED",
+   "update": 4500,
+   "best": -0.9748807632625507,
+   "best_update": 3500,
+   "train_seconds": 9735.622370004654,
+   "capped": false
+  }
+ }
+}
